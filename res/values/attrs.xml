@@ -28,5 +28,9 @@ License along with this program. If not, see
         <attr name="dialogTitleColor" format="color|reference" />
         <attr name="dialogButtonTextColor" format="color|reference" />
     </declare-styleable>
+    <declare-styleable name="ListPreference">
+        <attr name="android:entries" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
 
 </resources>
