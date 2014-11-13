@@ -127,8 +127,8 @@ public class SeekBar extends android.widget.SeekBar {
 	 *            from the current theme, or an explicit style resource
 	 * @param defaultStyleResource
 	 *            A resource identifier of a style resource that supplies
-	 *            default values for the view, used only if defStyleAttr is 0 or
-	 *            can not be found in the theme. Can be 0 to not look for
+	 *            default values for the view, used only if the default style is
+	 *            0 or can not be found in the theme. Can be 0 to not look for
 	 *            defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
