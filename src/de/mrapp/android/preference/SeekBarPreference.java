@@ -1083,10 +1083,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		int color = typedArray.getColor(0, 0);
 
 		if (color != 0) {
-			seekBar.getProgressDrawable().setColorFilter(
-					new PorterDuffColorFilter(color, Mode.SRC_IN));
-			seekBar.getThumbDrawable().setColorFilter(
-					new PorterDuffColorFilter(color, Mode.SRC_IN));
+			seekBar.setSeekBarColor(color);
 		}
 
 		dialogBuilder.setView(layout);

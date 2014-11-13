@@ -19,6 +19,9 @@ package de.mrapp.android.preference.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -26,7 +29,8 @@ import android.util.AttributeSet;
 /**
  * A custom view, which is extended from the view {@link android.widget.SeekBar}
  * in order to provide a getter method, which allows to retrieve the seek bar's
- * thumb on API versions less than 16.
+ * thumb on API versions less than 16. Furthermore, a setter method, which
+ * allows to set the seek bar's color is provided.
  * 
  * @author Michael Rapp
  *
@@ -38,6 +42,11 @@ public class SeekBar extends android.widget.SeekBar {
 	 * The drawable, which is used to visualize the seek bar's thumb.
 	 */
 	private Drawable thumb;
+
+	/**
+	 * The color of the seek bar.
+	 */
+	private int color;
 
 	/**
 	 * Creates a new seek bar.
@@ -110,6 +119,28 @@ public class SeekBar extends android.widget.SeekBar {
 	public SeekBar(final Context context, final AttributeSet attributeSet,
 			final int defaultStyle, final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
+	}
+
+	/**
+	 * Returns the color of the seek bar.
+	 * 
+	 * @return The color of the seek bar as an {@link Integer} value
+	 */
+	public final int getSeekBarColor() {
+		return color;
+	}
+
+	/**
+	 * Sets the color of the seek bar.
+	 * 
+	 * @param color
+	 *            The color, which should be set as an {@link Integer} value
+	 */
+	public final void setSeekBarColor(final int color) {
+		this.color = color;
+		ColorFilter colorFilter = new PorterDuffColorFilter(color, Mode.SRC_IN);
+		getProgressDrawable().setColorFilter(colorFilter);
+		getThumbDrawable().setColorFilter(colorFilter);
 	}
 
 	/**
