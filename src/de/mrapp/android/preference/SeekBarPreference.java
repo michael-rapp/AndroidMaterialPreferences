@@ -28,8 +28,6 @@ import java.text.NumberFormat;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.PorterDuffColorFilter;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -1077,14 +1075,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		seekBar.setProgress(Math.round((getValue() - getMinValue())
 				* getMultiplier()));
 		seekBar.setOnSeekBarChangeListener(getSeekBarListener(progressTextView));
-
-		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
-				new int[] { R.attr.colorAccent });
-		int color = typedArray.getColor(0, 0);
-
-		if (color != 0) {
-			seekBar.setSeekBarColor(color);
-		}
 
 		dialogBuilder.setView(layout);
 	}

@@ -17,8 +17,10 @@
  */
 package de.mrapp.android.preference.view;
 
+import de.mrapp.android.preference.R;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.PorterDuff.Mode;
@@ -30,7 +32,7 @@ import android.util.AttributeSet;
  * A custom view, which is extended from the view {@link android.widget.SeekBar}
  * in order to provide a getter method, which allows to retrieve the seek bar's
  * thumb on API versions less than 16. Furthermore, a setter method, which
- * allows to set the seek bar's color is provided.
+ * allows to set the seek bar's seekBarColor is provided.
  * 
  * @author Michael Rapp
  *
@@ -44,9 +46,22 @@ public class SeekBar extends android.widget.SeekBar {
 	private Drawable thumb;
 
 	/**
-	 * The color of the seek bar.
+	 * The seekBarColor of the seek bar.
 	 */
-	private int color;
+	private int seekBarColor;
+
+	/**
+	 * Applies the attributes of the context's theme on the seek bar.
+	 */
+	private void applyTheme() {
+		TypedArray typedArray = getContext().getTheme().obtainStyledAttributes(
+				new int[] { R.attr.colorAccent });
+		int color = typedArray.getColor(0, 0);
+
+		if (color != 0) {
+			setSeekBarColor(color);
+		}
+	}
 
 	/**
 	 * Creates a new seek bar.
@@ -57,6 +72,7 @@ public class SeekBar extends android.widget.SeekBar {
 	 */
 	public SeekBar(final Context context) {
 		super(context);
+		applyTheme();
 	}
 
 	/**
@@ -71,6 +87,7 @@ public class SeekBar extends android.widget.SeekBar {
 	 */
 	public SeekBar(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
+		applyTheme();
 	}
 
 	/**
@@ -92,6 +109,7 @@ public class SeekBar extends android.widget.SeekBar {
 	public SeekBar(final Context context, final AttributeSet attributeSet,
 			final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
+		applyTheme();
 	}
 
 	/**
@@ -119,6 +137,7 @@ public class SeekBar extends android.widget.SeekBar {
 	public SeekBar(final Context context, final AttributeSet attributeSet,
 			final int defaultStyle, final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
+		applyTheme();
 	}
 
 	/**
@@ -127,7 +146,7 @@ public class SeekBar extends android.widget.SeekBar {
 	 * @return The color of the seek bar as an {@link Integer} value
 	 */
 	public final int getSeekBarColor() {
-		return color;
+		return seekBarColor;
 	}
 
 	/**
@@ -137,7 +156,7 @@ public class SeekBar extends android.widget.SeekBar {
 	 *            The color, which should be set as an {@link Integer} value
 	 */
 	public final void setSeekBarColor(final int color) {
-		this.color = color;
+		this.seekBarColor = color;
 		ColorFilter colorFilter = new PorterDuffColorFilter(color, Mode.SRC_IN);
 		getProgressDrawable().setColorFilter(colorFilter);
 		getThumbDrawable().setColorFilter(colorFilter);
