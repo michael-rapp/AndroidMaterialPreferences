@@ -223,12 +223,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	protected static final String DEFAULT_FLOATING_POINT_SEPARATOR = null;
 
 	/**
-	 * The default value, which specifies, whether the currently persisted value
-	 * should be shown instead of the summary, or not.
-	 */
-	protected static final boolean DEFAULT_SHOW_VALUE_AS_SUMMARY = false;
-
-	/**
 	 * The default value, which specifies, whether the progress of the seek bar
 	 * should be shown, or not.
 	 */
@@ -338,7 +332,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			obtainStepSize(typedArray);
 			obtainSuffix(typedArray);
 			obtainFloatingPointSeparator(typedArray);
-			obtainShowValueAsSummary(typedArray);
 			obtainShowProgress(typedArray);
 			obtainSummaries(typedArray);
 		} finally {
@@ -438,25 +431,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 				.getString(R.styleable.SeekBarPreference_floatingPointSeparator);
 		setFloatingPointSeparator(obtainedFloatingPointSeparator != null ? obtainedFloatingPointSeparator
 				: DEFAULT_FLOATING_POINT_SEPARATOR);
-	}
-
-	/**
-	 * Obtains the boolean value, which specifies whether the currently
-	 * persisted value should be shown as the summary, instead of the given
-	 * summaries, from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the boolean value should be obtained from, as
-	 *            an instance of the class {@link TypedArray}
-	 */
-	private void obtainShowValueAsSummary(final TypedArray typedArray) {
-		if (typedArray != null) {
-			showValueAsSummary(typedArray.getBoolean(
-					R.styleable.SeekBarPreference_showValueAsSummary,
-					DEFAULT_SHOW_VALUE_AS_SUMMARY));
-		} else {
-			showValueAsSummary(DEFAULT_SHOW_VALUE_AS_SUMMARY);
-		}
 	}
 
 	/**

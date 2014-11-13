@@ -130,6 +130,12 @@ public abstract class AbstractDialogPreference extends Preference implements
 	};
 
 	/**
+	 * The default value, which specifies, whether the currently persisted value
+	 * should be shown instead of the summary, or not.
+	 */
+	protected static final boolean DEFAULT_SHOW_VALUE_AS_SUMMARY = false;
+
+	/**
 	 * The preference's dialog.
 	 */
 	private Dialog dialog;
@@ -203,6 +209,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 			obtainNegativeButtonText(typedArray);
 			obtainDialogTitleColor(typedArray);
 			obtainDialogButtonTextColor(typedArray);
+			obtainShowValueAsSummary(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
@@ -329,6 +336,25 @@ public abstract class AbstractDialogPreference extends Preference implements
 		}
 
 		setDialogButtonTextColor(color);
+	}
+
+	/**
+	 * Obtains the boolean value, which specifies whether the currently
+	 * persisted value should be shown as the summary, instead of the given
+	 * summaries, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the boolean value should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainShowValueAsSummary(final TypedArray typedArray) {
+		if (typedArray != null) {
+			showValueAsSummary(typedArray.getBoolean(
+					R.styleable.SeekBarPreference_showValueAsSummary,
+					DEFAULT_SHOW_VALUE_AS_SUMMARY));
+		} else {
+			showValueAsSummary(DEFAULT_SHOW_VALUE_AS_SUMMARY);
+		}
 	}
 
 	/**
