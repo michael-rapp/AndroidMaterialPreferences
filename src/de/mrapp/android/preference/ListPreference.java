@@ -95,9 +95,10 @@ public class ListPreference extends AbstractDialogPreference {
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel dest, final int flags) {
-			super.writeToParcel(dest, flags);
-			dest.writeString(value);
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeString(value);
 		}
 
 	};
@@ -429,6 +430,15 @@ public class ListPreference extends AbstractDialogPreference {
 	public final CharSequence getEntry() {
 		int index = indexOf(value);
 		return index >= 0 && entries != null ? entries[index] : null;
+	}
+
+	@Override
+	public final CharSequence getSummary() {
+		if (isValueShownAsSummary()) {
+			return getEntry();
+		} else {
+			return super.getSummary();
+		}
 	}
 
 	@Override

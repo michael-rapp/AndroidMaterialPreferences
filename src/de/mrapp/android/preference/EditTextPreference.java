@@ -96,9 +96,10 @@ public class EditTextPreference extends AbstractDialogPreference {
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel dest, final int flags) {
-			super.writeToParcel(dest, flags);
-			dest.writeString(text);
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeString(text);
 		}
 
 	};
@@ -228,6 +229,15 @@ public class EditTextPreference extends AbstractDialogPreference {
 
 		if (isDisabelingDependents != hasDisabledDependents) {
 			notifyDependencyChange(isDisabelingDependents);
+		}
+	}
+
+	@Override
+	public final CharSequence getSummary() {
+		if (isValueShownAsSummary()) {
+			return getText();
+		} else {
+			return super.getSummary();
 		}
 	}
 
