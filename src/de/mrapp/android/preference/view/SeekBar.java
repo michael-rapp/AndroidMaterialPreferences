@@ -100,11 +100,10 @@ public class SeekBar extends android.widget.SeekBar {
 	 *            The attributes of the XML tag that is inflating the view, as
 	 *            an instance of the type {@link AttributeSet}
 	 * @param defaultStyle
-	 *            The default style to apply to this preference. If 0, no style
-	 *            will be applied (beyond what is included in the theme). This
-	 *            may either be an attribute resource, whose value will be
-	 *            retrieved from the current theme, or an explicit style
-	 *            resource
+	 *            The default style to apply to this view. If 0, no style will
+	 *            be applied (beyond what is included in the theme). This may
+	 *            either be an attribute resource, whose value will be retrieved
+	 *            from the current theme, or an explicit style resource
 	 */
 	public SeekBar(final Context context, final AttributeSet attributeSet,
 			final int defaultStyle) {
@@ -122,11 +121,10 @@ public class SeekBar extends android.widget.SeekBar {
 	 *            The attributes of the XML tag that is inflating the view, as
 	 *            an instance of the type {@link AttributeSet}
 	 * @param defaultStyle
-	 *            The default style to apply to this preference. If 0, no style
-	 *            will be applied (beyond what is included in the theme). This
-	 *            may either be an attribute resource, whose value will be
-	 *            retrieved from the current theme, or an explicit style
-	 *            resource
+	 *            The default style to apply to this view. If 0, no style will
+	 *            be applied (beyond what is included in the theme). This may
+	 *            either be an attribute resource, whose value will be retrieved
+	 *            from the current theme, or an explicit style resource
 	 * @param defaultStyleResource
 	 *            A resource identifier of a style resource that supplies
 	 *            default values for the view, used only if defStyleAttr is 0 or
