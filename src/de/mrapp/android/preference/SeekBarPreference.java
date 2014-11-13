@@ -541,9 +541,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns an {@link OnSeekBarChangeListener}, which allows to display the
-	 * currently chosen value of the pereference's seek bar. The current value
-	 * is internally stored, but it will not become persisted, until the user's
+	 * Creates and returns a listener, which allows to display the currently
+	 * chosen value of the pereference's seek bar. The current value is
+	 * internally stored, but it will not become persisted, until the user's
 	 * confirmation.
 	 * 
 	 * @param progressTextView
@@ -553,7 +553,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * @return The listener, which has been created, as an instance of the type
 	 *         {@link OnSeekBarChangeListener}
 	 */
-	private OnSeekBarChangeListener getSeekBarListener(
+	private OnSeekBarChangeListener createSeekBarListener(
 			final TextView progressTextView) {
 		return new OnSeekBarChangeListener() {
 
@@ -1064,12 +1064,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected boolean needInputMethod() {
+	protected final boolean needInputMethod() {
 		return false;
 	}
 
 	@Override
-	protected void onPrepareDialog(MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(
+			final MaterialDialogBuilder dialogBuilder) {
 		View layout = View.inflate(getContext(), R.layout.seek_bar, null);
 
 		TextView progressTextView = (TextView) layout
@@ -1082,7 +1083,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		seekBar.setMax(getRange() * getMultiplier());
 		seekBar.setProgress(Math.round((getValue() - getMinValue())
 				* getMultiplier()));
-		seekBar.setOnSeekBarChangeListener(getSeekBarListener(progressTextView));
+		seekBar.setOnSeekBarChangeListener(createSeekBarListener(progressTextView));
 
 		dialogBuilder.setView(layout);
 	}
