@@ -35,6 +35,7 @@ import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.preference.savedstate.SeekBarPreference;
 import de.mrapp.android.preference.view.SeekBar;
 
 /**
@@ -52,17 +53,25 @@ import de.mrapp.android.preference.view.SeekBar;
  */
 public class SeekBarPreference extends AbstractDialogPreference {
 
+	/**
+	 * A data structure, which allows to save the internal state of a
+	 * {@link SeekBarPreference}.
+	 */
 	public static class SavedState extends BaseSavedState {
 
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link SeekBarPreference} from parcels.
+		 */
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
 
 			@Override
-			public SavedState createFromParcel(Parcel in) {
+			public SavedState createFromParcel(final Parcel in) {
 				return new SavedState(in);
 			}
 
 			@Override
-			public SavedState[] newArray(int size) {
+			public SavedState[] newArray(final int size) {
 				return new SavedState[size];
 			}
 		};
