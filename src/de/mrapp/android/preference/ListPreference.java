@@ -29,20 +29,15 @@ public class ListPreference extends AbstractDialogPreference {
 			}
 		};
 
-		private String value;
+		public String value;
 
 		public SavedState(Parcel source) {
 			super(source);
 			value = source.readString();
 		}
 
-		public SavedState(Parcelable superState, final String value) {
+		public SavedState(Parcelable superState) {
 			super(superState);
-			this.value = value;
-		}
-
-		public final String getValue() {
-			return value;
 		}
 
 		@Override
@@ -268,7 +263,8 @@ public class ListPreference extends AbstractDialogPreference {
 		Parcelable parcelable = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable, getValue());
+			SavedState savedState = new SavedState(parcelable);
+			savedState.value = getValue();
 			return savedState;
 		}
 
@@ -279,7 +275,7 @@ public class ListPreference extends AbstractDialogPreference {
 	protected void onRestoreInstanceState(Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setValue(savedState.getValue());
+			setValue(savedState.value);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
