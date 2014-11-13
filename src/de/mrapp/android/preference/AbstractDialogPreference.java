@@ -729,7 +729,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	}
 
 	@Override
-	protected final Parcelable onSaveInstanceState() {
+	protected Parcelable onSaveInstanceState() {
 		Parcelable parcelable = super.onSaveInstanceState();
 
 		if (isDialogShown()) {
@@ -744,7 +744,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	}
 
 	@Override
-	protected final void onRestoreInstanceState(final Parcelable state) {
+	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 
