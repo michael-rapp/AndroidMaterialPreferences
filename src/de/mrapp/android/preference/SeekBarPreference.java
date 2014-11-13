@@ -121,11 +121,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		public String[] summaries;
 
 		/**
-		 * The saved value of the attribute "showValueAsSummary".
-		 */
-		public boolean showValueAsSummary;
-
-		/**
 		 * The saved value of the attribute "showProgress".
 		 */
 		public boolean showProgress;
@@ -162,7 +157,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			decimals = source.readInt();
 			suffix = source.readString();
 			floatingPointSeparator = source.readString();
-			showValueAsSummary = source.readByte() != 0;
 			showProgress = source.readByte() != 0;
 			summaries = source.createStringArray();
 		}
@@ -179,7 +173,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			destination.writeInt(decimals);
 			destination.writeString(suffix);
 			destination.writeString(floatingPointSeparator);
-			destination.writeByte((byte) (showValueAsSummary ? 1 : 0));
 			destination.writeByte((byte) (showProgress ? 1 : 0));
 			destination.writeStringArray(summaries);
 		}
@@ -299,12 +292,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * depending on the currently persisted value.
 	 */
 	private String[] summaries;
-
-	/**
-	 * True, if the currently persisted value should be shown as the summary,
-	 * instead of the given summaries, false otherwise.
-	 */
-	private boolean showValueAsSummary;
 
 	/**
 	 * True, if the progress of the seek bar should be shown, false otherwise.
@@ -947,29 +934,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns, whether the currently persisted value is shown instead of the
-	 * summary, or not.
-	 * 
-	 * @return True, if the currently persisted value is shown instead of the
-	 *         summary, false otherwise
-	 */
-	public final boolean isValueShownAsSummary() {
-		return showValueAsSummary;
-	}
-
-	/**
-	 * Sets, whether the currently persisted value should be shown instead of
-	 * the summary, or not.
-	 * 
-	 * @param showValueAsSummary
-	 *            True, if the currently persisted value should be shown instead
-	 *            of the summary, false otherwise
-	 */
-	public final void showValueAsSummary(final boolean showValueAsSummary) {
-		this.showValueAsSummary = showValueAsSummary;
-	}
-
-	/**
 	 * Returns, whether the currently selected value of the seek bar is shown,
 	 * or not.
 	 * 
@@ -1019,7 +983,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	@Override
 	public final CharSequence getSummary() {
-		if (showValueAsSummary) {
+		if (isValueShownAsSummary()) {
 			return getProgressText();
 		} else if (getSummaries() != null && getSummaries().length > 0) {
 			float interval = (float) getRange() / (float) getSummaries().length;
@@ -1109,7 +1073,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		savedState.decimals = decimals;
 		savedState.suffix = suffix;
 		savedState.floatingPointSeparator = floatingPointSeparator;
-		savedState.showValueAsSummary = showValueAsSummary;
 		savedState.showProgress = showProgress;
 		savedState.summaries = summaries;
 		return savedState;
@@ -1127,7 +1090,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			decimals = savedState.decimals;
 			suffix = savedState.suffix;
 			floatingPointSeparator = savedState.floatingPointSeparator;
-			showValueAsSummary = savedState.showValueAsSummary;
 			showProgress = savedState.showProgress;
 			summaries = savedState.summaries;
 			super.onRestoreInstanceState(savedState.getSuperState());
