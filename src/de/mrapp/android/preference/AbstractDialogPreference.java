@@ -84,19 +84,25 @@ public abstract class AbstractDialogPreference extends Preference implements
 		public Bundle dialogState;
 
 		/**
+		 * The saved value of the attribute "showValueAsSummary".
+		 */
+		public boolean showValueAsSummary;
+
+		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link AbstractDialogPreference}. This constructor is
 		 * used when reading from a parcel. It reads the state of the
 		 * superclass.
 		 * 
-		 * @param superState
+		 * @param source
 		 *            The parcel to read read from as a instance of the class
 		 *            {@link Parcel}
 		 */
-		public SavedState(final Parcel superState) {
-			super(superState);
-			dialogShown = superState.readInt() == 1;
-			dialogState = superState.readBundle();
+		public SavedState(final Parcel source) {
+			super(source);
+			dialogShown = source.readInt() == 1;
+			dialogState = source.readBundle();
+			showValueAsSummary = source.readByte() != 0;
 		}
 
 		/**
@@ -113,10 +119,12 @@ public abstract class AbstractDialogPreference extends Preference implements
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel dest, final int flags) {
-			super.writeToParcel(dest, flags);
-			dest.writeInt(dialogShown ? 1 : 0);
-			dest.writeBundle(dialogState);
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeInt(dialogShown ? 1 : 0);
+			destination.writeBundle(dialogState);
+			destination.writeByte((byte) (showValueAsSummary ? 1 : 0));
 		}
 
 	};
@@ -166,6 +174,12 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 * The color of the button text of the preference's dialog.
 	 */
 	private int dialogButtonTextColor;
+
+	/**
+	 * True, if the currently persisted value should be shown as the summary,
+	 * instead of the given summaries, false otherwise.
+	 */
+	private boolean showValueAsSummary;
 
 	/**
 	 * Obtains all attributes from a specific attribute set.
@@ -710,6 +724,29 @@ public abstract class AbstractDialogPreference extends Preference implements
 		this.dialogButtonTextColor = color;
 	}
 
+	/**
+	 * Returns, whether the currently persisted value is shown instead of the
+	 * summary, or not.
+	 * 
+	 * @return True, if the currently persisted value is shown instead of the
+	 *         summary, false otherwise
+	 */
+	public final boolean isValueShownAsSummary() {
+		return showValueAsSummary;
+	}
+
+	/**
+	 * Sets, whether the currently persisted value should be shown instead of
+	 * the summary, or not.
+	 * 
+	 * @param showValueAsSummary
+	 *            True, if the currently persisted value should be shown instead
+	 *            of the summary, false otherwise
+	 */
+	public final void showValueAsSummary(final boolean showValueAsSummary) {
+		this.showValueAsSummary = showValueAsSummary;
+	}
+
 	@Override
 	public final void onClick(final DialogInterface dialog, final int which) {
 		dialogResultPositive = (which == Dialog.BUTTON_POSITIVE);
@@ -731,22 +768,24 @@ public abstract class AbstractDialogPreference extends Preference implements
 	@Override
 	protected Parcelable onSaveInstanceState() {
 		Parcelable parcelable = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(parcelable);
+		savedState.showValueAsSummary = isValueShownAsSummary();
+		savedState.dialogShown = isDialogShown();
 
 		if (isDialogShown()) {
-			SavedState savedState = new SavedState(parcelable);
-			savedState.dialogShown = true;
 			savedState.dialogState = dialog.onSaveInstanceState();
 			dialog.dismiss();
-			return savedState;
+			dialog = null;
 		}
 
-		return parcelable;
+		return savedState;
 	}
 
 	@Override
 	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
+			showValueAsSummary(savedState.showValueAsSummary);
 
 			if (savedState.dialogShown) {
 				showDialog(savedState.dialogState);
