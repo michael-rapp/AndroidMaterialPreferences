@@ -35,7 +35,6 @@ import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
-import de.mrapp.android.preference.savedstate.SeekBarPreference;
 import de.mrapp.android.preference.view.SeekBar;
 
 /**
