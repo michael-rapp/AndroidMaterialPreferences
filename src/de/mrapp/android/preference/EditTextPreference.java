@@ -30,20 +30,15 @@ public class EditTextPreference extends AbstractDialogPreference {
 
 		};
 
-		private String text;
+		public String text;
 
 		public SavedState(Parcel source) {
 			super(source);
 			text = source.readString();
 		}
 
-		public SavedState(Parcelable superState, String text) {
+		public SavedState(Parcelable superState) {
 			super(superState);
-			this.text = text;
-		}
-
-		public final String getText() {
-			return text;
 		}
 
 		@Override
@@ -150,7 +145,8 @@ public class EditTextPreference extends AbstractDialogPreference {
 		Parcelable parcelable = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable, getText());
+			SavedState savedState = new SavedState(parcelable);
+			savedState.text = getText();
 			return savedState;
 		}
 
@@ -161,7 +157,7 @@ public class EditTextPreference extends AbstractDialogPreference {
 	protected void onRestoreInstanceState(Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setText(savedState.getText());
+			setText(savedState.text);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
