@@ -124,7 +124,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogTitle(final TypedArray typedArray) {
 		CharSequence title = typedArray
-				.getText(R.styleable.DialogPreference_dialogTitle);
+				.getText(R.styleable.DialogPreference_android_dialogTitle);
 
 		if (title == null) {
 			title = getTitle();
@@ -143,7 +143,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogMessage(final TypedArray typedArray) {
 		setDialogMessage(typedArray
-				.getText(R.styleable.DialogPreference_dialogMessage));
+				.getText(R.styleable.DialogPreference_android_dialogMessage));
 	}
 
 	/**
@@ -156,7 +156,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogIcon(final TypedArray typedArray) {
 		int resourceId = typedArray.getResourceId(
-				R.styleable.DialogPreference_dialogIcon, 0);
+				R.styleable.DialogPreference_android_dialogIcon, 0);
 
 		if (resourceId != 0) {
 			setDialogIcon(resourceId);
