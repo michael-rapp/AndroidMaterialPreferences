@@ -350,7 +350,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	private void obtainShowValueAsSummary(final TypedArray typedArray) {
 		if (typedArray != null) {
 			showValueAsSummary(typedArray.getBoolean(
-					R.styleable.SeekBarPreference_showValueAsSummary,
+					R.styleable.DialogPreference_showValueAsSummary,
 					DEFAULT_SHOW_VALUE_AS_SUMMARY));
 		} else {
 			showValueAsSummary(DEFAULT_SHOW_VALUE_AS_SUMMARY);
