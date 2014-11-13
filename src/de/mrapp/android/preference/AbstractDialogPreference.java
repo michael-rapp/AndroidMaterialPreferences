@@ -35,9 +35,9 @@ public abstract class AbstractDialogPreference extends Preference implements
 
 		};
 
-		private boolean dialogShown;
+		public boolean dialogShown;
 
-		private Bundle dialogState;
+		public Bundle dialogState;
 
 		public SavedState(Parcel source) {
 			super(source);
@@ -45,19 +45,8 @@ public abstract class AbstractDialogPreference extends Preference implements
 			dialogState = source.readBundle();
 		}
 
-		public SavedState(Parcelable superState, boolean dialogShown,
-				Bundle dialogState) {
+		public SavedState(Parcelable superState) {
 			super(superState);
-			this.dialogShown = dialogShown;
-			this.dialogState = dialogState;
-		}
-
-		public boolean isDialogShown() {
-			return dialogShown;
-		}
-
-		public Bundle getDialogState() {
-			return dialogState;
 		}
 
 		@Override
@@ -418,8 +407,9 @@ public abstract class AbstractDialogPreference extends Preference implements
 		Parcelable parcelable = super.onSaveInstanceState();
 
 		if (isDialogShowing()) {
-			SavedState savedState = new SavedState(parcelable, true,
-					dialog.onSaveInstanceState());
+			SavedState savedState = new SavedState(parcelable);
+			savedState.dialogShown = true;
+			savedState.dialogState = dialog.onSaveInstanceState();
 			dialog.dismiss();
 			return savedState;
 		}
@@ -432,8 +422,8 @@ public abstract class AbstractDialogPreference extends Preference implements
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 
-			if (savedState.isDialogShown()) {
-				showDialog(savedState.getDialogState());
+			if (savedState.dialogShown) {
+				showDialog(savedState.dialogState);
 			}
 
 			super.onRestoreInstanceState(savedState.getSuperState());
