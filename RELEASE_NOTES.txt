@@ -1,0 +1,17 @@
+AndroidMaterialPreferences - RELEASE NOTES
+==========================================
+
+
+Version: 		1.0.0 
+Release date:	11.13.2014
+--------------------------
+
+The first stable release, which initially provides the following preferences, which are designed 
+according to Android 5.0's Material Design guidelines even on pre-Lollipop devices:
+	
+    -   A preference, which allows to enter a text via an EditText widget.
+        
+    -   A preference, which allows to select a value from a list.
+        
+    -   A preference, which allows to choose a floating point value or an integer value from a 
+        continuous range via a SeekBar widget.
