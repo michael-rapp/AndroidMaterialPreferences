@@ -38,6 +38,24 @@ public final class Condition {
 	}
 
 	/**
+	 * Ensures, that a reference is not null. Otherwise a
+	 * {@link NullPointerException} with a specific message will be thrown.
+	 * 
+	 * @param reference
+	 *            The reference, which should be checked, as an instance of the
+	 *            class {@link Object}
+	 * @param exceptionMessage
+	 *            The message of the {@link NullPointerException}, which is
+	 *            thrown, if the given reference is null, as a {@link String}
+	 */
+	public static void ensureNotNull(final Object reference,
+			final String exceptionMessage) {
+		if (reference == null) {
+			throw new NullPointerException(exceptionMessage);
+		}
+	}
+
+	/**
 	 * Ensures, that a {@link Float} value is at least a specific value.
 	 * Otherwise an {@link IllegalArgumentException} with a specific message
 	 * will be thrown.
