@@ -26,8 +26,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -663,6 +665,37 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public SeekBarPreference(final Context context,
 			final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
+		initialize(context, attributeSet);
+	}
+
+	/**
+	 * Creates a new preference, which allows to select a value from a
+	 * continuous range via a seek bar. This constructor allows subclasses to
+	 * use their own base style when they are inflating.
+	 * 
+	 * @param context
+	 *            The context in which to store Preference value as an instance
+	 *            of the class {@link Context}
+	 * @param attributeSet
+	 *            The attribute set, the preference's attributes should be
+	 *            obtained from, as an instance of the type {@link AttributeSet}
+	 * @param defaultStyle
+	 *            The default style to apply to this preference. If 0, no style
+	 *            will be applied (beyond what is included in the theme). This
+	 *            may either be an attribute resource, whose value will be
+	 *            retrieved from the current theme, or an explicit style
+	 *            resource
+	 * @param defaultStyleResource
+	 *            A resource identifier of a style resource that supplies
+	 *            default values for the preference, used only if the default
+	 *            style is 0 or can not be found in the theme. Can be 0 to not
+	 *            look for defaults
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public SeekBarPreference(final Context context,
+			final AttributeSet attributeSet, final int defaultStyle,
+			final int defaultStyleResource) {
+		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(context, attributeSet);
 	}
 
