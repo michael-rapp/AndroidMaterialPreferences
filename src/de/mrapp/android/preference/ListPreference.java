@@ -137,6 +137,8 @@ public class ListPreference extends AbstractDialogPreference {
 	 */
 	private void initialize(final Context context,
 			final AttributeSet attributeSet) {
+		entries = new CharSequence[0];
+		entryValues = new CharSequence[0];
 		setNegativeButtonText(android.R.string.cancel);
 
 		if (attributeSet != null) {
@@ -177,8 +179,10 @@ public class ListPreference extends AbstractDialogPreference {
 	private void obtainEntries(final TypedArray typedArray) {
 		CharSequence[] obtainedEntries = typedArray
 				.getTextArray(R.styleable.ListPreference_android_entries);
-		setEntries(obtainedEntries != null ? obtainedEntries
-				: new CharSequence[0]);
+
+		if (obtainedEntries != null) {
+			setEntries(obtainedEntries);
+		}
 	}
 
 	/**
@@ -192,8 +196,10 @@ public class ListPreference extends AbstractDialogPreference {
 	private void obtainEntryValues(final TypedArray typedArray) {
 		CharSequence[] obtainedEntryValues = typedArray
 				.getTextArray(R.styleable.ListPreference_android_entryValues);
-		setEntryValues(obtainedEntryValues != null ? obtainedEntryValues
-				: new CharSequence[0]);
+
+		if (obtainedEntryValues != null) {
+			setEntryValues(obtainedEntryValues);
+		}
 	}
 
 	/**
