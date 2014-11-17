@@ -28,6 +28,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
+import static de.mrapp.android.preference.util.Condition.ensureNotNull;
 
 /**
  * A preference, which allows to select a value from a list. The selected value
@@ -174,8 +175,10 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainEntries(final TypedArray typedArray) {
-		setEntries(typedArray
-				.getTextArray(R.styleable.ListPreference_android_entries));
+		CharSequence[] obtainedEntries = typedArray
+				.getTextArray(R.styleable.ListPreference_android_entries);
+		setEntries(obtainedEntries != null ? obtainedEntries
+				: new CharSequence[0]);
 	}
 
 	/**
@@ -187,8 +190,10 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainEntryValues(final TypedArray typedArray) {
-		setEntryValues(typedArray
-				.getTextArray(R.styleable.ListPreference_android_entryValues));
+		CharSequence[] obtainedEntryValues = typedArray
+				.getTextArray(R.styleable.ListPreference_android_entryValues);
+		setEntryValues(obtainedEntryValues != null ? obtainedEntryValues
+				: new CharSequence[0]);
 	}
 
 	/**
@@ -328,6 +333,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            array or null, if no entries should be set
 	 */
 	public final void setEntries(final CharSequence[] entries) {
+		ensureNotNull(entries, "The entries may not be null");
 		this.entries = entries;
 	}
 
@@ -364,6 +370,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            must be equal to the number of list items
 	 */
 	public final void setEntryValues(final CharSequence[] entryValues) {
+		ensureNotNull(entryValues, "The entry values may not be null");
 		this.entryValues = entryValues;
 	}
 
@@ -461,11 +468,6 @@ public class ListPreference extends AbstractDialogPreference {
 	@Override
 	protected final void onPrepareDialog(
 			final MaterialDialogBuilder dialogBuilder) {
-		if (entries == null || entryValues == null) {
-			throw new IllegalStateException("ListPreference requires an "
-					+ "entries array and an entryValues array");
-		}
-
 		selectedIndex = indexOf(value);
 		dialogBuilder.setSingleChoiceItems(entries, selectedIndex,
 				createListItemListener());
