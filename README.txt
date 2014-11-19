@@ -10,12 +10,16 @@ designed according to Android 5.0's Material Desing guidelines even on pre-Lolli
 
 The library provides the following preferences:
 
-    -   A preference, which allows to enter a text via an EditText widget.
+    -   A preference, which allows to enter a text via an EditText widget (EditTextPreference).
         
-    -   A preference, which allows to select a value from a list.
+    -   A preference, which allows to select a value from a list (ListPreference).
         
     -   A preference, which allows to choose a floating point value or an integer value from a 
-        continuous range via a SeekBar widget.
+        continuous range via a SeekBar widget (SeekBarPreference).
+
+    -   The library uses the AppCompat v7 revision 21 support library in order to retrieve the 
+        color of a the title and button texts of a preference's dialog from the applied theme. 
+        Alternatively, these colors can be set manually.
 
 	
 License Agreement
