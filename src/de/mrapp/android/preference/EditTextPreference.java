@@ -17,6 +17,11 @@
  */
 package de.mrapp.android.preference;
 
+import static de.mrapp.android.preference.util.Condition.ensureNotNull;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -38,6 +43,25 @@ import de.mrapp.android.dialog.MaterialDialogBuilder;
  * @since 1.0.0
  */
 public class EditTextPreference extends AbstractDialogPreference {
+
+	/**
+	 * Defines the interface, a class, which should be able to validate the text
+	 * of an {@link EditTextPreference}, must implement.
+	 */
+	public interface Validator {
+
+		/**
+		 * Validates the text of an {@link EditTextPreference}.
+		 * 
+		 * @param text
+		 *            The text, which should be validated
+		 * 
+		 * @return A string, which indicates a validation error or null, if the
+		 *         given text is valid
+		 */
+		String validate(String text);
+
+	};
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -115,9 +139,15 @@ public class EditTextPreference extends AbstractDialogPreference {
 	private String text;
 
 	/**
+	 * The validators, which have been added to the preference.
+	 */
+	private transient Set<Validator> validators;
+
+	/**
 	 * Initializes the preference.
 	 */
 	private void initialize() {
+		this.validators = new LinkedHashSet<EditTextPreference.Validator>();
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -232,6 +262,30 @@ public class EditTextPreference extends AbstractDialogPreference {
 		}
 	}
 
+	/**
+	 * Adds a new validator to the preference.
+	 * 
+	 * @param validator
+	 *            The validator, which should be added, as an instance of the
+	 *            type {@link Validator}
+	 */
+	public final void addValidator(final Validator validator) {
+		ensureNotNull(validator, "The validator may not be null");
+		this.validators.add(validator);
+	}
+
+	/**
+	 * Removes a specific validator from the preference.
+	 * 
+	 * @param validator
+	 *            The validator, which should be removed, as an instance of the
+	 *            type {@link Validator}
+	 */
+	public final void removeValidator(final Validator validator) {
+		ensureNotNull(validator, "The validator may not be null");
+		this.validators.remove(validator);
+	}
+
 	@Override
 	public final CharSequence getSummary() {
 		if (isValueShownAsSummary()) {
@@ -253,6 +307,21 @@ public class EditTextPreference extends AbstractDialogPreference {
 				null);
 		editText.setText(getText());
 		dialogBuilder.setView(editText);
+	}
+
+	@Override
+	protected final boolean onValidate() {
+		for (Validator validator : validators) {
+			String result = validator.validate(editText.getText().toString());
+
+			if (result != null) {
+				editText.setError(result);
+				editText.requestFocus();
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	@Override
