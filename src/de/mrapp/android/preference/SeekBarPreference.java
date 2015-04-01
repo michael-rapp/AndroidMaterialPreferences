@@ -1060,6 +1060,11 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	@Override
+	protected final boolean onValidate() {
+		return true;
+	}
+
+	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult && callChangeListener(seekBarValue)) {
 			setValue(seekBarValue);

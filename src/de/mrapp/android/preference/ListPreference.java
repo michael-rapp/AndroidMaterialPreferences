@@ -480,6 +480,11 @@ public class ListPreference extends AbstractDialogPreference {
 	}
 
 	@Override
+	protected final boolean onValidate() {
+		return true;
+	}
+
+	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult && selectedIndex >= 0 && entryValues != null) {
 			String newValue = entryValues[selectedIndex].toString();
