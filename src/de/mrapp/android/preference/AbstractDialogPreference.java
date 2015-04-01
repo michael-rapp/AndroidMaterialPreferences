@@ -636,6 +636,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 *            {@link Integer} value. The resource id must correspond to a
 	 *            valid drawable resource
 	 */
+	@SuppressWarnings("deprecation")
 	public final void setDialogIcon(final int resourceId) {
 		dialogIcon = getContext().getResources().getDrawable(resourceId);
 	}
