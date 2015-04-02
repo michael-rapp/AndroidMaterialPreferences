@@ -201,7 +201,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	private void obtainStyledAttributes(final Context context,
 			final AttributeSet attributeSet) {
 		TypedArray typedArray = context.obtainStyledAttributes(attributeSet,
-				R.styleable.DialogPreference);
+				R.styleable.AbstractDialogPreference);
 		try {
 			obtainDialogTitle(typedArray);
 			obtainDialogMessage(typedArray);
@@ -226,7 +226,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogTitle(final TypedArray typedArray) {
 		CharSequence title = typedArray
-				.getText(R.styleable.DialogPreference_android_dialogTitle);
+				.getText(R.styleable.AbstractDialogPreference_android_dialogTitle);
 
 		if (title == null) {
 			title = getTitle();
@@ -245,7 +245,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogMessage(final TypedArray typedArray) {
 		setDialogMessage(typedArray
-				.getText(R.styleable.DialogPreference_android_dialogMessage));
+				.getText(R.styleable.AbstractDialogPreference_android_dialogMessage));
 	}
 
 	/**
@@ -258,7 +258,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogIcon(final TypedArray typedArray) {
 		int resourceId = typedArray.getResourceId(
-				R.styleable.DialogPreference_android_dialogIcon, 0);
+				R.styleable.AbstractDialogPreference_android_dialogIcon, 0);
 
 		if (resourceId != 0) {
 			setDialogIcon(resourceId);
@@ -275,7 +275,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainPositiveButtonText(final TypedArray typedArray) {
 		setPositiveButtonText(typedArray
-				.getText(R.styleable.DialogPreference_android_positiveButtonText));
+				.getText(R.styleable.AbstractDialogPreference_android_positiveButtonText));
 	}
 
 	/**
@@ -288,7 +288,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainNegativeButtonText(final TypedArray typedArray) {
 		setNegativeButtonText(typedArray
-				.getText(R.styleable.DialogPreference_android_negativeButtonText));
+				.getText(R.styleable.AbstractDialogPreference_android_negativeButtonText));
 	}
 
 	/**
@@ -301,11 +301,11 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogTitleColor(final TypedArray typedArray) {
 		int color = typedArray.getColor(
-				R.styleable.DialogPreference_dialogTitleColor, 0);
+				R.styleable.AbstractDialogPreference_dialogTitleColor, 0);
 
 		if (color == 0) {
 			int resourceId = typedArray.getResourceId(
-					R.styleable.DialogPreference_dialogTitleColor, 0);
+					R.styleable.AbstractDialogPreference_dialogTitleColor, 0);
 
 			if (resourceId != 0) {
 				color = getContext().getResources().getColor(resourceId);
@@ -325,11 +325,12 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 */
 	private void obtainDialogButtonTextColor(final TypedArray typedArray) {
 		int color = typedArray.getColor(
-				R.styleable.DialogPreference_dialogButtonTextColor, 0);
+				R.styleable.AbstractDialogPreference_dialogButtonTextColor, 0);
 
 		if (color == 0) {
 			int resourceId = typedArray.getResourceId(
-					R.styleable.DialogPreference_dialogButtonTextColor, 0);
+					R.styleable.AbstractDialogPreference_dialogButtonTextColor,
+					0);
 
 			if (resourceId != 0) {
 				color = getContext().getResources().getColor(resourceId);
@@ -351,7 +352,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 	private void obtainShowValueAsSummary(final TypedArray typedArray) {
 		if (typedArray != null) {
 			showValueAsSummary(typedArray.getBoolean(
-					R.styleable.DialogPreference_showValueAsSummary,
+					R.styleable.AbstractDialogPreference_showValueAsSummary,
 					DEFAULT_SHOW_VALUE_AS_SUMMARY));
 		} else {
 			showValueAsSummary(DEFAULT_SHOW_VALUE_AS_SUMMARY);

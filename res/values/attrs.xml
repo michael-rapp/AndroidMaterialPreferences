@@ -19,7 +19,7 @@ License along with this program. If not, see
 -->
 <resources>
 
-    <declare-styleable name="DialogPreference">
+    <declare-styleable name="AbstractDialogPreference">
         <attr name="android:dialogTitle" />
         <attr name="android:dialogMessage" />
         <attr name="android:dialogIcon" />
@@ -44,13 +44,15 @@ License along with this program. If not, see
         <attr name="floatingPointSeparator" format="string" />
         <attr name="stepSize" format="integer" />
     </declare-styleable>
-    <declare-styleable name="NumberPickerPreference">
+    <declare-styleable name="AbstractNumberPickerPreference">
         <attr name="android:defaultValue" />
         <attr name="useInputMethod" format="boolean" />
-        <attr name="minNumber" format="integer" />
-        <attr name="maxNumber" format="integer" />
         <attr name="wrapSelectorWheel" format="boolean" />
         <attr name="defaultNumber" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="NumberPickerPreference">
+        <attr name="minNumber" format="integer" />
+        <attr name="maxNumber" format="integer" />
     </declare-styleable>
 
 </resources>

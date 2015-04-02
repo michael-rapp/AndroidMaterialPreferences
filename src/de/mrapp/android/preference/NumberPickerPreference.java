@@ -43,7 +43,7 @@ import de.mrapp.android.preference.view.NumberPicker;
  *
  * @since 1.1.0
  */
-public class NumberPickerPreference extends AbstractDialogPreference {
+public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -70,11 +70,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		};
 
 		/**
-		 * The saved value of the attribute "number".
-		 */
-		public int number;
-
-		/**
 		 * The saved value of the attribute "minNumber".
 		 */
 		public int minNumber;
@@ -83,16 +78,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		 * The saved value of the attribute "maxNumber".
 		 */
 		public int maxNumber;
-
-		/**
-		 * The saved value of the attribute "useInputMethod".
-		 */
-		public boolean useInputMethod;
-
-		/**
-		 * The saved value of the attribute "wrapSelectorWheel".
-		 */
-		public boolean wrapSelectorWheel;
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
@@ -118,30 +103,19 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		 */
 		public SavedState(final Parcel source) {
 			super(source);
-			number = source.readInt();
 			minNumber = source.readInt();
 			maxNumber = source.readInt();
-			useInputMethod = source.readInt() > 0;
-			wrapSelectorWheel = source.readInt() > 0;
 		}
 
 		@Override
 		public final void writeToParcel(final Parcel destination,
 				final int flags) {
 			super.writeToParcel(destination, flags);
-			destination.writeInt(number);
 			destination.writeInt(minNumber);
 			destination.writeInt(maxNumber);
-			destination.writeInt(useInputMethod ? 1 : 0);
-			destination.writeInt(wrapSelectorWheel ? 1 : 0);
 		}
 
 	};
-
-	/**
-	 * The default number.
-	 */
-	protected static final int DEFAULT_NUMBER = 0;
 
 	/**
 	 * The default minimum number, the preference allows to choose.
@@ -154,29 +128,9 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	protected static final int DEFAULT_MAX_NUMBER = 10;
 
 	/**
-	 * True, if an input method should be used by default, false otherwise.
-	 */
-	protected static final boolean DEFAULT_USE_INPUT_METHOD = false;
-
-	/**
-	 * True, if the selector wheel should be wrapped, false otherwise.
-	 */
-	protected static final boolean DEFAULT_WRAP_SELECTOR_WHEEL = true;
-
-	/**
 	 * The {@link NumberPicker} widget, which allows to choose a decimal number.
 	 */
 	private NumberPicker numberPicker;
-
-	/**
-	 * The currently persisted number.
-	 */
-	private int number;
-
-	/**
-	 * The default number.
-	 */
-	private int defaultNumber;
 
 	/**
 	 * The minimum number, the preference allows to choose.
@@ -189,16 +143,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	private int maxNumber;
 
 	/**
-	 * True, if an input method is used, false otherwise.
-	 */
-	private boolean useInputMethod;
-
-	/**
-	 * True, if the selector wheel is wrapped, false otherwise.
-	 */
-	private boolean wrapSelectorWheel;
-
-	/**
 	 * Initializes the preference.
 	 * 
 	 * @param attributeSet
@@ -207,9 +151,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setNumber(getPersistedInt(defaultNumber));
-		setPositiveButtonText(android.R.string.ok);
-		setNegativeButtonText(android.R.string.cancel);
 	}
 
 	/**
@@ -223,27 +164,11 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		TypedArray typedArray = getContext().obtainStyledAttributes(
 				attributeSet, R.styleable.NumberPickerPreference);
 		try {
-			obtainDefaultNumber(typedArray);
 			obtainMaxNumber(typedArray);
 			obtainMinNumber(typedArray);
-			obtainUseInputMethod(typedArray);
-			obtainWrapSelectorWheel(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
-	}
-
-	/**
-	 * Obtains the default number of the preference from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the default number should be obtained from,
-	 *            as an instance of the class {@link TypedArray}
-	 */
-	private void obtainDefaultNumber(final TypedArray typedArray) {
-		defaultNumber = typedArray.getInteger(
-				R.styleable.NumberPickerPreference_defaultNumber,
-				DEFAULT_NUMBER);
 	}
 
 	/**
@@ -272,38 +197,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		setMinNumber(typedArray.getInteger(
 				R.styleable.NumberPickerPreference_minNumber,
 				DEFAULT_MIN_NUMBER));
-	}
-
-	/**
-	 * Obtains, whether an input method should be used, or not, from a specific
-	 * typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, which should be used to retrieve, whether an
-	 *            input method should be used, or not, as an instance of the
-	 *            class {@link TypedArray}
-	 */
-	private void obtainUseInputMethod(final TypedArray typedArray) {
-		useInputMethod(typedArray.getBoolean(
-				R.styleable.NumberPickerPreference_useInputMethod,
-				DEFAULT_USE_INPUT_METHOD));
-	}
-
-	/**
-	 * Obtains, whether the selection wheel of the selection wheel of the
-	 * preference's {@link NumberPicker} should be wrapped, or not, from a
-	 * specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, which should be used to retrieve, whether the
-	 *            selection wheel of the preference's {@link NumberPicker}
-	 *            should be wrapped, or not, as an instance of the class
-	 *            {@link TypedArray}
-	 */
-	private void obtainWrapSelectorWheel(final TypedArray typedArray) {
-		wrapSelectorWheel(typedArray.getBoolean(
-				R.styleable.NumberPickerPreference_wrapSelectorWheel,
-				DEFAULT_WRAP_SELECTOR_WHEEL));
 	}
 
 	/**
@@ -390,44 +283,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns the currently persisted number of the preference.
-	 * 
-	 * @return The currently persisted number as an {@link Integer} value
-	 */
-	public final int getNumber() {
-		return number;
-	}
-
-	/**
-	 * Sets the current number of the preference. By setting a value, it will be
-	 * persisted.
-	 * 
-	 * @param number
-	 *            The number, which should be set, as an {@link Integer} value
-	 */
-	public final void setNumber(final int number) {
-		ensureAtLeast(number, getMinNumber(),
-				"The number must be at least the minimum number");
-		ensureAtMaximum(number, getMaxNumber(),
-				"The number must be at maximum the maximum number");
-
-		if (this.number != number) {
-			this.number = number;
-			persistInt(number);
-			notifyChanged();
-		}
-	}
-
-	/**
-	 * Returns the default number of the preference.
-	 * 
-	 * @return The default number of the preference as an {@link Integer} value
-	 */
-	public final int getDefaultNumber() {
-		return defaultNumber;
-	}
-
-	/**
 	 * Returns the minimum number, the preference allows to choose.
 	 * 
 	 * @return The minimum number, the preference allows to choose, as an
@@ -486,24 +341,18 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		return maxNumber - minNumber;
 	}
 
-	/**
-	 * Returns, whether an input method is used by the preference, false
-	 * otherwise.
-	 * 
-	 * @return True, if an input method is used, false otherwise
-	 */
-	public final boolean isInputMethodUsed() {
-		return useInputMethod;
+	@Override
+	public final void setNumber(final int number) {
+		ensureAtLeast(number, getMinNumber(),
+				"The number must be at least the minimum number");
+		ensureAtMaximum(number, getMaxNumber(),
+				"The number must be at maximum the maximum number");
+		super.setNumber(number);
 	}
 
-	/**
-	 * Sets, whether an input method should be used by the preference, or not.
-	 * 
-	 * @param useInputMethod
-	 *            True, if an input method should be used, false otherwise
-	 */
+	@Override
 	public final void useInputMethod(final boolean useInputMethod) {
-		this.useInputMethod = useInputMethod;
+		super.useInputMethod(useInputMethod);
 
 		if (numberPicker != null) {
 			numberPicker
@@ -512,39 +361,12 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 		}
 	}
 
-	/**
-	 * Returns, whether the selector wheel of the preference's
-	 * {@link NumberPicker} is wrapped, or not.
-	 * 
-	 * @return True, if the selector wheel of the preference's
-	 *         {@link NumberPicker} is wrapped, false otherwise
-	 */
-	public final boolean isSelectorWheelWrapped() {
-		return wrapSelectorWheel;
-	}
-
-	/**
-	 * Sets, whether the selector wheel of the preference's {@link NumberPicker}
-	 * should be wrapped, or not.
-	 * 
-	 * @param wrapSelectorWheel
-	 *            True, if the selector wheel of the preference's
-	 *            {@link NumberPicker} should be wrapped, false otherwise
-	 */
+	@Override
 	public final void wrapSelectorWheel(final boolean wrapSelectorWheel) {
-		this.wrapSelectorWheel = wrapSelectorWheel;
+		super.wrapSelectorWheel(wrapSelectorWheel);
 
 		if (numberPicker != null) {
 			numberPicker.setWrapSelectorWheel(wrapSelectorWheel);
-		}
-	}
-
-	@Override
-	public final CharSequence getSummary() {
-		if (isValueShownAsSummary()) {
-			return Integer.toString(getNumber());
-		} else {
-			return super.getSummary();
 		}
 	}
 
@@ -570,38 +392,12 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final boolean onValidate() {
-		return true;
-	}
-
-	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult && callChangeListener(numberPicker.getValue())) {
 			setNumber(numberPicker.getValue());
 		}
 
 		numberPicker = null;
-	}
-
-	@Override
-	protected final boolean needInputMethod() {
-		return isInputMethodUsed();
-	}
-
-	@Override
-	protected final Object onGetDefaultValue(final TypedArray typedArray,
-			final int index) {
-		return typedArray.getInt(index, DEFAULT_NUMBER);
-	}
-
-	@Override
-	protected final void onSetInitialValue(final boolean restoreValue,
-			final Object defaultValue) {
-		if (restoreValue) {
-			setNumber(getPersistedInt(DEFAULT_NUMBER));
-		} else {
-			setNumber((Integer) defaultValue);
-		}
 	}
 
 	@Override
@@ -612,8 +408,6 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 			SavedState savedState = new SavedState(parcelable);
 			savedState.minNumber = getMinNumber();
 			savedState.maxNumber = getMaxNumber();
-			savedState.useInputMethod = isInputMethodUsed();
-			savedState.wrapSelectorWheel = isSelectorWheelWrapped();
 			return savedState;
 		}
 
@@ -624,11 +418,8 @@ public class NumberPickerPreference extends AbstractDialogPreference {
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setNumber(savedState.number);
 			setMinNumber(savedState.minNumber);
 			setMaxNumber(savedState.maxNumber);
-			useInputMethod(savedState.useInputMethod);
-			wrapSelectorWheel(savedState.wrapSelectorWheel);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
