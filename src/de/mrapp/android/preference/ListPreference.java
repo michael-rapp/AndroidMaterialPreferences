@@ -128,38 +128,30 @@ public class ListPreference extends AbstractDialogPreference {
 	/**
 	 * Initializes the list preference.
 	 * 
-	 * @param context
-	 *            The context, which should be used to initialize the list
-	 *            preference, as an instance of the class {@link Context}
 	 * @param attributeSet
 	 *            The attribute set, which should be used to initialize the list
 	 *            preferences, as an instance of the type {@link AttributeSet}
 	 */
-	private void initialize(final Context context,
-			final AttributeSet attributeSet) {
+	private void initialize(final AttributeSet attributeSet) {
 		entries = new CharSequence[0];
 		entryValues = new CharSequence[0];
 		setNegativeButtonText(android.R.string.cancel);
 
 		if (attributeSet != null) {
-			obtainStyledAttributes(context, attributeSet);
+			obtainStyledAttributes(attributeSet);
 		}
 	}
 
 	/**
 	 * Obtains all attributes from a specific attribute set.
 	 * 
-	 * @param context
-	 *            The context, which should be used to obtain the attributes, as
-	 *            an instance of the class {@link Context}
 	 * @param attributeSet
 	 *            The attribute set, the attributes should be obtained from, as
 	 *            an instance of the type {@link AttributeSet}
 	 */
-	private void obtainStyledAttributes(final Context context,
-			final AttributeSet attributeSet) {
-		TypedArray typedArray = context.obtainStyledAttributes(attributeSet,
-				R.styleable.ListPreference);
+	private void obtainStyledAttributes(final AttributeSet attributeSet) {
+		TypedArray typedArray = getContext().obtainStyledAttributes(
+				attributeSet, R.styleable.ListPreference);
 		try {
 			obtainEntries(typedArray);
 			obtainEntryValues(typedArray);
@@ -252,7 +244,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 */
 	public ListPreference(final Context context) {
 		super(context);
-		initialize(context, null);
+		initialize(null);
 	}
 
 	/**
@@ -267,7 +259,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 */
 	public ListPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**
@@ -289,7 +281,7 @@ public class ListPreference extends AbstractDialogPreference {
 	public ListPreference(final Context context,
 			final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**
@@ -318,7 +310,7 @@ public class ListPreference extends AbstractDialogPreference {
 			final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**

@@ -297,16 +297,12 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	/**
 	 * Initializes the preference.
 	 * 
-	 * @param context
-	 *            The context, which should be used to obtain the attributes, as
-	 *            an instance of the class {@link Context}
 	 * @param attributeSet
 	 *            The attribute set, the attributes should be obtained from, as
 	 *            an instance of the type {@link AttributeSet}
 	 */
-	private void initialize(final Context context,
-			final AttributeSet attributeSet) {
-		obtainStyledAttributes(context, attributeSet);
+	private void initialize(final AttributeSet attributeSet) {
+		obtainStyledAttributes(attributeSet);
 		setValue(getPersistedFloat(defaultValue));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
@@ -315,17 +311,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	/**
 	 * Obtains all attributes from a specific attribute set.
 	 * 
-	 * @param context
-	 *            The context, which should be used to obtain the attributes, as
-	 *            an instance of the class {@link Context}
 	 * @param attributeSet
 	 *            The attribute set, the attributes should be obtained from, as
 	 *            an instance of the type {@link AttributeSet}
 	 */
-	private void obtainStyledAttributes(final Context context,
-			final AttributeSet attributeSet) {
-		TypedArray typedArray = context.obtainStyledAttributes(attributeSet,
-				R.styleable.SeekBarPreference);
+	private void obtainStyledAttributes(final AttributeSet attributeSet) {
+		TypedArray typedArray = getContext().obtainStyledAttributes(
+				attributeSet, R.styleable.SeekBarPreference);
 		try {
 			obtainDecimals(typedArray);
 			obtainMaxValue(typedArray);
@@ -641,7 +633,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public SeekBarPreference(final Context context,
 			final AttributeSet attributeSet) {
 		super(context, attributeSet);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**
@@ -665,7 +657,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public SeekBarPreference(final Context context,
 			final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**
@@ -696,7 +688,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
-		initialize(context, attributeSet);
+		initialize(attributeSet);
 	}
 
 	/**
