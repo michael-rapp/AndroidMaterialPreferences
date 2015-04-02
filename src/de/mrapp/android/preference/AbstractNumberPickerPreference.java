@@ -410,24 +410,20 @@ public abstract class AbstractNumberPickerPreference extends
 	@Override
 	protected Parcelable onSaveInstanceState() {
 		Parcelable parcelable = super.onSaveInstanceState();
-
-		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
-			savedState.useInputMethod = isInputMethodUsed();
-			savedState.wrapSelectorWheel = isSelectorWheelWrapped();
-			return savedState;
-		}
-
-		return parcelable;
+		SavedState savedState = new SavedState(parcelable);
+		savedState.number = getNumber();
+		savedState.useInputMethod = isInputMethodUsed();
+		savedState.wrapSelectorWheel = isSelectorWheelWrapped();
+		return savedState;
 	}
 
 	@Override
 	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setNumber(savedState.number);
-			useInputMethod(savedState.useInputMethod);
-			wrapSelectorWheel(savedState.wrapSelectorWheel);
+			number = savedState.number;
+			useInputMethod = savedState.useInputMethod;
+			wrapSelectorWheel = savedState.wrapSelectorWheel;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

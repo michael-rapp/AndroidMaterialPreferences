@@ -31,6 +31,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.NumberPicker.OnValueChangeListener;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.preference.view.NumberPicker;
 
@@ -70,6 +71,11 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		};
 
 		/**
+		 * The saved value of the attribute "currentNumber".
+		 */
+		public int currentNumber;
+
+		/**
 		 * The saved value of the attribute "minNumber".
 		 */
 		public int minNumber;
@@ -103,6 +109,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		 */
 		public SavedState(final Parcel source) {
 			super(source);
+			currentNumber = source.readInt();
 			minNumber = source.readInt();
 			maxNumber = source.readInt();
 		}
@@ -111,6 +118,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		public final void writeToParcel(final Parcel destination,
 				final int flags) {
 			super.writeToParcel(destination, flags);
+			destination.writeInt(currentNumber);
 			destination.writeInt(minNumber);
 			destination.writeInt(maxNumber);
 		}
@@ -131,6 +139,11 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 * The {@link NumberPicker} widget, which allows to choose a decimal number.
 	 */
 	private NumberPicker numberPicker;
+
+	/**
+	 * The current number of the {@link NumberPicker} widget.
+	 */
+	private int currentNumber;
 
 	/**
 	 * The minimum number, the preference allows to choose.
@@ -197,6 +210,36 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		setMinNumber(typedArray.getInteger(
 				R.styleable.NumberPickerPreference_minNumber,
 				DEFAULT_MIN_NUMBER));
+	}
+
+	/**
+	 * Creates and returns a listener, which allows to observe the
+	 * {@link NumberPicker}, which is used by the preference.
+	 * 
+	 * @return The listener, which has been created, as an
+	 *         {@link OnValueChangeListener}
+	 */
+	private OnValueChangeListener createNumberPickerListener() {
+		return new OnValueChangeListener() {
+
+			@Override
+			public void onValueChange(
+					final android.widget.NumberPicker numberPicker,
+					final int oldValue, final int newValue) {
+				currentNumber = newValue;
+			}
+
+		};
+	}
+
+	/**
+	 * Returns the current number of the {@link NumberPicker} widget.
+	 * 
+	 * @return The current number of the {@link NumberPicker} widget as an
+	 *         {@link Integer} value
+	 */
+	protected final int getCurrentNumber() {
+		return currentNumber;
 	}
 
 	/**
@@ -347,6 +390,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 				"The number must be at least the minimum number");
 		ensureAtMaximum(number, getMaxNumber(),
 				"The number must be at maximum the maximum number");
+		currentNumber = number;
 		super.setNumber(number);
 	}
 
@@ -380,11 +424,12 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		numberPicker = new NumberPicker(getContext());
 		numberPicker.setMinValue(getMinNumber());
 		numberPicker.setMaxValue(getMaxNumber());
-		numberPicker.setValue(getNumber());
+		numberPicker.setValue(getCurrentNumber());
 		numberPicker.setWrapSelectorWheel(isSelectorWheelWrapped());
 		numberPicker
 				.setDescendantFocusability(isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS
 						: NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		numberPicker.setOnValueChangedListener(createNumberPickerListener());
 		container.addView(numberPicker, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT);
 
@@ -393,8 +438,10 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(numberPicker.getValue())) {
-			setNumber(numberPicker.getValue());
+		if (positiveResult && callChangeListener(currentNumber)) {
+			setNumber(currentNumber);
+		} else {
+			currentNumber = getNumber();
 		}
 
 		numberPicker = null;
@@ -403,23 +450,20 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	@Override
 	protected final Parcelable onSaveInstanceState() {
 		Parcelable parcelable = super.onSaveInstanceState();
-
-		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
-			savedState.minNumber = getMinNumber();
-			savedState.maxNumber = getMaxNumber();
-			return savedState;
-		}
-
-		return parcelable;
+		SavedState savedState = new SavedState(parcelable);
+		savedState.currentNumber = getCurrentNumber();
+		savedState.minNumber = getMinNumber();
+		savedState.maxNumber = getMaxNumber();
+		return savedState;
 	}
 
 	@Override
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setMinNumber(savedState.minNumber);
-			setMaxNumber(savedState.maxNumber);
+			currentNumber = savedState.currentNumber;
+			minNumber = savedState.minNumber;
+			maxNumber = savedState.maxNumber;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
