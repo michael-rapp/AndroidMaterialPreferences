@@ -2,6 +2,22 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.1.0 
+Release date:   04.03.2015
+--------------------------
+
+A feature release, which introduces the following new features:
+    
+    -   Validators can now be added to an EditTextPreference in order to validate the entered
+        text and show error messages if needed.
+        
+    -   Added a preference, which allows to choose a decimal number via a NumberPicker widget 
+        (NumberPickerPreference).
+        
+    -   Added a preference, which allows to choose a decimal number via multiple NumberPicker
+        widgets, which allow to choose each digit individually (DigitPickerPreference).
+
+
 Version: 		1.0.0 
 Release date:	11.19.2014
 --------------------------
