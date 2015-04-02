@@ -48,6 +48,16 @@
                         <li><a href="content.html#list-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#list-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+		    <li><a href="content.html#number-picker-preference">NumberPickerPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#number-picker-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#number-picker-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
+		    <li><a href="content.html#digit-picker-preference">DigitPickerPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#digit-picker-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#digit-picker-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
                 </ol>
 
                 <h4><a name="implementation-details">1 Implementation details</a></h4>
@@ -451,6 +461,197 @@
                     </tr>
                 </table>
 
+		<h4><a name="number-picker-preference">6 NumberPickerPreference</a></h4>
+
+                <p>The purpose of the class <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> is to provide a preference implementation, which allows to choose a decimal number by using a <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widget. Such a widget allows to scroll through the range of possible numbers.</p>
+
+                <h5><a name="number-picker-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The library's API provides the following getter and setter methods in order to adjust the properties of a  <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> programmatically. Furthermore, the methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can also be used.</p>
+
+                <table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getNumber():int</br>setNumber(int):void</tt></td>
+                        <td>Returns or sets the currently persisted number of the preference. If a number is set, it is instantly persisted.</td>
+                        <td><center>0</center></td>
+                        <td>The number must be at least the minimum number and at maximum the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDefaultNumber():int</br>setDefaultValue(Object):void</tt></td>
+                        <td>Returns or sets the default number of the preference.</td>
+                        <td><center>0</center></td>
+                        <td>The number must be at least the minimum number and at maximum the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isInputMethodUsed():boolean</br>useInputMethod(boolean):void</tt></td>
+                        <td>Returns or sets, whether it is possible to enter a number by using the keyboard, or not.</td>
+                        <td><center>false</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isSelectorWheelWrapped():boolean</br>wrapSelectorWheel(boolean):void</tt></td>
+                        <td>Returns or sets, whether the <tt>NumberPicker</tt>'s selector wheel is wrapped, or not.</td>
+                        <td><center>true</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getMinNumber():int</br>setMinNumber(int):void</tt></td>
+                        <td>Returns or sets the minimum number, the preference allows to choose.</td>
+                        <td><center>0</center></td>
+                        <td>The minimum number must be less than the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getMaxNumber():int</br>setMaxNumber(int):void</tt></td>
+                        <td>Returns or sets the maximum number, the preference allows to choose.</td>
+                        <td><center>10</center></td>
+                        <td>The maximum number must be greater than the minimum number.</td>
+                    </tr>
+                </table>
+
+                <h5><a name="number-picker-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>Alternatively, the properties, which can be set by the using the setter methods, which have been discussed in the previous section, can be specified by using XML attributes. The following attributes are available.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>The default number of the preference.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
+                        <td>Must be greater than the minimum number and less than the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:useInputMethod</tt></td>
+                        <td>Whether it should be possible to enter a number by using the keyboard, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:wrapSelectorWheel</tt></td>
+                        <td>Whether the <tt>NumberPicker</tt>'s selector wheel should be wrapped, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:minNumber</tt></td>
+                        <td>The minimum number, the preference allows to choose.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
+                        <td>Must be less than the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:maxNumber</tt></td>
+                        <td>The maximum number, the preference allows to choose.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>10</tt></td>
+                        <td>Must be greater than the minimum number.</td>
+                    </tr>
+                </table>
+
+		<h4><a name="digit-picker-preference">7 DigitPickerPreference</a></h4>
+
+                <p>The preference, which is provided by the class <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> is very similar to the preference, which has been discussed in the previous section. It also allows to choose a decimal number by using a <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widget. The difference is, that each digit of the number can be chosen individualy by using several <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widgets.</p>
+
+                <h5><a name="digit-picker-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The following getter and setter methods are provided in order to specify the properties of a  <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> programmatically. The methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can be used as well.</p>
+
+                <table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getNumber():int</br>setNumber(int):void</tt></td>
+                        <td>Returns or sets the currently persisted number of the preference. If a number is set, it is instantly persisted.</td>
+                        <td><center>0</center></td>
+                        <td>The number must be at least the minimum number and at maximum the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDefaultNumber():int</br>setDefaultValue(Object):void</tt></td>
+                        <td>Returns or sets the default number of the preference.</td>
+                        <td><center>0</center></td>
+                        <td>The number must be at least the minimum number and at maximum the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isInputMethodUsed():boolean</br>useInputMethod(boolean):void</tt></td>
+                        <td>Returns or sets, whether it is possible to enter a number by using the keyboard, or not.</td>
+                        <td><center>false</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isSelectorWheelWrapped():boolean</br>wrapSelectorWheel(boolean):void</tt></td>
+                        <td>Returns or sets, whether the <tt>NumberPicker</tt>'s selector wheel is wrapped, or not.</td>
+                        <td><center>true</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getNumberOfDigits():int</br>setNumberOfDigits(int):void</tt></td>
+                        <td>Returns or sets the number of digits of the numbers, the preference allows to choose.</td>
+                        <td><center>4</center></td>
+                        <td>The number of digits must be at least 1.</td>
+                    </tr>
+                </table>
+
+                <h5><a name="digit-picker-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>As an alternative to the setter methods, which have been shown in the previous section, various XML attributes can be used. The following attributes are available.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>The default number of the preference.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
+                        <td>Must be greater than the minimum number and less than the maximum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:useInputMethod</tt></td>
+                        <td>Whether it should be possible to enter a number by using the keyboard, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:wrapSelectorWheel</tt></td>
+                        <td>Whether the <tt>NumberPicker</tt>'s selector wheel should be wrapped, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:numberOfDigits</tt></td>
+                        <td>The number of digits of the numbers, the preference allows to choose.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>4</tt></td>
+                        <td>Must be at least 1.</td>
+                    </tr>
+                </table>
+
                 <h4>External references:</h4>
 
                 <div class="reference"><a name="reference1" class="reference">[1]</a><a href="http://developer.android.com/reference/android/content/Context.html" target="_blank">http://developer.android.com/reference/android/content/Context.html</a> &#150; Class Context</div>
@@ -462,10 +663,12 @@
                 <div class="reference"><a name="reference4" class="reference">[4]</a><a href="http://developer.android.com/reference/android/preference/ListPreference.html" target="_blank">http://developer.android.com/reference/android/preference/ListPreference.html</a> &#150; Class ListPreference</div>
 
                 <div class="reference"><a name="reference5" class="reference">[5]</a><a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank">http://www.google.com/design/spec/material-design/introduction.html</a> &#150; Material Design guidelines</div>
+
+		<div class="reference"><a name="reference6" class="reference">[6]</a><a href="http://developer.android.com/reference/android/widget/NumberPicker.html" taget="_blank">http://developer.android.com/reference/android/widget/NumberPicker.html</a> &#150; Class NumberPicker</div>
             </div>
 
             <div class="copyright">
-                &#169; Copyright 2014, Michael Rapp. All rights reserved.
+                &#169; Copyright 2014 - 2015, Michael Rapp. All rights reserved.
             </div>
         </div>
     </body>
