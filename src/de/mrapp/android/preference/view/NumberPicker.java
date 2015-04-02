@@ -161,9 +161,13 @@ public class NumberPicker extends android.widget.NumberPicker {
 					"mSelectionDivider");
 			divider.setAccessible(true);
 			divider.set(this, new ColorDrawable(color));
-		} catch (NoSuchFieldException | IllegalArgumentException
-				| IllegalAccessException e) {
+		} catch (NoSuchFieldException e) {
+			Log.w(TAG, "Failed to set divider color", e);
+		} catch (IllegalArgumentException e) {
+			Log.w(TAG, "Failed to set divider color", e);
+		} catch (IllegalAccessException e) {
 			Log.w(TAG, "Failed to set divider color", e);
 		}
 	}
+
 }
