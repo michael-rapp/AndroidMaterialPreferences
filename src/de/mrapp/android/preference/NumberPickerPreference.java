@@ -386,10 +386,13 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	public final void setNumber(final int number) {
-		ensureAtLeast(number, getMinNumber(),
-				"The number must be at least the minimum number");
-		ensureAtMaximum(number, getMaxNumber(),
-				"The number must be at maximum the maximum number");
+		if (!(getMinNumber() == 0 && getMaxNumber() == 0)) {
+			ensureAtLeast(number, getMinNumber(),
+					"The number must be at least the minimum number");
+			ensureAtMaximum(number, getMaxNumber(),
+					"The number must be at maximum the maximum number");
+		}
+
 		currentNumber = number;
 		super.setNumber(number);
 	}
