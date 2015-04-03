@@ -233,6 +233,25 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	}
 
 	/**
+	 * Returns the maximum number, which can be created with a specific number
+	 * of digits.
+	 * 
+	 * @param numberOfDigits
+	 *            The number of digits as an {@link Integer} value
+	 * @return The maximum number, which can be created with the given number of
+	 *         digits, as an {@link Integer} value
+	 */
+	private int getMaxNumber(final int numberOfDigits) {
+		int result = 0;
+
+		for (int i = 0; i < numberOfDigits; i++) {
+			result += (NUMERIC_SYTEM - 1) * Math.pow(NUMERIC_SYTEM, i);
+		}
+
+		return result;
+	}
+
+	/**
 	 * Returns the current number, consisting of the {@link NumberPicker}
 	 * widgets, which are used by the preference.
 	 * 
@@ -350,6 +369,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		ensureAtLeast(numberOfDigits, 1,
 				"The number of digits must be at least 1");
 		this.numberOfDigits = numberOfDigits;
+		setNumber(Math.max(getNumber(), getMaxNumber(numberOfDigits)));
 	}
 
 	@Override
