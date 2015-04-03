@@ -369,7 +369,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		ensureAtLeast(numberOfDigits, 1,
 				"The number of digits must be at least 1");
 		this.numberOfDigits = numberOfDigits;
-		setNumber(Math.max(getNumber(), getMaxNumber(numberOfDigits)));
+		setNumber(Math.min(getNumber(), getMaxNumber(numberOfDigits)));
 	}
 
 	@Override
