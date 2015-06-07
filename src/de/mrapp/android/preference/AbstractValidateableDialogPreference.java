@@ -8,6 +8,7 @@ import java.util.Set;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
@@ -29,6 +30,20 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 		AbstractDialogPreference implements
 		de.mrapp.android.dialog.MaterialDialogBuilder.Validator,
 		Validateable<ValueType> {
+
+	/**
+	 * True, if the view, which is contained by the preference's dialog, should
+	 * be automatically validated, when its value has been changed, by default,
+	 * false otherwise.
+	 */
+	private static final boolean DEFAULT_VALIDATE_ON_VALUE_CHANGE = true;
+
+	/**
+	 * True, if the view, which is contained by the preference's dialog, should
+	 * be automatically validated, when it has lost its focus, by default, false
+	 * otherwise.
+	 */
+	private static final boolean DEFAULT_VALIDATE_ON_FOCUS_LOST = true;
 
 	/**
 	 * A set, which contains the validators, which are used to validate the
@@ -75,12 +90,107 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 
 	/**
 	 * Initializes the preference.
+	 * 
+	 * @param attributeSet
+	 *            The attribute set, the attributes should be obtained from, as
+	 *            an instance of the type {@link AttributeSet}
 	 */
-	private void initialize() {
+	private void initialize(final AttributeSet attributeSet) {
 		validators = new LinkedHashSet<>();
 		validationListeners = new LinkedHashSet<>();
-		validateOnValueChange = true;
-		validateOnFocusLost = true;
+		obtainStyledAttributes(attributeSet);
+	}
+
+	/**
+	 * Obtains all attributes from a specific attribute set.
+	 * 
+	 * @param attributeSet
+	 *            The attribute set, the attributes should be obtained from, as
+	 *            an instance of the type {@link AttributeSet}
+	 */
+	private void obtainStyledAttributes(final AttributeSet attributeSet) {
+		TypedArray typedArray = getContext().obtainStyledAttributes(
+				attributeSet, R.styleable.AbstractValidateableView);
+		try {
+			obtainHelperText(typedArray);
+			obtainHelperTextColor(typedArray);
+			obtainErrorColor(typedArray);
+			obtainValidateOnValueChange(typedArray);
+			obtainValidateOnFocusLost(typedArray);
+		} finally {
+			typedArray.recycle();
+		}
+	}
+
+	/**
+	 * Obtains the helper text from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the helper text should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainHelperText(final TypedArray typedArray) {
+		setHelperText(typedArray
+				.getString(R.styleable.AbstractValidateableView_helperText));
+	}
+
+	/**
+	 * Obtains the color of the helper text from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the color of the helper text should be
+	 *            obtained from, as an instance of the class {@link TypedArray}
+	 */
+	private void obtainHelperTextColor(final TypedArray typedArray) {
+		setHelperTextColor(typedArray.getColor(
+				R.styleable.AbstractValidateableView_helperTextColor,
+				getContext().getResources().getColor(
+						R.color.default_helper_text_color)));
+	}
+
+	/**
+	 * Obtains the color, which is used to indicate validation errors, from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the error color should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainErrorColor(final TypedArray typedArray) {
+		setErrorColor(typedArray.getColor(
+				R.styleable.AbstractValidateableView_errorColor, getContext()
+						.getResources().getColor(R.color.default_error_color)));
+	}
+
+	/**
+	 * Obtains, whether the value of the view should be validated, when its
+	 * value has been changed, or not, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, it should be obtained from, whether the value
+	 *            of the view should be validated, when its value has been
+	 *            changed, or not, as an instance of the class
+	 *            {@link TypedArray}
+	 */
+	private void obtainValidateOnValueChange(final TypedArray typedArray) {
+		validateOnValueChange(typedArray.getBoolean(
+				R.styleable.AbstractValidateableView_validateOnValueChange,
+				DEFAULT_VALIDATE_ON_VALUE_CHANGE));
+	}
+
+	/**
+	 * Obtains, whether the value of the view should be validated, when the view
+	 * loses its focus, or not, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, it should be obtained from, whether the value
+	 *            of the view should be validated, when the view loses its
+	 *            focus, or not, as an instance of the class {@link TypedArray}
+	 */
+	private void obtainValidateOnFocusLost(final TypedArray typedArray) {
+		validateOnFocusLost(typedArray.getBoolean(
+				R.styleable.AbstractValidateableView_validateOnFocusLost,
+				DEFAULT_VALIDATE_ON_FOCUS_LOST));
 	}
 
 	/**
@@ -154,7 +264,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	public AbstractValidateableDialogPreference(final Context context,
 			final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
-		initialize();
+		initialize(attributeSet);
 	}
 
 	/**
@@ -183,7 +293,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 			final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
-		initialize();
+		initialize(attributeSet);
 	}
 
 	/**
