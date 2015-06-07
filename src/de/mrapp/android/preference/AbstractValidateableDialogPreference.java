@@ -1,13 +1,16 @@
 package de.mrapp.android.preference;
 
+import static de.mrapp.android.preference.util.Condition.ensureNotNull;
+
 import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
-import de.mrapp.android.validation.AbstractValidateableView;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
@@ -15,9 +18,6 @@ import de.mrapp.android.validation.Validator;
 /**
  * An abstract base class for all dialog preferences, which can be validated.
  * 
- * @param <ViewType>
- *            The type of the view, which is contained by the preference's
- *            dialog
  * @param <ValueType>
  *            The type of the values, which can be validated
  * 
@@ -25,32 +25,45 @@ import de.mrapp.android.validation.Validator;
  * 
  * @since 1.2.0
  */
-public abstract class AbstractValidateableDialogPreference<ViewType extends AbstractValidateableView<?, ValueType>, ValueType>
-		extends AbstractDialogPreference implements
+public abstract class AbstractValidateableDialogPreference<ValueType> extends
+		AbstractDialogPreference implements
 		de.mrapp.android.dialog.MaterialDialogBuilder.Validator,
 		Validateable<ValueType> {
 
 	/**
-	 * The view, which is contained by the preference's dialog.
+	 * A set, which contains the validators, which are used to validate the
+	 * view, which is contained by the preference's dialog.
 	 */
-	private ViewType view;
+	private transient Set<Validator<ValueType>> validators;
+
+	/**
+	 * A set, which contains the listeners, which are notified when the view,
+	 * which is contained by the preference's dialog, has been validated.
+	 */
+	private transient Set<ValidationListener<ValueType>> validationListeners;
+
+	/**
+	 * True, if the view, which is contained by the preference's dialog should
+	 * be automatically validated, when its value has been changed, false
+	 * otherwise.
+	 */
+	private boolean validateOnValueChange;
+
+	/**
+	 * True, if the view, which is contained by the preference's dialog should
+	 * be automatically validated, when it has lost its focus, false otherwise.
+	 */
+	private boolean validateOnFocusLost;
 
 	/**
 	 * Initializes the preference.
 	 */
 	private void initialize() {
-		view = onCreateView();
+		validators = new LinkedHashSet<>();
+		validationListeners = new LinkedHashSet<>();
+		validateOnValueChange = true;
+		validateOnFocusLost = true;
 	}
-
-	/**
-	 * The method, which is invoked on subclasses in order to retrieve the view,
-	 * which should be contained by the preference's dialog.
-	 * 
-	 * @return The view, which should be contained by the preferences dialog, as
-	 *         an instance of the generic type ViewType. The view may not be
-	 *         null
-	 */
-	protected abstract ViewType onCreateView();
 
 	/**
 	 * The method, which is invoked on subclasses when the preference's dialog
@@ -66,13 +79,16 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 			final MaterialDialogBuilder dialogBuilder);
 
 	/**
-	 * Returns the view, which is contained by the preference's dialog.
+	 * Returns the listeners, which are notified when the view, which is
+	 * contained by the preference's dialog, has been validated.
 	 * 
-	 * @return The view, which is contained by the preference's dialog, as an
-	 *         instance of the generic type ViewType. The view may not be null
+	 * @return A set, which contains the listeners, which are notified when the
+	 *         view, which is contained by the preference's dialog, has been
+	 *         validated, as an instance of the type {@link Set} or an empty
+	 *         set, if no validators are used
 	 */
-	protected final ViewType getView() {
-		return view;
+	protected final Set<ValidationListener<ValueType>> getValidationListeners() {
+		return validationListeners;
 	}
 
 	/**
@@ -153,92 +169,106 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	}
 
 	@Override
-	public final boolean validate() {
-		return view.validate();
-	}
-
-	@Override
 	public final Collection<Validator<ValueType>> getValidators() {
-		return view.getValidators();
+		return validators;
 	}
 
 	@Override
 	public final void addValidator(final Validator<ValueType> validator) {
-		view.addValidator(validator);
+		ensureNotNull(validator, "The validator may not be null");
+		this.validators.add(validator);
 	}
 
 	@Override
 	public final void addAllValidators(
 			final Collection<Validator<ValueType>> validators) {
-		view.addAllValidators(validators);
+		ensureNotNull(validators, "The collection may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			addValidator(validator);
+		}
 	}
 
 	@SafeVarargs
 	@Override
 	public final void addAllValidators(final Validator<ValueType>... validators) {
-		view.addAllValidators(validators);
+		ensureNotNull(validators, "The array may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			addValidator(validator);
+		}
 	}
 
 	@Override
 	public final void removeValidator(final Validator<ValueType> validator) {
-		view.removeValidator(validator);
+		ensureNotNull(validator, "The validator may not be null");
+		this.validators.remove(validator);
 	}
 
 	@Override
 	public final void removeAllValidators(
 			final Collection<Validator<ValueType>> validators) {
-		view.removeAllValidators(validators);
+		ensureNotNull(validators, "The collection may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			removeValidator(validator);
+		}
 	}
 
 	@SafeVarargs
 	@Override
 	public final void removeAllValidators(
 			final Validator<ValueType>... validators) {
-		view.removeAllValidators(validators);
+		ensureNotNull(validators, "The array may not be null");
+
+		for (Validator<ValueType> validator : validators) {
+			removeValidator(validator);
+		}
 	}
 
 	@Override
 	public final void removeAllValidators() {
-		view.removeAllValidators();
+		this.validators.clear();
 	}
 
 	@Override
 	public final boolean isValidatedOnValueChange() {
-		return view.isValidatedOnValueChange();
+		return validateOnValueChange;
 	}
 
 	@Override
 	public final void validateOnValueChange(final boolean validateOnValueChange) {
-		view.validateOnValueChange(validateOnValueChange);
+		this.validateOnValueChange = validateOnValueChange;
 	}
 
 	@Override
 	public final boolean isValidatedOnFocusLost() {
-		return view.isValidatedOnFocusLost();
+		return validateOnFocusLost;
 	}
 
 	@Override
 	public final void validateOnFocusLost(final boolean validateOnFocusLost) {
-		view.validateOnFocusLost(validateOnFocusLost);
+		this.validateOnFocusLost = validateOnFocusLost;
 	}
 
 	@Override
 	public final void addValidationListener(
 			final ValidationListener<ValueType> listener) {
-		view.addValidationListener(listener);
+		ensureNotNull(listener, "The listener may not be null");
+		this.validationListeners.add(listener);
 	}
 
 	@Override
 	public final void removeValidationListener(
 			final ValidationListener<ValueType> listener) {
-		view.removeValidationListener(listener);
+		ensureNotNull(listener, "The listener may not be null");
+		this.validationListeners.remove(listener);
 	}
 
 	@Override
 	protected final void onPrepareDialog(
 			final MaterialDialogBuilder dialogBuilder) {
 		dialogBuilder.addValidator(this);
-		dialogBuilder.setView(view);
 		onPrepareValidateableDialog(dialogBuilder);
 	}
 
