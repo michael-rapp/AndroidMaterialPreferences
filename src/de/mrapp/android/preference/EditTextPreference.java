@@ -17,11 +17,6 @@
  */
 package de.mrapp.android.preference;
 
-import static de.mrapp.android.preference.util.Condition.ensureNotNull;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -45,25 +40,6 @@ import de.mrapp.android.validation.ValidationListener;
  */
 public class EditTextPreference extends
 		AbstractValidateableDialogPreference<CharSequence> {
-
-	/**
-	 * Defines the interface, a class, which should be able to validate the text
-	 * of an {@link EditTextPreference}, must implement.
-	 */
-	public interface Validator {
-
-		/**
-		 * Validates the text of an {@link EditTextPreference}.
-		 * 
-		 * @param text
-		 *            The text, which should be validated
-		 * 
-		 * @return A string, which indicates a validation error or null, if the
-		 *         given text is valid
-		 */
-		String validate(String text);
-
-	};
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -141,15 +117,9 @@ public class EditTextPreference extends
 	private String text;
 
 	/**
-	 * The validators, which have been added to the preference.
-	 */
-	private transient Set<Validator> validators;
-
-	/**
 	 * Initializes the preference.
 	 */
 	private void initialize() {
-		this.validators = new LinkedHashSet<EditTextPreference.Validator>();
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -262,30 +232,6 @@ public class EditTextPreference extends
 		if (isDisabelingDependents != hasDisabledDependents) {
 			notifyDependencyChange(isDisabelingDependents);
 		}
-	}
-
-	/**
-	 * Adds a new validator to the preference.
-	 * 
-	 * @param validator
-	 *            The validator, which should be added, as an instance of the
-	 *            type {@link Validator}
-	 */
-	public final void addValidator(final Validator validator) {
-		ensureNotNull(validator, "The validator may not be null");
-		this.validators.add(validator);
-	}
-
-	/**
-	 * Removes a specific validator from the preference.
-	 * 
-	 * @param validator
-	 *            The validator, which should be removed, as an instance of the
-	 *            type {@link Validator}
-	 */
-	public final void removeValidator(final Validator validator) {
-		ensureNotNull(validator, "The validator may not be null");
-		this.validators.remove(validator);
 	}
 
 	@Override
