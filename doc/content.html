@@ -58,11 +58,12 @@
                         <li><a href="content.html#digit-picker-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#digit-picker-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+                    <li><a href="content.html#validating-preferences">Validating preferences</a></li>
                 </ol>
 
                 <h4><a name="implementation-details">1 Implementation details</a></h4>
 
-                <p>The preferences, which are provided by this library, are implemented as a custom preferences within the classes <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> and <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a>. As all of this preferences show a dialog when clicked by the user in order to enter a value, all of these classes are delegated from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>.</p>
+                <p>The preferences, which are provided by this library, are implemented as a custom preferences within the classes <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> and <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a>. As all of this preferences show a dialog when clicked by the user in order to enter a value, all of these classes are delegated from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>. Preferences, which support validation, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a></p>
 
                 <p>All preference implementations provide multiple constructors. The one of them, which only expects an instance of the class <a href="http://developer.android.com/reference/android/content/Context.html" target="_blank" class="code">Context</a> as a parameter, can be used instantiate the appropriate preference programmatically, the others are implicitly used by the Android SDK, when the preference is defined by using a XML resource file. Furthermore, all preference implementations override the method <tt>onSaveInstanceState():Parceable</tt> to store the preference's current state when the preference is destroyed, e.g. when the activity it belongs to loses its focus. This method is implicitly called by the Android SDK. For restoring a saved state afterwards, the method <tt>onRestoreInstanceState(Parceable):void</tt>, which is also implicitly called, is overridden.</tt></p>
 
@@ -343,7 +344,7 @@
 
                 <h4><a name="edit-text-preference">4 EditTextPreference</a></h4>
 
-                <p>The class <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> provides an implementation of a preference, whose behavior is equal to the Android SDK's built-in preference <a href="http://developer.android.com/reference/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>. Its purpose is to provide a preference, which allows to enter a text within the dialog, which is shown when the preference is clicked.</p>
+                <p>The class <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> provides an implementation of a preference, whose behavior is equal to the Android SDK's built-in preference <a href="http://developer.android.com/reference/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>. Its purpose is to provide a preference, which allows to enter a text within the dialog, which is shown when the preference is clicked. Additionaly it is possible to validate the text, which has been entered by using the preference. For further information about how to achieve such a validation, refer to the section "Validating preferences" at the end of this documentation.</p>
 
                 <h5><a name="edit-text-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
@@ -649,6 +650,117 @@
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>4</tt></td>
                         <td>Must be at least 1.</td>
+                    </tr>
+                </table>
+
+		<h4><a name="validating-preferences">8 Validating preferences</a></h4>
+
+		<p>Some preferences, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, can be validated and therefore are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The validation is performed according to so called <i>validators</i>, which can be added to the preference by using the following methods. If the validation fails, an error message will be prompted and the preference's dialog will refuse to be closed in order to ensure, that no invalid values can be stored.</p>
+
+		<p><center><tt>addValidator(Validator):void</tt></center></p>
+		<p><center><tt>addAllValidators(Collection&lt;Validator&gt;):void</tt></center></p>
+		<p><center><tt>addAllValidators(Validator[]):void</tt></center></p>
+
+		<p>Additionally, the following methods, which can be used to remove a previously added validator from the preference afterwards, are provided:</p>
+
+		<p><center><tt>removeValidator(Validator):void</tt></center></p>
+		<p><center><tt>removeAllValidators(Collection&lt;Validator&gt;):void</tt></center></p>
+		<p><center><tt>removeAllValidators(Validator[]):void</tt></center></p>
+		<p><center><tt>removeAllValidators():void</tt></center></p>
+
+		<p>As the library "AndroidMaterialValidation" is used for the validation, please refer to the documentation of this library for further information about how the validation works.</p>
+
+		<p>Furthermore, preferences, which are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a> provide a few additional getter and setter methods that can be used to customize the validation. These properties can also be specified by using XML attributes and will be discussed in the following sections.</p>
+
+		<h5><a name="validating-preferences-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The following getter and setter methods are provided in order to programmatically adapt the validation of preferences, which are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can be used as well.</p>
+
+                <table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getHelperText():int</br>setHelperText(CharSequence):void</br>setHelperText(int):void</tt></td>
+                        <td>Returns or sets the helper text of the preference. The helper text is a text, which is shown below the view, which is contained by the preference's dialog.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>When the helper text is specified by passing a resource ID, the resource ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getHelperTextColor():int</br>setHelperTextColor(int):void</tt></td>
+                        <td>Returns or sets the text color of the preference's helper text.</td>
+                        <td><center><tt>?attr.textColorPrimary</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getErrorColor():int</br>setErrorColor(int):void</tt></td>
+                        <td>Returns or sets the text color of the message, which is shown when a validation has failed.</td>
+                        <td><center><tt>R.color.default_error_color</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isValidatedOnValueChange():boolean</br>validateOnValueChange(boolean):void</tt></td>
+                        <td>Returns or sets, whether the preference's value should be automatically validated when it has been changed, for example while typing, or not.</td>
+                        <td><center><tt>true</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isValidatedOnFocusLost():int</br>validateOnFocusLost(boolean):void</tt></td>
+                        <td>Returns or sets, whether the preference's value should be automatically validated, when the view, which is contained by the preference's dialog has lost its focus. This attribute is only relevant, if the dialog contains more than one view.</td>
+                        <td><center><tt>true</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h5><a name="validating-preferences-xml-attributes">XML attributes</a></h5>
+
+                <p>As an alternative to the setter methods, which have been shown in the previous section, various XML attributes can be used. The following attributes are available.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:helperText</tt></td>
+                        <td>The helper text of the preference.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:helperTextColor</tt></td>
+                        <td>The text color of the helper text.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?attr.textColorPrimary</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:errorColor</tt></td>
+                        <td>The text color of the message, which is shown when a validation has failed.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>R.color.default_error_color</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:validateOnValueChange</tt></td>
+                        <td>Whether the preference's value should be validated automatically, when it has changed, for example while typing, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:validateOnFocusLost</tt></td>
+                        <td>Whether the preference's value should be validated automatically, when it has lost its focus, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true</tt></td>
+                        <td>none</td>
                     </tr>
                 </table>
 
