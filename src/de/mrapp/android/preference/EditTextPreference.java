@@ -300,6 +300,7 @@ public class EditTextPreference extends
 		EditText editText = (EditText) View.inflate(getContext(),
 				R.layout.edit_text, null);
 		editText.setText(getText());
+		editText.setSelection(getText() != null ? getText().length() : 0);
 		return editText;
 	}
 
