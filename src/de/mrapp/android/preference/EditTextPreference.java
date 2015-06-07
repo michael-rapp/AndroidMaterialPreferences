@@ -33,6 +33,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.validation.EditText;
+import de.mrapp.android.validation.ValidationListener;
 
 /**
  * A preference, which allows to enter a text via an {@link EditText} widget.
@@ -43,7 +44,7 @@ import de.mrapp.android.validation.EditText;
  * @since 1.0.0
  */
 public class EditTextPreference extends
-		AbstractValidateableDialogPreference<EditText, CharSequence> {
+		AbstractValidateableDialogPreference<CharSequence> {
 
 	/**
 	 * Defines the interface, a class, which should be able to validate the text
@@ -128,6 +129,11 @@ public class EditTextPreference extends
 		}
 
 	};
+
+	/**
+	 * The edit text, which is contained by the preference's dialog.
+	 */
+	private EditText editText;
 
 	/**
 	 * The currently persisted text.
@@ -297,29 +303,39 @@ public class EditTextPreference extends
 	}
 
 	@Override
-	protected final EditText onCreateView() {
-		EditText editText = (EditText) View.inflate(getContext(),
-				R.layout.edit_text, null);
-		editText.setText(getText());
-		return editText;
+	public final boolean validate() {
+		return editText != null ? editText.validate() : true;
 	}
 
 	@Override
 	protected final void onPrepareValidateableDialog(
 			final MaterialDialogBuilder dialogBuilder) {
-		getView().setText(getText());
-		getView().setSelection(getText() != null ? getText().length() : 0);
+		editText = (EditText) View.inflate(getContext(), R.layout.edit_text,
+				null);
+		editText.addAllValidators(getValidators());
+		editText.validateOnValueChange(isValidatedOnValueChange());
+		editText.validateOnFocusLost(isValidatedOnFocusLost());
+
+		for (ValidationListener<CharSequence> listener : getValidationListeners()) {
+			editText.addValidationListener(listener);
+		}
+
+		editText.setText(getText());
+		editText.setSelection(getText() != null ? getText().length() : 0);
+		dialogBuilder.setView(editText);
 	}
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult) {
-			String newValue = getView().getText().toString();
+			String newValue = editText.getText().toString();
 
 			if (callChangeListener(newValue)) {
 				setText(newValue);
 			}
 		}
+
+		editText = null;
 	}
 
 	@Override
