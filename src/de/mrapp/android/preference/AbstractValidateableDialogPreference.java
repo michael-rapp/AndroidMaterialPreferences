@@ -6,8 +6,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.validation.AbstractValidateableView;
 import de.mrapp.android.validation.Validateable;
@@ -36,6 +34,13 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	 * The view, which is contained by the preference's dialog.
 	 */
 	private ViewType view;
+
+	/**
+	 * Initializes the preference.
+	 */
+	private void initialize() {
+		view = onCreateView();
+	}
 
 	/**
 	 * The method, which is invoked on subclasses in order to retrieve the view,
@@ -115,6 +120,7 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	public AbstractValidateableDialogPreference(final Context context,
 			final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
+		initialize();
 	}
 
 	/**
@@ -143,6 +149,7 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 			final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
+		initialize();
 	}
 
 	@Override
@@ -225,12 +232,6 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	public final void removeValidationListener(
 			final ValidationListener<ValueType> listener) {
 		view.removeValidationListener(listener);
-	}
-
-	@Override
-	protected final View onCreateView(final ViewGroup parent) {
-		view = onCreateView();
-		return super.onCreateView(parent);
 	}
 
 	@Override
