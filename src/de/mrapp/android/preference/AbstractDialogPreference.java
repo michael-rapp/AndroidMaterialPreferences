@@ -54,7 +54,7 @@ public abstract class AbstractDialogPreference extends Preference implements
 
 		/**
 		 * A creator, which allows to create instances of the class
-		 * {@link AbstractDialogPreference} from parcels.
+		 * {@link SavedState} from parcels.
 		 */
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
 
