@@ -315,6 +315,9 @@ public class EditTextPreference extends
 		editText.addAllValidators(getValidators());
 		editText.validateOnValueChange(isValidatedOnValueChange());
 		editText.validateOnFocusLost(isValidatedOnFocusLost());
+		editText.setHelperText(getHelperText());
+		editText.setHelperTextColor(getHelperTextColor());
+		editText.setErrorColor(getErrorColor());
 
 		for (ValidationListener<CharSequence> listener : getValidationListeners()) {
 			editText.addValidationListener(listener);
