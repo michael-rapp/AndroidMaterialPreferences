@@ -31,6 +31,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.validation.EditText;
 
 /**
@@ -300,8 +301,14 @@ public class EditTextPreference extends
 		EditText editText = (EditText) View.inflate(getContext(),
 				R.layout.edit_text, null);
 		editText.setText(getText());
-		editText.setSelection(getText() != null ? getText().length() : 0);
 		return editText;
+	}
+
+	@Override
+	protected final void onPrepareValidateableDialog(
+			final MaterialDialogBuilder dialogBuilder) {
+		getView().setText(getText());
+		getView().setSelection(getText() != null ? getText().length() : 0);
 	}
 
 	@Override
