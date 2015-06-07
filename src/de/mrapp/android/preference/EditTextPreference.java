@@ -31,8 +31,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.validation.EditText;
 
 /**
  * A preference, which allows to enter a text via an {@link EditText} widget.
@@ -42,7 +41,8 @@ import de.mrapp.android.dialog.MaterialDialogBuilder;
  *
  * @since 1.0.0
  */
-public class EditTextPreference extends AbstractDialogPreference {
+public class EditTextPreference extends
+		AbstractValidateableDialogPreference<EditText, CharSequence> {
 
 	/**
 	 * Defines the interface, a class, which should be able to validate the text
@@ -127,11 +127,6 @@ public class EditTextPreference extends AbstractDialogPreference {
 		}
 
 	};
-
-	/**
-	 * The {@link EditText} widget, which allows the user to enter a text.
-	 */
-	private EditText editText;
 
 	/**
 	 * The currently persisted text.
@@ -301,40 +296,22 @@ public class EditTextPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
-		editText = (EditText) View.inflate(getContext(), R.layout.edit_text,
-				null);
+	protected final EditText onCreateView() {
+		EditText editText = (EditText) View.inflate(getContext(),
+				R.layout.edit_text, null);
 		editText.setText(getText());
-		dialogBuilder.setView(editText);
-	}
-
-	@Override
-	protected final boolean onValidate() {
-		for (Validator validator : validators) {
-			String result = validator.validate(editText.getText().toString());
-
-			if (result != null) {
-				editText.setError(result);
-				editText.requestFocus();
-				return false;
-			}
-		}
-
-		return true;
+		return editText;
 	}
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult) {
-			String newValue = editText.getText().toString();
+			String newValue = getView().getText().toString();
 
 			if (callChangeListener(newValue)) {
 				setText(newValue);
 			}
 		}
-
-		editText = null;
 	}
 
 	@Override
