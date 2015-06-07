@@ -34,7 +34,6 @@ import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
-import de.mrapp.android.dialog.MaterialDialogBuilder.Validator;
 
 /**
  * An abstract base class for all preferences, which will show a dialog when
@@ -45,7 +44,7 @@ import de.mrapp.android.dialog.MaterialDialogBuilder.Validator;
  * @since 1.0.0
  */
 public abstract class AbstractDialogPreference extends Preference implements
-		OnClickListener, OnDismissListener, Validator {
+		OnClickListener, OnDismissListener {
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -377,7 +376,6 @@ public abstract class AbstractDialogPreference extends Preference implements
 		dialogBuilder.setNegativeButton(getNegativeButtonText(), this);
 		dialogBuilder.setTitleColor(getDialogTitleColor());
 		dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
-		dialogBuilder.addValidator(this);
 
 		onPrepareDialog(dialogBuilder);
 
@@ -424,17 +422,6 @@ public abstract class AbstractDialogPreference extends Preference implements
 	 *            as an instance of the class {@link MaterialDialogBuilder}
 	 */
 	protected abstract void onPrepareDialog(MaterialDialogBuilder dialogBuilder);
-
-	/**
-	 * The method, which is invoked on subclasses when the preference's dialog
-	 * is about to be closed by the user. This method may be used within
-	 * subclasses to validate the changes, which have been made while the dialog
-	 * was shown.
-	 * 
-	 * @return True, if the changes, which have been made while the dialog was
-	 *         shown, are valid, false otherwise
-	 */
-	protected abstract boolean onValidate();
 
 	/**
 	 * The method, which is invoked on subclasses when the preference's dialog
@@ -797,11 +784,6 @@ public abstract class AbstractDialogPreference extends Preference implements
 	public final void onDismiss(final DialogInterface dialog) {
 		this.dialog = null;
 		onDialogClosed(dialogResultPositive);
-	}
-
-	@Override
-	public final boolean validate() {
-		return onValidate();
 	}
 
 	@Override
