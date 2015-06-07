@@ -56,6 +56,24 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	private boolean validateOnFocusLost;
 
 	/**
+	 * The helper text of the view, which is contained by the preference's
+	 * dialog.
+	 */
+	private CharSequence helperText;
+
+	/**
+	 * The error color of the view, which is contained by the preference's
+	 * dialog.
+	 */
+	private int errorColor;
+
+	/**
+	 * The helper text color of the view, which is contained by the preference's
+	 * dialog.
+	 */
+	private int helperTextColor;
+
+	/**
 	 * Initializes the preference.
 	 */
 	private void initialize() {
@@ -166,6 +184,85 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize();
+	}
+
+	/**
+	 * Returns the helper text of the view, which is contained by the
+	 * preference's dialog.
+	 * 
+	 * @return The helper text of the view, which is contained by the
+	 *         preference's dialog, as an instance of the type
+	 *         {@link CharSequence} or null, if no helper text is shown
+	 */
+	public final CharSequence getHelperText() {
+		return helperText;
+	}
+
+	/**
+	 * Sets the helper text of the view, which is contained by the preference's
+	 * dialog.
+	 * 
+	 * @param helperText
+	 *            The helper text, which should be set, as an instance of the
+	 *            type {@link CharSequence} or null, if no helper text should be
+	 *            shown
+	 */
+	public final void setHelperText(final CharSequence helperText) {
+		this.helperText = helperText;
+	}
+
+	/**
+	 * Sets the helper text of the view, which is contained by the preference's
+	 * dialog.
+	 * 
+	 * @param resourceId
+	 *            The resource ID of the string resource, which contains the
+	 *            helper text, which should be set, as an {@link Integer} value.
+	 *            The resource ID must correspond to a valid string resource
+	 */
+	public final void setHelperText(final int resourceId) {
+		setHelperText(getContext().getText(resourceId));
+	}
+
+	/**
+	 * Returns the color, which is used to indicate validation errors.
+	 * 
+	 * @return The color, which is used to indicate validation errors, as an
+	 *         {@link Integer} value
+	 */
+	public final int getErrorColor() {
+		return errorColor;
+	}
+
+	/**
+	 * Sets the color, which should be used to indicate validation errors.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	public final void setErrorColor(final int color) {
+		this.errorColor = color;
+	}
+
+	/**
+	 * Returns the color of the helper text of the view, which is contained by
+	 * the preference's dialog.
+	 * 
+	 * @return The color of the helper text as an {@link Integer} value
+	 */
+	public final int getHelperTextColor() {
+		return helperTextColor;
+	}
+
+	/**
+	 * Sets the color of the helper text of the view, which is contained by the
+	 * preference's dialog.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	public final void setHelperTextColor(final int color) {
+		this.helperTextColor = color;
 	}
 
 	@Override
