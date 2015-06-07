@@ -2,6 +2,16 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.2.0 
+Release date:   06.08.2015
+--------------------------
+
+A feature release, which introduces the following new features:
+    
+    -   EditTextPreferences can now be validated by using the library
+        "AndroidMaterialValidation".
+        
+        
 Version:        1.1.1
 Release date:   04.03.2015
 --------------------------
