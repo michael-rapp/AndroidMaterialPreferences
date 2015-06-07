@@ -10,8 +10,12 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.preference.Preference.BaseSavedState;
 import android.util.AttributeSet;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.preference.EditTextPreference.SavedState;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
@@ -30,6 +34,79 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 		AbstractDialogPreference implements
 		de.mrapp.android.dialog.MaterialDialogBuilder.Validator,
 		Validateable<ValueType> {
+
+	/**
+	 * A data structure, which allows to save the internal state of an
+	 * {@link AbstractValidateableDialogPreference}.
+	 */
+	public static class SavedState extends BaseSavedState {
+
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link SavedState} from parcels.
+		 */
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+			@Override
+			public SavedState createFromParcel(final Parcel in) {
+				return new SavedState(in);
+			}
+
+			@Override
+			public SavedState[] newArray(final int size) {
+				return new SavedState[size];
+			}
+
+		};
+
+		/**
+		 * The saved value of the attribute "validateOnValueChange".
+		 */
+		public boolean validateOnValueChange;
+
+		/**
+		 * The saved value of the attribute "validateOnFocusLost".
+		 */
+		public boolean validateOnFocusLost;
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of an {@link AbstractValidateableDialogPreference}. This
+		 * constructor is called by derived classes when saving their states.
+		 * 
+		 * @param superState
+		 *            The state of the superclass of this view, as an instance
+		 *            of the type {@link Parcelable}
+		 */
+		public SavedState(final Parcelable superState) {
+			super(superState);
+		}
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of an {@link AbstractValidateableDialogPreference}. This
+		 * constructor is used when reading from a parcel. It reads the state of
+		 * the superclass.
+		 * 
+		 * @param source
+		 *            The parcel to read read from as a instance of the class
+		 *            {@link Parcel}
+		 */
+		public SavedState(final Parcel source) {
+			super(source);
+			validateOnValueChange = source.readInt() == 1;
+			validateOnFocusLost = source.readInt() == 1;
+		}
+
+		@Override
+		public final void writeToParcel(final Parcel destination,
+				final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeInt(validateOnValueChange ? 1 : 0);
+			destination.writeInt(validateOnFocusLost ? 1 : 0);
+		}
+
+	};
 
 	/**
 	 * True, if the view, which is contained by the preference's dialog, should
@@ -477,6 +554,27 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 			final MaterialDialogBuilder dialogBuilder) {
 		dialogBuilder.addValidator(this);
 		onPrepareValidateableDialog(dialogBuilder);
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable parcelable = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(parcelable);
+		savedState.validateOnValueChange = isValidatedOnValueChange();
+		savedState.validateOnFocusLost = isValidatedOnFocusLost();
+		return savedState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(final Parcelable state) {
+		if (state != null && state instanceof SavedState) {
+			SavedState savedState = (SavedState) state;
+			validateOnValueChange(savedState.validateOnValueChange);
+			validateOnFocusLost(savedState.validateOnFocusLost);
+			super.onRestoreInstanceState(savedState.getSuperState());
+		} else {
+			super.onRestoreInstanceState(state);
+		}
 	}
 
 }
