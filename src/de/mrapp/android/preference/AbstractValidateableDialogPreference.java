@@ -6,6 +6,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.validation.AbstractValidateableView;
 import de.mrapp.android.validation.Validateable;
@@ -36,16 +38,27 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	private ViewType view;
 
 	/**
-	 * The method, which is invoked on subclasses when the preference's dialog
-	 * is about to be created. This method must be overridden by subclasses in
-	 * order to return the view, which should be contained by the preference's
-	 * dialog.
+	 * The method, which is invoked on subclasses in order to retrieve the view,
+	 * which should be contained by the preference's dialog.
 	 * 
 	 * @return The view, which should be contained by the preferences dialog, as
 	 *         an instance of the generic type ViewType. The view may not be
 	 *         null
 	 */
 	protected abstract ViewType onCreateView();
+
+	/**
+	 * The method, which is invoked on subclasses when the preference's dialog
+	 * is about to be created. The builder, which is passed as a method
+	 * parameter may be manipulated by subclasses in order to change the
+	 * appearance of the dialog.
+	 * 
+	 * @param dialogBuilder
+	 *            The builder, which is used to create the preference's dialog,
+	 *            as an instance of the class {@link MaterialDialogBuilder}
+	 */
+	protected abstract void onPrepareValidateableDialog(
+			final MaterialDialogBuilder dialogBuilder);
 
 	/**
 	 * Returns the view, which is contained by the preference's dialog.
@@ -215,11 +228,17 @@ public abstract class AbstractValidateableDialogPreference<ViewType extends Abst
 	}
 
 	@Override
+	protected final View onCreateView(final ViewGroup parent) {
+		view = onCreateView();
+		return super.onCreateView(parent);
+	}
+
+	@Override
 	protected final void onPrepareDialog(
 			final MaterialDialogBuilder dialogBuilder) {
 		dialogBuilder.addValidator(this);
-		view = onCreateView();
 		dialogBuilder.setView(view);
+		onPrepareValidateableDialog(dialogBuilder);
 	}
 
 }
