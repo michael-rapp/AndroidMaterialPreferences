@@ -399,11 +399,6 @@ public abstract class AbstractNumberPickerPreference extends
 	}
 
 	@Override
-	protected final boolean onValidate() {
-		return true;
-	}
-
-	@Override
 	protected final boolean needInputMethod() {
 		return isInputMethodUsed();
 	}
