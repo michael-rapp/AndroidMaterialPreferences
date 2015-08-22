@@ -34,6 +34,8 @@ import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validators;
 
+import static de.mrapp.android.preference.util.Condition.ensureAtLeast;
+
 /**
  * A preference, which allows to enter a two-dimensional image or video
  * resulution via two {@link EditText} widgets. The entered resolution will only
@@ -117,6 +119,16 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	};
 
 	/**
+	 * The default width of the preference's resolution.
+	 */
+	private static final int DEFAULT_WIDTH = 1;
+
+	/**
+	 * The default height of the preference's resolution.
+	 */
+	private static final int DEFAULT_HEIGHT = 1;
+
+	/**
 	 * The regular expression, which is used to ensure, that a dimension of a
 	 * resolution is at least 1.
 	 */
@@ -155,12 +167,16 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void initialize(final AttributeSet attributeSet) {
+		obtainStyledAttributes(attributeSet);
+		String resolution = getPersistedString(formatResolution(getContext(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
+		Pair<Integer, Integer> dimensions = parseResolution(getContext(), resolution);
+		setWidth(dimensions.first);
+		setHeight(dimensions.second);
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 		addValidator(Validators.notEmpty(getContext(), R.string.resolution_not_empty_error_message));
 		addValidator(Validators.number(getContext(), R.string.resolution_number_error_message));
 		addValidator(Validators.regex(getContext(), R.string.resolution_min_value_error_message, MIN_VALUE_REGEX));
-		obtainStyledAttributes(attributeSet);
 	}
 
 	/**
@@ -344,6 +360,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 *            The width, which should be set, as an {@link Integer} value
 	 */
 	public final void setWidth(final int width) {
+		ensureAtLeast(width, 1, "The width must be at least 1");
 		this.width = width;
 		persistString(formatResolution(getContext(), getWidth(), getHeight()));
 	}
@@ -367,6 +384,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 *            The height, which should be set, as an {@link Integer} value
 	 */
 	public final void setHeight(final int height) {
+		ensureAtLeast(height, 1, "The height must be at least 1");
 		this.height = height;
 		persistString(formatResolution(getContext(), getWidth(), getHeight()));
 	}
@@ -393,6 +411,19 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 */
 	public final void setUnit(final CharSequence unit) {
 		this.unit = unit;
+	}
+
+	/**
+	 * Sets the unit of the resolution, which should be shown in the
+	 * preference's dialog.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the unit, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
+	 */
+	public final void setUnit(final int resourceId) {
+		setUnit(getContext().getText(resourceId));
 	}
 
 	@Override
@@ -468,7 +499,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		String value = restoreValue ? getPersistedString(formatResolution(getContext(), getWidth(), getHeight()))
+		String value = restoreValue ? getPersistedString(formatResolution(getContext(), DEFAULT_WIDTH, DEFAULT_HEIGHT))
 				: (String) defaultValue;
 		Pair<Integer, Integer> resolution = parseResolution(getContext(), value);
 		setWidth(resolution.first);
