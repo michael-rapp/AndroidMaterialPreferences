@@ -57,5 +57,8 @@ License along with this program. If not, see
     <declare-styleable name="DigitPickerPreference">
         <attr name="numberOfDigits" format="integer" />
     </declare-styleable>
+    <declare-styleable name="ResolutionPreference">
+        <attr name="unit" format="string" />
+    </declare-styleable>
 
 </resources>
