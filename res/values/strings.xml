@@ -19,7 +19,10 @@ License along with this program. If not, see
 -->
 <resources>
 
-    <dimen name="digit_picker_width">32dp</dimen>
-    <dimen name="resolution_edit_text_width">96dp</dimen>
+    <string name="resolution_preference_separator">x</string>
+    <string name="resolution_preference_unit">pixels</string>
+    <string name="resolution_not_empty_error_message">May not be empty</string>
+    <string name="resolution_number_error_message">Must be a number</string>
+    <string name="resolution_min_value_error_message">Must be at least 1</string>
 
 </resources>
