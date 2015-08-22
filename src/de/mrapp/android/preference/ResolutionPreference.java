@@ -357,7 +357,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 * value, it will be persisted.
 	 * 
 	 * @param width
-	 *            The width, which should be set, as an {@link Integer} value
+	 *            The width, which should be set, as an {@link Integer} value.
+	 *            The width must be at least 1
 	 */
 	public final void setWidth(final int width) {
 		ensureAtLeast(width, 1, "The width must be at least 1");
@@ -381,7 +382,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 * value, it will be persisted.
 	 * 
 	 * @param height
-	 *            The height, which should be set, as an {@link Integer} value
+	 *            The height, which should be set, as an {@link Integer} value.
+	 *            The height must be at least 1
 	 */
 	public final void setHeight(final int height) {
 		ensureAtLeast(height, 1, "The height must be at least 1");
