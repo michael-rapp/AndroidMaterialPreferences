@@ -58,6 +58,11 @@
                         <li><a href="content.html#digit-picker-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#digit-picker-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+	            <li><a href="content.html#resolution-preference">ResolutionPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#resolution-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#resolution-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
                     <li><a href="content.html#validating-preferences">Validating preferences</a></li>
                 </ol>
 
@@ -653,7 +658,70 @@
                     </tr>
                 </table>
 
-		<h4><a name="validating-preferences">8 Validating preferences</a></h4>
+		<h4><a name="resolution-preference">8 ResolutionPreference</a></h4>
+
+                <p>The purpose of the preference <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> is to enter two-dimensional image or video resolutions. It contains two <a href="http://developer.android.com/reference/android/widget/EditText.html" target="_blank" class="code">EditText</a> widgets, which allow to enter the width and height of the resolution. Both widgets are already validated by default in order to ensure, that they contain numbers, which are greater than 0. The resolution of a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> is stored as a textual representation using the syntax <i>&lt;width&gt;x&lt;height&gt;</i>. Such a textual representation can be easily created by using the static method <tt>formatResolution(Context,int,int):String</tt>. When retrieving the stored resolution from the shared preferences, the width and height of the resolution can be retrieved by using the static method <tt>parseResolution(Context,String):Pair</tt>. This method returns an instance of the class <a href="http://developer.android.com/reference/android/util/Pair.html" target="_blank" class="code">Pair</a>, which contains two integer values. The first one represents the resolution's width, the second one represents the height.</p>
+
+		<h5><a name="resolution-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The getter and setter methods shown below can be used to change the properties of a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a>.</p>
+
+		<table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is shown in the preference's dialog.</td>
+                        <td><center><tt>R.string.resolution_preference_unit</tt></center></td>
+                        <td>If the unit is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getWidth():int</br>setWidth(int):void</tt></td>
+                        <td>Returns or sets the width of the preference's resolution. If a width is set, it is instantly persisted.</td>
+                        <td><center>1</center></td>
+                        <td>The width must be at least 1.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getWidth():int</br>setWidth(int):void</tt></td>
+                        <td>Returns or sets the height of the preference's resolution. If a height is set, it is instantly persisted.</td>
+                        <td><center>1</center></td>
+                        <td>The height must be at least 1.</td>
+                    </tr>
+                </table>
+
+                <h5><a name="resolution-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>Instead of the setter methods shown above, the following XML attributes can be used in order to set the properties of a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a>.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>R.string.resolution_preference_unit</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>The default resolution of the preference.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>1x1</tt></td>
+                        <td>Must be a valid textual representation of a resolution.</td>
+                    </tr>
+                </table>
+
+		<h4><a name="validating-preferences">9 Validating preferences</a></h4>
 
 		<p>Some preferences, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, can be validated and therefore are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The validation is performed according to so called <i>validators</i>, which can be added to the preference by using the following methods. If the validation fails, an error message will be prompted and the preference's dialog will refuse to be closed in order to ensure, that no invalid values can be stored.</p>
 
@@ -776,7 +844,9 @@
 
                 <div class="reference"><a name="reference5" class="reference">[5]</a><a href="http://www.google.com/design/spec/material-design/introduction.html" target="_blank">http://www.google.com/design/spec/material-design/introduction.html</a> &#150; Material Design guidelines</div>
 
-		<div class="reference"><a name="reference6" class="reference">[6]</a><a href="http://developer.android.com/reference/android/widget/NumberPicker.html" taget="_blank">http://developer.android.com/reference/android/widget/NumberPicker.html</a> &#150; Class NumberPicker</div>
+		<div class="reference"><a name="reference6" class="reference">[6]</a><a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank">http://developer.android.com/reference/android/widget/NumberPicker.html</a> &#150; Class NumberPicker</div>
+
+		<div class="reference"><a name="reference7" class="reference">[7]</a><a href="http://developer.android.com/reference/android/util/Pair.html" target="_blank">http://developer.android.com/reference/android/util/Pair.html</a> &#150; Class Pair</div>
             </div>
 
             <div class="copyright">
