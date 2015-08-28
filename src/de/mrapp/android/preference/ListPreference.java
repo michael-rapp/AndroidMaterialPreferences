@@ -96,8 +96,7 @@ public class ListPreference extends AbstractDialogPreference {
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeString(value);
 		}
@@ -150,8 +149,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.ListPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.ListPreference);
 		try {
 			obtainEntries(typedArray);
 			obtainEntryValues(typedArray);
@@ -169,8 +167,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainEntries(final TypedArray typedArray) {
-		CharSequence[] obtainedEntries = typedArray
-				.getTextArray(R.styleable.ListPreference_android_entries);
+		CharSequence[] obtainedEntries = typedArray.getTextArray(R.styleable.ListPreference_android_entries);
 
 		if (obtainedEntries != null) {
 			setEntries(obtainedEntries);
@@ -186,8 +183,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainEntryValues(final TypedArray typedArray) {
-		CharSequence[] obtainedEntryValues = typedArray
-				.getTextArray(R.styleable.ListPreference_android_entryValues);
+		CharSequence[] obtainedEntryValues = typedArray.getTextArray(R.styleable.ListPreference_android_entryValues);
 
 		if (obtainedEntryValues != null) {
 			setEntryValues(obtainedEntryValues);
@@ -228,8 +224,7 @@ public class ListPreference extends AbstractDialogPreference {
 			@Override
 			public void onClick(final DialogInterface dialog, final int which) {
 				selectedIndex = which;
-				ListPreference.this.onClick(dialog,
-						DialogInterface.BUTTON_POSITIVE);
+				ListPreference.this.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
 				dialog.dismiss();
 			}
 		};
@@ -278,8 +273,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public ListPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public ListPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -306,8 +300,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public ListPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
+	public ListPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
@@ -328,7 +321,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 * 
 	 * @param entries
 	 *            The entries, which should be set, as an {@link CharSequence}
-	 *            array or null, if no entries should be set
+	 *            array. The entries may not be null
 	 */
 	public final void setEntries(final CharSequence[] entries) {
 		ensureNotNull(entries, "The entries may not be null");
@@ -364,8 +357,8 @@ public class ListPreference extends AbstractDialogPreference {
 	 * 
 	 * @param entryValues
 	 *            The values, which should be set, as a {@link CharSequence}
-	 *            array or null, if no values should be set. The array's length
-	 *            must be equal to the number of list items
+	 *            array. The values may not be null and the array's length must
+	 *            be equal to the number of list items
 	 */
 	public final void setEntryValues(final CharSequence[] entryValues) {
 		ensureNotNull(entryValues, "The entry values may not be null");
@@ -452,10 +445,8 @@ public class ListPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final void onSetInitialValue(final boolean restoreValue,
-			final Object defaultValue) {
-		setValue(restoreValue ? getPersistedString(value)
-				: (String) defaultValue);
+	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
+		setValue(restoreValue ? getPersistedString(value) : (String) defaultValue);
 	}
 
 	@Override
@@ -464,11 +455,9 @@ public class ListPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		selectedIndex = indexOf(value);
-		dialogBuilder.setSingleChoiceItems(entries, selectedIndex,
-				createListItemListener());
+		dialogBuilder.setSingleChoiceItems(entries, selectedIndex, createListItemListener());
 	}
 
 	@Override
