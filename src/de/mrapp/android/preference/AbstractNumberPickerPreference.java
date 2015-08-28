@@ -33,8 +33,7 @@ import android.util.AttributeSet;
  * 
  * @since 1.1.0
  */
-public abstract class AbstractNumberPickerPreference extends
-		AbstractDialogPreference {
+public abstract class AbstractNumberPickerPreference extends AbstractDialogPreference {
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -64,6 +63,11 @@ public abstract class AbstractNumberPickerPreference extends
 		 * The saved value of the attribute "number".
 		 */
 		public int number;
+
+		/**
+		 * The saved value of the attribute "defaultNumber".
+		 */
+		public int defaultNumber;
 
 		/**
 		 * The saved value of the attribute "useInputMethod".
@@ -101,15 +105,16 @@ public abstract class AbstractNumberPickerPreference extends
 		public SavedState(final Parcel source) {
 			super(source);
 			number = source.readInt();
+			defaultNumber = source.readInt();
 			useInputMethod = source.readInt() > 0;
 			wrapSelectorWheel = source.readInt() > 0;
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeInt(number);
+			destination.writeInt(defaultNumber);
 			destination.writeInt(useInputMethod ? 1 : 0);
 			destination.writeInt(wrapSelectorWheel ? 1 : 0);
 		}
@@ -173,8 +178,8 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.AbstractNumberPickerPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractNumberPickerPreference);
 		try {
 			obtainDefaultNumber(typedArray);
 			obtainUseInputMethod(typedArray);
@@ -192,10 +197,8 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainDefaultNumber(final TypedArray typedArray) {
-		defaultNumber = typedArray
-				.getInteger(
-						R.styleable.AbstractNumberPickerPreference_android_defaultValue,
-						DEFAULT_NUMBER);
+		defaultNumber = typedArray.getInteger(R.styleable.AbstractNumberPickerPreference_android_defaultValue,
+				DEFAULT_NUMBER);
 	}
 
 	/**
@@ -208,8 +211,7 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            class {@link TypedArray}
 	 */
 	private void obtainUseInputMethod(final TypedArray typedArray) {
-		useInputMethod(typedArray.getBoolean(
-				R.styleable.AbstractNumberPickerPreference_useInputMethod,
+		useInputMethod(typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_useInputMethod,
 				DEFAULT_USE_INPUT_METHOD));
 	}
 
@@ -225,8 +227,7 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            {@link TypedArray}
 	 */
 	private void obtainWrapSelectorWheel(final TypedArray typedArray) {
-		wrapSelectorWheel(typedArray.getBoolean(
-				R.styleable.AbstractNumberPickerPreference_wrapSelectorWheel,
+		wrapSelectorWheel(typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_wrapSelectorWheel,
 				DEFAULT_WRAP_SELECTOR_WHEEL));
 	}
 
@@ -254,8 +255,7 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            The attributes of the XML tag that is inflating the
 	 *            preference, as an instance of the type {@link AttributeSet}
 	 */
-	public AbstractNumberPickerPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public AbstractNumberPickerPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
 		initialize(attributeSet);
 	}
@@ -277,8 +277,8 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public AbstractNumberPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public AbstractNumberPickerPreference(final Context context, final AttributeSet attributeSet,
+			final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -306,9 +306,8 @@ public abstract class AbstractNumberPickerPreference extends
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public AbstractNumberPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
-			final int defaultStyleResource) {
+	public AbstractNumberPickerPreference(final Context context, final AttributeSet attributeSet,
+			final int defaultStyle, final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
 	}
@@ -404,14 +403,12 @@ public abstract class AbstractNumberPickerPreference extends
 	}
 
 	@Override
-	protected final Object onGetDefaultValue(final TypedArray typedArray,
-			final int index) {
+	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
 		return typedArray.getInt(index, DEFAULT_NUMBER);
 	}
 
 	@Override
-	protected final void onSetInitialValue(final boolean restoreValue,
-			final Object defaultValue) {
+	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
 		if (restoreValue) {
 			setNumber(getPersistedInt(DEFAULT_NUMBER));
 		} else {
@@ -424,6 +421,7 @@ public abstract class AbstractNumberPickerPreference extends
 		Parcelable parcelable = super.onSaveInstanceState();
 		SavedState savedState = new SavedState(parcelable);
 		savedState.number = getNumber();
+		savedState.defaultNumber = getDefaultNumber();
 		savedState.useInputMethod = isInputMethodUsed();
 		savedState.wrapSelectorWheel = isSelectorWheelWrapped();
 		return savedState;
@@ -434,6 +432,7 @@ public abstract class AbstractNumberPickerPreference extends
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			number = savedState.number;
+			defaultNumber = savedState.defaultNumber;
 			useInputMethod = savedState.useInputMethod;
 			wrapSelectorWheel = savedState.wrapSelectorWheel;
 			super.onRestoreInstanceState(savedState.getSuperState());
