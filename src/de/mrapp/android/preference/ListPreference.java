@@ -332,7 +332,7 @@ public class ListPreference extends AbstractDialogPreference {
 	 * Sets the entries of the list, which is shown by the preference.
 	 * 
 	 * @param resourceId
-	 *            The resource id of entries, which should be set, as an
+	 *            The resource id of the entries, which should be set, as an
 	 *            {@link Integer} value. The resource id must correspond to a
 	 *            valid array resource
 	 */
