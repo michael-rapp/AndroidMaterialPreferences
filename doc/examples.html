@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <title>AndroidMaterialPreferences &#150; Documentation: Examples</title>
+        <link rel=stylesheet type=text/css href=style.css />
+        <link rel="icon" type="image/png" href="images/favicon.png" />
+    </head>
+    
+    <body>
+        <div class="content">
+            <div class="header">
+                <h1>AndroidMaterialPreferences &#150; Documentation</h1>
+                <h2>Documentation of the Android-library "AndroidMaterialPreferences".</h2>
+            </div>
+
+            <div class="navigation">
+                <div class="navigation-item"><a href="index.html">GENERAL</a></div>
+                <div class="navigation-item"><a href="content.html">CONTENT</a></div>
+                <div class="navigation-item-selected"><a href="examples.html">EXAMPLES</a></div>
+            </div>
+
+            <div class="text">
+                 <h3>Examples</h3>
+
+                 <p>The examples, which are shown in this chapter of the documentation, provide a quick overview about how to use the library "AndroidMaterialPreferences". This includes the necessary setup steps, as well as source code examples, which demonstrate the use of the library.</p>
+
+                 <h4>Project setup</h4>
+
+                 <p>Before the library "AndroidMaterialPreferences" can be used, its source code must be retrieved. The latest release can be downloaded as a zip archive via the direct link <a href="https://sourceforge.net/p/androidmaterialpreferences/files">https://sourceforge.net/p/androidmaterialpreferences/files</a>. Alternatively, the Mercurial repository, which hosts the project's source code, can be cloned by using the following command line command:</p>
+
+                <div class="code-block">hg clone http://hg.code.sf.net/p/androidmaterialpreferences/code androidmaterialpreferences-code</div>
+                
+                <p>To use the library within an Android project, the downloaded source code has to be imported into the workspace of the appropriate IDE. When using Eclipse, the source code can be added as a new project by using the option "File" -> "Import..." -> "Android" -> "Existing Android Code Into Workspace".</p>
+
+                <p>To be able to use the newly imported library project from within another project, a reference to the library project has to be created. This can be established in the Eclipse IDE by right-clicking the dependent project and choosing the option "Properties". Then the group "Android" at the left of the recently opened window has to be chosen. Finally, the button "Add..." has to be clicked to add the library project as a new dependency. For further information about how to reference an Android library project, refer to <a href="http://developer.android.com/tools/projects/projects-eclipse.html#ReferencingLibraryProject">this</a> article of the official Android developer documentation.</p>
+
+                <p>As the library depends on the AppCompat v7 revision 21 support library in order to provide Android 5.0-features on devices with an API level less than 21, this support library or a newer one has to be added to the library's workspace as well. A detailed explaination about how to import this support library can be found in <a href="https://developer.android.com/tools/support-library/setup.html">this</a> article of the Android developer documentation. Additional dependencies are the library "AndroidMaterialDialog", which can be found <a href="https://sourceforge.net/p/androidmaterialdialog">here</a>, and the library "AndroidMaterialValidation", which can be downloaded <a href="https://sourceforge.net/p/androidmaterialvalidation">here</a>. These libraries must also be imported into the workspace and added to the library project as a dependency.</p>
+
+                <h4>Declaring a SeekBarPreference via XML</h4>
+                
+                <p>The XML code below shows how to declare a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> as a XML resource. The example contains all of the preference's custom attributes.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.SeekBarPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"33.336"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/seek_bar_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/seek_bar_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/seek_bar_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:max=<font color='#2a00ff'>"150"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/seek_bar_preference_summaries"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/seek_bar_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:decimals=<font color='#2a00ff'>"2"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:floatingPointSeparator=<font color='#2a00ff'>"."</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:min=<font color='#2a00ff'>"25"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showProgress=<font color='#2a00ff'>"true"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:suffix=<font color='#2a00ff'>"Unit"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <p>The value of the attribute <tt>android:summary</tt> can be set to the resource ID of a string or of a string array. All values, which are defined by using resource IDs in the example above, can also be defined by directly assigning the required value.</p>
+
+                <h4>Instantiating a SeekBarPreference programatically</h4>
+
+                <p>The Java code below shows how a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> can be initialized programmatically. The attributes, which are configured by using the preference's setter methods, are the same as shown in the previous example.</p>
+
+                <div class="code-block">SeekBarPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;SeekBarPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(33.336f);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.seek_bar_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.seek_bar_preference_dialog_title);
+<br/>preference.setKey(R.string.seek_bar_preference_key);
+<br/>preference.setMaxValue(150);
+<br/>preference.setSummaries(R.array.seek_bar_preference_summaries);
+<br/>preference.setTitle(R.string.seek_bar_preference_title);
+<br/>preference.setDecimals(2);
+<br/>preference.setFloatingPointSeparator(<font color='#2a00ff'>"."</font>);
+<br/>preference.setMinValue(25);
+<br/>preference.showProgress(<strong><font color='#7f0055'>true</font></strong>);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);
+<br/>preference.setSuffix(<font color='#2a00ff'>"Unit"</font>);</div>
+
+                <p>As seen above, the values of all <tt>String</tt> attributes can either be assigned by directly passing a <tt>String</tt> reference to the appropriate setter method, or by passing the resource ID of a String resource.</p>
+
+                <h4>Declaring an EditTextPreference via XML</h4>
+                
+                <p>The example below shows how the attributes of an <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> can be specified when the preference is declared using a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.EditTextPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"DefaultText"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/edit_text_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/edit_text_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/edit_text_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@string/edit_text_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/edit_text_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating an EditTextPreference programatically</h4>
+
+                <p>The code below illustrates how to instantiate an <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> in a programmatically mannor. The preferences configuration is equal to the one, which has been shown in the previous example.</p>
+
+                <div class="code-block">EditTextPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;EditTextPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(<font color='#2a00ff'>"DefaultText"</font>);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.edit_text_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.edit_text_preference_dialog_title);
+<br/>preference.setKey(R.string.edit_text_preference_key);
+<br/>preference.setSummary(R.string.edit_text_preference_summary);
+<br/>preference.setTitle(R.string.edit_text_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+                <h4>Declaring a ListPreference via XML</h4>
+                
+                <p>The following example illustrates how the attributes of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> can be specified, if the preference should be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.ListPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=0
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:entries=<font color='#2a00ff'>"R.array.list_preference_entries"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:entryValues=<font color='#2a00ff'>"R.array.list_preference_entry_values"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/list_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/list_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/list_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/list_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/list_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a ListPreference programatically</h4>
+
+                <p>The following code shows how to programmatically instantiate a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a>.</p>
+
+                <div class="code-block">ListPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;ListPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(<font color='#2a00ff'>"0"</font>);
+<br/>preference.setEntries(R.array.list_preference_entries);
+<br/>preference.setEntryValues(R.array.list_preference_entry_values);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.list_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.list_preference_dialog_title);
+<br/>preference.setKey(R.string.list_preference_key);
+<br/>preference.setSummary(R.string.list_preference_summary);
+<br/>preference.setTitle(R.string.list_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+                <h4>Declaring a NumberPickerPreference via XML</h4>
+                
+                <p>The following example illustrates how the attributes of a <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> can be specified, if the preference should be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.NumberPickerPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"25"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:minNumber=<font color='#2a00ff'>"0"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:maxNumber=<font color='#2a00ff'>"100"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:useInputMethod=<font color='#2a00ff'>"true"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:wrapSelectorWheel=<font color='#2a00ff'>"false"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/number_picker_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/number_picker_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/number_picker_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/number_picker_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/number_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a NumberPickerPreference programatically</h4>
+
+                <p>The following code shows how to programmatically instantiate a <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a>.</p>
+
+                <div class="code-block">NumberPickerPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;NumberPickerPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(25);
+<br/>preference.setMinNumber(0);
+<br/>preference.setMaxNumber(100);
+<br/>preference.useInputMethod(true);
+<br/>preference.wrapSelectorWheel(false);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.number_picker_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.number_picker_preference_dialog_title);
+<br/>preference.setKey(R.string.number_picker_preference_key);
+<br/>preference.setSummary(R.string.number_picker_preference_summary);
+<br/>preference.setTitle(R.string.number_picker_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+                <h4>Declaring a DigitPickerPreference via XML</h4>
+                
+                <p>The following example illustrates how the attributes of a <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> can be specified, if the preference should be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.DigitPickerPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"25"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:numberOfDigits=<font color='#2a00ff'>"2"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:useInputMethod=<font color='#2a00ff'>"true"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:wrapSelectorWheel=<font color='#2a00ff'>"false"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/digit_picker_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/digit_picker_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/digit_picker_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/digit_picker_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/digit_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a DigitPickerPreference programatically</h4>
+
+                <p>The following code shows how to programmatically instantiate a <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a>.</p>
+
+                <div class="code-block">DigitPickerPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;DigitPickerPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(25);
+<br/>preference.setNumberOfDigits(2);
+<br/>preference.useInputMethod(true);
+<br/>preference.wrapSelectorWheel(false);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.digit_picker_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.digit_picker_preference_dialog_title);
+<br/>preference.setKey(R.string.digit_picker_preference_key);
+<br/>preference.setSummary(R.string.digit_picker_preference_summary);
+<br/>preference.setTitle(R.string.digit_picker_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+                <h4>Declaring a ResolutionPreference via XML</h4>
+                
+                <p>The following XML code shows how a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> can be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.ResolutionPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"1024x768"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>@string/resolution_preference_unit</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/resolution_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/resolution_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/resolution_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/resolution_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/resolution_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a ResolutionPreference programatically</h4>
+
+                <p>The following example shows how a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> can be instantiated programmatically.</p>
+
+                <div class="code-block">ResolutionPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;ResolutionPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(ResolutionPreference.<i>formatResolution</i>(<strong><font color='#7f0055'>this</font></strong>, 1024, 768));
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.resolution_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.resolution_preference_dialog_title);
+<br/>preference.setKey(R.string.resolution_preference_key);
+<br/>preference.setSummary(R.string.resolution_preference_summary);
+<br/>preference.setTitle(R.string.resolution_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+                <h4>External references:</h4>
+
+                <div class="reference"><a name="reference1" class="reference">[1]</a><a href="http://developer.android.com/tools/projects/projects-eclipse.html" target="_blank">http://developer.android.com/tools/projects/projects-eclipse.html</a> &#150; Managing Projects from Eclipse with ADT</div>
+                <div class="reference"><a name="reference2" class="reference">[2]</a><a href="https://developer.android.com/tools/support-library/setup.html" target="_blank">https://developer.android.com/tools/support-library/setup.html</a> &#150; Support Library Setup</div>
+            </div>
+
+            <div class="copyright">
+                &#169; Copyright 2014 - 2015, Michael Rapp. All rights reserved.
+            </div>
+        </div>
+    </body>
+</html>

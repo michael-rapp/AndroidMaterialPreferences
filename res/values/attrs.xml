@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the GNU Lesser General Public License as published 
+by the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public 
+License along with this program. If not, see
+<http://www.gnu.org/licenses/>. 
+-->
+<resources>
+
+    <declare-styleable name="AbstractDialogPreference">
+        <attr name="android:dialogTitle" />
+        <attr name="android:dialogMessage" />
+        <attr name="android:dialogIcon" />
+        <attr name="android:positiveButtonText" />
+        <attr name="android:negativeButtonText" />
+        <attr name="dialogTitleColor" format="color|reference" />
+        <attr name="dialogButtonTextColor" format="color|reference" />
+        <attr name="showValueAsSummary" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="ListPreference">
+        <attr name="android:entries" />
+        <attr name="android:entryValues" />
+    </declare-styleable>
+    <declare-styleable name="SeekBarPreference">
+        <attr name="android:max" />
+        <attr name="android:summary" />
+        <attr name="android:defaultValue" />
+        <attr name="showProgress" format="boolean" />
+        <attr name="min" format="integer" />
+        <attr name="decimals" format="integer" />
+        <attr name="suffix" format="string" />
+        <attr name="floatingPointSeparator" format="string" />
+        <attr name="stepSize" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="AbstractNumberPickerPreference">
+        <attr name="android:defaultValue" />
+        <attr name="useInputMethod" format="boolean" />
+        <attr name="wrapSelectorWheel" format="boolean" />
+        <attr name="defaultNumber" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="NumberPickerPreference">
+        <attr name="minNumber" format="integer" />
+        <attr name="maxNumber" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="DigitPickerPreference">
+        <attr name="numberOfDigits" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="ResolutionPreference">
+        <attr name="unit" format="string" />
+    </declare-styleable>
+
+</resources>
