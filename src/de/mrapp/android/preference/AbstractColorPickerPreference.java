@@ -250,7 +250,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link AbstractNumberPickerPreference}. This constructor
+		 * state of an {@link AbstractColorPickerPreference}. This constructor
 		 * is called by derived classes when saving their states.
 		 * 
 		 * @param superState
@@ -263,7 +263,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link AbstractNumberPickerPreference}. This constructor
+		 * state of an {@link AbstractColorPickerPreference}. This constructor
 		 * is used when reading from a parcel. It reads the state of the
 		 * superclass.
 		 * 
