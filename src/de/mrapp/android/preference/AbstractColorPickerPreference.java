@@ -1,0 +1,982 @@
+/*
+ * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+ *
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU Lesser General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or 
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public 
+ * License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>. 
+ */
+package de.mrapp.android.preference;
+
+import static de.mrapp.android.preference.util.Condition.ensureAtLeast;
+import static de.mrapp.android.preference.util.Condition.ensureNotNull;
+
+import java.util.Locale;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.AttributeSet;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import de.mrapp.android.preference.util.BitmapUtil;
+import de.mrapp.android.preference.util.DisplayUtil;
+
+/**
+ * An abstract base class for all preferences, which allow to choose a color.
+ * 
+ * @author Michael Rapp
+ * 
+ * @since 1.4.0
+ */
+public abstract class AbstractColorPickerPreference extends AbstractDialogPreference {
+
+	/**
+	 * The formats, which are supported to print textual representations of
+	 * colors.
+	 */
+	public enum ColorFormat {
+
+		/**
+		 * Formats the color by printing its red, green and blue components.
+		 */
+		RGB(0),
+
+		/**
+		 * Formats the color by printing its alpha, red, green and blue
+		 * components.
+		 */
+		ARGB(1),
+
+		/**
+		 * Formats the color as a hexadecimal string, consisting of three bytes.
+		 */
+		HEX_3_BYTES(2),
+
+		/**
+		 * Formats the color as a hexadecimal string, consisting of four bytes,
+		 * including its alpha component.
+		 */
+		HEX_4_BYTES(3);
+
+		/**
+		 * The value of the format.
+		 */
+		private final int value;
+
+		/**
+		 * Creates a new format.
+		 * 
+		 * @param value
+		 *            The value of the format as an {@link Integer} value
+		 */
+		private ColorFormat(final int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Returns the value of the format.
+		 * 
+		 * @return The value of the format as an {@link Integer} value
+		 */
+		public final int getValue() {
+			return value;
+		}
+
+		/**
+		 * Returns the format, which corresponds to a specific value.
+		 * 
+		 * @param value
+		 *            The value of the format, which should be returned, as an
+		 *            {@link Integer} value
+		 * @return The format, which corresponds to the given value, as an
+		 *         instance of the enum {@link ColorFormat}
+		 */
+		public static ColorFormat fromValue(final int value) {
+			for (ColorFormat format : values()) {
+				if (format.getValue() == value) {
+					return format;
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid enum value");
+		}
+
+	};
+
+	/**
+	 * Contains all shapes, which can be used to show previews of colors.
+	 */
+	public enum PreviewShape {
+
+		/**
+		 * If the preview is shaped as a circle.
+		 */
+		CIRCLE(0),
+
+		/**
+		 * If the preview is shaped as a square.
+		 */
+		SQUARE(1);
+
+		/**
+		 * The value of the shape.
+		 */
+		private final int value;
+
+		/**
+		 * Creates a new shape.
+		 * 
+		 * @param value
+		 *            The value of the shape as an {@link Integer} value
+		 */
+		private PreviewShape(final int value) {
+			this.value = value;
+		}
+
+		/**
+		 * Returns the value of the shape.
+		 * 
+		 * @return The value of the shape as an {@link Integer} value
+		 */
+		public final int getValue() {
+			return value;
+		}
+
+		/**
+		 * Returns the shape, which corresponds to a specific value.
+		 * 
+		 * @param value
+		 *            The value of the shape, which should be returned, as an
+		 *            {@link Integer} value
+		 * @return The shape, which corresponds to the given value, as an
+		 *         instance of the enum {@link PreviewShape}
+		 */
+		public static PreviewShape fromValue(final int value) {
+			for (PreviewShape shape : values()) {
+				if (shape.getValue() == value) {
+					return shape;
+				}
+			}
+
+			throw new IllegalArgumentException("Invalid enum value");
+		}
+
+	};
+
+	/**
+	 * A data structure, which allows to save the internal state of an
+	 * {@link AbstractColorPickerPreference}.
+	 */
+	public static class SavedState extends BaseSavedState {
+
+		/**
+		 * A creator, which allows to create instances of the class
+		 * {@link SavedState} from parcels.
+		 */
+		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+
+			@Override
+			public SavedState createFromParcel(final Parcel in) {
+				return new SavedState(in);
+			}
+
+			@Override
+			public SavedState[] newArray(final int size) {
+				return new SavedState[size];
+			}
+
+		};
+
+		/**
+		 * The saved value of the attribute "color".
+		 */
+		public int color;
+
+		/**
+		 * The saved value of the attribute "defaultColor".
+		 */
+		public int defaultColor;
+
+		/**
+		 * The saved value of the attribute "showPreview".
+		 */
+		public boolean showPreview;
+
+		/**
+		 * The saved value of the attribute "previewSize".
+		 */
+		public int previewSize;
+
+		/**
+		 * The saved value of the attribute "previewShape".
+		 */
+		public PreviewShape previewShape;
+
+		/**
+		 * The saved value of the attribute "previewBorderWidth".
+		 */
+		public int previewBorderWidth;
+
+		/**
+		 * The saved value of the attribute "previewBorderColor".
+		 */
+		public int previewBorderColor;
+
+		/**
+		 * The saved value of the attribute "colorFormat".
+		 */
+		public ColorFormat colorFormat;
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of an {@link AbstractNumberPickerPreference}. This constructor
+		 * is called by derived classes when saving their states.
+		 * 
+		 * @param superState
+		 *            The state of the superclass of this view, as an instance
+		 *            of the type {@link Parcelable}
+		 */
+		public SavedState(final Parcelable superState) {
+			super(superState);
+		}
+
+		/**
+		 * Creates a new data structure, which allows to store the internal
+		 * state of an {@link AbstractNumberPickerPreference}. This constructor
+		 * is used when reading from a parcel. It reads the state of the
+		 * superclass.
+		 * 
+		 * @param source
+		 *            The parcel to read read from as a instance of the class
+		 *            {@link Parcel}
+		 */
+		public SavedState(final Parcel source) {
+			super(source);
+			color = source.readInt();
+			defaultColor = source.readInt();
+			showPreview = source.readInt() > 0;
+			previewSize = source.readInt();
+			previewShape = PreviewShape.fromValue(source.readInt());
+			previewBorderWidth = source.readInt();
+			previewBorderColor = source.readInt();
+			colorFormat = ColorFormat.fromValue(source.readInt());
+		}
+
+		@Override
+		public final void writeToParcel(final Parcel destination, final int flags) {
+			super.writeToParcel(destination, flags);
+			destination.writeInt(color);
+			destination.writeInt(defaultColor);
+			destination.writeInt(showPreview ? 1 : 0);
+			destination.writeInt(previewSize);
+			destination.writeInt(previewShape.getValue());
+			destination.writeInt(previewBorderWidth);
+			destination.writeInt(previewBorderColor);
+			destination.writeInt(colorFormat.getValue());
+		}
+
+	};
+
+	/**
+	 * The default color.
+	 */
+	protected static final int DEFAULT_COLOR = Color.TRANSPARENT;
+
+	/**
+	 * True, if a preview of the preference's color is shown by default, false
+	 * otherwise.
+	 */
+	protected static final boolean DEFAULT_SHOW_PREVIEW = true;
+
+	/**
+	 * The default size of the preview of the preference's color in dp.
+	 */
+	protected static final int DEFAULT_PREVIEW_SIZE = 38;
+
+	/**
+	 * The default shape of the preview of the preference's color.
+	 */
+	protected static final PreviewShape DEFAULT_PREVIEW_SHAPE = PreviewShape.CIRCLE;
+
+	/**
+	 * The default border width of the preview of the preference's color in dp.
+	 */
+	protected static final int DEFAULT_PREVIEW_BORDER_WIDTH = 1;
+
+	/**
+	 * The default border color of the preview of the preference's color.
+	 */
+	protected static final int DEFAULT_PREVIEW_BORDER_COLOR = Color.parseColor("#ffd2d2d2");
+
+	/**
+	 * The resource id of the default background of the preview of the
+	 * preference's color.
+	 */
+	protected static final int DEFAULT_PREVIEW_BACKGROUND = R.drawable.color_picker_preview_background;
+
+	/**
+	 * The default format, which is used to print a textual representation of
+	 * the preference's color.
+	 */
+	protected static final ColorFormat DEFAULT_COLOR_FORMAT = ColorFormat.HEX_4_BYTES;
+
+	/**
+	 * The currently persisted color.
+	 */
+	private int color;
+
+	/**
+	 * The default color.
+	 */
+	private int defaultColor;
+
+	/**
+	 * True, if a preview of the preference's color is shown, false otherwise.
+	 */
+	private boolean showPreview;
+
+	/**
+	 * The size of the preview of the preference's color in pixels.
+	 */
+	private int previewSize;
+
+	/**
+	 * The shape of the preview of the preference's color.
+	 */
+	private PreviewShape previewShape;
+
+	/**
+	 * The border width of the preview of the preference's color in pixels.
+	 */
+	private int previewBorderWidth;
+
+	/**
+	 * The border color of the preview of the preference's color.
+	 */
+	private int previewBorderColor;
+
+	/**
+	 * The background of the preview of the preference's color.
+	 */
+	private Drawable previewBackground;
+
+	/**
+	 * The format, which is used to print a textual representation of the
+	 * preference's color.
+	 */
+	private ColorFormat colorFormat;
+
+	/**
+	 * The image view, which is used to show a preview of the preference's
+	 * color.
+	 */
+	private ImageView previewView;
+
+	/**
+	 * Initializes the preference.
+	 * 
+	 * @param attributeSet
+	 *            The attribute set, the attributes should be obtained from, as
+	 *            an instance of the type {@link AttributeSet}
+	 */
+	private void initialize(final AttributeSet attributeSet) {
+		obtainStyledAttributes(attributeSet);
+		setColor(getPersistedInt(defaultColor));
+	}
+
+	/**
+	 * Obtains all attributes from a specific attribute set.
+	 * 
+	 * @param attributeSet
+	 *            The attribute set, the attributes should be obtained from, as
+	 *            an instance of the type {@link AttributeSet}
+	 */
+	private void obtainStyledAttributes(final AttributeSet attributeSet) {
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractColorPickerPreference);
+		try {
+			obtainDefaultColor(typedArray);
+			obtainShowPreview(typedArray);
+			obtainPreviewSize(typedArray);
+			obtainPreviewShape(typedArray);
+			obtainPreviewBorderWidth(typedArray);
+			obtainPreviewBorderColor(typedArray);
+			obtainPreviewBackground(typedArray);
+			obtainColorFormat(typedArray);
+		} finally {
+			typedArray.recycle();
+		}
+	}
+
+	/**
+	 * Obtains the default color of the preference from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the default color should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainDefaultColor(final TypedArray typedArray) {
+		defaultColor = typedArray.getInteger(R.styleable.AbstractColorPickerPreference_android_defaultValue,
+				DEFAULT_COLOR);
+	}
+
+	/**
+	 * Obtains the boolean value, which specifies, whether a preview of the
+	 * preference's color should be shown, or not, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the boolean value should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainShowPreview(final TypedArray typedArray) {
+		showPreview(typedArray.getBoolean(R.styleable.AbstractColorPickerPreference_showPreview, DEFAULT_SHOW_PREVIEW));
+	}
+
+	/**
+	 * Obtains the size of the preview of the preference's color from a specific
+	 * typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the size should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainPreviewSize(final TypedArray typedArray) {
+		setPreviewSize(typedArray.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewSize,
+				DisplayUtil.convertDpToPixels(getContext(), DEFAULT_PREVIEW_SIZE)));
+	}
+
+	/**
+	 * Obtains the shape of the preview of the preference's color from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the shape should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainPreviewShape(final TypedArray typedArray) {
+		setPreviewShape(PreviewShape.fromValue(typedArray
+				.getInteger(R.styleable.AbstractColorPickerPreference_previewShape, DEFAULT_PREVIEW_SHAPE.getValue())));
+	}
+
+	/**
+	 * Obtains the border width of the preview of the preference's color from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the border width should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainPreviewBorderWidth(final TypedArray typedArray) {
+		setPreviewBorderWidth(
+				typedArray.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewBorderWidth,
+						DisplayUtil.convertDpToPixels(getContext(), DEFAULT_PREVIEW_BORDER_WIDTH)));
+	}
+
+	/**
+	 * Obtains the border color of the preview of the preference's color from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the border color should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainPreviewBorderColor(final TypedArray typedArray) {
+		setPreviewBorderColor(typedArray.getColor(R.styleable.AbstractColorPickerPreference_previewBorderColor,
+				DEFAULT_PREVIEW_BORDER_COLOR));
+	}
+
+	/**
+	 * Obtains the background of the preview of the preference's color from a
+	 * specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the background should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	@SuppressWarnings("deprecation")
+	private void obtainPreviewBackground(final TypedArray typedArray) {
+		int backgroundColor = typedArray.getColor(R.styleable.AbstractColorPickerPreference_previewBackground, -1);
+
+		if (backgroundColor != -1) {
+			setPreviewBackgroundColor(backgroundColor);
+		} else {
+			int resourceId = typedArray.getResourceId(R.styleable.AbstractColorPickerPreference_previewBackground,
+					DEFAULT_PREVIEW_BACKGROUND);
+			setPreviewBackground(getContext().getResources().getDrawable(resourceId));
+		}
+	}
+
+	/**
+	 * Obtains the format, which should be used to print a textual
+	 * representation of the preference's color, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the color format should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainColorFormat(final TypedArray typedArray) {
+		setColorFormat(ColorFormat.fromValue(typedArray
+				.getInteger(R.styleable.AbstractColorPickerPreference_colorFormat, DEFAULT_COLOR_FORMAT.getValue())));
+	}
+
+	/**
+	 * Creates and returns a textual representation of a color, according to a
+	 * specific format.
+	 * 
+	 * @param colorFormat
+	 *            The format, which should be used to format the color, as a
+	 *            value of the enum {@link ColorFormat}. The format may not be
+	 *            null
+	 * @param color
+	 *            The color, which should be formatted, as an {@link Integer}
+	 *            value
+	 * @return A textual representation of the given color as an instance of the
+	 *         type {@link CharSequence}
+	 */
+	private CharSequence formatColor(final ColorFormat colorFormat, final int color) {
+		ensureNotNull(colorFormat, "The color format may not be null");
+
+		if (colorFormat == ColorFormat.RGB) {
+			return String.format(Locale.getDefault(), "R = %d, G = %d, B = %d", Color.red(color), Color.green(color),
+					Color.blue(color));
+		} else if (colorFormat == ColorFormat.ARGB) {
+			return String.format(Locale.getDefault(), "A = %d, R = %d, G = %d, B = %d", Color.alpha(color),
+					Color.red(color), Color.green(color), Color.blue(color));
+		} else if (colorFormat == ColorFormat.HEX_3_BYTES) {
+			return String.format("#%06X", (0xFFFFFF & color));
+		} else {
+			return String.format("#%08X", (0xFFFFFFFF & color));
+		}
+	}
+
+	/**
+	 * Adapts the view, which is used to show a preview of the preference's
+	 * color, depending on the preference's properties and the currently
+	 * persisted color.
+	 */
+	private void adaptPreviewView() {
+		if (previewView != null) {
+			if (isPreviewShown()) {
+				previewView.setVisibility(View.VISIBLE);
+				previewView.setImageBitmap(createPreview());
+				previewView.setLayoutParams(createPreviewLayoutParams());
+			} else {
+				previewView.setVisibility(View.INVISIBLE);
+				previewView.setImageBitmap(null);
+			}
+		}
+	}
+
+	/**
+	 * Creates and returns the layout params of the view, which is used to show
+	 * a preview of the preference's color, depending on the preference's
+	 * properties.
+	 * 
+	 * @return The layout params, which have been created, as an instance of the
+	 *         class {@link LayoutParams}
+	 */
+	private LayoutParams createPreviewLayoutParams() {
+		LayoutParams layoutParams = new LayoutParams(getPreviewSize(), getPreviewSize());
+		layoutParams.gravity = Gravity.CENTER_VERTICAL;
+		return layoutParams;
+	}
+
+	/**
+	 * Creates a preview of the preference's color.
+	 * 
+	 * @return The preview, which has been created as an instance of the class
+	 *         {@link Bitmap}
+	 */
+	private Bitmap createPreview() {
+		Bitmap background = null;
+
+		if (getPreviewBackground() != null) {
+			Bitmap tile = BitmapUtil.convertDrawableToBitmap(getPreviewBackground());
+			background = BitmapUtil.createTiledBitmap(tile, getPreviewSize(), getPreviewSize());
+		} else {
+			background = Bitmap.createBitmap(getPreviewSize(), getPreviewSize(), Bitmap.Config.ARGB_8888);
+		}
+
+		background = BitmapUtil.tint(background, getColor());
+
+		if (getPreviewShape() == PreviewShape.CIRCLE) {
+			return BitmapUtil.clipCircle(background, getPreviewSize(), getPreviewBorderWidth(),
+					getPreviewBorderColor());
+		} else {
+			return BitmapUtil.clipSquare(background, getPreviewSize(), getPreviewBorderWidth(),
+					getPreviewBorderColor());
+		}
+	}
+
+	/**
+	 * Creates a new preference, which allows to choose a color.
+	 * 
+	 * @param context
+	 *            The context, which should be used by the preference, as an
+	 *            instance of the class {@link Context}
+	 */
+	public AbstractColorPickerPreference(final Context context) {
+		this(context, null);
+	}
+
+	/**
+	 * Creates a new preference, which allows to choose a color.
+	 * 
+	 * @param context
+	 *            The context, which should be used by the preference, as an
+	 *            instance of the class {@link Context}
+	 * @param attributeSet
+	 *            The attributes of the XML tag that is inflating the
+	 *            preference, as an instance of the type {@link AttributeSet}
+	 */
+	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet) {
+		super(context, attributeSet);
+		initialize(attributeSet);
+	}
+
+	/**
+	 * Creates a new preference, which allows to choose a color.
+	 * 
+	 * @param context
+	 *            The context, which should be used by the preference, as an
+	 *            instance of the class {@link Context}
+	 * @param attributeSet
+	 *            The attributes of the XML tag that is inflating the
+	 *            preference, as an instance of the type {@link AttributeSet}
+	 * @param defaultStyle
+	 *            The default style to apply to this preference. If 0, no style
+	 *            will be applied (beyond what is included in the theme). This
+	 *            may either be an attribute resource, whose value will be
+	 *            retrieved from the current theme, or an explicit style
+	 *            resource
+	 */
+	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet,
+			final int defaultStyle) {
+		super(context, attributeSet, defaultStyle);
+		initialize(attributeSet);
+	}
+
+	/**
+	 * Creates a new preference, which allows to choose a color.
+	 * 
+	 * @param context
+	 *            The context, which should be used by the preference, as an
+	 *            instance of the class {@link Context}
+	 * @param attributeSet
+	 *            The attributes of the XML tag that is inflating the
+	 *            preference, as an instance of the type {@link AttributeSet}
+	 * @param defaultStyle
+	 *            The default style to apply to this preference. If 0, no style
+	 *            will be applied (beyond what is included in the theme). This
+	 *            may either be an attribute resource, whose value will be
+	 *            retrieved from the current theme, or an explicit style
+	 *            resource
+	 * @param defaultStyleResource
+	 *            A resource identifier of a style resource that supplies
+	 *            default values for the preference, used only if the default
+	 *            style is 0 or can not be found in the theme. Can be 0 to not
+	 *            look for defaults
+	 */
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
+			final int defaultStyleResource) {
+		super(context, attributeSet, defaultStyle, defaultStyleResource);
+		initialize(attributeSet);
+	}
+
+	/**
+	 * Returns the currently persisted color of the preference.
+	 * 
+	 * @return The currently persisted color as an {@link Integer} value
+	 */
+	public final int getColor() {
+		return color;
+	}
+
+	/**
+	 * Sets the current color of the preference. By setting a value, it will be
+	 * persisted.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value
+	 */
+	public final void setColor(final int color) {
+		if (this.color != color) {
+			this.color = color;
+			persistInt(color);
+			notifyChanged();
+			adaptPreviewView();
+		}
+	}
+
+	/**
+	 * Returns the default color of the preference.
+	 * 
+	 * @return The default color of the preference as an {@link Integer} value
+	 */
+	public final int getDefaultColor() {
+		return defaultColor;
+	}
+
+	/**
+	 * Returns, whether a preview of the preference's color is shown, or not.
+	 * 
+	 * @return True, if a preview of the preference's color is shown, false
+	 *         otherwise
+	 */
+	public final boolean isPreviewShown() {
+		return showPreview;
+	}
+
+	/**
+	 * Sets, whether a preview of the preference's color should be shown, or
+	 * not.
+	 * 
+	 * @param showPreview
+	 *            True, if a preview of the preference's color should be shown,
+	 *            false otherwise
+	 */
+	public final void showPreview(final boolean showPreview) {
+		this.showPreview = showPreview;
+		adaptPreviewView();
+	}
+
+	/**
+	 * Returns the size of the preview of the preference's color.
+	 * 
+	 * @return The size of the preview of the preference's color as an
+	 *         {@link Integer} value in pixels
+	 */
+	public final int getPreviewSize() {
+		return previewSize;
+	}
+
+	/**
+	 * Sets the size of the preview of the preference's color.
+	 * 
+	 * @param previewSize
+	 *            The size, which should be set, as an {@link Integer} value in
+	 *            pixels. The size must be at least 1
+	 */
+	public final void setPreviewSize(final int previewSize) {
+		ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
+		this.previewSize = previewSize;
+	}
+
+	/**
+	 * Returns the shape of the preview of the preference's color.
+	 * 
+	 * @return The shape of the preview of the preference's color as a value of
+	 *         the enum {@link PreviewShape}. The shape may either be
+	 *         <code>CIRCLE</code> or <code>SQUARE</code>
+	 */
+	public final PreviewShape getPreviewShape() {
+		return previewShape;
+	}
+
+	/**
+	 * Sets the shape of the preview of the preference's color.
+	 * 
+	 * @param previewShape
+	 *            The shape, which should be set, as a value of the enum
+	 *            {@link PreviewShape}. The shape may not be null
+	 */
+	public final void setPreviewShape(final PreviewShape previewShape) {
+		ensureNotNull(previewShape, "The preview shape may not be null");
+		this.previewShape = previewShape;
+		adaptPreviewView();
+	}
+
+	/**
+	 * Returns the border width of the preview of the preference's color.
+	 * 
+	 * @return The border width of the preview of the preference's color as an
+	 *         {@link Integer} value in pixels
+	 */
+	public final int getPreviewBorderWidth() {
+		return previewBorderWidth;
+	}
+
+	/**
+	 * Sets the border width of the preview of the preference's color.
+	 * 
+	 * @param borderWidth
+	 *            The border width, which should be set, as an {@link Integer}
+	 *            value in pixels. The border width must be at least 0
+	 */
+	public final void setPreviewBorderWidth(final int borderWidth) {
+		ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+		this.previewBorderWidth = borderWidth;
+		adaptPreviewView();
+	}
+
+	/**
+	 * Returns the border color of the preview of the preference's color.
+	 * 
+	 * @return The border color of the preview of the preference's color as an
+	 *         {@link Integer} value
+	 */
+	public final int getPreviewBorderColor() {
+		return previewBorderColor;
+	}
+
+	/**
+	 * Sets the border color of the preview of the preference's color.
+	 * 
+	 * @param borderColor
+	 *            The border color, which should be set, as an {@link Integer}
+	 *            value
+	 */
+	public final void setPreviewBorderColor(final int borderColor) {
+		this.previewBorderColor = borderColor;
+		adaptPreviewView();
+	}
+
+	/**
+	 * Returns the background of the preview of the preference's color.
+	 * 
+	 * @return The background of the preview of the preference's color as an
+	 *         instance of the class {@link Drawable}
+	 */
+	public final Drawable getPreviewBackground() {
+		return previewBackground;
+	}
+
+	/**
+	 * Sets the background of the preview of the preference's color.
+	 * 
+	 * @param background
+	 *            The background, which should be set, as an instance of the
+	 *            class {@link Drawable} or null, if no preview should be shown
+	 */
+	public final void setPreviewBackground(final Drawable background) {
+		this.previewBackground = background;
+		adaptPreviewView();
+	}
+
+	/**
+	 * Sets the background color of the preview of the preference's color.
+	 * 
+	 * @param backgroundColor
+	 *            The background color, which should be set, as an
+	 *            {@link Integer} value
+	 */
+	public final void setPreviewBackgroundColor(final int backgroundColor) {
+		setPreviewBackground(new ColorDrawable(backgroundColor));
+	}
+
+	/**
+	 * Returns the format, which is used to print a textual representation of
+	 * the preference's color.
+	 * 
+	 * @return The format, which is used to print a textual representation of
+	 *         the preference's color, as a value of the enum
+	 *         {@link ColorFormat}. The format may either be <code>RGB</code>,
+	 *         <code>ARGB</code>, <code>HEX</code> or <code>AHEX</code>
+	 */
+	public final ColorFormat getColorFormat() {
+		return colorFormat;
+	}
+
+	/**
+	 * Sets the format, which should be used to print a textual representation
+	 * of the preference's color.
+	 * 
+	 * @param colorFormat
+	 *            The format, which should be set, as a value of the enum
+	 *            {@link ColorFormat}. The format may not be null
+	 */
+	public final void setColorFormat(final ColorFormat colorFormat) {
+		ensureNotNull(colorFormat, "The color format may not be null");
+		this.colorFormat = colorFormat;
+	}
+
+	@Override
+	public final CharSequence getSummary() {
+		if (isValueShownAsSummary()) {
+			return formatColor(getColorFormat(), getColor());
+		} else {
+			return super.getSummary();
+		}
+	}
+
+	@Override
+	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
+		return typedArray.getInt(index, DEFAULT_COLOR);
+	}
+
+	@Override
+	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
+		if (restoreValue) {
+			setColor(getPersistedInt(DEFAULT_COLOR));
+		} else {
+			setColor((Integer) defaultValue);
+		}
+	}
+
+	@Override
+	protected final View onCreateView(final ViewGroup parent) {
+		View view = super.onCreateView(parent);
+		LinearLayout widgetFrame = (LinearLayout) view.findViewById(android.R.id.widget_frame);
+		widgetFrame.setVisibility(View.VISIBLE);
+		previewView = new ImageView(getContext());
+		widgetFrame.addView(previewView, createPreviewLayoutParams());
+		adaptPreviewView();
+		return view;
+	}
+
+	@Override
+	protected Parcelable onSaveInstanceState() {
+		Parcelable parcelable = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(parcelable);
+		savedState.color = getColor();
+		savedState.defaultColor = getDefaultColor();
+		savedState.showPreview = isPreviewShown();
+		savedState.previewSize = getPreviewSize();
+		savedState.previewShape = getPreviewShape();
+		savedState.previewBorderWidth = getPreviewBorderWidth();
+		savedState.previewBorderColor = getPreviewBorderColor();
+		savedState.colorFormat = getColorFormat();
+		return savedState;
+	}
+
+	@Override
+	protected void onRestoreInstanceState(final Parcelable state) {
+		if (state != null && state instanceof SavedState) {
+			SavedState savedState = (SavedState) state;
+			color = savedState.color;
+			defaultColor = savedState.defaultColor;
+			showPreview = savedState.showPreview;
+			previewSize = savedState.previewSize;
+			previewShape = savedState.previewShape;
+			previewBorderWidth = savedState.previewBorderWidth;
+			previewBorderColor = savedState.previewBorderColor;
+			colorFormat = savedState.colorFormat;
+			super.onRestoreInstanceState(savedState.getSuperState());
+		} else {
+			super.onRestoreInstanceState(state);
+		}
+	}
+
+}
