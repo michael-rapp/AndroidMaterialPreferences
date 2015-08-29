@@ -38,8 +38,7 @@ import de.mrapp.android.validation.ValidationListener;
  *
  * @since 1.0.0
  */
-public class EditTextPreference extends
-		AbstractValidateableDialogPreference<CharSequence> {
+public class EditTextPreference extends AbstractValidateableDialogPreference<CharSequence> {
 
 	/**
 	 * A data structure, which allows to save the internal state of an
@@ -49,7 +48,7 @@ public class EditTextPreference extends
 
 		/**
 		 * A creator, which allows to create instances of the class
-		 * {@link EditTextPreference} from parcels.
+		 * {@link SavedState} from parcels.
 		 */
 		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
 
@@ -98,8 +97,7 @@ public class EditTextPreference extends
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeString(text);
 		}
@@ -148,8 +146,7 @@ public class EditTextPreference extends
 	 *            The attributes of the XML tag that is inflating the
 	 *            preference, as an instance of the type {@link AttributeSet}
 	 */
-	public EditTextPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public EditTextPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
 		initialize();
 	}
@@ -171,8 +168,7 @@ public class EditTextPreference extends
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public EditTextPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public EditTextPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize();
 	}
@@ -200,8 +196,7 @@ public class EditTextPreference extends
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public EditTextPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
+	public EditTextPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize();
@@ -232,7 +227,7 @@ public class EditTextPreference extends
 		if (isDisabelingDependents != hasDisabledDependents) {
 			notifyDependencyChange(isDisabelingDependents);
 		}
-		
+
 		notifyChanged();
 	}
 
@@ -256,10 +251,8 @@ public class EditTextPreference extends
 	}
 
 	@Override
-	protected final void onPrepareValidateableDialog(
-			final MaterialDialogBuilder dialogBuilder) {
-		editText = (EditText) View.inflate(getContext(), R.layout.edit_text,
-				null);
+	protected final void onPrepareValidateableDialog(final MaterialDialogBuilder dialogBuilder) {
+		editText = (EditText) View.inflate(getContext(), R.layout.edit_text, null);
 		editText.addAllValidators(getValidators());
 		editText.validateOnValueChange(isValidatedOnValueChange());
 		editText.validateOnFocusLost(isValidatedOnFocusLost());
@@ -295,16 +288,13 @@ public class EditTextPreference extends
 	}
 
 	@Override
-	protected final Object onGetDefaultValue(final TypedArray typedArray,
-			final int index) {
+	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
 		return typedArray.getString(index);
 	}
 
 	@Override
-	protected final void onSetInitialValue(final boolean restoreValue,
-			final Object defaultValue) {
-		setText(restoreValue ? getPersistedString(getText())
-				: (String) defaultValue);
+	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
+		setText(restoreValue ? getPersistedString(getText()) : (String) defaultValue);
 	}
 
 	@Override
