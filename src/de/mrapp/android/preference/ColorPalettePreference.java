@@ -104,8 +104,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link ListPreference}. This constructor is called by
-		 * derived classes when saving their states.
+		 * state of an {@link ColorPalettePreference}. This constructor is
+		 * called by derived classes when saving their states.
 		 * 
 		 * @param superState
 		 *            The state of the superclass of this view, as an instance
@@ -117,8 +117,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link ListPreference}. This constructor is used when
-		 * reading from a parcel. It reads the state of the superclass.
+		 * state of an {@link ColorPalettePreference}. This constructor is used
+		 * when reading from a parcel. It reads the state of the superclass.
 		 * 
 		 * @param source
 		 *            The parcel to read read from as a instance of the class
