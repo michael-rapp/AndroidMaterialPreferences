@@ -89,5 +89,10 @@ License along with this program. If not, see
         <attr name="dialogPreviewBackground" format="color|reference" />
         <attr name="android:numColumns" />
     </declare-styleable>
+    <declare-styleable name="AbstractTwoStatePreference">
+        <attr name="android:summaryOn" />
+        <attr name="android:summaryOff" />
+        <attr name="android:disableDependentsState" />
+    </declare-styleable>
 
 </resources>
