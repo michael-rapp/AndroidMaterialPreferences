@@ -364,6 +364,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 		ensureAtLeast(width, 1, "The width must be at least 1");
 		this.width = width;
 		persistString(formatResolution(getContext(), getWidth(), getHeight()));
+		notifyChanged();
 	}
 
 	/**
@@ -389,6 +390,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 		ensureAtLeast(height, 1, "The height must be at least 1");
 		this.height = height;
 		persistString(formatResolution(getContext(), getWidth(), getHeight()));
+		notifyChanged();
 	}
 
 	/**
