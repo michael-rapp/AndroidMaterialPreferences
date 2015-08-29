@@ -232,6 +232,8 @@ public class EditTextPreference extends
 		if (isDisabelingDependents != hasDisabledDependents) {
 			notifyDependencyChange(isDisabelingDependents);
 		}
+		
+		notifyChanged();
 	}
 
 	@Override
