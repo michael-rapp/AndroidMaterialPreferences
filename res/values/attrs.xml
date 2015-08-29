@@ -25,8 +25,8 @@ License along with this program. If not, see
         <attr name="android:dialogIcon" />
         <attr name="android:positiveButtonText" />
         <attr name="android:negativeButtonText" />
-        <attr name="dialogTitleColor" format="color|reference" />
-        <attr name="dialogButtonTextColor" format="color|reference" />
+        <attr name="dialogTitleColor" format="color" />
+        <attr name="dialogButtonTextColor" format="color" />
         <attr name="showValueAsSummary" format="boolean" />
     </declare-styleable>
     <declare-styleable name="ListPreference">
@@ -48,7 +48,6 @@ License along with this program. If not, see
         <attr name="android:defaultValue" />
         <attr name="useInputMethod" format="boolean" />
         <attr name="wrapSelectorWheel" format="boolean" />
-        <attr name="defaultNumber" format="integer" />
     </declare-styleable>
     <declare-styleable name="NumberPickerPreference">
         <attr name="minNumber" format="integer" />
@@ -59,6 +58,36 @@ License along with this program. If not, see
     </declare-styleable>
     <declare-styleable name="ResolutionPreference">
         <attr name="unit" format="string" />
+    </declare-styleable>
+    <declare-styleable name="AbstractColorPickerPreference">
+        <attr name="android:defaultValue" />
+        <attr name="showPreview" format="boolean" />
+        <attr name="previewSize" format="dimension" />
+        <attr name="previewShape" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="square" value="1" />
+        </attr>
+        <attr name="previewBorderWidth" format="dimension" />
+        <attr name="previewBorderColor" format="color" />
+        <attr name="previewBackground" format="color|reference" />
+        <attr name="colorFormat" format="enum">
+            <enum name="rgb" value="0" />
+            <enum name="argb" value="1" />
+            <enum name="hex3bytes" value="2" />
+            <enum name="hex4bytes" value="3" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ColorPalettePreference">
+        <attr name="colorPalette" format="reference" />
+        <attr name="dialogPreviewSize" format="dimension" />
+        <attr name="dialogPreviewShape" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="square" value="1" />
+        </attr>
+        <attr name="dialogPreviewBorderWidth" format="dimension" />
+        <attr name="dialogPreviewBorderColor" format="color" />
+        <attr name="dialogPreviewBackground" format="color|reference" />
+        <attr name="android:numColumns" />
     </declare-styleable>
 
 </resources>
