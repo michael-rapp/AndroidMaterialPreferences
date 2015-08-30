@@ -94,5 +94,9 @@ License along with this program. If not, see
         <attr name="android:summaryOff" />
         <attr name="android:disableDependentsState" />
     </declare-styleable>
+    <declare-styleable name="SwitchPreference">
+        <attr name="android:switchTextOn" />
+        <attr name="android:switchTextOff" />
+    </declare-styleable>
 
 </resources>
