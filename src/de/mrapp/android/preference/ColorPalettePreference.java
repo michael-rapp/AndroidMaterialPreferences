@@ -497,6 +497,20 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	}
 
 	/**
+	 * Sets the background, which should be used to preview colors in the
+	 * preference's dialog.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the background, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid drawable resource
+	 */
+	@SuppressWarnings("deprecation")
+	public final void setDialogPreviewBackground(final int resourceId) {
+		setDialogPreviewBackground(getContext().getResources().getDrawable(resourceId));
+	}
+
+	/**
 	 * Sets the background color, which should be used to preview colors in the
 	 * preference's dialog.
 	 * 
