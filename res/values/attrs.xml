@@ -36,7 +36,6 @@ License along with this program. If not, see
     <declare-styleable name="SeekBarPreference">
         <attr name="android:max" />
         <attr name="android:summary" />
-        <attr name="android:defaultValue" />
         <attr name="showProgress" format="boolean" />
         <attr name="min" format="integer" />
         <attr name="decimals" format="integer" />
@@ -45,7 +44,6 @@ License along with this program. If not, see
         <attr name="stepSize" format="integer" />
     </declare-styleable>
     <declare-styleable name="AbstractNumberPickerPreference">
-        <attr name="android:defaultValue" />
         <attr name="useInputMethod" format="boolean" />
         <attr name="wrapSelectorWheel" format="boolean" />
     </declare-styleable>
@@ -60,7 +58,6 @@ License along with this program. If not, see
         <attr name="unit" format="string" />
     </declare-styleable>
     <declare-styleable name="AbstractColorPickerPreference">
-        <attr name="android:defaultValue" />
         <attr name="showPreview" format="boolean" />
         <attr name="previewSize" format="dimension" />
         <attr name="previewShape" format="enum">
