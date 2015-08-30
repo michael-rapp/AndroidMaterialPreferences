@@ -40,7 +40,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import de.mrapp.android.preference.util.BitmapUtil;
-import de.mrapp.android.preference.util.DisplayUtil;
 
 /**
  * An abstract base class for all preferences, which allow to choose a color.
@@ -250,49 +249,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	};
 
 	/**
-	 * The default color.
-	 */
-	protected static final int DEFAULT_COLOR = Color.TRANSPARENT;
-
-	/**
-	 * True, if a preview of the preference's color is shown by default, false
-	 * otherwise.
-	 */
-	protected static final boolean DEFAULT_SHOW_PREVIEW = true;
-
-	/**
-	 * The default size of the preview of the preference's color in dp.
-	 */
-	protected static final int DEFAULT_PREVIEW_SIZE = 38;
-
-	/**
-	 * The default shape of the preview of the preference's color.
-	 */
-	protected static final PreviewShape DEFAULT_PREVIEW_SHAPE = PreviewShape.CIRCLE;
-
-	/**
-	 * The default border width of the preview of the preference's color in dp.
-	 */
-	protected static final int DEFAULT_PREVIEW_BORDER_WIDTH = 1;
-
-	/**
-	 * The default border color of the preview of the preference's color.
-	 */
-	protected static final int DEFAULT_PREVIEW_BORDER_COLOR = Color.parseColor("#ffd2d2d2");
-
-	/**
-	 * The resource id of the default background of the preview of the
-	 * preference's color.
-	 */
-	protected static final int DEFAULT_PREVIEW_BACKGROUND = R.drawable.color_picker_preview_background;
-
-	/**
-	 * The default format, which is used to print a textual representation of
-	 * the preference's color.
-	 */
-	protected static final ColorFormat DEFAULT_COLOR_FORMAT = ColorFormat.HEX_4_BYTES;
-
-	/**
 	 * The currently persisted color.
 	 */
 	private int color;
@@ -348,7 +304,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setColor(getPersistedInt(DEFAULT_COLOR));
+		int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
+		setColor(getPersistedInt(defaultColor));
 	}
 
 	/**
@@ -383,7 +340,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainShowPreview(final TypedArray typedArray) {
-		showPreview(typedArray.getBoolean(R.styleable.AbstractColorPickerPreference_showPreview, DEFAULT_SHOW_PREVIEW));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.color_picker_preference_default_show_preview);
+		showPreview(typedArray.getBoolean(R.styleable.AbstractColorPickerPreference_showPreview, defaultValue));
 	}
 
 	/**
@@ -395,8 +354,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainPreviewSize(final TypedArray typedArray) {
-		setPreviewSize(typedArray.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewSize,
-				DisplayUtil.convertDpToPixels(getContext(), DEFAULT_PREVIEW_SIZE)));
+		int defaultValue = getContext().getResources()
+				.getDimensionPixelSize(R.dimen.color_picker_preference_default_preview_size);
+		setPreviewSize(
+				typedArray.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewSize, defaultValue));
 	}
 
 	/**
@@ -408,8 +369,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainPreviewShape(final TypedArray typedArray) {
-		setPreviewShape(PreviewShape.fromValue(typedArray
-				.getInteger(R.styleable.AbstractColorPickerPreference_previewShape, DEFAULT_PREVIEW_SHAPE.getValue())));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.color_picker_preference_default_preview_shape);
+		setPreviewShape(PreviewShape.fromValue(
+				typedArray.getInteger(R.styleable.AbstractColorPickerPreference_previewShape, defaultValue)));
 	}
 
 	/**
@@ -421,9 +384,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainPreviewBorderWidth(final TypedArray typedArray) {
-		setPreviewBorderWidth(
-				typedArray.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewBorderWidth,
-						DisplayUtil.convertDpToPixels(getContext(), DEFAULT_PREVIEW_BORDER_WIDTH)));
+		int defaultValue = getContext().getResources()
+				.getDimensionPixelSize(R.dimen.color_picker_preference_default_preview_border_width);
+		setPreviewBorderWidth(typedArray
+				.getDimensionPixelSize(R.styleable.AbstractColorPickerPreference_previewBorderWidth, defaultValue));
 	}
 
 	/**
@@ -435,8 +399,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainPreviewBorderColor(final TypedArray typedArray) {
-		setPreviewBorderColor(typedArray.getColor(R.styleable.AbstractColorPickerPreference_previewBorderColor,
-				DEFAULT_PREVIEW_BORDER_COLOR));
+		int defaultValue = getContext().getResources()
+				.getColor(R.color.color_picker_preference_default_preview_border_color);
+		setPreviewBorderColor(
+				typedArray.getColor(R.styleable.AbstractColorPickerPreference_previewBorderColor, defaultValue));
 	}
 
 	/**
@@ -455,7 +421,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 			setPreviewBackgroundColor(backgroundColor);
 		} else {
 			int resourceId = typedArray.getResourceId(R.styleable.AbstractColorPickerPreference_previewBackground,
-					DEFAULT_PREVIEW_BACKGROUND);
+					R.drawable.color_picker_default_preview_background);
 			setPreviewBackground(getContext().getResources().getDrawable(resourceId));
 		}
 	}
@@ -469,8 +435,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainColorFormat(final TypedArray typedArray) {
-		setColorFormat(ColorFormat.fromValue(typedArray
-				.getInteger(R.styleable.AbstractColorPickerPreference_colorFormat, DEFAULT_COLOR_FORMAT.getValue())));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.color_picker_preference_default_color_format);
+		setColorFormat(ColorFormat
+				.fromValue(typedArray.getInteger(R.styleable.AbstractColorPickerPreference_colorFormat, defaultValue)));
 	}
 
 	/**
@@ -847,13 +815,15 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
-		return typedArray.getInt(index, DEFAULT_COLOR);
+		int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
+		return typedArray.getInt(index, defaultColor);
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
 		if (restoreValue) {
-			setColor(getPersistedInt(DEFAULT_COLOR));
+			int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
+			setColor(getPersistedInt(defaultColor));
 		} else {
 			setColor((Integer) defaultValue);
 		}

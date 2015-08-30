@@ -111,16 +111,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	};
 
 	/**
-	 * The default minimum number, the preference allows to choose.
-	 */
-	protected static final int DEFAULT_MIN_NUMBER = 0;
-
-	/**
-	 * The default maximum number, the preference allows to choose.
-	 */
-	protected static final int DEFAULT_MAX_NUMBER = 10;
-
-	/**
 	 * The {@link NumberPicker} widget, which allows to choose a decimal number.
 	 */
 	private NumberPicker numberPicker;
@@ -177,7 +167,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainMaxNumber(final TypedArray typedArray) {
-		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_maxNumber, DEFAULT_MAX_NUMBER));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.number_picker_preference_default_max_number);
+		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_maxNumber, defaultValue));
 	}
 
 	/**
@@ -189,7 +181,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainMinNumber(final TypedArray typedArray) {
-		setMinNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_minNumber, DEFAULT_MIN_NUMBER));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.number_picker_preference_default_min_number);
+		setMinNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_minNumber, defaultValue));
 	}
 
 	/**

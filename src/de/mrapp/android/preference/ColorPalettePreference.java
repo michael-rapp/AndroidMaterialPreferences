@@ -24,7 +24,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -46,48 +45,6 @@ import de.mrapp.android.preference.util.DisplayUtil;
  * @since 1.4.0
  */
 public class ColorPalettePreference extends AbstractColorPickerPreference {
-
-	/**
-	 * The default size, which is used to preview colors in the preference's
-	 * dialog in dp.
-	 */
-	protected static final int DEFAULT_DIALOG_PREVIEW_SIZE = 72;
-
-	/**
-	 * The default shape, which is used to preview colors in the preference's
-	 * dialog.
-	 */
-	protected static final PreviewShape DEFAULT_DIALOG_PREVIEW_SHAPE = PreviewShape.CIRCLE;
-
-	/**
-	 * The default border width, which is used to preview colors in the
-	 * preference's dialog in dp.
-	 */
-	protected static final int DEFAULT_DIALOG_PREVIEW_BORDER_WIDTH = 1;
-
-	/**
-	 * The default border color, which is used to preview colors in the
-	 * preference's dialog.
-	 */
-	protected static final int DEFAULT_DIALOG_PREVIEW_BORDER_COLOR = Color.rgb(120, 120, 120);
-
-	/**
-	 * The resource id of the default background, which is used to preview
-	 * colors in the preference's dialog.
-	 */
-	protected static final int DEFAULT_DIALOG_PREVIEW_BACKGROUND = R.drawable.color_picker_preview_background;
-
-	/**
-	 * The default number of columns, which are used to preview colors in the
-	 * preference's dialog.
-	 */
-	protected static final int DEFAULT_NUMBER_OF_COLUMNS = 3;
-
-	/**
-	 * The default spacing, which is used to preview colors in the preference's
-	 * dialog, in dp.
-	 */
-	protected static final int DEFAULT_SPACING = 2;
 
 	/**
 	 * An array, which contains the colors, the preference allows to choose.
@@ -203,8 +160,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogPreviewSize(final TypedArray typedArray) {
-		setDialogPreviewSize(typedArray.getDimensionPixelSize(R.styleable.ColorPalettePreference_dialogPreviewSize,
-				DisplayUtil.convertDpToPixels(getContext(), DEFAULT_DIALOG_PREVIEW_SIZE)));
+		int defaultValue = getContext().getResources()
+				.getDimensionPixelSize(R.dimen.color_palette_preference_default_dialog_preview_size);
+		setDialogPreviewSize(
+				typedArray.getDimensionPixelSize(R.styleable.ColorPalettePreference_dialogPreviewSize, defaultValue));
 	}
 
 	/**
@@ -216,8 +175,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogPreviewShape(final TypedArray typedArray) {
-		setDialogPreviewShape(PreviewShape.fromValue(typedArray.getInteger(
-				R.styleable.ColorPalettePreference_dialogPreviewShape, DEFAULT_DIALOG_PREVIEW_SHAPE.getValue())));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.color_palette_preference_default_dialog_preview_shape);
+		setDialogPreviewShape(PreviewShape
+				.fromValue(typedArray.getInteger(R.styleable.ColorPalettePreference_dialogPreviewShape, defaultValue)));
 	}
 
 	/**
@@ -229,9 +190,11 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogPreviewBorderWidth(final TypedArray typedArray) {
+		int defaultValue = getContext().getResources()
+				.getDimensionPixelSize(R.dimen.color_palette_preference_default_dialog_preview_border_width);
 		setDialogPreviewBorderWidth(
 				typedArray.getDimensionPixelSize(R.styleable.ColorPalettePreference_dialogPreviewBorderWidth,
-						DisplayUtil.convertDpToPixels(getContext(), DEFAULT_DIALOG_PREVIEW_BORDER_WIDTH)));
+						DisplayUtil.convertDpToPixels(getContext(), defaultValue)));
 	}
 
 	/**
@@ -243,8 +206,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogPreviewBorderColor(final TypedArray typedArray) {
-		setDialogPreviewBorderColor(typedArray.getColor(R.styleable.ColorPalettePreference_dialogPreviewBorderColor,
-				DEFAULT_DIALOG_PREVIEW_BORDER_COLOR));
+		int defaultValue = getContext().getResources()
+				.getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
+		setDialogPreviewBorderColor(
+				typedArray.getColor(R.styleable.ColorPalettePreference_dialogPreviewBorderColor, defaultValue));
 	}
 
 	/**
@@ -263,7 +228,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 			setPreviewBackgroundColor(backgroundColor);
 		} else {
 			int resourceId = typedArray.getResourceId(R.styleable.ColorPalettePreference_dialogPreviewBackground,
-					DEFAULT_DIALOG_PREVIEW_BACKGROUND);
+					R.drawable.color_picker_default_preview_background);
 			setDialogPreviewBackground(getContext().getResources().getDrawable(resourceId));
 		}
 	}
@@ -277,8 +242,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	 *            from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainNumberOfColumns(final TypedArray typedArray) {
-		setNumberOfColumns(typedArray.getInteger(R.styleable.ColorPalettePreference_android_numColumns,
-				DEFAULT_NUMBER_OF_COLUMNS));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.color_palette_preference_default_number_of_columns);
+		setNumberOfColumns(typedArray.getInteger(R.styleable.ColorPalettePreference_android_numColumns, defaultValue));
 	}
 
 	/**

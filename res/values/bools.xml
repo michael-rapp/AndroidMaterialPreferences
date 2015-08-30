@@ -19,15 +19,14 @@ License along with this program. If not, see
 -->
 <resources>
 
-    <dimen name="digit_picker_width">32dp</dimen>
-    <dimen name="resolution_edit_text_width">96dp</dimen>
-
     <!-- Default values -->
-    <dimen name="color_picker_preference_default_preview_size">38dp</dimen>
-    <dimen name="color_picker_preference_default_preview_border_width">1dp</dimen>
-    <dimen name="color_palette_preference_default_dialog_preview_size">72dp</dimen>
-    <dimen name="color_palette_preference_default_dialog_preview_border_width">1dp</dimen>
-
-    <item name="seek_bar_preference_default_value" format="float" type="dimen">50.0</item>
+    <bool name="color_picker_preference_default_show_preview">true</bool>
+    <bool name="dialog_preference_default_show_value_as_summary">false</bool>
+    <bool name="number_picker_preference_default_use_input_method">false</bool>
+    <bool name="number_picker_preference_default_wrap_selector_wheel">true</bool>
+    <bool name="two_state_preference_default_disable_dependents_state">false</bool>
+    <bool name="validateable_dialog_preference_default_validate_on_value_change">true</bool>
+    <bool name="validateable_dialog_preference_default_validate_on_focus_lost">true</bool>
+    <bool name="seek_bar_preference_default_show_progress">true</bool>
 
 </resources>

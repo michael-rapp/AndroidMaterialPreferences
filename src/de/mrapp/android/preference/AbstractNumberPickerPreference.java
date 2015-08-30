@@ -101,21 +101,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	};
 
 	/**
-	 * The default number.
-	 */
-	protected static final int DEFAULT_NUMBER = 0;
-
-	/**
-	 * True, if an input method should be used by default, false otherwise.
-	 */
-	protected static final boolean DEFAULT_USE_INPUT_METHOD = false;
-
-	/**
-	 * True, if the selector wheel should be wrapped, false otherwise.
-	 */
-	protected static final boolean DEFAULT_WRAP_SELECTOR_WHEEL = true;
-
-	/**
 	 * The currently persisted number.
 	 */
 	private int number;
@@ -139,7 +124,8 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setNumber(getPersistedInt(DEFAULT_NUMBER));
+		int defaultNumber = getContext().getResources().getInteger(R.integer.number_picker_preference_default_number);
+		setNumber(getPersistedInt(defaultNumber));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -172,8 +158,9 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	 *            class {@link TypedArray}
 	 */
 	private void obtainUseInputMethod(final TypedArray typedArray) {
-		useInputMethod(typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_useInputMethod,
-				DEFAULT_USE_INPUT_METHOD));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.number_picker_preference_default_use_input_method);
+		useInputMethod(typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_useInputMethod, defaultValue));
 	}
 
 	/**
@@ -188,8 +175,10 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	 *            {@link TypedArray}
 	 */
 	private void obtainWrapSelectorWheel(final TypedArray typedArray) {
-		wrapSelectorWheel(typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_wrapSelectorWheel,
-				DEFAULT_WRAP_SELECTOR_WHEEL));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.number_picker_preference_default_wrap_selector_wheel);
+		wrapSelectorWheel(
+				typedArray.getBoolean(R.styleable.AbstractNumberPickerPreference_wrapSelectorWheel, defaultValue));
 	}
 
 	/**
@@ -356,13 +345,16 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
-		return typedArray.getInt(index, DEFAULT_NUMBER);
+		int defaultNumber = getContext().getResources().getInteger(R.integer.number_picker_preference_default_number);
+		return typedArray.getInt(index, defaultNumber);
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
 		if (restoreValue) {
-			setNumber(getPersistedInt(DEFAULT_NUMBER));
+			int defaultNumber = getContext().getResources()
+					.getInteger(R.integer.number_picker_preference_default_number);
+			setNumber(getPersistedInt(defaultNumber));
 		} else {
 			setNumber((Integer) defaultValue);
 		}

@@ -121,12 +121,6 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	};
 
 	/**
-	 * The default value, which specifies, whether the currently persisted value
-	 * should be shown instead of the summary, or not.
-	 */
-	protected static final boolean DEFAULT_SHOW_VALUE_AS_SUMMARY = false;
-
-	/**
 	 * The preference's dialog.
 	 */
 	private Dialog dialog;
@@ -325,12 +319,10 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainShowValueAsSummary(final TypedArray typedArray) {
-		if (typedArray != null) {
-			showValueAsSummary(typedArray.getBoolean(R.styleable.AbstractDialogPreference_showValueAsSummary,
-					DEFAULT_SHOW_VALUE_AS_SUMMARY));
-		} else {
-			showValueAsSummary(DEFAULT_SHOW_VALUE_AS_SUMMARY);
-		}
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.dialog_preference_default_show_value_as_summary);
+		showValueAsSummary(
+				typedArray.getBoolean(R.styleable.AbstractDialogPreference_showValueAsSummary, defaultValue));
 	}
 
 	/**

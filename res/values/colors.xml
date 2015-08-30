@@ -19,15 +19,9 @@ License along with this program. If not, see
 -->
 <resources>
 
-    <dimen name="digit_picker_width">32dp</dimen>
-    <dimen name="resolution_edit_text_width">96dp</dimen>
-
     <!-- Default values -->
-    <dimen name="color_picker_preference_default_preview_size">38dp</dimen>
-    <dimen name="color_picker_preference_default_preview_border_width">1dp</dimen>
-    <dimen name="color_palette_preference_default_dialog_preview_size">72dp</dimen>
-    <dimen name="color_palette_preference_default_dialog_preview_border_width">1dp</dimen>
-
-    <item name="seek_bar_preference_default_value" format="float" type="dimen">50.0</item>
+    <color name="color_picker_preference_default_color">@android:color/transparent</color>
+    <color name="color_picker_preference_default_preview_border_color">#ffd2d2d2</color>
+    <color name="color_palette_preference_default_dialog_preview_border_color">#ffd2d2d2</color>
 
 </resources>
