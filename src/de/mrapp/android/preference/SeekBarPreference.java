@@ -507,7 +507,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 		numberFormat.setMinimumFractionDigits(getDecimals());
 		numberFormat.setMaximumFractionDigits(getDecimals());
-		String valueString = numberFormat.format(currentValue);
+		String valueString = numberFormat.format(getCurrentValue());
 
 		if (getSuffix() != null && getSuffix().length() > 0) {
 			return valueString + " " + getSuffix();
@@ -961,7 +961,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
 		if (positiveResult && callChangeListener(currentValue)) {
-			setValue(currentValue);
+			setValue(getCurrentValue());
 		} else {
 			currentValue = getValue();
 		}
