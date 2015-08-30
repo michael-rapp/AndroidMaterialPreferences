@@ -16,6 +16,21 @@ The library provides the following preferences:
         
     -   A preference, which allows to choose a floating point value or an integer value from a 
         continuous range via a SeekBar widget (SeekBarPreference).
+        
+    -	A preference, which allows to choose a decimal value via a NumberPicker widget 
+    	(NumberPickerPreference).
+    	
+    -	A preference, which allows to choose a decimal value, consisting of individual digits 
+    	of which each can be chosen via a NumberPicker widget (DigitPickerPreference).
+    	
+    -	A preference, which allows to choose an image or video resolution via two EditText 
+    	widgets (ResolutionPreference).
+    	
+    -	A preference, which allows to choose a color from a predefined color palette 
+    	(ColorPalettePreference).
+    	
+    -	A preference, which provides a toggleable option using a Switch widget 
+    	(SwitchPreference).
 
     -   The library uses the AppCompat v7 revision 21 support library in order to retrieve the 
         color of a the title and button texts of a preference's dialog from the applied theme. 
