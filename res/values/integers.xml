@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the GNU Lesser General Public License as published 
+by the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public 
+License along with this program. If not, see
+<http://www.gnu.org/licenses/>. 
+-->
+<resources>
+
+    <!-- Default values -->
+    <integer name="color_picker_preference_default_preview_shape">0</integer>
+    <integer name="color_picker_preference_default_color_format">3</integer>
+    <integer name="color_palette_preference_default_dialog_preview_shape">0</integer>
+    <integer name="color_palette_preference_default_number_of_columns">3</integer>
+    <integer name="number_picker_preference_default_number">0</integer>
+    <integer name="number_picker_preference_default_min_number">0</integer>
+    <integer name="number_picker_preference_default_max_number">10</integer>
+    <integer name="digit_picker_preference_default_number_of_digits">4</integer>
+    <integer name="resolution_preference_default_width">1</integer>
+    <integer name="resolution_preference_default_height">1</integer>
+    <integer name="seek_bar_preference_default_min_value">0</integer>
+    <integer name="seek_bar_preference_default_max_value">100</integer>
+    <integer name="seek_bar_preference_default_step_size">-1</integer>
+    <integer name="seek_bar_preference_default_decimals">1</integer>
+
+</resources>

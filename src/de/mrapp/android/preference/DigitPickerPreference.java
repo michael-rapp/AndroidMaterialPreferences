@@ -110,12 +110,6 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	};
 
 	/**
-	 * The default number of digits of the numbers, the preference allows to
-	 * choose.
-	 */
-	protected static final int DEFAULT_NUMBER_OF_DIGITS = 4;
-
-	/**
 	 * The numeric system, which is used.
 	 */
 	private static final int NUMERIC_SYTEM = 10;
@@ -172,8 +166,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainNumberOfDigits(final TypedArray typedArray) {
-		setNumberOfDigits(
-				typedArray.getInteger(R.styleable.DigitPickerPreference_numberOfDigits, DEFAULT_NUMBER_OF_DIGITS));
+		int defaultValue = getContext().getResources()
+				.getInteger(R.integer.digit_picker_preference_default_number_of_digits);
+		setNumberOfDigits(typedArray.getInteger(R.styleable.DigitPickerPreference_numberOfDigits, defaultValue));
 	}
 
 	/**

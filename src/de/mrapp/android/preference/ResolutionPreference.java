@@ -119,16 +119,6 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	};
 
 	/**
-	 * The default width of the preference's resolution.
-	 */
-	private static final int DEFAULT_WIDTH = 1;
-
-	/**
-	 * The default height of the preference's resolution.
-	 */
-	private static final int DEFAULT_HEIGHT = 1;
-
-	/**
 	 * The regular expression, which is used to ensure, that a dimension of a
 	 * resolution is at least 1.
 	 */
@@ -168,10 +158,10 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		String resolution = getPersistedString(formatResolution(getContext(), DEFAULT_WIDTH, DEFAULT_HEIGHT));
-		Pair<Integer, Integer> dimensions = parseResolution(getContext(), resolution);
-		setWidth(dimensions.first);
-		setHeight(dimensions.second);
+		int defaultWidth = getContext().getResources().getInteger(R.integer.resolution_preference_default_width);
+		int defaultHeight = getContext().getResources().getInteger(R.integer.resolution_preference_default_height);
+		setWidth(defaultWidth);
+		setHeight(defaultHeight);
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 		addValidator(Validators.notEmpty(getContext(), R.string.resolution_not_empty_error_message));
@@ -503,7 +493,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		String value = restoreValue ? getPersistedString(formatResolution(getContext(), DEFAULT_WIDTH, DEFAULT_HEIGHT))
+		int defaultWidth = getContext().getResources().getInteger(R.integer.resolution_preference_default_width);
+		int defaultHeight = getContext().getResources().getInteger(R.integer.resolution_preference_default_height);
+		String value = restoreValue ? getPersistedString(formatResolution(getContext(), defaultWidth, defaultHeight))
 				: (String) defaultValue;
 		Pair<Integer, Integer> resolution = parseResolution(getContext(), value);
 		setWidth(resolution.first);

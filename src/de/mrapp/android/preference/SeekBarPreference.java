@@ -29,10 +29,12 @@ import java.text.NumberFormat;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -130,55 +132,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	private static final double NUMERIC_SYSTEM = 10.0d;
 
 	/**
-	 * The default value of the seek bar.
-	 */
-	protected static final float DEFAULT_VALUE = 50.0f;
-
-	/**
-	 * The default minimum value of the seek bar.
-	 */
-	protected static final int DEFAULT_MIN_VALUE = 0;
-
-	/**
-	 * The default maximum value of the seek bar.
-	 */
-	protected static final int DEFAULT_MAX_VALUE = 100;
-
-	/**
-	 * The default step size, the value is increased or decreased by when moving
-	 * the seek bar.
-	 */
-	protected static final int DEFAULT_STEP_SIZE = -1;
-
-	/**
-	 * The default number of decimal numbers.
-	 */
-	protected static final int DEFAULT_DECIMALS = 1;
-
-	/**
-	 * The default suffix, which is attached to the current value for textual
-	 * representation.
-	 */
-	protected static final String DEFAULT_SUFFIX = null;
-
-	/**
-	 * The default symbol, which is used to separate floating point numbers for
-	 * textual representation.
-	 */
-	protected static final String DEFAULT_FLOATING_POINT_SEPARATOR = null;
-
-	/**
-	 * The default value, which specifies, whether the progress of the seek bar
-	 * should be shown, or not.
-	 */
-	protected static final boolean DEFAULT_SHOW_PROGRESS = true;
-
-	/**
-	 * The default, which are shown depending on the currently persisted value.
-	 */
-	protected static final String[] DEFAULT_SUMMARIES = null;
-
-	/**
 	 * The currently persisted value.
 	 */
 	private float value;
@@ -214,18 +167,18 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * The suffix, which is attached to the current value for textual
 	 * representation.
 	 */
-	private String suffix;
+	private CharSequence suffix;
 
 	/**
 	 * The separator, which is used to show floating point values.
 	 */
-	private String floatingPointSeparator;
+	private CharSequence floatingPointSeparator;
 
 	/**
-	 * A string array, which contains the summaries, which should be shown
-	 * depending on the currently persisted value.
+	 * An array, which contains the summaries, which should be shown depending
+	 * on the currently persisted value.
 	 */
-	private String[] summaries;
+	private CharSequence[] summaries;
 
 	/**
 	 * True, if the progress of the seek bar should be shown, false otherwise.
@@ -241,7 +194,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setValue(getPersistedFloat(DEFAULT_VALUE));
+		TypedValue typedValue = new TypedValue();
+		getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
+		setValue(getPersistedFloat(typedValue.getFloat()));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -278,7 +233,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainDecimals(final TypedArray typedArray) {
-		setDecimals(typedArray.getInteger(R.styleable.SeekBarPreference_decimals, DEFAULT_DECIMALS));
+		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_decimals);
+		setDecimals(typedArray.getInteger(R.styleable.SeekBarPreference_decimals, defaultValue));
 	}
 
 	/**
@@ -290,7 +246,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainMinValue(final TypedArray typedArray) {
-		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min, DEFAULT_MIN_VALUE));
+		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_min_value);
+		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min, defaultValue));
 	}
 
 	/**
@@ -302,7 +259,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainMaxValue(final TypedArray typedArray) {
-		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, DEFAULT_MAX_VALUE));
+		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_max_value);
+		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, defaultValue));
 	}
 
 	/**
@@ -314,7 +272,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainStepSize(final TypedArray typedArray) {
-		setStepSize(typedArray.getInteger(R.styleable.SeekBarPreference_stepSize, DEFAULT_STEP_SIZE));
+		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_step_size);
+		setStepSize(typedArray.getInteger(R.styleable.SeekBarPreference_stepSize, defaultValue));
 	}
 
 	/**
@@ -326,8 +285,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainSuffix(final TypedArray typedArray) {
-		String obtainedSuffix = typedArray.getString(R.styleable.SeekBarPreference_suffix);
-		setSuffix(obtainedSuffix != null ? obtainedSuffix : DEFAULT_SUFFIX);
+		setSuffix(typedArray.getText(R.styleable.SeekBarPreference_suffix));
 	}
 
 	/**
@@ -339,10 +297,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainFloatingPointSeparator(final TypedArray typedArray) {
-		String obtainedFloatingPointSeparator = typedArray
-				.getString(R.styleable.SeekBarPreference_floatingPointSeparator);
-		setFloatingPointSeparator(obtainedFloatingPointSeparator != null ? obtainedFloatingPointSeparator
-				: DEFAULT_FLOATING_POINT_SEPARATOR);
+		setFloatingPointSeparator(typedArray.getText(R.styleable.SeekBarPreference_floatingPointSeparator));
 	}
 
 	/**
@@ -354,11 +309,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainShowProgress(final TypedArray typedArray) {
-		if (typedArray != null) {
-			showProgress(typedArray.getBoolean(R.styleable.SeekBarPreference_showProgress, DEFAULT_SHOW_PROGRESS));
-		} else {
-			showProgress(DEFAULT_SHOW_PROGRESS);
-		}
+		boolean defaultValue = getContext().getResources().getBoolean(R.bool.seek_bar_preference_default_show_progress);
+		showProgress(typedArray.getBoolean(R.styleable.SeekBarPreference_showProgress, defaultValue));
 	}
 
 	/**
@@ -370,19 +322,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainSummaries(final TypedArray typedArray) {
-		try {
-			CharSequence[] charSequences = typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary);
-
-			String[] obtainedSummaries = new String[charSequences.length];
-
-			for (int i = 0; i < charSequences.length; i++) {
-				obtainedSummaries[i] = charSequences[i].toString();
-			}
-
-			setSummaries(obtainedSummaries);
-		} catch (NullPointerException e) {
-			setSummaries(DEFAULT_SUMMARIES);
-		}
+		setSummaries(typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary));
 	}
 
 	/**
@@ -751,10 +691,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * representation.
 	 * 
 	 * @return The suffix, which is attached to the current value for textual
-	 *         representation, as a {@link String} or null, if no suffix is
-	 *         attached
+	 *         representation, as an instance of the type {@link CharSequence}
+	 *         or null, if no suffix is attached
 	 */
-	public final String getSuffix() {
+	public final CharSequence getSuffix() {
 		return suffix;
 	}
 
@@ -763,10 +703,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * textual representation.
 	 * 
 	 * @param suffix
-	 *            The suffix, which should be set, as a {@link String} or null,
-	 *            if no suffix should be attached
+	 *            The suffix, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if no suffix should be attached
 	 */
-	public final void setSuffix(final String suffix) {
+	public final void setSuffix(final CharSequence suffix) {
 		this.suffix = suffix;
 	}
 
@@ -774,12 +714,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * Sets the suffix, which should be attached to the current value for
 	 * textual representation.
 	 * 
-	 * @param suffixResId
+	 * @param resourceId
 	 *            The resource id of the suffix, which should be set, as an
-	 *            {@link Integer} value
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
 	 */
-	public final void setSuffix(final int suffixResId) {
-		setSuffix(getContext().getResources().getString(suffixResId));
+	public final void setSuffix(final int resourceId) {
+		setSuffix(getContext().getResources().getText(resourceId));
 	}
 
 	/**
@@ -787,9 +728,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * textual representation.
 	 * 
 	 * @return The symbol, which is used to separate floating point numbers for
-	 *         textual representation, as a {@link String}
+	 *         textual representation, as an instance of the type
+	 *         {@link Character} or null, if the default symbol is used
 	 */
-	public final String getFloatingPointSeparator() {
+	public final CharSequence getFloatingPointSeparator() {
 		return floatingPointSeparator;
 	}
 
@@ -798,10 +740,11 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * for textual representation.
 	 * 
 	 * @param floatingPointSeparator
-	 *            The symbol, which should be set, as a {@link String}. The
-	 *            length of the string must be 1
+	 *            The symbol, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if the default symbol should be
+	 *            used. The length of the symbol must be 1
 	 */
-	public final void setFloatingPointSeparator(final String floatingPointSeparator) {
+	public final void setFloatingPointSeparator(final CharSequence floatingPointSeparator) {
 		if (floatingPointSeparator != null) {
 			ensureAtMaximum(floatingPointSeparator.length(), 1, "The floating point separator's length must be 1");
 		}
@@ -812,12 +755,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * Sets the symbol, which should be used to separate floating point numbers
 	 * for textual representation.
 	 * 
-	 * @param floatingPointSeparatorResId
+	 * @param resourceId
 	 *            The resource id of the symbol, which should be set, as an
-	 *            {@link Integer} value
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
 	 */
-	public final void setFloatingPointSeparator(final int floatingPointSeparatorResId) {
-		setFloatingPointSeparator(getContext().getResources().getString(floatingPointSeparatorResId));
+	public final void setFloatingPointSeparator(final int resourceId) {
+		setFloatingPointSeparator(getContext().getResources().getText(resourceId));
 	}
 
 	/**
@@ -848,10 +792,11 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * persisted value.
 	 * 
 	 * @return The summaries, which are shown depending on the currently
-	 *         persisted value, as a {@link String} array or null, if no
-	 *         summaries are shown depending on the currently persisted value
+	 *         persisted value, as an array of the type {@link CharSequence} or
+	 *         null, if no summaries are shown depending on the currently
+	 *         persisted value
 	 */
-	public final String[] getSummaries() {
+	public final CharSequence[] getSummaries() {
 		return summaries;
 	}
 
@@ -860,11 +805,11 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * persisted value.
 	 * 
 	 * @param summaries
-	 *            The summaries, which should be set, as a {@link String} array
-	 *            or null, if no summaries should be shown depending on the
-	 *            currently persisted value
+	 *            The summaries, which should be set, as an array of the type
+	 *            {@link CharSequence} or null, if no summaries should be shown
+	 *            depending on the currently persisted value
 	 */
-	public final void setSummaries(final String[] summaries) {
+	public final void setSummaries(final CharSequence[] summaries) {
 		this.summaries = summaries;
 	}
 
@@ -889,23 +834,27 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	public final void setSummary(final int summaryResId) {
+	public final void setSummary(final int resourceId) {
 		try {
-			setSummaries(getContext().getResources().getStringArray(summaryResId));
-		} catch (Exception e) {
-			super.setSummary(summaryResId);
+			setSummaries(getContext().getResources().getStringArray(resourceId));
+		} catch (NotFoundException e) {
+			super.setSummary(resourceId);
 		}
 	}
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray a, final int index) {
-		return a.getFloat(index, DEFAULT_VALUE);
+		TypedValue typedValue = new TypedValue();
+		getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
+		return a.getFloat(index, typedValue.getFloat());
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
 		if (restoreValue) {
-			setValue(getPersistedFloat(DEFAULT_VALUE));
+			TypedValue typedValue = new TypedValue();
+			getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
+			setValue(getPersistedFloat(typedValue.getFloat()));
 		} else {
 			setValue((Float) defaultValue);
 		}

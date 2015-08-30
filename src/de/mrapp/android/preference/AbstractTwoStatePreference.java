@@ -177,8 +177,10 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainDisableDependantsState(final TypedArray typedArray) {
-		setDisableDependentsState(
-				typedArray.getBoolean(R.styleable.AbstractTwoStatePreference_android_disableDependentsState, false));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.two_state_preference_default_disable_dependents_state);
+		setDisableDependentsState(typedArray
+				.getBoolean(R.styleable.AbstractTwoStatePreference_android_disableDependentsState, defaultValue));
 	}
 
 	/**

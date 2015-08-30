@@ -47,20 +47,6 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Ab
 		implements de.mrapp.android.dialog.MaterialDialogBuilder.Validator, Validateable<ValueType> {
 
 	/**
-	 * True, if the view, which is contained by the preference's dialog, should
-	 * be automatically validated, when its value has been changed, by default,
-	 * false otherwise.
-	 */
-	private static final boolean DEFAULT_VALIDATE_ON_VALUE_CHANGE = true;
-
-	/**
-	 * True, if the view, which is contained by the preference's dialog, should
-	 * be automatically validated, when it has lost its focus, by default, false
-	 * otherwise.
-	 */
-	private static final boolean DEFAULT_VALIDATE_ON_FOCUS_LOST = true;
-
-	/**
 	 * A set, which contains the validators, which are used to validate the
 	 * view, which is contained by the preference's dialog.
 	 */
@@ -183,8 +169,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Ab
 	 *            {@link TypedArray}
 	 */
 	private void obtainValidateOnValueChange(final TypedArray typedArray) {
-		validateOnValueChange(typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnValueChange,
-				DEFAULT_VALIDATE_ON_VALUE_CHANGE));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.validateable_dialog_preference_default_validate_on_value_change);
+		validateOnValueChange(
+				typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnValueChange, defaultValue));
 	}
 
 	/**
@@ -197,8 +185,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Ab
 	 *            focus, or not, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainValidateOnFocusLost(final TypedArray typedArray) {
-		validateOnFocusLost(typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnFocusLost,
-				DEFAULT_VALIDATE_ON_FOCUS_LOST));
+		boolean defaultValue = getContext().getResources()
+				.getBoolean(R.bool.validateable_dialog_preference_default_validate_on_focus_lost);
+		validateOnFocusLost(
+				typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnFocusLost, defaultValue));
 	}
 
 	/**
