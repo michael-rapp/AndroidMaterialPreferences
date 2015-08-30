@@ -203,7 +203,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	/**
-	 * Creates a new preference, has two selectable states.
+	 * Creates a new preference, which has two selectable states.
 	 * 
 	 * @param context
 	 *            The context, which should be used by the preference, as an
@@ -214,7 +214,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	/**
-	 * Creates a new preference, has two selectable states.
+	 * Creates a new preference, which has two selectable states.
 	 * 
 	 * @param context
 	 *            The context, which should be used by the preference, as an
@@ -229,7 +229,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	/**
-	 * Creates a new preference, has two selectable states.
+	 * Creates a new preference, which has two selectable states.
 	 * 
 	 * @param context
 	 *            The context, which should be used by the preference, as an
@@ -250,7 +250,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	/**
-	 * Creates a new preference, has two selectable states.
+	 * Creates a new preference, which has two selectable states.
 	 * 
 	 * @param context
 	 *            The context, which should be used by the preference, as an
