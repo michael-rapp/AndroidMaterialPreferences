@@ -63,6 +63,16 @@
                         <li><a href="content.html#resolution-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#resolution-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+		    <li><a href="content.html#color-palette-preference">ColorPalettePreference</a></li>
+                    <ul>
+                        <li><a href="content.html#color-palette-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#color-palette-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
+		    <li><a href="content.html#switch-preference">SwitchPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#switch-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#switch-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
                     <li><a href="content.html#validating-preferences">Validating preferences</a></li>
                 </ol>
 
@@ -260,12 +270,6 @@
                         <td>Returns or sets the summaries, which should be shown as the preferences summary, depending on the currently persisted value. For example, if the array's dimension is 2, the first summary will be shown if the value is between 0% and 49% of the whole range and the second summary will be shown if the value is between 50% and 100% of the range. If the array is set to null, no summaries will be shown depending on the currently persisted value.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
-                    </tr>
-                    <tr>
-                        <td><tt>getDefaultValue():float</br>setDefaultValue(Object):void</tt></td>
-                        <td>Returns the default value of the preference.</td>
-                        <td><center><tt>50</tt></center></td>
-                        <td>The value must be at least the minimum value and it must be at maximum the maximum value. If a step size is set, the value will be eventually rounded.</td>
                     </tr>
                 </table>
 
@@ -686,7 +690,7 @@
                         <td>The width must be at least 1.</td>
                     </tr>
                     <tr>
-                        <td><tt>getWidth():int</br>setWidth(int):void</tt></td>
+                        <td><tt>getHeight():int</br>setHeight(int):void</tt></td>
                         <td>Returns or sets the height of the preference's resolution. If a height is set, it is instantly persisted.</td>
                         <td><center>1</center></td>
                         <td>The height must be at least 1.</td>
@@ -720,8 +724,343 @@
                         <td>Must be a valid textual representation of a resolution.</td>
                     </tr>
                 </table>
+		
+		<h4><a name="color-palette-preference">9 ColorPalettePreference</a></h4>
 
-		<h4><a name="validating-preferences">9 Validating preferences</a></h4>
+		<p>The preference <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a> allows to choose a color from a predefined color palette. Therefore the preference's dialog shows previews of the available colors, which can be selected by the user, in a scrollable grid. Additionally, when the dialog is not shown, a preview of the currently selected color can be shown at the right edge of the preference. The previews of colors in the preference itself, as well as in its dialog, can be flexibly customized: The colors can be shown as a round or square shape and the width and color of the border surrounding it can be changed. By default the previews have a tiled background, which becomes visibe, if the previewed color is transparent. This background can also be changed. When the preference's <tt>showValueAsSummary</tt> attribute is set to <tt>true</tt>, a textual representation of the currently selected color is shown as its summary. The format of the textual representation can be chosen freely: The color's hexadecimal value or its RGB components can be printed.</p>
+
+		<h5><a name="color-palette-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The class <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a> provides the following getter and setter methods, which can be used to modify the preference's properties.</p>
+
+		<table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>isPreviewShown():boolean</br>showPreview(boolean):void</tt></td>
+                        <td>Returns or sets, whether a preview of the currently persisted color should be shown at the right edge of the preference.</td>
+                        <td><center><tt>true</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getPreviewSize():int</br>setPreviewSize(int):void</tt></td>
+                        <td>Returns or sets the size of the preview, which is shown at the right edge of the preference, in pixels.</td>
+                        <td><center><tt>38dp</tt></center></td>
+                        <td>The size must be at least 1.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getPreviewShape():PreviewShape</br>setPreviewShape(PreviewShape):void</tt></td>
+                        <td>Returns or sets the shape of the preview, which is shown at the right edge of the preference. It may be <tt>CIRCLE</tt> or <tt>SQUARE</tt>.</td>
+                        <td><center><tt>PreviewShape.CIRCLE</tt></center></td>
+                        <td>The shape may not be null.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getPreviewBorderWidth():int</br>setPreviewBorderWidth(int):void</tt></td>
+                        <td>Returns or sets the width of the border of the preview, which is shown at the right edge of the preference.</td>
+                        <td><center><tt>1dp</tt></center></td>
+                        <td>The border width must be at least 0.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getPreviewBorderColor():int</br>setPreviewBorderColor(int):void</tt></td>
+                        <td>Returns or sets the color of the border of the preview, which is shown at the right edge of the preference.</td>
+                        <td><center><tt>#ffd2d2d2</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getPreviewBackground():Drawable</br>setPreviewBackground(Drawable):void</br>setPreviewBackground(int):void</br>setPreviewBackgroundColor(int):void</tt></td>
+                        <td>Returns or sets the background of the preview, which is shown at the right edge of the preference.</td>
+                        <td><center><tt>R.drawable.</br>color_picker_default_background</tt></center></td>
+                        <td>If the background is specified as a resource ID, the ID must correspond to a valid drawable resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getColorFormat():ColorFormat</br>setColorFormat(ColorFormat):void</tt></td>
+                        <td>Returns or sets the format, which is used to print a textual representation of the preference's color. It may be <tt>RGB</tt>, <tt>ARGB</tt>, <tt>HEX_3_BYTES</tt> or <tt>HEX_4_BYTES</tt>.</td>
+                        <td><center><tt>ColorFormat.HEX_4_BYTES</tt></center></td>
+                        <td>The format may not be null.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogPreviewSize():int</br>setDialogPreviewSize(int):void</tt></td>
+                        <td>Returns or sets the size of the previews, which are shown in the preference's dialog.</td>
+                        <td><center><tt>72dp</tt></center></td>
+                        <td>The size must be at least 1.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogPreviewShape():PreviewShape</br>setDialogPreviewShape(int):PreviewShape</tt></td>
+                        <td>Returns or sets the shape of the previews, which are shown in the preference's dialog. It may be <tt>CIRCLE</tt> or <tt>SQUARE</tt>.</td>
+                        <td><center><tt>PreviewShape.CIRCLE</tt></center></td>
+                        <td>The shape may not be null.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogPreviewBorderWidth():int</br>setDialogPreviewWidth(int):void</tt></td>
+                        <td>Returns or sets the border width of the previews, which are shown in the preference's dialog.</td>
+                        <td><center><tt>1dp</tt></center></td>
+                        <td>The border width must be at least 0.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogPreviewBorderColor():int</br>setDialogPreviewColor(int):void</tt></td>
+                        <td>Returns or sets the border color of the previews, which are shown in the preference's dialog.</td>
+                        <td><center><tt>#ffd2d2d2</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogPreviewBackground():Drawable</br>setDialogPreviewBackground(Drawable):void</br>setDialogPreviewBackground(int):void</br>setDialogPreviewBackgroundColor(int):void</tt></td>
+                        <td>Returns or sets the background of the previews, which are shown in the preference's dialog.</td>
+                        <td><center><tt>R.drawable.</br>color_picker_default_background</tt></center></td>
+                        <td>If the background is specified as a resource ID, the ID must correspond to a valid drawable resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getNumberOfColumns():int</br>setNumberOfColumns(int):void</tt></td>
+                        <td>Returns or sets the number of columns of the grid, which is used to show the previews, which are shown in the preference's dialog.</td>
+                        <td><center><tt>3</tt></center></td>
+                        <td>The number of columns must be at least 1.</td>
+                    </tr>
+	            <tr>
+                        <td><tt>getColorPalette():int[]</br>setColorPalette(int[]):void</br>setColorPalette(int):void</tt></td>
+                        <td>Returns or sets the colors, the preference allows to choose.</td>
+                        <td><center>empty array</center></td>
+                        <td>If the color palette is specified as a resource ID, the ID must correspond to an integer array resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getColor():int</br>setColor(int):void</tt></td>
+                        <td>Returns or sets the color of the preference. If a color is set, it is instantly persisted.</td>
+                        <td><center><tt>@android:color/transparent</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h5><a name="color-palette-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>As an alternative to using the setter methods mentioned above, the following XML attributes can be used to set the properties of a <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a>.</p>
+
+		<table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:showPreview</tt></td>
+                        <td>Whether a preview of the currently persisted color should be shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:previewSize</tt></td>
+                        <td>The size of the preview, which is shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>38dp</tt></td>
+                        <td>The size must be at least 1.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:previewShape</tt></td>
+                        <td>The shape of the preview, which is shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>enum</tt></td>
+                        <td style="text-align: center;"><tt>circle</tt></td>
+                        <td>Must be <tt>circle</tt> or <tt>square</tt>.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:previewBorderWidth</tt></td>
+                        <td>The border width of the preview, which is shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>1dp</tt></td>
+                        <td>The border width must be at least 0.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:previewBorderColor</tt></td>
+                        <td>The border color of the preview, which is shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>#ffd2d2d2</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:previewBackground</tt></td>
+                        <td>The background of the preview, which is shown at the right edge of the preference.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;"><tt>R.drawable.</br>color_picker_default_background</tt></td>
+                        <td>The resource ID must correspond to a valid drawable resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:colorFormat</tt></td>
+                        <td>The format, which is used to print a textual representation of the preference's color.</td>
+                        <td style="text-align: center;"><tt>enum</tt></td>
+                        <td style="text-align: center;"><tt>hex4bytes</tt></td>
+                        <td>Must be <tt>rgb</tt>, <tt>argb</tt>, <tt>hex3bytes</tt> or <tt>hex4btyes</tt>.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogPreviewSize</tt></td>
+                        <td>The size of the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>72dp</tt></td>
+                        <td>The size must be at least 1.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogPreviewShape</tt></td>
+                        <td>The shape of the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>enum</tt></td>
+                        <td style="text-align: center;"><tt>circle</tt></td>
+                        <td>Must be <tt>circle</tt> or <tt>square</tt>.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogPreviewBorderWidth</tt></td>
+                        <td>The border width of the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>1dp</tt></td>
+                        <td>The border width must be at least 0.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogPreviewBorderColor</tt></td>
+                        <td>The border color of the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>#ffd2d2d2</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogPreviewBackground</tt></td>
+                        <td>The background of the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;">R.dimension.</br>color_picker_default_background</tt></td>
+                        <td>The resource ID must correspond to a valid drawable resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:numberOfColumns</tt></td>
+                        <td>The number of columns of the grid, which is used to show the previews, which are shown in the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>3</tt></td>
+                        <td>The number of columns must be at least 1.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:colorPalette</tt></td>
+                        <td>The colors, the preference allows to choose.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;">empty array</td>
+                        <td>The resource ID must correspond to a valid integer array resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>The default color of the preference.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>@android:color/transparent</tt></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h4><a name="switch-preference">10 SwitchPreference</a></h4>
+
+		<p>The class <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a> is an alternative implementation of the Android SDK's built-in preference <a href="http://developer.android.com/reference/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>, which is designed according to the Material design guidelines even on pre-Lollipop devices. It provides a toggleable option using a switch widget. Because no dialog is opened when clicking the preference, the getter- and setter-methods, respectively XML attributes, which have been mentioned in section 2 "Common properties" of this documentation, are not supported by this preference.</p>
+
+		<h5><a name="switch-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The following getter and setter methods are provided by a <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>.</p>
+
+		<table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getSummaryOn():CharSequence</br>setSummaryOn(CharSequence):void</br>setSummaryOn(int):void</tt></td>
+                        <td>Returns or sets the summary, which is shown when the preference is checked.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the summary is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getSummaryOff():CharSequence</br>setSummaryOff(CharSequence):void</br>setSummaryOff(int):void</tt></td>
+                        <td>Returns or sets the summary, which is shown when the preference is not checked.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the summary is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDisableDependentsState():boolean</br>setDisableDependentsState(boolean):void</tt></td>
+                        <td>Returns or sets, whether dependent preferences are disabled when the preference is checked, or when it is not checked.</td>
+                        <td><center><tt>false</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getSwitchTextOn():CharSequence</br>setSwitchTextOn(CharSequence):void</br>setSwitchTextOn(int):void</tt></td>
+                        <td>Returns or sets the text, which is displayed on the preference's switch when it is checked.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the text is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getSwitchTextOff():CharSequence</br>setSwitchTextOff(CharSequence):void</br>setSwitchTextOff(int):void</tt></td>
+                        <td>Returns or sets the text, which is displayed on the preference's switch when it is not checked.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the text is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>isChecked():boolean</br>setChecked(boolean):void</tt></td>
+                        <td>Returns or sets, whether the preference is checked, or not. If a value is set, it is instantly persisted.</td>
+                        <td><center><tt>false</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h5><a name="switch-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>Instead of previously shown getter and setter methods, the following XML attributes can be used in order to specify the properties of a <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+		    <tr>
+                        <td><tt>android:summaryOn</tt></td>
+                        <td>The summary, which is shown when the preference is checked.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>android:summaryOff</tt></td>
+                        <td>The summary, which is shown when the preference is not checked.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>android:disableDependentsState</tt></td>
+                        <td>Whether dependent preferences should be disabled when the preference is checked, or when it is not checked.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>android:switchTextOn</tt></td>
+                        <td>The text, which is displayed on the preference's switch when the preference is checked.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>android:switchTextOff</tt></td>
+                        <td>The text, which is displayed on the preference's switch when the preference is not checked.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>The default value of the preference.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h4><a name="validating-preferences">11 Validating preferences</a></h4>
 
 		<p>Some preferences, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, can be validated and therefore are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The validation is performed according to so called <i>validators</i>, which can be added to the preference by using the following methods. If the validation fails, an error message will be prompted and the preference's dialog will refuse to be closed in order to ensure, that no invalid values can be stored.</p>
 
@@ -847,6 +1186,8 @@
 		<div class="reference"><a name="reference6" class="reference">[6]</a><a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank">http://developer.android.com/reference/android/widget/NumberPicker.html</a> &#150; Class NumberPicker</div>
 
 		<div class="reference"><a name="reference7" class="reference">[7]</a><a href="http://developer.android.com/reference/android/util/Pair.html" target="_blank">http://developer.android.com/reference/android/util/Pair.html</a> &#150; Class Pair</div>
+
+		<div class="reference"><a name="reference8" class="reference">[8]</a><a href="http://developer.android.com/reference/android/preference/SwitchPreference.html" target="_black">http://developer.android.com/reference/android/preference/SwitchPreference.html</a> &#150; Class SwitchPreference</div>
             </div>
 
             <div class="copyright">

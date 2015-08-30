@@ -273,7 +273,8 @@
                 <p>The following example shows how a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> can be instantiated programmatically.</p>
 
                 <div class="code-block">ResolutionPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;ResolutionPreference(<strong><font color='#7f0055'>this</font></strong>);
-<br/>preference.setDefaultValue(ResolutionPreference.<i>formatResolution</i>(<strong><font color='#7f0055'>this</font></strong>, 1024, 768));
+<br/>preference.setWidth(1024);
+<br/>preference.setHeight(768);
 <br/>preference.setDialogTitleColor(Color.BLACK);
 <br/>preference.setDialogButtonTextColor(Color.BLACK);
 <br/>preference.setDialogMessage(R.string.resolution_preference_dialog_message);
@@ -281,6 +282,118 @@
 <br/>preference.setKey(R.string.resolution_preference_key);
 <br/>preference.setSummary(R.string.resolution_preference_summary);
 <br/>preference.setTitle(R.string.resolution_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+		<h4>Declaring a ColorPalettePreference via XML</h4>
+                
+                <p>The following XML structure illustrates how a <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a> can be specified within a XML layout.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.ColorPalettePreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"@color/red"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showPreview=<font color='#2a00ff'>"true"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:previewSize=<font color='#2a00ff'>"@dimen/preview_size"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:previewShape=<font color='#2a00ff'>"square"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:previewBorderWidth=<font color='#2a00ff'>"@dimen/preview_border_width"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:previewBorderColor=<font color='#2a00ff'>"@color/preview_border_color"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:previewBackground=<font color='#2a00ff'>"@drawable/preview_background"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:colorFormat=<font color='#2a00ff'>"rgb"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:dialogPreviewSize=<font color='#2a00ff'>"@dimen/dialog_preview_size"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:dialogPreviewShape=<font color='#2a00ff'>"square"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:dialogPreviewBorderWidth=<font color='#2a00ff'>"@dimen/dialog_preview_border_width"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:dialogPreviewBorderColor=<font color='#2a00ff'>"@color/dialog_preview_border_color"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:dialogPreviewBackground=<font color='#2a00ff'>"@drawable/dialog_preview_background"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:numberOfColumns=<font color='#2a00ff'>"2"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:colorPalette=<font color='#2a00ff'>"@array/color_palette"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/color_palette_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/color_palette_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/color_palette_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/color_palette_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/color_palette_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+		<h4>Instantiating a ColorPalettePreference programatically</h4>
+
+                <p>The following code shows how a <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a> can be declared programmatically.</p>
+
+                <div class="code-block">ColorPalettePreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;ColorPalettePreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.showPreview(<strong><font color='#7f0055'>true</font></strong>);
+<br/>preference.setPreviewSize(getResources().getDimensionPixelSize(R.dimen.preview_size));
+<br/>preference.setPreviewShape(PreviewShape.SQUARE);
+<br/>preference.setPreviewBorderWidth(getResources().getDimensionPixelSize(
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.dimen.preview_border_width));
+<br/>preference.setPreviewBorderColor(getResources().getColor(R.color.preview_border_color));
+<br/>preference.setPreviewBackground(R.drawable.preview_background);
+<br/>preference.setColorFormat(ColorFormat.RGB);
+<br/>preference.setDialogPreviewSize(getResources().getDimensionPixelSize(
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.dimen.dialog_preview_size));
+<br/>preference.setDialogPreviewShape(PreviewShape.SQUARE);
+<br/>preference.setDialogPreviewBorderWidth(getResources().getDimensionPixelSize(
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.dimen.dialog_preview_border_width));
+<br/>preference.setDialogPreviewBorderColor(getResources().getColor(
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.color.dialog_preview_border_color));
+<br/>preference.setDialogPreviewBackground(R.drawable.dialog_preview_background));
+<br/>preference.setNumberOfColumns(2);
+<br/>preference.setColorPalette(getResources().getIntArray(R.array.color_palette));
+<br/>preference.setColor(Color.RED);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.color_palette_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.color_palette_preference_dialog_title);
+<br/>preference.setKey(R.string.color_palette_preference_key);
+<br/>preference.setSummary(R.string.color_palette_preference_summary);
+<br/>preference.setTitle(R.string.color_palette_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
+		<h4>Declaring a SwitchPreference via XML</h4>
+                
+                <p>The following XML code shows how a <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a> can be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.SwitchPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"true"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summaryOn=<font color='#2a00ff'>@string/summary_on</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summaryOff=<font color='#2a00ff'>@string/summary_off</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:disableDependentsState=<font color='#2a00ff'>true</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:switchTextOn=<font color='#2a00ff'>@string/switch_text_on</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:switchTextOff=<font color='#2a00ff'>@string/switch_text_off</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/switch_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/switch_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/switch_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/switch_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/switch_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a SwitchPreference programatically</h4>
+
+                <p>The following example shows how a <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a> can be instantiated programmatically.</p>
+
+                <div class="code-block">SwitchPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;SwitchPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setChecked(<strong><font color='#7f0055'>true</font></strong>);
+<br/>preference.setSummaryOn(R.string.summary_on);
+<br/>preference.setSummaryOff(R.string.summary_off);
+<br/>preference.setDisableDependentsState(<strong><font color='#7f0055'>true</font></strong>);
+<br/>preference.setSwitchTextOn(R.string.switch_text_on);
+<br/>preference.setSwitchTextOff(R.string.switch_text_off);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.switch_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.switch_preference_dialog_title);
+<br/>preference.setKey(R.string.switch_preference_key);
+<br/>preference.setSummary(R.string.switch_preference_summary);
+<br/>preference.setTitle(R.string.switch_preference_title);
 <br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
 
                 <h4>External references:</h4>
