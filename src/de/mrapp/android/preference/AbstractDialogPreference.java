@@ -83,11 +83,6 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 		public Bundle dialogState;
 
 		/**
-		 * The saved value of the attribute "showValueAsSummary".
-		 */
-		public boolean showValueAsSummary;
-
-		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link AbstractDialogPreference}. This constructor is
 		 * used when reading from a parcel. It reads the state of the
@@ -101,7 +96,6 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 			super(source);
 			dialogShown = source.readInt() == 1;
 			dialogState = source.readBundle();
-			showValueAsSummary = source.readByte() != 0;
 		}
 
 		/**
@@ -122,7 +116,6 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 			super.writeToParcel(destination, flags);
 			destination.writeInt(dialogShown ? 1 : 0);
 			destination.writeBundle(dialogState);
-			destination.writeByte((byte) (showValueAsSummary ? 1 : 0));
 		}
 
 	};
@@ -771,9 +764,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 
 	@Override
 	protected Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.showValueAsSummary = isValueShownAsSummary();
+		Parcelable superState = super.onSaveInstanceState();
+		SavedState savedState = new SavedState(superState);
 		savedState.dialogShown = isDialogShown();
 
 		if (isDialogShown()) {
@@ -789,7 +781,6 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			showValueAsSummary(savedState.showValueAsSummary);
 
 			if (savedState.dialogShown) {
 				showDialog(savedState.dialogState);

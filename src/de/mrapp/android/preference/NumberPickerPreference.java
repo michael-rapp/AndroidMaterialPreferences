@@ -76,16 +76,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		public int currentNumber;
 
 		/**
-		 * The saved value of the attribute "minNumber".
-		 */
-		public int minNumber;
-
-		/**
-		 * The saved value of the attribute "maxNumber".
-		 */
-		public int maxNumber;
-
-		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link NumberPickerPreference}. This constructor is
 		 * called by derived classes when saving their states.
@@ -110,17 +100,12 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		public SavedState(final Parcel source) {
 			super(source);
 			currentNumber = source.readInt();
-			minNumber = source.readInt();
-			maxNumber = source.readInt();
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeInt(currentNumber);
-			destination.writeInt(minNumber);
-			destination.writeInt(maxNumber);
 		}
 
 	};
@@ -174,8 +159,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.NumberPickerPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
 		try {
 			obtainMaxNumber(typedArray);
 			obtainMinNumber(typedArray);
@@ -193,9 +177,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainMaxNumber(final TypedArray typedArray) {
-		setMaxNumber(typedArray.getInteger(
-				R.styleable.NumberPickerPreference_maxNumber,
-				DEFAULT_MAX_NUMBER));
+		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_maxNumber, DEFAULT_MAX_NUMBER));
 	}
 
 	/**
@@ -207,9 +189,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainMinNumber(final TypedArray typedArray) {
-		setMinNumber(typedArray.getInteger(
-				R.styleable.NumberPickerPreference_minNumber,
-				DEFAULT_MIN_NUMBER));
+		setMinNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_minNumber, DEFAULT_MIN_NUMBER));
 	}
 
 	/**
@@ -223,9 +203,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		return new OnValueChangeListener() {
 
 			@Override
-			public void onValueChange(
-					final android.widget.NumberPicker numberPicker,
-					final int oldValue, final int newValue) {
+			public void onValueChange(final android.widget.NumberPicker numberPicker, final int oldValue,
+					final int newValue) {
 				currentNumber = newValue;
 			}
 
@@ -266,8 +245,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            The attributes of the XML tag that is inflating the
 	 *            preference, as an instance of the type {@link AttributeSet}
 	 */
-	public NumberPickerPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public NumberPickerPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
 		initialize(attributeSet);
 	}
@@ -289,8 +267,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public NumberPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public NumberPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -318,8 +295,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public NumberPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
+	public NumberPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
@@ -344,8 +320,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 */
 	public final void setMinNumber(final int minNumber) {
 		ensureAtLeast(minNumber, 0, "The minimum number must be at least 0");
-		ensureLessThan(minNumber, getMaxNumber(),
-				"The minimum number must be less than the maximum number");
+		ensureLessThan(minNumber, getMaxNumber(), "The minimum number must be less than the maximum number");
 		this.minNumber = minNumber;
 		setNumber(Math.max(getNumber(), minNumber));
 	}
@@ -368,8 +343,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            value. The number must be greater than the minimum number
 	 */
 	public final void setMaxNumber(final int maxNumber) {
-		ensureGreaterThan(maxNumber, getMinNumber(),
-				"The maximum number must be greater than the minimum number");
+		ensureGreaterThan(maxNumber, getMinNumber(), "The maximum number must be greater than the minimum number");
 		this.maxNumber = maxNumber;
 		setNumber(Math.min(getNumber(), maxNumber));
 	}
@@ -387,10 +361,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	@Override
 	public final void setNumber(final int number) {
 		if (!(getMinNumber() == 0 && getMaxNumber() == 0)) {
-			ensureAtLeast(number, getMinNumber(),
-					"The number must be at least the minimum number");
-			ensureAtMaximum(number, getMaxNumber(),
-					"The number must be at maximum the maximum number");
+			ensureAtLeast(number, getMinNumber(), "The number must be at least the minimum number");
+			ensureAtMaximum(number, getMaxNumber(), "The number must be at maximum the maximum number");
 		}
 
 		currentNumber = number;
@@ -402,9 +374,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		super.useInputMethod(useInputMethod);
 
 		if (numberPicker != null) {
-			numberPicker
-					.setDescendantFocusability(useInputMethod ? NumberPicker.FOCUS_BEFORE_DESCENDANTS
-							: NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+			numberPicker.setDescendantFocusability(
+					useInputMethod ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		}
 	}
 
@@ -418,31 +389,27 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		View view = View.inflate(getContext(), R.layout.number_picker, null);
-		LinearLayout container = (LinearLayout) view
-				.findViewById(R.id.number_picker_container);
+		LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 
 		numberPicker = new NumberPicker(getContext());
 		numberPicker.setMinValue(getMinNumber());
 		numberPicker.setMaxValue(getMaxNumber());
 		numberPicker.setValue(getCurrentNumber());
 		numberPicker.setWrapSelectorWheel(isSelectorWheelWrapped());
-		numberPicker
-				.setDescendantFocusability(isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS
-						: NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+		numberPicker.setDescendantFocusability(
+				isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		numberPicker.setOnValueChangedListener(createNumberPickerListener());
-		container.addView(numberPicker, LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT);
+		container.addView(numberPicker, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		dialogBuilder.setView(view);
 	}
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(currentNumber)) {
-			setNumber(currentNumber);
+		if (positiveResult && callChangeListener(getCurrentNumber())) {
+			setNumber(getCurrentNumber());
 		} else {
 			currentNumber = getNumber();
 		}
@@ -452,12 +419,15 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	protected final Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.currentNumber = getCurrentNumber();
-		savedState.minNumber = getMinNumber();
-		savedState.maxNumber = getMaxNumber();
-		return savedState;
+		Parcelable superState = super.onSaveInstanceState();
+
+		if (!isPersistent()) {
+			SavedState savedState = new SavedState(superState);
+			savedState.currentNumber = getCurrentNumber();
+			return savedState;
+		}
+
+		return superState;
 	}
 
 	@Override
@@ -465,8 +435,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			currentNumber = savedState.currentNumber;
-			minNumber = savedState.minNumber;
-			maxNumber = savedState.maxNumber;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

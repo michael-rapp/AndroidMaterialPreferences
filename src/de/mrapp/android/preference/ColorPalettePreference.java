@@ -28,8 +28,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,106 +46,6 @@ import de.mrapp.android.preference.util.DisplayUtil;
  * @since 1.4.0
  */
 public class ColorPalettePreference extends AbstractColorPickerPreference {
-
-	/**
-	 * A data structure, which allows to save the internal state of an
-	 * {@link ColorPalettePreference}.
-	 */
-	public static class SavedState extends BaseSavedState {
-
-		/**
-		 * A creator, which allows to create instances of the class
-		 * {@link SavedState} from parcels.
-		 */
-		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-
-			@Override
-			public SavedState createFromParcel(final Parcel in) {
-				return new SavedState(in);
-			}
-
-			@Override
-			public SavedState[] newArray(final int size) {
-				return new SavedState[size];
-			}
-		};
-
-		/**
-		 * The saved value of the attribute "colorPalette".
-		 */
-		public int[] colorPalette;
-
-		/**
-		 * The saved value of the attribute "dialogPreviewSize".
-		 */
-		public int dialogPreviewSize;
-
-		/**
-		 * The saved value of the attribute "dialogPreviewShape".
-		 */
-		public PreviewShape dialogPreviewShape;
-
-		/**
-		 * The saved value of the attribute "dialogPreviewBorderWidth".
-		 */
-		public int dialogPreviewBorderWidth;
-
-		/**
-		 * The saved value of the attribute "dialogPreviewBorderColor".
-		 */
-		public int dialogPreviewBorderColor;
-
-		/**
-		 * The saved value of the attribute "numberOfColumns".
-		 */
-		public int numberOfColumns;
-
-		/**
-		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link ColorPalettePreference}. This constructor is
-		 * called by derived classes when saving their states.
-		 * 
-		 * @param superState
-		 *            The state of the superclass of this view, as an instance
-		 *            of the type {@link Parcelable}
-		 */
-		public SavedState(final Parcelable superState) {
-			super(superState);
-		}
-
-		/**
-		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link ColorPalettePreference}. This constructor is used
-		 * when reading from a parcel. It reads the state of the superclass.
-		 * 
-		 * @param source
-		 *            The parcel to read read from as a instance of the class
-		 *            {@link Parcel}
-		 */
-		public SavedState(final Parcel source) {
-			super(source);
-			colorPalette = new int[source.readInt()];
-			source.readIntArray(colorPalette);
-			dialogPreviewSize = source.readInt();
-			dialogPreviewShape = PreviewShape.fromValue(source.readInt());
-			dialogPreviewBorderWidth = source.readInt();
-			dialogPreviewBorderColor = source.readInt();
-			numberOfColumns = source.readInt();
-		}
-
-		@Override
-		public final void writeToParcel(final Parcel destination, final int flags) {
-			super.writeToParcel(destination, flags);
-			destination.writeInt(colorPalette.length);
-			destination.writeIntArray(colorPalette);
-			destination.writeInt(dialogPreviewSize);
-			destination.writeInt(dialogPreviewShape.getValue());
-			destination.writeInt(dialogPreviewBorderWidth);
-			destination.writeInt(dialogPreviewBorderColor);
-			destination.writeInt(numberOfColumns);
-		}
-
-	};
 
 	/**
 	 * The default size, which is used to preview colors in the preference's
@@ -705,40 +603,6 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
 		gridView = null;
 		adapter = null;
-	}
-
-	@Override
-	protected final Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-
-		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
-			savedState.colorPalette = getColorPalette();
-			savedState.dialogPreviewSize = getDialogPreviewSize();
-			savedState.dialogPreviewShape = getDialogPreviewShape();
-			savedState.dialogPreviewBorderWidth = getDialogPreviewBorderWidth();
-			savedState.dialogPreviewBorderColor = getDialogPreviewBorderColor();
-			savedState.numberOfColumns = getNumberOfColumns();
-			return savedState;
-		}
-
-		return parcelable;
-	}
-
-	@Override
-	protected final void onRestoreInstanceState(final Parcelable state) {
-		if (state != null && state instanceof SavedState) {
-			SavedState savedState = (SavedState) state;
-			setColorPalette(savedState.colorPalette);
-			setDialogPreviewSize(savedState.dialogPreviewSize);
-			setDialogPreviewShape(savedState.dialogPreviewShape);
-			setDialogPreviewBorderWidth(savedState.dialogPreviewBorderWidth);
-			setDialogPreviewBorderColor(savedState.dialogPreviewBorderColor);
-			setNumberOfColumns(savedState.numberOfColumns);
-			super.onRestoreInstanceState(savedState.getSuperState());
-		} else {
-			super.onRestoreInstanceState(state);
-		}
 	}
 
 }

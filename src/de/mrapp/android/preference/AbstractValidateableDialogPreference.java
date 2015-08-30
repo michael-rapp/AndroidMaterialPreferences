@@ -27,8 +27,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.validation.Validateable;
@@ -45,83 +43,8 @@ import de.mrapp.android.validation.Validator;
  * 
  * @since 1.2.0
  */
-public abstract class AbstractValidateableDialogPreference<ValueType> extends
-		AbstractDialogPreference implements
-		de.mrapp.android.dialog.MaterialDialogBuilder.Validator,
-		Validateable<ValueType> {
-
-	/**
-	 * A data structure, which allows to save the internal state of an
-	 * {@link AbstractValidateableDialogPreference}.
-	 */
-	public static class SavedState extends BaseSavedState {
-
-		/**
-		 * A creator, which allows to create instances of the class
-		 * {@link SavedState} from parcels.
-		 */
-		public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
-
-			@Override
-			public SavedState createFromParcel(final Parcel in) {
-				return new SavedState(in);
-			}
-
-			@Override
-			public SavedState[] newArray(final int size) {
-				return new SavedState[size];
-			}
-
-		};
-
-		/**
-		 * The saved value of the attribute "validateOnValueChange".
-		 */
-		public boolean validateOnValueChange;
-
-		/**
-		 * The saved value of the attribute "validateOnFocusLost".
-		 */
-		public boolean validateOnFocusLost;
-
-		/**
-		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link AbstractValidateableDialogPreference}. This
-		 * constructor is called by derived classes when saving their states.
-		 * 
-		 * @param superState
-		 *            The state of the superclass of this view, as an instance
-		 *            of the type {@link Parcelable}
-		 */
-		public SavedState(final Parcelable superState) {
-			super(superState);
-		}
-
-		/**
-		 * Creates a new data structure, which allows to store the internal
-		 * state of an {@link AbstractValidateableDialogPreference}. This
-		 * constructor is used when reading from a parcel. It reads the state of
-		 * the superclass.
-		 * 
-		 * @param source
-		 *            The parcel to read read from as a instance of the class
-		 *            {@link Parcel}
-		 */
-		public SavedState(final Parcel source) {
-			super(source);
-			validateOnValueChange = source.readInt() == 1;
-			validateOnFocusLost = source.readInt() == 1;
-		}
-
-		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
-			super.writeToParcel(destination, flags);
-			destination.writeInt(validateOnValueChange ? 1 : 0);
-			destination.writeInt(validateOnFocusLost ? 1 : 0);
-		}
-
-	};
+public abstract class AbstractValidateableDialogPreference<ValueType> extends AbstractDialogPreference
+		implements de.mrapp.android.dialog.MaterialDialogBuilder.Validator, Validateable<ValueType> {
 
 	/**
 	 * True, if the view, which is contained by the preference's dialog, should
@@ -201,8 +124,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.AbstractValidateableView);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.AbstractValidateableView);
 		try {
 			obtainHelperText(typedArray);
 			obtainHelperTextColor(typedArray);
@@ -222,8 +144,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainHelperText(final TypedArray typedArray) {
-		setHelperText(typedArray
-				.getString(R.styleable.AbstractValidateableView_helperText));
+		setHelperText(typedArray.getString(R.styleable.AbstractValidateableView_helperText));
 	}
 
 	/**
@@ -234,10 +155,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            obtained from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainHelperTextColor(final TypedArray typedArray) {
-		setHelperTextColor(typedArray.getColor(
-				R.styleable.AbstractValidateableView_helperTextColor,
-				getContext().getResources().getColor(
-						R.color.default_helper_text_color)));
+		setHelperTextColor(typedArray.getColor(R.styleable.AbstractValidateableView_helperTextColor,
+				getContext().getResources().getColor(R.color.default_helper_text_color)));
 	}
 
 	/**
@@ -249,9 +168,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainErrorColor(final TypedArray typedArray) {
-		setErrorColor(typedArray.getColor(
-				R.styleable.AbstractValidateableView_errorColor, getContext()
-						.getResources().getColor(R.color.default_error_color)));
+		setErrorColor(typedArray.getColor(R.styleable.AbstractValidateableView_errorColor,
+				getContext().getResources().getColor(R.color.default_error_color)));
 	}
 
 	/**
@@ -265,8 +183,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            {@link TypedArray}
 	 */
 	private void obtainValidateOnValueChange(final TypedArray typedArray) {
-		validateOnValueChange(typedArray.getBoolean(
-				R.styleable.AbstractValidateableView_validateOnValueChange,
+		validateOnValueChange(typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnValueChange,
 				DEFAULT_VALIDATE_ON_VALUE_CHANGE));
 	}
 
@@ -280,8 +197,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            focus, or not, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainValidateOnFocusLost(final TypedArray typedArray) {
-		validateOnFocusLost(typedArray.getBoolean(
-				R.styleable.AbstractValidateableView_validateOnFocusLost,
+		validateOnFocusLost(typedArray.getBoolean(R.styleable.AbstractValidateableView_validateOnFocusLost,
 				DEFAULT_VALIDATE_ON_FOCUS_LOST));
 	}
 
@@ -295,8 +211,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            The builder, which is used to create the preference's dialog,
 	 *            as an instance of the class {@link MaterialDialogBuilder}
 	 */
-	protected abstract void onPrepareValidateableDialog(
-			final MaterialDialogBuilder dialogBuilder);
+	protected abstract void onPrepareValidateableDialog(final MaterialDialogBuilder dialogBuilder);
 
 	/**
 	 * Returns the listeners, which are notified when the view, which is
@@ -332,8 +247,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            The attributes of the XML tag that is inflating the
 	 *            preference, as an instance of the type {@link AttributeSet}
 	 */
-	public AbstractValidateableDialogPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public AbstractValidateableDialogPreference(final Context context, final AttributeSet attributeSet) {
 		this(context, attributeSet, android.R.attr.dialogPreferenceStyle);
 	}
 
@@ -353,8 +267,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public AbstractValidateableDialogPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public AbstractValidateableDialogPreference(final Context context, final AttributeSet attributeSet,
+			final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -381,9 +295,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public AbstractValidateableDialogPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
-			final int defaultStyleResource) {
+	public AbstractValidateableDialogPreference(final Context context, final AttributeSet attributeSet,
+			final int defaultStyle, final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
 	}
@@ -479,8 +392,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	}
 
 	@Override
-	public final void addAllValidators(
-			final Collection<Validator<ValueType>> validators) {
+	public final void addAllValidators(final Collection<Validator<ValueType>> validators) {
 		ensureNotNull(validators, "The collection may not be null");
 
 		for (Validator<ValueType> validator : validators) {
@@ -505,8 +417,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	}
 
 	@Override
-	public final void removeAllValidators(
-			final Collection<Validator<ValueType>> validators) {
+	public final void removeAllValidators(final Collection<Validator<ValueType>> validators) {
 		ensureNotNull(validators, "The collection may not be null");
 
 		for (Validator<ValueType> validator : validators) {
@@ -516,8 +427,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 
 	@SafeVarargs
 	@Override
-	public final void removeAllValidators(
-			final Validator<ValueType>... validators) {
+	public final void removeAllValidators(final Validator<ValueType>... validators) {
 		ensureNotNull(validators, "The array may not be null");
 
 		for (Validator<ValueType> validator : validators) {
@@ -551,45 +461,21 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends
 	}
 
 	@Override
-	public final void addValidationListener(
-			final ValidationListener<ValueType> listener) {
+	public final void addValidationListener(final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		this.validationListeners.add(listener);
 	}
 
 	@Override
-	public final void removeValidationListener(
-			final ValidationListener<ValueType> listener) {
+	public final void removeValidationListener(final ValidationListener<ValueType> listener) {
 		ensureNotNull(listener, "The listener may not be null");
 		this.validationListeners.remove(listener);
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		dialogBuilder.addValidator(this);
 		onPrepareValidateableDialog(dialogBuilder);
-	}
-
-	@Override
-	protected Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.validateOnValueChange = isValidatedOnValueChange();
-		savedState.validateOnFocusLost = isValidatedOnFocusLost();
-		return savedState;
-	}
-
-	@Override
-	protected void onRestoreInstanceState(final Parcelable state) {
-		if (state != null && state instanceof SavedState) {
-			SavedState savedState = (SavedState) state;
-			validateOnValueChange(savedState.validateOnValueChange);
-			validateOnFocusLost(savedState.validateOnFocusLost);
-			super.onRestoreInstanceState(savedState.getSuperState());
-		} else {
-			super.onRestoreInstanceState(state);
-		}
 	}
 
 }
