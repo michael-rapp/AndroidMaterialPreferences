@@ -415,7 +415,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	@Override
-	protected final Parcelable onSaveInstanceState() {
+	protected Parcelable onSaveInstanceState() {
 		Parcelable parcelable = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
@@ -431,7 +431,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	@Override
-	protected final void onRestoreInstanceState(final Parcelable state) {
+	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			setSummaryOn(savedState.summaryOn);
