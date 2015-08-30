@@ -2,6 +2,22 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.4.0 
+Release date:   08.31.2015
+--------------------------
+
+A feature release, which introduces the following new features:
+    
+    -   Added a preference, which allows to choose a color from
+    	a predefined color palette (ResolutionPreference).
+    	
+    -	Added a preference, which provides a toggleable option
+    	using a Switch widget (SwitchPreference).
+    	
+    -	Minor implementation and API changes for greater 
+    	consistency with the Android SDK's built-in preferences.
+    	
+    	
 Version:        1.3.0 
 Release date:   08.22.2015
 --------------------------
