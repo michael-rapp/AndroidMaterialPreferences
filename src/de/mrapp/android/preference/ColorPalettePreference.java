@@ -34,7 +34,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.preference.adapter.ColorPaletteAdapter;
-import de.mrapp.android.preference.util.DisplayUtil;
 
 /**
  * A preference, which allows to choose a color from a pre-defined color
@@ -192,9 +191,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 	private void obtainDialogPreviewBorderWidth(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getDimensionPixelSize(R.dimen.color_palette_preference_default_dialog_preview_border_width);
-		setDialogPreviewBorderWidth(
-				typedArray.getDimensionPixelSize(R.styleable.ColorPalettePreference_dialogPreviewBorderWidth,
-						DisplayUtil.convertDpToPixels(getContext(), defaultValue)));
+		setDialogPreviewBorderWidth(typedArray
+				.getDimensionPixelSize(R.styleable.ColorPalettePreference_dialogPreviewBorderWidth, defaultValue));
 	}
 
 	/**
