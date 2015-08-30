@@ -952,7 +952,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 		SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
 		seekBar.setMax(getRange() * getMultiplier());
-		seekBar.setProgress(Math.round((getValue() - getMinValue()) * getMultiplier()));
+		seekBar.setProgress(Math.round((getCurrentValue() - getMinValue()) * getMultiplier()));
 		seekBar.setOnSeekBarChangeListener(createSeekBarListener(progressTextView));
 
 		dialogBuilder.setView(layout);
@@ -970,15 +970,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	@Override
 	protected final Parcelable onSaveInstanceState() {
 		Parcelable superState = super.onSaveInstanceState();
-
-		if (!isPersistent()) {
-			SavedState savedState = new SavedState(superState);
-			savedState.value = getValue();
-			savedState.currentValue = getCurrentValue();
-			return savedState;
-		}
-
-		return superState;
+		SavedState savedState = new SavedState(superState);
+		savedState.currentValue = getCurrentValue();
+		savedState.value = getValue();
+		return savedState;
 	}
 
 	@Override
