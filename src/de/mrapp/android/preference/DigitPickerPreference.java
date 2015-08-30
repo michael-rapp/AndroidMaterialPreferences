@@ -427,14 +427,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	@Override
 	protected final Parcelable onSaveInstanceState() {
 		Parcelable superState = super.onSaveInstanceState();
-
-		if (!isPersistent()) {
-			SavedState savedState = new SavedState(superState);
-			savedState.currentNumber = getCurrentNumber();
-			return savedState;
-		}
-
-		return superState;
+		SavedState savedState = new SavedState(superState);
+		savedState.currentNumber = getCurrentNumber();
+		return savedState;
 	}
 
 	@Override
