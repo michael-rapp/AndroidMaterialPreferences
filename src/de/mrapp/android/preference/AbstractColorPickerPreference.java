@@ -768,6 +768,19 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	}
 
 	/**
+	 * Sets the background of the preview of the preference's color.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the background, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid drawable resource
+	 */
+	@SuppressWarnings("deprecation")
+	public final void setPreviewBackground(final int resourceId) {
+		setPreviewBackground(getContext().getResources().getDrawable(resourceId));
+	}
+
+	/**
 	 * Sets the background color of the preview of the preference's color.
 	 * 
 	 * @param backgroundColor
