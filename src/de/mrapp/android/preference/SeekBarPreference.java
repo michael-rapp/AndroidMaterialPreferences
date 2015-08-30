@@ -322,7 +322,11 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainSummaries(final TypedArray typedArray) {
-		setSummaries(typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary));
+		try {
+			setSummaries(typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary));
+		} catch (NullPointerException e) {
+			setSummaries(null);
+		}
 	}
 
 	/**
