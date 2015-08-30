@@ -327,6 +327,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	 */
 	public final void setSummaryOn(final CharSequence summaryOn) {
 		this.summaryOn = summaryOn;
+		notifyChanged();
 	}
 
 	/**
@@ -363,6 +364,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	 */
 	public final void setSummaryOff(final int resourceId) {
 		setSummaryOff(getContext().getText(resourceId));
+		notifyChanged();
 	}
 
 	/**
@@ -401,6 +403,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	 */
 	public final void setDisableDependentsState(final boolean disableDependentsState) {
 		this.disableDependentsState = disableDependentsState;
+		notifyChanged();
 	}
 
 	@Override
