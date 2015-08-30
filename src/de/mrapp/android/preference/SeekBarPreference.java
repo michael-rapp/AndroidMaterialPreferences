@@ -199,11 +199,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	private int maxValue;
 
 	/**
-	 * The default value of the seek bar.
-	 */
-	private float defaultValue;
-
-	/**
 	 * The step size, the value is increased or decreased by when moving the
 	 * seek bar.
 	 */
@@ -246,7 +241,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setValue(getPersistedFloat(defaultValue));
+		setValue(getPersistedFloat(DEFAULT_VALUE));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -264,7 +259,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			obtainDecimals(typedArray);
 			obtainMaxValue(typedArray);
 			obtainMinValue(typedArray);
-			obtainDefaultValue(typedArray);
 			obtainStepSize(typedArray);
 			obtainSuffix(typedArray);
 			obtainFloatingPointSeparator(typedArray);
@@ -309,17 +303,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainMaxValue(final TypedArray typedArray) {
 		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, DEFAULT_MAX_VALUE));
-	}
-
-	/**
-	 * Obtains the default value of the preference from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the default value should be obtained from, as
-	 *            an instance of the class {@link TypedArray}
-	 */
-	private void obtainDefaultValue(final TypedArray typedArray) {
-		defaultValue = typedArray.getFloat(R.styleable.SeekBarPreference_android_defaultValue, DEFAULT_VALUE);
 	}
 
 	/**
@@ -692,15 +675,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		ensureGreaterThan(maxValue, getMinValue(), "The maximum value must be greater than the minimum value");
 		this.maxValue = maxValue;
 		setValue(Math.min(getValue(), maxValue));
-	}
-
-	/**
-	 * Returns the default value of the preference.
-	 * 
-	 * @return The default value of the preference, as a {@link Float} value
-	 */
-	public final float getDefaultValue() {
-		return defaultValue;
 	}
 
 	/**

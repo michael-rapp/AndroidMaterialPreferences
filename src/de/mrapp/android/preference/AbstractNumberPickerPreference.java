@@ -121,11 +121,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	private int number;
 
 	/**
-	 * The default number.
-	 */
-	private int defaultNumber;
-
-	/**
 	 * True, if an input method is used, false otherwise.
 	 */
 	private boolean useInputMethod;
@@ -144,7 +139,7 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setNumber(getPersistedInt(defaultNumber));
+		setNumber(getPersistedInt(DEFAULT_NUMBER));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -160,24 +155,11 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
 				R.styleable.AbstractNumberPickerPreference);
 		try {
-			obtainDefaultNumber(typedArray);
 			obtainUseInputMethod(typedArray);
 			obtainWrapSelectorWheel(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
-	}
-
-	/**
-	 * Obtains the default number of the preference from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the default number should be obtained from,
-	 *            as an instance of the class {@link TypedArray}
-	 */
-	private void obtainDefaultNumber(final TypedArray typedArray) {
-		defaultNumber = typedArray.getInteger(R.styleable.AbstractNumberPickerPreference_android_defaultValue,
-				DEFAULT_NUMBER);
 	}
 
 	/**
@@ -313,15 +295,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 			persistInt(number);
 			notifyChanged();
 		}
-	}
-
-	/**
-	 * Returns the default number of the preference.
-	 * 
-	 * @return The default number of the preference as an {@link Integer} value
-	 */
-	public final int getDefaultNumber() {
-		return defaultNumber;
 	}
 
 	/**

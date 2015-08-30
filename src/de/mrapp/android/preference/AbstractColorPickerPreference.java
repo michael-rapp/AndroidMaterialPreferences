@@ -298,11 +298,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	private int color;
 
 	/**
-	 * The default color.
-	 */
-	private int defaultColor;
-
-	/**
 	 * True, if a preview of the preference's color is shown, false otherwise.
 	 */
 	private boolean showPreview;
@@ -353,7 +348,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		setColor(getPersistedInt(defaultColor));
+		setColor(getPersistedInt(DEFAULT_COLOR));
 	}
 
 	/**
@@ -367,7 +362,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
 				R.styleable.AbstractColorPickerPreference);
 		try {
-			obtainDefaultColor(typedArray);
 			obtainShowPreview(typedArray);
 			obtainPreviewSize(typedArray);
 			obtainPreviewShape(typedArray);
@@ -378,18 +372,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		} finally {
 			typedArray.recycle();
 		}
-	}
-
-	/**
-	 * Obtains the default color of the preference from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the default color should be obtained from, as
-	 *            an instance of the class {@link TypedArray}
-	 */
-	private void obtainDefaultColor(final TypedArray typedArray) {
-		defaultColor = typedArray.getInteger(R.styleable.AbstractColorPickerPreference_android_defaultValue,
-				DEFAULT_COLOR);
 	}
 
 	/**
@@ -679,15 +661,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 			notifyChanged();
 			adaptPreviewView();
 		}
-	}
-
-	/**
-	 * Returns the default color of the preference.
-	 * 
-	 * @return The default color of the preference as an {@link Integer} value
-	 */
-	public final int getDefaultColor() {
-		return defaultColor;
 	}
 
 	/**
