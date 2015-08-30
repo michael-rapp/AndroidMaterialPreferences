@@ -330,6 +330,18 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	/**
+	 * Sets the summary, which should be shown when the preference is checked.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the summary, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
+	 */
+	public final void setSummaryOn(final int resourceId) {
+		setSummaryOn(getContext().getText(resourceId));
+	}
+
+	/**
 	 * Returns the summary, which is shown when the preference is not checked.
 	 * 
 	 * @return The summary, which is shown when the preference is not checked,
@@ -338,6 +350,19 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	 */
 	public final CharSequence getSummaryOff() {
 		return summaryOff;
+	}
+
+	/**
+	 * Sets the summary, which should be shown when the preference is not
+	 * checked.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the summary, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
+	 */
+	public final void setSummaryOff(final int resourceId) {
+		setSummaryOff(getContext().getText(resourceId));
 	}
 
 	/**
