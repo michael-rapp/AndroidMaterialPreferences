@@ -65,21 +65,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 		public int number;
 
 		/**
-		 * The saved value of the attribute "defaultNumber".
-		 */
-		public int defaultNumber;
-
-		/**
-		 * The saved value of the attribute "useInputMethod".
-		 */
-		public boolean useInputMethod;
-
-		/**
-		 * The saved value of the attribute "wrapSelectorWheel".
-		 */
-		public boolean wrapSelectorWheel;
-
-		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link AbstractNumberPickerPreference}. This constructor
 		 * is called by derived classes when saving their states.
@@ -105,18 +90,12 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 		public SavedState(final Parcel source) {
 			super(source);
 			number = source.readInt();
-			defaultNumber = source.readInt();
-			useInputMethod = source.readInt() > 0;
-			wrapSelectorWheel = source.readInt() > 0;
 		}
 
 		@Override
 		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeInt(number);
-			destination.writeInt(defaultNumber);
-			destination.writeInt(useInputMethod ? 1 : 0);
-			destination.writeInt(wrapSelectorWheel ? 1 : 0);
 		}
 
 	};
@@ -418,13 +397,15 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 
 	@Override
 	protected Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.number = getNumber();
-		savedState.defaultNumber = getDefaultNumber();
-		savedState.useInputMethod = isInputMethodUsed();
-		savedState.wrapSelectorWheel = isSelectorWheelWrapped();
-		return savedState;
+		Parcelable superState = super.onSaveInstanceState();
+
+		if (!isPersistent()) {
+			SavedState savedState = new SavedState(superState);
+			savedState.number = getNumber();
+			return savedState;
+		}
+
+		return superState;
 	}
 
 	@Override
@@ -432,9 +413,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			number = savedState.number;
-			defaultNumber = savedState.defaultNumber;
-			useInputMethod = savedState.useInputMethod;
-			wrapSelectorWheel = savedState.wrapSelectorWheel;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

@@ -471,15 +471,15 @@ public class ListPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
+		Parcelable superState = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
+			SavedState savedState = new SavedState(superState);
 			savedState.value = getValue();
 			return savedState;
 		}
 
-		return parcelable;
+		return superState;
 	}
 
 	@Override

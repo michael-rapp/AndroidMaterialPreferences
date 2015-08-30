@@ -63,21 +63,6 @@ public abstract class AbstractTwoStatePreference extends Preference {
 		};
 
 		/**
-		 * The saved value of the attribute "summaryOn".
-		 */
-		public CharSequence summaryOn;
-
-		/**
-		 * The saved value of the attribute "summaryOff".
-		 */
-		public CharSequence summaryOff;
-
-		/**
-		 * The saved value of the attribute "disableDependentsState".
-		 */
-		public boolean disableDependentsState;
-
-		/**
 		 * The saved value of the attribute "checked".
 		 */
 		public boolean checked;
@@ -107,18 +92,12 @@ public abstract class AbstractTwoStatePreference extends Preference {
 		 */
 		public SavedState(final Parcel source) {
 			super(source);
-			summaryOn = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
-			summaryOff = TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(source);
-			disableDependentsState = source.readInt() > 1;
 			checked = source.readInt() > 1;
 		}
 
 		@Override
 		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
-			TextUtils.writeToParcel(summaryOn, destination, flags);
-			TextUtils.writeToParcel(summaryOff, destination, flags);
-			destination.writeInt(disableDependentsState ? 1 : 0);
 			destination.writeInt(checked ? 1 : 0);
 		}
 
@@ -443,28 +422,22 @@ public abstract class AbstractTwoStatePreference extends Preference {
 	}
 
 	@Override
-	protected Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
+	protected final Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
-			savedState.summaryOn = getSummaryOn();
-			savedState.summaryOff = getSummaryOff();
-			savedState.disableDependentsState = getDisableDependentsState();
+			SavedState savedState = new SavedState(superState);
 			savedState.checked = isChecked();
 			return savedState;
 		}
 
-		return parcelable;
+		return superState;
 	}
 
 	@Override
-	protected void onRestoreInstanceState(final Parcelable state) {
+	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			setSummaryOn(savedState.summaryOn);
-			setSummaryOff(savedState.summaryOff);
-			setDisableDependentsState(savedState.disableDependentsState);
 			setChecked(savedState.checked);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {

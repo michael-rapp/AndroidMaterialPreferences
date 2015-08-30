@@ -83,49 +83,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		public float value;
 
 		/**
-		 * The saved value of the attribute "seekBarValue".
+		 * The saved value of the attribute "currentValue".
 		 */
-		public float seekBarValue;
-
-		/**
-		 * The saved value of the attribute "minValue".
-		 */
-		public int minValue;
-
-		/**
-		 * The saved value of the attribute "maxValue".
-		 */
-		public int maxValue;
-
-		/**
-		 * The saved value of the attribute "stepSize".
-		 */
-		public int stepSize;
-
-		/**
-		 * The saved value of the attribute "decimals".
-		 */
-		public int decimals;
-
-		/**
-		 * The saved value of the attribute "suffix".
-		 */
-		public String suffix;
-
-		/**
-		 * The saved value of the attribute "floatingPointSeparator".
-		 */
-		public String floatingPointSeparator;
-
-		/**
-		 * The saved value of the attribute "summaries".
-		 */
-		public String[] summaries;
-
-		/**
-		 * The saved value of the attribute "showProgress".
-		 */
-		public boolean showProgress;
+		public float currentValue;
 
 		/**
 		 * Creates a new data structure, which allows to store the internal
@@ -152,31 +112,14 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		public SavedState(final Parcel source) {
 			super(source);
 			value = source.readFloat();
-			seekBarValue = source.readFloat();
-			minValue = source.readInt();
-			maxValue = source.readInt();
-			stepSize = source.readInt();
-			decimals = source.readInt();
-			suffix = source.readString();
-			floatingPointSeparator = source.readString();
-			showProgress = source.readByte() != 0;
-			summaries = source.createStringArray();
+			currentValue = source.readFloat();
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeFloat(value);
-			destination.writeFloat(seekBarValue);
-			destination.writeInt(minValue);
-			destination.writeInt(maxValue);
-			destination.writeInt(stepSize);
-			destination.writeInt(decimals);
-			destination.writeString(suffix);
-			destination.writeString(floatingPointSeparator);
-			destination.writeByte((byte) (showProgress ? 1 : 0));
-			destination.writeStringArray(summaries);
+			destination.writeFloat(currentValue);
 		}
 
 	};
@@ -243,7 +186,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	/**
 	 * The current value of the seek bar.
 	 */
-	private float seekBarValue;
+	private float currentValue;
 
 	/**
 	 * The maximum value of the seek bar.
@@ -316,8 +259,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.SeekBarPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
 		try {
 			obtainDecimals(typedArray);
 			obtainMaxValue(typedArray);
@@ -342,8 +284,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainDecimals(final TypedArray typedArray) {
-		setDecimals(typedArray.getInteger(
-				R.styleable.SeekBarPreference_decimals, DEFAULT_DECIMALS));
+		setDecimals(typedArray.getInteger(R.styleable.SeekBarPreference_decimals, DEFAULT_DECIMALS));
 	}
 
 	/**
@@ -355,8 +296,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainMinValue(final TypedArray typedArray) {
-		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min,
-				DEFAULT_MIN_VALUE));
+		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min, DEFAULT_MIN_VALUE));
 	}
 
 	/**
@@ -368,8 +308,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainMaxValue(final TypedArray typedArray) {
-		setMaxValue(typedArray.getInteger(
-				R.styleable.SeekBarPreference_android_max, DEFAULT_MAX_VALUE));
+		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, DEFAULT_MAX_VALUE));
 	}
 
 	/**
@@ -380,9 +319,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainDefaultValue(final TypedArray typedArray) {
-		defaultValue = typedArray.getFloat(
-				R.styleable.SeekBarPreference_android_defaultValue,
-				DEFAULT_VALUE);
+		defaultValue = typedArray.getFloat(R.styleable.SeekBarPreference_android_defaultValue, DEFAULT_VALUE);
 	}
 
 	/**
@@ -394,8 +331,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainStepSize(final TypedArray typedArray) {
-		setStepSize(typedArray.getInteger(
-				R.styleable.SeekBarPreference_stepSize, DEFAULT_STEP_SIZE));
+		setStepSize(typedArray.getInteger(R.styleable.SeekBarPreference_stepSize, DEFAULT_STEP_SIZE));
 	}
 
 	/**
@@ -407,8 +343,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainSuffix(final TypedArray typedArray) {
-		String obtainedSuffix = typedArray
-				.getString(R.styleable.SeekBarPreference_suffix);
+		String obtainedSuffix = typedArray.getString(R.styleable.SeekBarPreference_suffix);
 		setSuffix(obtainedSuffix != null ? obtainedSuffix : DEFAULT_SUFFIX);
 	}
 
@@ -437,9 +372,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainShowProgress(final TypedArray typedArray) {
 		if (typedArray != null) {
-			showProgress(typedArray.getBoolean(
-					R.styleable.SeekBarPreference_showProgress,
-					DEFAULT_SHOW_PROGRESS));
+			showProgress(typedArray.getBoolean(R.styleable.SeekBarPreference_showProgress, DEFAULT_SHOW_PROGRESS));
 		} else {
 			showProgress(DEFAULT_SHOW_PROGRESS);
 		}
@@ -455,8 +388,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainSummaries(final TypedArray typedArray) {
 		try {
-			CharSequence[] charSequences = typedArray
-					.getTextArray(R.styleable.SeekBarPreference_android_summary);
+			CharSequence[] charSequences = typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary);
 
 			String[] obtainedSummaries = new String[charSequences.length];
 
@@ -508,8 +440,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * @return The listener, which has been created, as an instance of the type
 	 *         {@link OnSeekBarChangeListener}
 	 */
-	private OnSeekBarChangeListener createSeekBarListener(
-			final TextView progressTextView) {
+	private OnSeekBarChangeListener createSeekBarListener(final TextView progressTextView) {
 		return new OnSeekBarChangeListener() {
 
 			@Override
@@ -518,17 +449,15 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			}
 
 			@Override
-			public void onStartTrackingTouch(
-					final android.widget.SeekBar seekBar) {
+			public void onStartTrackingTouch(final android.widget.SeekBar seekBar) {
 				return;
 			}
 
 			@Override
-			public void onProgressChanged(final android.widget.SeekBar seekBar,
-					final int progress, final boolean fromUser) {
-				seekBarValue = (float) getMinValue() + (float) progress
-						/ (float) getMultiplier();
-				seekBarValue = adaptToStepSize(seekBarValue);
+			public void onProgressChanged(final android.widget.SeekBar seekBar, final int progress,
+					final boolean fromUser) {
+				currentValue = (float) getMinValue() + (float) progress / (float) getMultiplier();
+				currentValue = adaptToStepSize(currentValue);
 				progressTextView.setText(getProgressText());
 
 			}
@@ -570,18 +499,15 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	private String getProgressText() {
 		NumberFormat numberFormat = NumberFormat.getInstance();
 
-		if (getFloatingPointSeparator() != null
-				&& numberFormat instanceof DecimalFormat) {
+		if (getFloatingPointSeparator() != null && numberFormat instanceof DecimalFormat) {
 			DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols();
-			decimalFormatSymbols
-					.setDecimalSeparator(getFloatingPointSeparator().charAt(0));
-			((DecimalFormat) numberFormat)
-					.setDecimalFormatSymbols(decimalFormatSymbols);
+			decimalFormatSymbols.setDecimalSeparator(getFloatingPointSeparator().charAt(0));
+			((DecimalFormat) numberFormat).setDecimalFormatSymbols(decimalFormatSymbols);
 		}
 
 		numberFormat.setMinimumFractionDigits(getDecimals());
 		numberFormat.setMaximumFractionDigits(getDecimals());
-		String valueString = numberFormat.format(seekBarValue);
+		String valueString = numberFormat.format(currentValue);
 
 		if (getSuffix() != null && getSuffix().length() > 0) {
 			return valueString + " " + getSuffix();
@@ -595,8 +521,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * 
 	 * @return The current value of the seek bar as a {@link Float} value
 	 */
-	protected final float getSeekBarValue() {
-		return seekBarValue;
+	protected final float getCurrentValue() {
+		return currentValue;
 	}
 
 	/**
@@ -630,8 +556,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            preference, as an instance of the type {@link AttributeSet}.
 	 *            The attribute set may not be null
 	 */
-	public SeekBarPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public SeekBarPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
 		initialize(attributeSet);
 	}
@@ -654,8 +579,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public SeekBarPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public SeekBarPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -684,8 +608,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public SeekBarPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
+	public SeekBarPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
@@ -710,15 +633,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            preference allows to select
 	 */
 	public final void setValue(final float value) {
-		ensureAtLeast(value, getMinValue(),
-				"The value must be at least the minimum value");
-		ensureAtMaximum(value, getMaxValue(),
-				"The value must be at maximum the maximum value");
+		ensureAtLeast(value, getMinValue(), "The value must be at least the minimum value");
+		ensureAtMaximum(value, getMaxValue(), "The value must be at maximum the maximum value");
 		float roundedValue = roundToDecimals(value);
 
 		if (this.value != roundedValue) {
 			this.value = roundedValue;
-			this.seekBarValue = roundedValue;
+			this.currentValue = roundedValue;
 			persistFloat(roundedValue);
 			notifyChanged();
 		}
@@ -744,8 +665,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	public final void setMinValue(final int minValue) {
 		ensureAtLeast(minValue, 0, "The minimum value must be at least 0");
-		ensureLessThan(minValue, getMaxValue(),
-				"The minimum value must be less than the maximum value");
+		ensureLessThan(minValue, getMaxValue(), "The minimum value must be less than the maximum value");
 		this.minValue = minValue;
 		setValue(Math.max(getValue(), minValue));
 	}
@@ -769,8 +689,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            preference allows to choose
 	 */
 	public final void setMaxValue(final int maxValue) {
-		ensureGreaterThan(maxValue, getMinValue(),
-				"The maximum value must be greater than the minimum value");
+		ensureGreaterThan(maxValue, getMinValue(), "The maximum value must be greater than the minimum value");
 		this.maxValue = maxValue;
 		setValue(Math.min(getValue(), maxValue));
 	}
@@ -818,8 +737,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public final void setStepSize(final int stepSize) {
 		if (stepSize != -1) {
 			ensureAtLeast(stepSize, 1, "The step size must be at least 1");
-			ensureAtMaximum(stepSize, getMaxValue(),
-					"The step size must be at maximum the maximum value");
+			ensureAtMaximum(stepSize, getMaxValue(), "The step size must be at maximum the maximum value");
 		}
 		this.stepSize = stepSize;
 		setValue(adaptToStepSize(getValue()));
@@ -909,11 +827,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            The symbol, which should be set, as a {@link String}. The
 	 *            length of the string must be 1
 	 */
-	public final void setFloatingPointSeparator(
-			final String floatingPointSeparator) {
+	public final void setFloatingPointSeparator(final String floatingPointSeparator) {
 		if (floatingPointSeparator != null) {
-			ensureAtMaximum(floatingPointSeparator.length(), 1,
-					"The floating point separator's length must be 1");
+			ensureAtMaximum(floatingPointSeparator.length(), 1, "The floating point separator's length must be 1");
 		}
 		this.floatingPointSeparator = floatingPointSeparator;
 	}
@@ -926,10 +842,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            The resource id of the symbol, which should be set, as an
 	 *            {@link Integer} value
 	 */
-	public final void setFloatingPointSeparator(
-			final int floatingPointSeparatorResId) {
-		setFloatingPointSeparator(getContext().getResources().getString(
-				floatingPointSeparatorResId));
+	public final void setFloatingPointSeparator(final int floatingPointSeparatorResId) {
+		setFloatingPointSeparator(getContext().getResources().getString(floatingPointSeparatorResId));
 	}
 
 	/**
@@ -986,8 +900,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			return getProgressText();
 		} else if (getSummaries() != null && getSummaries().length > 0) {
 			float interval = (float) getRange() / (float) getSummaries().length;
-			int index = (int) Math.floor((getValue() - getMinValue())
-					/ interval);
+			int index = (int) Math.floor((getValue() - getMinValue()) / interval);
 			index = Math.min(index, getSummaries().length - 1);
 			return getSummaries()[index];
 		} else {
@@ -1004,8 +917,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	@Override
 	public final void setSummary(final int summaryResId) {
 		try {
-			setSummaries(getContext().getResources().getStringArray(
-					summaryResId));
+			setSummaries(getContext().getResources().getStringArray(summaryResId));
 		} catch (Exception e) {
 			super.setSummary(summaryResId);
 		}
@@ -1017,8 +929,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final void onSetInitialValue(final boolean restoreValue,
-			final Object defaultValue) {
+	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
 		if (restoreValue) {
 			setValue(getPersistedFloat(DEFAULT_VALUE));
 		} else {
@@ -1032,20 +943,16 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		View layout = View.inflate(getContext(), R.layout.seek_bar, null);
 
-		TextView progressTextView = (TextView) layout
-				.findViewById(R.id.progress_text);
+		TextView progressTextView = (TextView) layout.findViewById(R.id.progress_text);
 		progressTextView.setText(getProgressText());
-		progressTextView.setVisibility(isProgressShown() ? View.VISIBLE
-				: View.GONE);
+		progressTextView.setVisibility(isProgressShown() ? View.VISIBLE : View.GONE);
 
 		SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
 		seekBar.setMax(getRange() * getMultiplier());
-		seekBar.setProgress(Math.round((getValue() - getMinValue())
-				* getMultiplier()));
+		seekBar.setProgress(Math.round((getValue() - getMinValue()) * getMultiplier()));
 		seekBar.setOnSeekBarChangeListener(createSeekBarListener(progressTextView));
 
 		dialogBuilder.setView(layout);
@@ -1053,28 +960,25 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(seekBarValue)) {
-			setValue(seekBarValue);
+		if (positiveResult && callChangeListener(currentValue)) {
+			setValue(currentValue);
 		} else {
-			seekBarValue = getValue();
+			currentValue = getValue();
 		}
 	}
 
 	@Override
 	protected final Parcelable onSaveInstanceState() {
 		Parcelable superState = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(superState);
-		savedState.value = value;
-		savedState.seekBarValue = seekBarValue;
-		savedState.minValue = minValue;
-		savedState.maxValue = maxValue;
-		savedState.stepSize = stepSize;
-		savedState.decimals = decimals;
-		savedState.suffix = suffix;
-		savedState.floatingPointSeparator = floatingPointSeparator;
-		savedState.showProgress = showProgress;
-		savedState.summaries = summaries;
-		return savedState;
+
+		if (!isPersistent()) {
+			SavedState savedState = new SavedState(superState);
+			savedState.value = getValue();
+			savedState.currentValue = getCurrentValue();
+			return savedState;
+		}
+
+		return superState;
 	}
 
 	@Override
@@ -1082,15 +986,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			value = savedState.value;
-			seekBarValue = savedState.seekBarValue;
-			minValue = savedState.minValue;
-			maxValue = savedState.maxValue;
-			stepSize = savedState.stepSize;
-			decimals = savedState.decimals;
-			suffix = savedState.suffix;
-			floatingPointSeparator = savedState.floatingPointSeparator;
-			showProgress = savedState.showProgress;
-			summaries = savedState.summaries;
+			currentValue = savedState.currentValue;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

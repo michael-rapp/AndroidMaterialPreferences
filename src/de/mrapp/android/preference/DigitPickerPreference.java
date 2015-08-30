@@ -75,11 +75,6 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		public int currentNumber;
 
 		/**
-		 * The saved value of the attribute "numberOfDigits".
-		 */
-		public int numberOfDigits;
-
-		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link DigitPickerPreference}. This constructor is called
 		 * by derived classes when saving their states.
@@ -104,15 +99,12 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		public SavedState(final Parcel source) {
 			super(source);
 			currentNumber = source.readInt();
-			numberOfDigits = source.readInt();
 		}
 
 		@Override
-		public final void writeToParcel(final Parcel destination,
-				final int flags) {
+		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeInt(currentNumber);
-			destination.writeInt(numberOfDigits);
 		}
 
 	};
@@ -163,8 +155,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(
-				attributeSet, R.styleable.NumberPickerPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
 		try {
 			obtainNumberOfDigits(typedArray);
 		} finally {
@@ -181,9 +172,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            as an instance of the class {@link TypedArray}
 	 */
 	private void obtainNumberOfDigits(final TypedArray typedArray) {
-		setNumberOfDigits(typedArray.getInteger(
-				R.styleable.DigitPickerPreference_numberOfDigits,
-				DEFAULT_NUMBER_OF_DIGITS));
+		setNumberOfDigits(
+				typedArray.getInteger(R.styleable.DigitPickerPreference_numberOfDigits, DEFAULT_NUMBER_OF_DIGITS));
 	}
 
 	/**
@@ -197,14 +187,13 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		return new OnValueChangeListener() {
 
 			@Override
-			public void onValueChange(final android.widget.NumberPicker picker,
-					final int oldValue, final int newValue) {
+			public void onValueChange(final android.widget.NumberPicker picker, final int oldValue,
+					final int newValue) {
 				int value = 0;
 
 				for (int i = 0; i < numberPickers.length; i++) {
 					int exponent = numberPickers.length - i - 1;
-					value += numberPickers[i].getValue()
-							* Math.pow(NUMERIC_SYTEM, exponent);
+					value += numberPickers[i].getValue() * Math.pow(NUMERIC_SYTEM, exponent);
 				}
 
 				currentNumber = value;
@@ -252,12 +241,10 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	}
 
 	/**
-	 * Returns the current number, consisting of the {@link NumberPicker}
-	 * widgets, which are used by the preference.
+	 * Returns the current number of the {@link NumberPicker} widget.
 	 * 
-	 * @return The current number, consisting of the {@link NumberPicker}
-	 *         widgets, which are used by the preference, as an {@link Integer}
-	 *         value
+	 * @return The current number of the {@link NumberPicker} widget as an
+	 *         {@link Integer} value
 	 */
 	protected final int getCurrentNumber() {
 		return currentNumber;
@@ -287,8 +274,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            The attributes of the XML tag that is inflating the
 	 *            preference, as an instance of the type {@link AttributeSet}
 	 */
-	public DigitPickerPreference(final Context context,
-			final AttributeSet attributeSet) {
+	public DigitPickerPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
 		initialize(attributeSet);
 	}
@@ -310,8 +296,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            retrieved from the current theme, or an explicit style
 	 *            resource
 	 */
-	public DigitPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle) {
+	public DigitPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
 		initialize(attributeSet);
 	}
@@ -339,8 +324,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            look for defaults
 	 */
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-	public DigitPickerPreference(final Context context,
-			final AttributeSet attributeSet, final int defaultStyle,
+	public DigitPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
@@ -366,8 +350,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	 *            {@link Integer} value. The number of digits must be at least 1
 	 */
 	public final void setNumberOfDigits(final int numberOfDigits) {
-		ensureAtLeast(numberOfDigits, 1,
-				"The number of digits must be at least 1");
+		ensureAtLeast(numberOfDigits, 1, "The number of digits must be at least 1");
 		this.numberOfDigits = numberOfDigits;
 		setNumber(Math.min(getNumber(), getMaxNumber(numberOfDigits)));
 	}
@@ -375,9 +358,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	@Override
 	public final void setNumber(final int number) {
 		if (getNumberOfDigits() != 0) {
-			ensureAtMaximum(Integer.toString(number).length(),
-					getNumberOfDigits(), "The number must have at maximum "
-							+ getNumberOfDigits() + " digits");
+			ensureAtMaximum(Integer.toString(number).length(), getNumberOfDigits(),
+					"The number must have at maximum " + getNumberOfDigits() + " digits");
 		}
 
 		currentNumber = number;
@@ -390,9 +372,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
 		if (numberPickers != null) {
 			for (NumberPicker numberPicker : numberPickers) {
-				numberPicker
-						.setDescendantFocusability(useInputMethod ? NumberPicker.FOCUS_BEFORE_DESCENDANTS
-								: NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+				numberPicker.setDescendantFocusability(
+						useInputMethod ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 			}
 		}
 	}
@@ -409,11 +390,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 	}
 
 	@Override
-	protected final void onPrepareDialog(
-			final MaterialDialogBuilder dialogBuilder) {
+	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		View view = View.inflate(getContext(), R.layout.number_picker, null);
-		LinearLayout container = (LinearLayout) view
-				.findViewById(R.id.number_picker_container);
+		LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 		numberPickers = new NumberPicker[getNumberOfDigits()];
 
 		for (int i = 0; i < getNumberOfDigits(); i++) {
@@ -422,14 +401,12 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 			numberPicker.setMaxValue(NUMERIC_SYTEM - 1);
 			numberPicker.setValue(getDigit(i, getCurrentNumber()));
 			numberPicker.setWrapSelectorWheel(isSelectorWheelWrapped());
-			numberPicker
-					.setDescendantFocusability(isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS
-							: NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-			numberPicker
-					.setOnValueChangedListener(createNumberPickerListener());
+			numberPicker.setDescendantFocusability(
+					isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+			numberPicker.setOnValueChangedListener(createNumberPickerListener());
 			numberPickers[i] = numberPicker;
-			container.addView(numberPicker, getContext().getResources()
-					.getDimensionPixelSize(R.dimen.digit_picker_width),
+			container.addView(numberPicker,
+					getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width),
 					LayoutParams.WRAP_CONTENT);
 		}
 
@@ -438,8 +415,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(currentNumber)) {
-			setNumber(currentNumber);
+		if (positiveResult && callChangeListener(getCurrentNumber())) {
+			setNumber(getCurrentNumber());
 		} else {
 			currentNumber = getNumber();
 		}
@@ -449,11 +426,15 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	protected final Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.currentNumber = getCurrentNumber();
-		savedState.numberOfDigits = getNumberOfDigits();
-		return savedState;
+		Parcelable superState = super.onSaveInstanceState();
+
+		if (!isPersistent()) {
+			SavedState savedState = new SavedState(superState);
+			savedState.currentNumber = getCurrentNumber();
+			return savedState;
+		}
+
+		return superState;
 	}
 
 	@Override
@@ -461,7 +442,6 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			currentNumber = savedState.currentNumber;
-			numberOfDigits = savedState.numberOfDigits;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);

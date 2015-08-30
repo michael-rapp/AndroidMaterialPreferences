@@ -512,16 +512,16 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
 	@Override
 	protected final Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
+		Parcelable superState = super.onSaveInstanceState();
 
 		if (!isPersistent()) {
-			SavedState savedState = new SavedState(parcelable);
+			SavedState savedState = new SavedState(superState);
 			savedState.width = getWidth();
 			savedState.height = getHeight();
 			return savedState;
 		}
 
-		return parcelable;
+		return superState;
 	}
 
 	@Override

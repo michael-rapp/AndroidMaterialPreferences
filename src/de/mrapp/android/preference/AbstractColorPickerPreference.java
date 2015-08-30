@@ -214,41 +214,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		public int color;
 
 		/**
-		 * The saved value of the attribute "defaultColor".
-		 */
-		public int defaultColor;
-
-		/**
-		 * The saved value of the attribute "showPreview".
-		 */
-		public boolean showPreview;
-
-		/**
-		 * The saved value of the attribute "previewSize".
-		 */
-		public int previewSize;
-
-		/**
-		 * The saved value of the attribute "previewShape".
-		 */
-		public PreviewShape previewShape;
-
-		/**
-		 * The saved value of the attribute "previewBorderWidth".
-		 */
-		public int previewBorderWidth;
-
-		/**
-		 * The saved value of the attribute "previewBorderColor".
-		 */
-		public int previewBorderColor;
-
-		/**
-		 * The saved value of the attribute "colorFormat".
-		 */
-		public ColorFormat colorFormat;
-
-		/**
 		 * Creates a new data structure, which allows to store the internal
 		 * state of an {@link AbstractColorPickerPreference}. This constructor
 		 * is called by derived classes when saving their states.
@@ -274,26 +239,12 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		public SavedState(final Parcel source) {
 			super(source);
 			color = source.readInt();
-			defaultColor = source.readInt();
-			showPreview = source.readInt() > 0;
-			previewSize = source.readInt();
-			previewShape = PreviewShape.fromValue(source.readInt());
-			previewBorderWidth = source.readInt();
-			previewBorderColor = source.readInt();
-			colorFormat = ColorFormat.fromValue(source.readInt());
 		}
 
 		@Override
 		public final void writeToParcel(final Parcel destination, final int flags) {
 			super.writeToParcel(destination, flags);
 			destination.writeInt(color);
-			destination.writeInt(defaultColor);
-			destination.writeInt(showPreview ? 1 : 0);
-			destination.writeInt(previewSize);
-			destination.writeInt(previewShape.getValue());
-			destination.writeInt(previewBorderWidth);
-			destination.writeInt(previewBorderColor);
-			destination.writeInt(colorFormat.getValue());
 		}
 
 	};
@@ -947,32 +898,23 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	}
 
 	@Override
-	protected Parcelable onSaveInstanceState() {
-		Parcelable parcelable = super.onSaveInstanceState();
-		SavedState savedState = new SavedState(parcelable);
-		savedState.color = getColor();
-		savedState.defaultColor = getDefaultColor();
-		savedState.showPreview = isPreviewShown();
-		savedState.previewSize = getPreviewSize();
-		savedState.previewShape = getPreviewShape();
-		savedState.previewBorderWidth = getPreviewBorderWidth();
-		savedState.previewBorderColor = getPreviewBorderColor();
-		savedState.colorFormat = getColorFormat();
-		return savedState;
+	protected final Parcelable onSaveInstanceState() {
+		Parcelable superState = super.onSaveInstanceState();
+
+		if (!isPersistent()) {
+			SavedState savedState = new SavedState(superState);
+			savedState.color = getColor();
+			return savedState;
+		}
+
+		return superState;
 	}
 
 	@Override
-	protected void onRestoreInstanceState(final Parcelable state) {
+	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
 			color = savedState.color;
-			defaultColor = savedState.defaultColor;
-			showPreview = savedState.showPreview;
-			previewSize = savedState.previewSize;
-			previewShape = savedState.previewShape;
-			previewBorderWidth = savedState.previewBorderWidth;
-			previewBorderColor = savedState.previewBorderColor;
-			colorFormat = savedState.colorFormat;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
