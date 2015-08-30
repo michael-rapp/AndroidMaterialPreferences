@@ -960,7 +960,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(currentValue)) {
+		if (positiveResult && callChangeListener(getCurrentValue())) {
 			setValue(getCurrentValue());
 		} else {
 			currentValue = getValue();
