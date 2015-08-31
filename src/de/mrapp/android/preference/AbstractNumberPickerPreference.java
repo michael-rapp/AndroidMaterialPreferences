@@ -343,19 +343,12 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
-		int defaultNumber = getContext().getResources().getInteger(R.integer.number_picker_preference_default_number);
-		return typedArray.getInt(index, defaultNumber);
+		return typedArray.getInt(index, 0);
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		if (restoreValue) {
-			int defaultNumber = getContext().getResources()
-					.getInteger(R.integer.number_picker_preference_default_number);
-			setNumber(getPersistedInt(defaultNumber));
-		} else {
-			setNumber((Integer) defaultValue);
-		}
+		setNumber(restoreValue ? getPersistedInt(getNumber()) : (Integer) defaultValue);
 	}
 
 	@Override

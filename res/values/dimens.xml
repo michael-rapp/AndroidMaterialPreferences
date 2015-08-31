@@ -28,6 +28,4 @@ License along with this program. If not, see
     <dimen name="color_palette_preference_default_dialog_preview_size">72dp</dimen>
     <dimen name="color_palette_preference_default_dialog_preview_border_width">1dp</dimen>
 
-    <item name="seek_bar_preference_default_value" format="float" type="dimen">50.0</item>
-
 </resources>

@@ -489,13 +489,11 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		int defaultWidth = getContext().getResources().getInteger(R.integer.resolution_preference_default_width);
-		int defaultHeight = getContext().getResources().getInteger(R.integer.resolution_preference_default_height);
-		String value = restoreValue ? getPersistedString(formatResolution(getContext(), defaultWidth, defaultHeight))
+		String resolution = restoreValue ? getPersistedString(formatResolution(getContext(), getWidth(), getHeight()))
 				: (String) defaultValue;
-		Pair<Integer, Integer> resolution = parseResolution(getContext(), value);
-		setWidth(resolution.first);
-		setHeight(resolution.second);
+		Pair<Integer, Integer> dimensions = parseResolution(getContext(), resolution);
+		setWidth(dimensions.first);
+		setHeight(dimensions.second);
 	}
 
 	@Override
