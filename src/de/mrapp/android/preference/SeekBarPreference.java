@@ -382,7 +382,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 					final boolean fromUser) {
 				currentValue = (float) getMinValue() + (float) progress / (float) getMultiplier();
 				currentValue = adaptToStepSize(currentValue);
-				progressTextView.setText(getProgressText());
+				progressTextView.setText(getProgressText(currentValue));
 
 			}
 
@@ -413,14 +413,16 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns a textual representation of the current value of the seek bar.
-	 * The text is formatted depending on the decimal separator, which is
-	 * currently set and contains the suffix, if currently set.
+	 * Returns a textual representation of a specific value. The text is
+	 * formatted depending on the decimal separator, which is currently set and
+	 * contains the suffix, if currently set.
 	 * 
-	 * @return A textual representation of the current value of the seek bar as
-	 *         a {@link String}
+	 * @param value
+	 *            The value, whose textual representation should be returned, as
+	 *            a {@link Float} value
+	 * @return A textual representation of the given value as a {@link String}
 	 */
-	private String getProgressText() {
+	private String getProgressText(final float value) {
 		NumberFormat numberFormat = NumberFormat.getInstance();
 
 		if (getFloatingPointSeparator() != null && numberFormat instanceof DecimalFormat) {
@@ -431,7 +433,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 		numberFormat.setMinimumFractionDigits(getDecimals());
 		numberFormat.setMaximumFractionDigits(getDecimals());
-		String valueString = numberFormat.format(getCurrentValue());
+		String valueString = numberFormat.format(value);
 
 		if (getSuffix() != null && getSuffix().length() > 0) {
 			return valueString + " " + getSuffix();
@@ -817,7 +819,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	@Override
 	public final CharSequence getSummary() {
 		if (isValueShownAsSummary()) {
-			return getProgressText();
+			return getProgressText(getValue());
 		} else if (getSummaries() != null && getSummaries().length > 0) {
 			float interval = (float) getRange() / (float) getSummaries().length;
 			int index = (int) Math.floor((getValue() - getMinValue()) / interval);
@@ -871,7 +873,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		View layout = View.inflate(getContext(), R.layout.seek_bar, null);
 
 		TextView progressTextView = (TextView) layout.findViewById(R.id.progress_text);
-		progressTextView.setText(getProgressText());
+		progressTextView.setText(getProgressText(getCurrentValue()));
 		progressTextView.setVisibility(isProgressShown() ? View.VISIBLE : View.GONE);
 
 		SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
