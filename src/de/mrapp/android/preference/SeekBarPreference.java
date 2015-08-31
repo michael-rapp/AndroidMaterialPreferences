@@ -194,9 +194,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		TypedValue typedValue = new TypedValue();
-		getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
-		setValue(getPersistedFloat(typedValue.getFloat()));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -899,7 +896,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		Parcelable superState = super.onSaveInstanceState();
 		SavedState savedState = new SavedState(superState);
 		savedState.currentValue = getCurrentValue();
-		savedState.value = getValue();
+
+		if (!isPersistent()) {
+			savedState.value = getValue();
+		} else {
+			savedState.value = -1;
+		}
+
 		return savedState;
 	}
 
@@ -907,8 +910,12 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			value = savedState.value;
 			currentValue = savedState.currentValue;
+
+			if (savedState.value != -1) {
+				setValue(savedState.value);
+			}
+
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
