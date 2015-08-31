@@ -304,8 +304,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
-		setColor(getPersistedInt(defaultColor));
 	}
 
 	/**
@@ -870,7 +868,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			color = savedState.color;
+			setColor(savedState.color);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
