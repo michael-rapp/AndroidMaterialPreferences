@@ -826,18 +826,12 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray typedArray, final int index) {
-		int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
-		return typedArray.getInt(index, defaultColor);
+		return typedArray.getInt(index, 0);
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		if (restoreValue) {
-			int defaultColor = getContext().getResources().getColor(R.color.color_picker_preference_default_color);
-			setColor(getPersistedInt(defaultColor));
-		} else {
-			setColor((Integer) defaultValue);
-		}
+		setColor(restoreValue ? getPersistedInt(getColor()) : (Integer) defaultValue);
 	}
 
 	@Override

@@ -28,13 +28,12 @@ import java.text.NumberFormat;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.content.res.Resources.NotFoundException;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -847,20 +846,12 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final Object onGetDefaultValue(final TypedArray a, final int index) {
-		TypedValue typedValue = new TypedValue();
-		getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
-		return a.getFloat(index, typedValue.getFloat());
+		return a.getFloat(index, 0);
 	}
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		if (restoreValue) {
-			TypedValue typedValue = new TypedValue();
-			getContext().getResources().getValue(R.dimen.seek_bar_preference_default_value, typedValue, true);
-			setValue(getPersistedFloat(typedValue.getFloat()));
-		} else {
-			setValue((Float) defaultValue);
-		}
+		setValue(restoreValue ? getPersistedFloat(getValue()) : (Float) defaultValue);
 	}
 
 	@Override

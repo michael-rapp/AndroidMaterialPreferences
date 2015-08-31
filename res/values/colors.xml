@@ -20,7 +20,6 @@ License along with this program. If not, see
 <resources>
 
     <!-- Default values -->
-    <color name="color_picker_preference_default_color">@android:color/transparent</color>
     <color name="color_picker_preference_default_preview_border_color">#ffd2d2d2</color>
     <color name="color_palette_preference_default_dialog_preview_border_color">#ffd2d2d2</color>
 
