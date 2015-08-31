@@ -214,7 +214,7 @@
                     <tr>
                         <td><tt>getValue():float</br>setValue(float):void</tt></td>
                         <td>Returns or sets the currently persisted value of the preference. If a value is set, it is instantly persisted. If a step size is set, the value will be eventually rounded.</td>
-                        <td><center><tt>50.0</tt></center></td>
+                        <td><center><tt>0.0</tt></center></td>
                         <td>none</td>
                     </tr>
                     <tr>
@@ -295,7 +295,7 @@
                         <td><tt>android:defaultValue</tt></td>
                         <td>The preference's default value. If a step size is set, the value will be eventually rounded.</td>
                         <td style="text-align: center;"><tt>float</tt></td>
-                        <td style="text-align: center;"><tt>50</tt></td>
+                        <td style="text-align: center;"><tt>0.0</tt></td>
                         <td>The value must be at least the minimum value and at maximum the maximum value. It will be rounded to the number of allowed decimals.</td>
                     </tr>
                     <tr>
@@ -425,13 +425,13 @@
                     <tr>
                         <td><tt>getValue():String</br>setValue():void</br>setValueIndex(int):void</tt></td>
                         <td>Returns or sets the currently persisted value of the preference. If a value is set, it is instantly persisted.</td>
-                        <td><center>null</center></td>
+                        <td><center><tt>null</tt></center></td>
                         <td>If the value is specified by its index, the index must be valid.</td>
                     </tr>
                     <tr>
                         <td><tt>getEntry():CharSequence</tt></td>
                         <td>Returns the entries, which corresponds to the currently selected value.</td>
-                        <td><center>null</center></td>
+                        <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
                 </table>
@@ -674,13 +674,13 @@
                     <tr>
                         <td><tt>getWidth():int</br>setWidth(int):void</tt></td>
                         <td>Returns or sets the width of the preference's resolution. If a width is set, it is instantly persisted.</td>
-                        <td><center>1</center></td>
+                        <td><center>0</center></td>
                         <td>The width must be at least 1.</td>
                     </tr>
                     <tr>
                         <td><tt>getHeight():int</br>setHeight(int):void</tt></td>
                         <td>Returns or sets the height of the preference's resolution. If a height is set, it is instantly persisted.</td>
-                        <td><center>1</center></td>
+                        <td><center>0</center></td>
                         <td>The height must be at least 1.</td>
                     </tr>
                 </table>
@@ -708,7 +708,7 @@
                         <td><tt>android:defaultValue</tt></td>
                         <td>The default resolution of the preference.</td>
                         <td style="text-align: center;"><tt>string</tt></td>
-                        <td style="text-align: center;"><tt>1x1</tt></td>
+                        <td style="text-align: center;"><tt>0x0</tt></td>
                         <td>Must be a valid textual representation of a resolution.</td>
                     </tr>
                 </table>
@@ -815,7 +815,7 @@
                     <tr>
                         <td><tt>getColor():int</br>setColor(int):void</tt></td>
                         <td>Returns or sets the color of the preference. If a color is set, it is instantly persisted.</td>
-                        <td><center><tt>@android:color/transparent</tt></center></td>
+                        <td><center><tt>0</tt></center></td>
                         <td>none</td>
                     </tr>
                 </table>
@@ -934,7 +934,7 @@
                         <td><tt>android:defaultValue</tt></td>
                         <td>The default color of the preference.</td>
                         <td style="text-align: center;"><tt>color</tt></td>
-                        <td style="text-align: center;"><tt>@android:color/transparent</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
                         <td>none</td>
                     </tr>
                 </table>
