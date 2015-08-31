@@ -158,10 +158,6 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		int defaultWidth = getContext().getResources().getInteger(R.integer.resolution_preference_default_width);
-		int defaultHeight = getContext().getResources().getInteger(R.integer.resolution_preference_default_height);
-		setWidth(defaultWidth);
-		setHeight(defaultHeight);
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 		addValidator(Validators.notEmpty(getContext(), R.string.resolution_not_empty_error_message));

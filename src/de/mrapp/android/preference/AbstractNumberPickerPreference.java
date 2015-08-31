@@ -124,8 +124,6 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
-		int defaultNumber = getContext().getResources().getInteger(R.integer.number_picker_preference_default_number);
-		setNumber(getPersistedInt(defaultNumber));
 		setPositiveButtonText(android.R.string.ok);
 		setNegativeButtonText(android.R.string.cancel);
 	}
@@ -377,7 +375,7 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
 	protected void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			number = savedState.number;
+			setNumber(savedState.number);
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
