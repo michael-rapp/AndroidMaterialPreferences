@@ -444,7 +444,7 @@ public class ListPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-		setValue(restoreValue ? getPersistedString(value) : (String) defaultValue);
+		setValue(restoreValue ? getPersistedString(getValue()) : (String) defaultValue);
 	}
 
 	@Override
@@ -454,7 +454,7 @@ public class ListPreference extends AbstractDialogPreference {
 
 	@Override
 	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
-		selectedIndex = indexOf(value);
+		selectedIndex = indexOf(getValue());
 		dialogBuilder.setSingleChoiceItems(entries, selectedIndex, createListItemListener());
 	}
 
