@@ -145,7 +145,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	private int height;
 
 	/**
-	 * The unit of resolution, which is shown in the preference's dialog.
+	 * The unit, which is used for textual representation of the preference's
+	 * resolution.
 	 */
 	private CharSequence unit;
 
@@ -173,7 +174,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.ResolutionPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.AbstractUnitPreference);
 
 		try {
 			obtainUnit(typedArray);
@@ -191,7 +192,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainUnit(final TypedArray typedArray) {
-		CharSequence obtainedUnit = typedArray.getText(R.styleable.ResolutionPreference_unit);
+		CharSequence obtainedUnit = typedArray.getText(R.styleable.AbstractUnitPreference_unit);
 
 		if (obtainedUnit == null) {
 			obtainedUnit = getContext().getText(R.string.resolution_preference_unit);
@@ -380,32 +381,32 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 	}
 
 	/**
-	 * Returns the unit of the resolution, which is shown in the preference's
-	 * dialog.
+	 * Returns the unit, which is used for textual representation of the
+	 * preference's resolution.
 	 * 
-	 * @return The unit of the resolution as an instance of the type
-	 *         {@link CharSequence} or null, if no unit should be shown in the
-	 *         preference's dialog
+	 * @return The unit, which is used for textual representation of the
+	 *         preference's resolution, as an instance of the type
+	 *         {@link CharSequence} or null, if no unit is used
 	 */
 	public final CharSequence getUnit() {
 		return unit;
 	}
 
 	/**
-	 * Sets the unit of the resolution, which should be shown in the
-	 * preference's dialog.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's resolution.
 	 * 
 	 * @param unit
-	 *            The unit, which should be set, or null, if no unit should be
-	 *            shown in the preference's dialog
+	 *            The unit, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if no unit should be used
 	 */
 	public final void setUnit(final CharSequence unit) {
 		this.unit = unit;
 	}
 
 	/**
-	 * Sets the unit of the resolution, which should be shown in the
-	 * preference's dialog.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's resolution.
 	 * 
 	 * @param resourceId
 	 *            The resource id of the unit, which should be set, as an
