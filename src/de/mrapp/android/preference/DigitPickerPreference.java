@@ -354,11 +354,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	public final void setNumber(final int number) {
-		if (getNumberOfDigits() != 0) {
-			ensureAtMaximum(Integer.toString(number).length(), getNumberOfDigits(),
-					"The number must have at maximum " + getNumberOfDigits() + " digits");
-		}
-
+		ensureAtMaximum(Integer.toString(number).length(), getNumberOfDigits(),
+				"The number must have at maximum " + getNumberOfDigits() + " digits");
 		currentNumber = number;
 		super.setNumber(number);
 	}
