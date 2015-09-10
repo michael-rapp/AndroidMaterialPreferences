@@ -169,7 +169,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private void obtainMaxNumber(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_max_number);
-		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_maxNumber, defaultValue));
+		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_android_max, defaultValue));
 	}
 
 	/**
