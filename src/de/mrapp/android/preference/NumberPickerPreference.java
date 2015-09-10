@@ -149,7 +149,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractNumericPreference);
 		try {
 			obtainMaxNumber(typedArray);
 			obtainMinNumber(typedArray);
@@ -169,7 +170,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private void obtainMaxNumber(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_max_number);
-		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_android_max, defaultValue));
+		setMaxNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_android_max, defaultValue));
 	}
 
 	/**
@@ -183,7 +184,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private void obtainMinNumber(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_min_number);
-		setMinNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_minNumber, defaultValue));
+		setMinNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
 	}
 
 	/**
