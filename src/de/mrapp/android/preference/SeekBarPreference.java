@@ -214,9 +214,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 		try {
 			obtainDecimals(seekBarTypedArray);
+			obtainStepSize(numericTypedArray);
 			obtainMaxValue(numericTypedArray);
 			obtainMinValue(numericTypedArray);
-			obtainStepSize(numericTypedArray);
 			obtainUnit(unitTypedArray);
 			obtainFloatingPointSeparator(seekBarTypedArray);
 			obtainShowProgress(seekBarTypedArray);
