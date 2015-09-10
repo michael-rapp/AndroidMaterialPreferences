@@ -36,7 +36,7 @@ License along with this program. If not, see
             android:layout_marginLeft="@dimen/number_picker_unit_margin"
             android:layout_marginStart="@dimen/number_picker_unit_margin"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@android:color/black"
+            android:textColor="?android:attr/textColorPrimary"
             android:visibility="gone" />
     </LinearLayout>
 
