@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -108,6 +109,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
 		if (switchCompat != null) {
 			switchCompat.setTextOn(getSwitchTextOn());
 			switchCompat.setTextOff(getSwitchTextOff());
+			switchCompat.setShowText(!TextUtils.isEmpty(getSwitchTextOn()) || !TextUtils.isEmpty(getSwitchTextOff()));
 			switchCompat.setChecked(isChecked());
 		}
 	}

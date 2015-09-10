@@ -33,6 +33,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -163,10 +164,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	private int decimals;
 
 	/**
-	 * The suffix, which is attached to the current value for textual
-	 * representation.
+	 * The unit, which is used for textual representation of the preference's
+	 * value.
 	 */
-	private CharSequence suffix;
+	private CharSequence unit;
 
 	/**
 	 * The separator, which is used to show floating point values.
@@ -205,18 +206,23 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
+		TypedArray seekBarTypedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
+		TypedArray unitTypedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractUnitPreference);
+		TypedArray numericTypedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractNumericPreference);
+
 		try {
-			obtainDecimals(typedArray);
-			obtainMaxValue(typedArray);
-			obtainMinValue(typedArray);
-			obtainStepSize(typedArray);
-			obtainSuffix(typedArray);
-			obtainFloatingPointSeparator(typedArray);
-			obtainShowProgress(typedArray);
-			obtainSummaries(typedArray);
+			obtainDecimals(seekBarTypedArray);
+			obtainStepSize(numericTypedArray);
+			obtainMaxValue(numericTypedArray);
+			obtainMinValue(numericTypedArray);
+			obtainUnit(unitTypedArray);
+			obtainFloatingPointSeparator(seekBarTypedArray);
+			obtainShowProgress(seekBarTypedArray);
+			obtainSummaries(seekBarTypedArray);
 		} finally {
-			typedArray.recycle();
+			seekBarTypedArray.recycle();
 		}
 	}
 
@@ -243,7 +249,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainMinValue(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_min_value);
-		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min, defaultValue));
+		setMinValue(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
 	}
 
 	/**
@@ -256,7 +262,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainMaxValue(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_max_value);
-		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, defaultValue));
+		setMaxValue(typedArray.getInteger(R.styleable.AbstractNumericPreference_android_max, defaultValue));
 	}
 
 	/**
@@ -269,19 +275,19 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainStepSize(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_step_size);
-		setStepSize(typedArray.getInteger(R.styleable.SeekBarPreference_stepSize, defaultValue));
+		setStepSize(typedArray.getInteger(R.styleable.AbstractNumericPreference_stepSize, defaultValue));
 	}
 
 	/**
-	 * Obtains the suffix, which is appended to the current value for textual
-	 * representation, from a specific typed array.
+	 * Obtains the unit, which is used for textual representation of the
+	 * preference's value, from a specific typed array.
 	 * 
 	 * @param typedArray
-	 *            The typed array, the suffix should be obtained from, as an
+	 *            The typed array, the unit should be obtained from, as an
 	 *            instance of the class {@link TypedArray}
 	 */
-	private void obtainSuffix(final TypedArray typedArray) {
-		setSuffix(typedArray.getText(R.styleable.SeekBarPreference_suffix));
+	private void obtainUnit(final TypedArray typedArray) {
+		setUnit(typedArray.getText(R.styleable.AbstractUnitPreference_unit));
 	}
 
 	/**
@@ -390,31 +396,30 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	/**
 	 * Adapts a specific value to the step size, which is currently set. The
-	 * value will be decreased to the nearest value, which matches the step
-	 * size.
+	 * value will be decreased or increased to the numerically closest value,
+	 * which matches the step size.
 	 * 
 	 * @param value
-	 *            The value, which should be adapter to the step size, as a
+	 *            The value, which should be adapted to the step size, as a
 	 *            {@link Float} value
 	 * @return The adapted value as a {@link Float} value
 	 */
 	private float adaptToStepSize(final float value) {
-		float result = value;
-
-		if (getStepSize() != -1) {
-			int minValueMod = getMinValue() % stepSize;
-			float mod = result % stepSize;
-			result = result - mod + minValueMod;
-			result = Math.min(result, getMaxValue());
+		if (getStepSize() > 0) {
+			float offset = value - getMinValue();
+			float mod = offset % getStepSize();
+			float halfStepSize = (float) getStepSize() / 2.0f;
+			float result = ((mod > halfStepSize) ? offset + getStepSize() - mod : offset - mod) + getMinValue();
+			return Math.min(result, getMaxValue());
 		}
 
-		return result;
+		return value;
 	}
 
 	/**
 	 * Returns a textual representation of a specific value. The text is
 	 * formatted depending on the decimal separator, which is currently set and
-	 * contains the suffix, if currently set.
+	 * contains the unit, if currently set.
 	 * 
 	 * @param value
 	 *            The value, whose textual representation should be returned, as
@@ -434,8 +439,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		numberFormat.setMaximumFractionDigits(getDecimals());
 		String valueString = numberFormat.format(value);
 
-		if (getSuffix() != null && getSuffix().length() > 0) {
-			return valueString + " " + getSuffix();
+		if (!TextUtils.isEmpty(getUnit())) {
+			return valueString + " " + getUnit();
 		}
 
 		return valueString;
@@ -560,7 +565,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public final void setValue(final float value) {
 		ensureAtLeast(value, getMinValue(), "The value must be at least the minimum value");
 		ensureAtMaximum(value, getMaxValue(), "The value must be at maximum the maximum value");
-		float roundedValue = roundToDecimals(value);
+		float roundedValue = adaptToStepSize(roundToDecimals(value));
 
 		if (this.value != roundedValue) {
 			this.value = roundedValue;
@@ -646,15 +651,17 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * 
 	 * @param stepSize
 	 *            The step size, which should be set, as an {@link Integer}
-	 *            value. The value must be between 1 and the maximum value or
-	 *            -1, if the preference should allow to select a value from a
-	 *            continuous range
+	 *            value. The value must be at least 1 and at maximum the value
+	 *            of the method <code>getRange():int</code> or -1, if the
+	 *            preference should allow to select a value from a continuous
+	 *            range
 	 */
 	public final void setStepSize(final int stepSize) {
 		if (stepSize != -1) {
 			ensureAtLeast(stepSize, 1, "The step size must be at least 1");
-			ensureAtMaximum(stepSize, getMaxValue(), "The step size must be at maximum the maximum value");
+			ensureAtMaximum(stepSize, getRange(), "The step size must be at maximum the range");
 		}
+
 		this.stepSize = stepSize;
 		setValue(adaptToStepSize(getValue()));
 	}
@@ -689,40 +696,40 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns the suffix, which is attached to the current value for textual
-	 * representation.
+	 * Returns the unit, which is used for textual representation of the
+	 * preference's value.
 	 * 
-	 * @return The suffix, which is attached to the current value for textual
-	 *         representation, as an instance of the type {@link CharSequence}
-	 *         or null, if no suffix is attached
+	 * @return The unit, which is used for textual representation of the
+	 *         preference's value, as an instance of the type
+	 *         {@link CharSequence} or null, if no unit is used
 	 */
-	public final CharSequence getSuffix() {
-		return suffix;
+	public final CharSequence getUnit() {
+		return unit;
 	}
 
 	/**
-	 * Sets the suffix, which should be attached to the current value for
-	 * textual representation.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's value.
 	 * 
-	 * @param suffix
-	 *            The suffix, which should be set, as an instance of the type
-	 *            {@link CharSequence} or null, if no suffix should be attached
+	 * @param unit
+	 *            The unit, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if no unit should be used
 	 */
-	public final void setSuffix(final CharSequence suffix) {
-		this.suffix = suffix;
+	public final void setUnit(final CharSequence unit) {
+		this.unit = unit;
 	}
 
 	/**
-	 * Sets the suffix, which should be attached to the current value for
-	 * textual representation.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's value.
 	 * 
 	 * @param resourceId
-	 *            The resource id of the suffix, which should be set, as an
+	 *            The resource id of the unit, which should be set, as an
 	 *            {@link Integer} value. The resource id must correspond to a
 	 *            valid string resource
 	 */
-	public final void setSuffix(final int resourceId) {
-		setSuffix(getContext().getResources().getText(resourceId));
+	public final void setUnit(final int resourceId) {
+		setUnit(getContext().getText(resourceId));
 	}
 
 	/**

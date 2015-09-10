@@ -60,7 +60,7 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:min=<font color='#2a00ff'>"25"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showProgress=<font color='#2a00ff'>"true"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:suffix=<font color='#2a00ff'>"Unit"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>"Unit"</font>&nbsp;<font color='#3f7f5f'>/></font>
 <br/>
 <br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
 
@@ -85,7 +85,7 @@
 <br/>preference.setMinValue(25);
 <br/>preference.showProgress(<strong><font color='#7f0055'>true</font></strong>);
 <br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);
-<br/>preference.setSuffix(<font color='#2a00ff'>"Unit"</font>);</div>
+<br/>preference.setUnit(<font color='#2a00ff'>"Unit"</font>);</div>
 
                 <p>As seen above, the values of all <tt>String</tt> attributes can either be assigned by directly passing a <tt>String</tt> reference to the appropriate setter method, or by passing the resource ID of a String resource.</p>
 
@@ -172,8 +172,8 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.NumberPickerPreference</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"25"</font>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:minNumber=<font color='#2a00ff'>"0"</font>
-<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:maxNumber=<font color='#2a00ff'>"100"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:min=<font color='#2a00ff'>"0"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:max=<font color='#2a00ff'>"100"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:useInputMethod=<font color='#2a00ff'>"true"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:wrapSelectorWheel=<font color='#2a00ff'>"false"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
@@ -183,6 +183,8 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/number_picker_preference_key"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/number_picker_preference_summary"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/number_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>"Unit"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:stepSize=<font color='#2a00ff'>"5"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
 <br/>
 <br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
@@ -195,6 +197,8 @@
 <br/>preference.setDefaultValue(25);
 <br/>preference.setMinNumber(0);
 <br/>preference.setMaxNumber(100);
+<br/>preference.setUnit(<font color='#2a00ff'>"Unit"</font>);
+<br/>preference.setStepSize(5);
 <br/>preference.useInputMethod(true);
 <br/>preference.wrapSelectorWheel(false);
 <br/>preference.setDialogTitleColor(Color.BLACK);
@@ -225,6 +229,7 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/digit_picker_preference_key"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/digit_picker_preference_summary"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/digit_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>"Unit"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
 <br/>
 <br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
@@ -236,6 +241,7 @@
                 <div class="code-block">DigitPickerPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;DigitPickerPreference(<strong><font color='#7f0055'>this</font></strong>);
 <br/>preference.setDefaultValue(25);
 <br/>preference.setNumberOfDigits(2);
+<br/>preference.setUnit(<font color='#2a00ff'>"Unit"</font>);
 <br/>preference.useInputMethod(true);
 <br/>preference.wrapSelectorWheel(false);
 <br/>preference.setDialogTitleColor(Color.BLACK);

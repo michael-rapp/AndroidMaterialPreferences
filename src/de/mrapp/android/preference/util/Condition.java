@@ -48,8 +48,7 @@ public final class Condition {
 	 *            The message of the {@link NullPointerException}, which is
 	 *            thrown, if the given reference is null, as a {@link String}
 	 */
-	public static void ensureNotNull(final Object reference,
-			final String exceptionMessage) {
+	public static void ensureNotNull(final Object reference, final String exceptionMessage) {
 		if (reference == null) {
 			throw new NullPointerException(exceptionMessage);
 		}
@@ -70,8 +69,7 @@ public final class Condition {
 	 *            thrown, if the given value is less than the reference value,
 	 *            as a {@link String}
 	 */
-	public static void ensureAtLeast(final float value,
-			final float referenceValue, final String exceptionMessage) {
+	public static void ensureAtLeast(final float value, final float referenceValue, final String exceptionMessage) {
 		if (value < referenceValue) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
@@ -92,8 +90,7 @@ public final class Condition {
 	 *            thrown, if the given value is greater than the reference
 	 *            value, as a {@link String}
 	 */
-	public static void ensureAtMaximum(final float value,
-			final float referenceValue, final String exceptionMessage) {
+	public static void ensureAtMaximum(final float value, final float referenceValue, final String exceptionMessage) {
 		if (value > referenceValue) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
@@ -113,8 +110,7 @@ public final class Condition {
 	 *            thrown, if the given value is greater or equal than the
 	 *            reference value, as a {@link String}
 	 */
-	public static void ensureLessThan(final float value,
-			final float referenceValue, final String exceptionMessage) {
+	public static void ensureLessThan(final float value, final float referenceValue, final String exceptionMessage) {
 		if (value >= referenceValue) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
@@ -134,8 +130,7 @@ public final class Condition {
 	 *            thrown, if the given value is less or equal than the reference
 	 *            value, as a {@link String}
 	 */
-	public static void ensureGreaterThan(final float value,
-			final float referenceValue, final String exceptionMessage) {
+	public static void ensureGreaterThan(final float value, final float referenceValue, final String exceptionMessage) {
 		if (value <= referenceValue) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}

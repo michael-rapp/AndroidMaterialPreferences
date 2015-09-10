@@ -26,6 +26,18 @@ License along with this program. If not, see
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="horizontal" />
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/unit_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/number_picker_unit_margin"
+            android:layout_marginStart="@dimen/number_picker_unit_margin"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </RelativeLayout>

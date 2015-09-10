@@ -21,17 +21,20 @@ import static de.mrapp.android.preference.util.Condition.ensureAtLeast;
 import static de.mrapp.android.preference.util.Condition.ensureAtMaximum;
 import static de.mrapp.android.preference.util.Condition.ensureGreaterThan;
 import static de.mrapp.android.preference.util.Condition.ensureLessThan;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
+import android.widget.TextView;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
 import de.mrapp.android.preference.view.NumberPicker;
 
@@ -116,9 +119,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private NumberPicker numberPicker;
 
 	/**
-	 * The current number of the {@link NumberPicker} widget.
+	 * The currently selected index of the {@link NumberPicker} widget.
 	 */
-	private int currentNumber;
+	private int currentIndex;
 
 	/**
 	 * The minimum number, the preference allows to choose.
@@ -129,6 +132,12 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 * The maximum number, the preference allows to choose.
 	 */
 	private int maxNumber;
+
+	/**
+	 * The step size, the number is increased or decreased by when moving the
+	 * selector wheel.
+	 */
+	private int stepSize;
 
 	/**
 	 * Initializes the preference.
@@ -149,10 +158,13 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractNumericPreference);
+
 		try {
 			obtainMaxNumber(typedArray);
 			obtainMinNumber(typedArray);
+			obtainStepSize(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
@@ -169,7 +181,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private void obtainMaxNumber(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_max_number);
-		setMaxNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_maxNumber, defaultValue));
+		setMaxNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_android_max, defaultValue));
 	}
 
 	/**
@@ -183,7 +195,61 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private void obtainMinNumber(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_min_number);
-		setMinNumber(typedArray.getInteger(R.styleable.NumberPickerPreference_minNumber, defaultValue));
+		setMinNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
+	}
+
+	/**
+	 * Obtains the step size, the number should be increased or decreased by
+	 * when moving the selector wheel, form a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the step size should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainStepSize(final TypedArray typedArray) {
+		int defaultValue = getContext().getResources().getInteger(R.integer.number_picker_preference_default_step_size);
+		setStepSize(typedArray.getInteger(R.styleable.AbstractNumericPreference_stepSize, defaultValue));
+	}
+
+	/**
+	 * Adapts a specific number to the step size, which is currently set. The
+	 * number will be decreased or increased to the numerically closest value,
+	 * which matches the step size.
+	 * 
+	 * @param number
+	 *            The number, which should be adapted to the step size, as an
+	 *            {@link Integer} value
+	 * @return The adapted number as an {@link Integer} value
+	 */
+	private int adaptToStepSize(final int number) {
+		if (getStepSize() > 0) {
+			int offset = number - getMinNumber();
+			int mod = offset % getStepSize();
+			float halfStepSize = (float) getStepSize() / 2.0f;
+			int result = ((mod > halfStepSize) ? offset + getStepSize() - mod : offset - mod) + getMinNumber();
+			return Math.min(result, getMaxNumber());
+		}
+
+		return number;
+	}
+
+	/**
+	 * Creates and returns an array, which contains the values of the
+	 * {@link NumberPicker}, depending on the current step size.
+	 * 
+	 * @return The array, which has been creates, as a {@link String} array
+	 */
+	private String[] createDisplayedValues() {
+		int steps = 1 + (int) Math.ceil((double) getRange() / (double) getStepSize());
+		String[] values = new String[steps];
+		int current = getMinNumber();
+
+		for (int i = 0; i < steps; i++) {
+			values[i] = String.valueOf(current);
+			current = Math.min(current + getStepSize(), getMaxNumber());
+		}
+
+		return values;
 	}
 
 	/**
@@ -199,20 +265,21 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 			@Override
 			public void onValueChange(final android.widget.NumberPicker numberPicker, final int oldValue,
 					final int newValue) {
-				currentNumber = newValue;
+				numberPicker.setValue(newValue);
+				currentIndex = getMinNumber() + newValue * getStepSize();
 			}
 
 		};
 	}
 
 	/**
-	 * Returns the current number of the {@link NumberPicker} widget.
+	 * Returns the currently selected index of the {@link NumberPicker} widget.
 	 * 
-	 * @return The current number of the {@link NumberPicker} widget as an
-	 *         {@link Integer} value
+	 * @return The currently selected index of the {@link NumberPicker} widget
+	 *         as an {@link Integer} value
 	 */
-	protected final int getCurrentNumber() {
-		return currentNumber;
+	protected final int getCurrentIndex() {
+		return currentIndex;
 	}
 
 	/**
@@ -352,15 +419,40 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		return maxNumber - minNumber;
 	}
 
+	/**
+	 * Returns the step size, the number is increased or decreased by when
+	 * moving the selector wheel.
+	 * 
+	 * @return The step size, the number is increased or decreased by when
+	 *         moving the selector wheel, as an {@link Integer} value
+	 */
+	public final int getStepSize() {
+		return stepSize;
+	}
+
+	/**
+	 * Sets the step size, the number should be increased or decreased by when
+	 * moving the selector wheel.
+	 * 
+	 * @param stepSize
+	 *            The step size, which should be set, as an {@link Integer}
+	 *            value. The value must be between at least 1 and at maximum the
+	 *            value of the method <code>getRange():int</code>
+	 */
+	public final void setStepSize(final int stepSize) {
+		ensureAtLeast(stepSize, 1, "The step size must be at least 1");
+		ensureAtMaximum(stepSize, getRange(), "The step size must be at maximum the range");
+		this.stepSize = stepSize;
+		setNumber(adaptToStepSize(getNumber()));
+	}
+
 	@Override
 	public final void setNumber(final int number) {
-		if (!(getMinNumber() == 0 && getMaxNumber() == 0)) {
-			ensureAtLeast(number, getMinNumber(), "The number must be at least the minimum number");
-			ensureAtMaximum(number, getMaxNumber(), "The number must be at maximum the maximum number");
-		}
-
-		currentNumber = number;
-		super.setNumber(number);
+		ensureAtLeast(number, getMinNumber(), "The number must be at least the minimum number");
+		ensureAtMaximum(number, getMaxNumber(), "The number must be at maximum the maximum number");
+		int roundedNumber = adaptToStepSize(number);
+		this.currentIndex = roundedNumber;
+		super.setNumber(roundedNumber);
 	}
 
 	@Override
@@ -387,25 +479,32 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		View view = View.inflate(getContext(), R.layout.number_picker, null);
 		LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 
+		String[] displayedValues = createDisplayedValues();
 		numberPicker = new NumberPicker(getContext());
-		numberPicker.setMinValue(getMinNumber());
-		numberPicker.setMaxValue(getMaxNumber());
-		numberPicker.setValue(getCurrentNumber());
+		numberPicker.setDisplayedValues(displayedValues);
+		numberPicker.setMinValue(0);
+		numberPicker.setMaxValue(displayedValues.length - 1);
+		numberPicker.setValue(Math.round((float) (getCurrentIndex() - getMinNumber()) / (float) getStepSize()));
 		numberPicker.setWrapSelectorWheel(isSelectorWheelWrapped());
 		numberPicker.setDescendantFocusability(
 				isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		numberPicker.setOnValueChangedListener(createNumberPickerListener());
-		container.addView(numberPicker, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		container.addView(numberPicker, 0, layoutParams);
+
+		TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
+		unitTextView.setText(getUnit());
+		unitTextView.setVisibility(TextUtils.isEmpty(getUnit()) ? View.GONE : View.VISIBLE);
 
 		dialogBuilder.setView(view);
 	}
 
 	@Override
 	protected final void onDialogClosed(final boolean positiveResult) {
-		if (positiveResult && callChangeListener(getCurrentNumber())) {
-			setNumber(getCurrentNumber());
+		if (positiveResult && callChangeListener(getCurrentIndex())) {
+			setNumber(getCurrentIndex());
 		} else {
-			currentNumber = getNumber();
+			currentIndex = getNumber();
 		}
 
 		numberPicker = null;
@@ -415,7 +514,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	protected final Parcelable onSaveInstanceState() {
 		Parcelable superState = super.onSaveInstanceState();
 		SavedState savedState = new SavedState(superState);
-		savedState.currentNumber = getCurrentNumber();
+		savedState.currentNumber = getCurrentIndex();
 		return savedState;
 	}
 
@@ -423,7 +522,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	protected final void onRestoreInstanceState(final Parcelable state) {
 		if (state != null && state instanceof SavedState) {
 			SavedState savedState = (SavedState) state;
-			currentNumber = savedState.currentNumber;
+			currentIndex = savedState.currentNumber;
 			super.onRestoreInstanceState(savedState.getSuperState());
 		} else {
 			super.onRestoreInstanceState(state);
