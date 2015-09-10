@@ -136,24 +136,4 @@ public final class Condition {
 		}
 	}
 
-	/**
-	 * Ensures, that a {@link Float} value is equal to a reference value.
-	 * Otherwise an {@link IllegalArgumentException} will be thrown.
-	 * 
-	 * @param value
-	 *            The value, which should be checked, as a {@link Float} value
-	 * @param referenceValue
-	 *            The value, the given value must be equal to, as a
-	 *            {@link Float} value
-	 * @param exceptionMessage
-	 *            The message of the {@link IllegalArgumentException}, which is
-	 *            thrown, if the given value is not equal to the reference
-	 *            value, as a {@link String}
-	 */
-	public static void ensureEqual(final float value, final float referenceValue, final String exceptionMessage) {
-		if (value != referenceValue) {
-			throw new IllegalArgumentException(exceptionMessage);
-		}
-	}
-
 }
