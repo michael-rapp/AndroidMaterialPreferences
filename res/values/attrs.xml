@@ -53,8 +53,8 @@ License along with this program. If not, see
         <attr name="wrapSelectorWheel" format="boolean" />
     </declare-styleable>
     <declare-styleable name="NumberPickerPreference">
+        <attr name="android:max" />
         <attr name="minNumber" format="integer" />
-        <attr name="maxNumber" format="integer" />
     </declare-styleable>
     <declare-styleable name="DigitPickerPreference">
         <attr name="numberOfDigits" format="integer" />
