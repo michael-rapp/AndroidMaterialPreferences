@@ -248,14 +248,14 @@
                         <td>The value must be at least 0.</td>
                     </tr>
                     <tr>
-                        <td><tt>getSuffix():String</br>setSuffix(String):void</br>setSuffix(int):void</tt></td>
-                        <td>Returns or sets the suffix, which is appended to the preference's currently chosen value for textual representation. It the string is set to null, no suffix is appended.</td>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen value for textual representation. It the unit is set to null, no unit is appended.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
                     <tr>
-                        <td><tt>getFloatingPointSeparator():String</br>setFloatingPointSeparator(String):void</br>setFloatingPointSeparator(int):void</tt></td>
-                        <td>Returns or sets the symbol, which is used to separate floating point numbers for textual representation. If the string is set to null, the default symbol, depending on the devices locale, is used.</td>
+                        <td><tt>getFloatingPointSeparator():CharSequence</br>setFloatingPointSeparator(CharSequence):void</br>setFloatingPointSeparator(int):void</tt></td>
+                        <td>Returns or sets the symbol, which is used to separate floating point numbers for textual representation. If the separator is set to null, the default symbol, depending on the device's locale, is used.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>If not null, the string must have a size of 1.</td>
                     </tr>
@@ -266,8 +266,8 @@
                         <td>none</td>
                     </tr>
                     <tr>
-                        <td><tt>getSummaries():String[]</br>setSummaries(String[]):void</tt></td>
-                        <td>Returns or sets the summaries, which should be shown as the preferences summary, depending on the currently persisted value. For example, if the array's dimension is 2, the first summary will be shown if the value is between 0% and 49% of the whole range and the second summary will be shown if the value is between 50% and 100% of the range. If the array is set to null, no summaries will be shown depending on the currently persisted value.</td>
+                        <td><tt>getSummaries():CharSequence[]</br>setSummaries(CharSequence[]):void</tt></td>
+                        <td>Returns or sets the summaries, which should be shown as the preference's summary, depending on the currently persisted value. For example, if the array's dimension is 2, the first summary will be shown if the value is between 0% and 49% of the whole range and the second summary will be shown if the value is between 50% and 100% of the range. If the array is set to null, no summaries will be shown depending on the currently persisted value.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
@@ -327,8 +327,8 @@
                         <td>The value must be -1 or at least 1 and less than the maximum value.</td>
                     </tr>
                     <tr>
-                        <td><tt>custom:suffix</tt></td>
-                        <td>The suffix, which is appended to the preference's current value for textual representation. If the string is null, no suffix is appended.</td>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current value for textual representation. If the unit is null, no unit is appended.</td>
                         <td style="text-align: center;"><tt>string</tt></td>
                         <td style="text-align: center;"><tt>null</tt></td>
                         <td>none</td>

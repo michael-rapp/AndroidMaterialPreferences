@@ -164,10 +164,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	private int decimals;
 
 	/**
-	 * The suffix, which is attached to the current value for textual
-	 * representation.
+	 * The unit, which is used for textual representation of the preference's
+	 * value.
 	 */
-	private CharSequence suffix;
+	private CharSequence unit;
 
 	/**
 	 * The separator, which is used to show floating point values.
@@ -206,18 +206,21 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
+		TypedArray seekBarTypedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
+		TypedArray unitTypedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractUnitPreference);
+
 		try {
-			obtainDecimals(typedArray);
-			obtainMaxValue(typedArray);
-			obtainMinValue(typedArray);
-			obtainStepSize(typedArray);
-			obtainSuffix(typedArray);
-			obtainFloatingPointSeparator(typedArray);
-			obtainShowProgress(typedArray);
-			obtainSummaries(typedArray);
+			obtainDecimals(seekBarTypedArray);
+			obtainMaxValue(seekBarTypedArray);
+			obtainMinValue(seekBarTypedArray);
+			obtainStepSize(seekBarTypedArray);
+			obtainUnit(unitTypedArray);
+			obtainFloatingPointSeparator(seekBarTypedArray);
+			obtainShowProgress(seekBarTypedArray);
+			obtainSummaries(seekBarTypedArray);
 		} finally {
-			typedArray.recycle();
+			seekBarTypedArray.recycle();
 		}
 	}
 
@@ -274,15 +277,15 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Obtains the suffix, which is appended to the current value for textual
-	 * representation, from a specific typed array.
+	 * Obtains the unit, which is used for textual representation of the
+	 * preference's value, from a specific typed array.
 	 * 
 	 * @param typedArray
-	 *            The typed array, the suffix should be obtained from, as an
+	 *            The typed array, the unit should be obtained from, as an
 	 *            instance of the class {@link TypedArray}
 	 */
-	private void obtainSuffix(final TypedArray typedArray) {
-		setSuffix(typedArray.getText(R.styleable.SeekBarPreference_suffix));
+	private void obtainUnit(final TypedArray typedArray) {
+		setUnit(typedArray.getText(R.styleable.AbstractUnitPreference_unit));
 	}
 
 	/**
@@ -415,7 +418,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	/**
 	 * Returns a textual representation of a specific value. The text is
 	 * formatted depending on the decimal separator, which is currently set and
-	 * contains the suffix, if currently set.
+	 * contains the unit, if currently set.
 	 * 
 	 * @param value
 	 *            The value, whose textual representation should be returned, as
@@ -435,8 +438,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		numberFormat.setMaximumFractionDigits(getDecimals());
 		String valueString = numberFormat.format(value);
 
-		if (!TextUtils.isEmpty(getSuffix())) {
-			return valueString + " " + getSuffix();
+		if (!TextUtils.isEmpty(getUnit())) {
+			return valueString + " " + getUnit();
 		}
 
 		return valueString;
@@ -690,40 +693,40 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	}
 
 	/**
-	 * Returns the suffix, which is attached to the current value for textual
-	 * representation.
+	 * Returns the unit, which is used for textual representation of the
+	 * preference's value.
 	 * 
-	 * @return The suffix, which is attached to the current value for textual
-	 *         representation, as an instance of the type {@link CharSequence}
-	 *         or null, if no suffix is attached
+	 * @return The unit, which is used for textual representation of the
+	 *         preference's value, as an instance of the type
+	 *         {@link CharSequence} or null, if no unit is used
 	 */
-	public final CharSequence getSuffix() {
-		return suffix;
+	public final CharSequence getUnit() {
+		return unit;
 	}
 
 	/**
-	 * Sets the suffix, which should be attached to the current value for
-	 * textual representation.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's value.
 	 * 
-	 * @param suffix
-	 *            The suffix, which should be set, as an instance of the type
-	 *            {@link CharSequence} or null, if no suffix should be attached
+	 * @param unit
+	 *            The unit, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if no unit should be used
 	 */
-	public final void setSuffix(final CharSequence suffix) {
-		this.suffix = suffix;
+	public final void setUnit(final CharSequence unit) {
+		this.unit = unit;
 	}
 
 	/**
-	 * Sets the suffix, which should be attached to the current value for
-	 * textual representation.
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's value.
 	 * 
 	 * @param resourceId
-	 *            The resource id of the suffix, which should be set, as an
+	 *            The resource id of the unit, which should be set, as an
 	 *            {@link Integer} value. The resource id must correspond to a
 	 *            valid string resource
 	 */
-	public final void setSuffix(final int resourceId) {
-		setSuffix(getContext().getResources().getText(resourceId));
+	public final void setUnit(final int resourceId) {
+		setUnit(getContext().getText(resourceId));
 	}
 
 	/**
