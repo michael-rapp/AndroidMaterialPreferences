@@ -239,7 +239,7 @@
                         <td><tt>getStepSize():int</br>setStepSize(int):void</tt></td>
                         <td>Returns or sets the step size, the value is increased or decreased by, when the user moves the preference's seek bar.</td>
                         <td><center><tt>-1</tt></center></td>
-                        <td>The value must be -1, if no step size should be used, or it must be at least 1.</td>
+                        <td>The value must be -1, if no step size should be used, or it must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                     <tr>
                         <td><tt>getDecimals():int</br>setDecimals(int):void</tt></td>
@@ -248,14 +248,14 @@
                         <td>The value must be at least 0.</td>
                     </tr>
                     <tr>
-                        <td><tt>getSuffix():String</br>setSuffix(String):void</br>setSuffix(int):void</tt></td>
-                        <td>Returns or sets the suffix, which is appended to the preference's currently chosen value for textual representation. It the string is set to null, no suffix is appended.</td>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen value for textual representation. It the unit is set to null, no unit is appended.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
                     <tr>
-                        <td><tt>getFloatingPointSeparator():String</br>setFloatingPointSeparator(String):void</br>setFloatingPointSeparator(int):void</tt></td>
-                        <td>Returns or sets the symbol, which is used to separate floating point numbers for textual representation. If the string is set to null, the default symbol, depending on the devices locale, is used.</td>
+                        <td><tt>getFloatingPointSeparator():CharSequence</br>setFloatingPointSeparator(CharSequence):void</br>setFloatingPointSeparator(int):void</tt></td>
+                        <td>Returns or sets the symbol, which is used to separate floating point numbers for textual representation. If the separator is set to null, the default symbol, depending on the device's locale, is used.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>If not null, the string must have a size of 1.</td>
                     </tr>
@@ -266,8 +266,8 @@
                         <td>none</td>
                     </tr>
                     <tr>
-                        <td><tt>getSummaries():String[]</br>setSummaries(String[]):void</tt></td>
-                        <td>Returns or sets the summaries, which should be shown as the preferences summary, depending on the currently persisted value. For example, if the array's dimension is 2, the first summary will be shown if the value is between 0% and 49% of the whole range and the second summary will be shown if the value is between 50% and 100% of the range. If the array is set to null, no summaries will be shown depending on the currently persisted value.</td>
+                        <td><tt>getSummaries():CharSequence[]</br>setSummaries(CharSequence[]):void</tt></td>
+                        <td>Returns or sets the summaries, which should be shown as the preference's summary, depending on the currently persisted value. For example, if the array's dimension is 2, the first summary will be shown if the value is between 0% and 49% of the whole range and the second summary will be shown if the value is between 50% and 100% of the range. If the array is set to null, no summaries will be shown depending on the currently persisted value.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
@@ -324,11 +324,11 @@
                         <td>The step size the preference's current value is increased or decreased by, when the user moves the seek bar. If the value is set to -1 no step size is used.</td>
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>-1</tt></td>
-                        <td>The value must be -1 or at least 1 and less than the maximum value.</td>
+                        <td>The value must be -1 or it must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                     <tr>
-                        <td><tt>custom:suffix</tt></td>
-                        <td>The suffix, which is appended to the preference's current value for textual representation. If the string is null, no suffix is appended.</td>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current value for textual representation. If the unit is null, no unit is appended.</td>
                         <td style="text-align: center;"><tt>string</tt></td>
                         <td style="text-align: center;"><tt>null</tt></td>
                         <td>none</td>
@@ -516,6 +516,18 @@
                         <td><center>10</center></td>
                         <td>The maximum number must be greater than the minimum number.</td>
                     </tr>
+ 		    <tr>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen number for textual representation. It the unit is set to null, no unit is appended.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getStepSize():int</br>setStepSize(int):void</tt></td>
+                        <td>Returns or sets the step size, the number is increased or decreased by, when the user moves the preference's selector wheel.</td>
+                        <td><center><tt>1</tt></center></td>
+                        <td>The value must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
+                    </tr>
                 </table>
 
                 <h5><a name="number-picker-preference-xml-attributes">XML attributes</a></h5>
@@ -552,18 +564,32 @@
                         <td>none</td>
                     </tr>
                     <tr>
-                        <td><tt>custom:minNumber</tt></td>
+                        <td><tt>custom:min</tt></td>
                         <td>The minimum number, the preference allows to choose.</td>
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>0</tt></td>
                         <td>Must be less than the maximum number.</td>
                     </tr>
                     <tr>
-                        <td><tt>custom:maxNumber</tt></td>
+                        <td><tt>android:max</tt></td>
                         <td>The maximum number, the preference allows to choose.</td>
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>10</tt></td>
                         <td>Must be greater than the minimum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current number for textual representation. If the unit is null, no unit is appended.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:stepSize</tt></td>
+                        <td>The step size the preference's current number is increased or decreased by, when the user moves the selector wheel.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>1</tt></td>
+                        <td>The value must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                 </table>
 
@@ -606,6 +632,12 @@
                         <td><center>4</center></td>
                         <td>The number of digits must be at least 1.</td>
                     </tr>
+                    <tr>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen number for textual representation. It the unit is set to null, no unit is appended.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
                 </table>
 
                 <h5><a name="digit-picker-preference-xml-attributes">XML attributes</a></h5>
@@ -647,6 +679,13 @@
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>4</tt></td>
                         <td>Must be at least 1.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current number for textual representation. If the unit is null, no unit is appended.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
                     </tr>
                 </table>
 

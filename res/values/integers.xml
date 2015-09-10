@@ -26,6 +26,7 @@ License along with this program. If not, see
     <integer name="color_palette_preference_default_number_of_columns">3</integer>
     <integer name="number_picker_preference_default_min_number">0</integer>
     <integer name="number_picker_preference_default_max_number">10</integer>
+    <integer name="number_picker_preference_default_step_size">1</integer>
     <integer name="digit_picker_preference_default_number_of_digits">4</integer>
     <integer name="seek_bar_preference_default_min_value">0</integer>
     <integer name="seek_bar_preference_default_max_value">100</integer>
