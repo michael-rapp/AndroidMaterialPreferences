@@ -239,7 +239,7 @@
                         <td><tt>getStepSize():int</br>setStepSize(int):void</tt></td>
                         <td>Returns or sets the step size, the value is increased or decreased by, when the user moves the preference's seek bar.</td>
                         <td><center><tt>-1</tt></center></td>
-                        <td>The value must be -1, if no step size should be used, or it must be at least 1.</td>
+                        <td>The value must be -1, if no step size should be used, or it must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                     <tr>
                         <td><tt>getDecimals():int</br>setDecimals(int):void</tt></td>
@@ -324,7 +324,7 @@
                         <td>The step size the preference's current value is increased or decreased by, when the user moves the seek bar. If the value is set to -1 no step size is used.</td>
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>-1</tt></td>
-                        <td>The value must be -1 or at least 1 and less than the maximum value.</td>
+                        <td>The value must be -1 or it must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                     <tr>
                         <td><tt>custom:unit</tt></td>
@@ -522,6 +522,12 @@
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
+                    <tr>
+                        <td><tt>getStepSize():int</br>setStepSize(int):void</tt></td>
+                        <td>Returns or sets the step size, the number is increased or decreased by, when the user moves the preference's selector wheel.</td>
+                        <td><center><tt>1</tt></center></td>
+                        <td>The value must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
+                    </tr>
                 </table>
 
                 <h5><a name="number-picker-preference-xml-attributes">XML attributes</a></h5>
@@ -577,6 +583,13 @@
                         <td style="text-align: center;"><tt>string</tt></td>
                         <td style="text-align: center;"><tt>null</tt></td>
                         <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:stepSize</tt></td>
+                        <td>The step size the preference's current number is increased or decreased by, when the user moves the selector wheel.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>1</tt></td>
+                        <td>The value must be at minimum 1 and at maximum the value of the method <tt>getRange()</tt>.</td>
                     </tr>
                 </table>
 

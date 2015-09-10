@@ -216,7 +216,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 			obtainDecimals(seekBarTypedArray);
 			obtainMaxValue(numericTypedArray);
 			obtainMinValue(numericTypedArray);
-			obtainStepSize(seekBarTypedArray);
+			obtainStepSize(numericTypedArray);
 			obtainUnit(unitTypedArray);
 			obtainFloatingPointSeparator(seekBarTypedArray);
 			obtainShowProgress(seekBarTypedArray);
@@ -275,7 +275,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainStepSize(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_step_size);
-		setStepSize(typedArray.getInteger(R.styleable.SeekBarPreference_stepSize, defaultValue));
+		setStepSize(typedArray.getInteger(R.styleable.AbstractNumericPreference_stepSize, defaultValue));
 	}
 
 	/**
@@ -396,25 +396,24 @@ public class SeekBarPreference extends AbstractDialogPreference {
 
 	/**
 	 * Adapts a specific value to the step size, which is currently set. The
-	 * value will be decreased to the nearest value, which matches the step
-	 * size.
+	 * value will be decreased or increased to the numerically closest value,
+	 * which matches the step size.
 	 * 
 	 * @param value
-	 *            The value, which should be adapter to the step size, as a
+	 *            The value, which should be adapted to the step size, as a
 	 *            {@link Float} value
 	 * @return The adapted value as a {@link Float} value
 	 */
 	private float adaptToStepSize(final float value) {
-		float result = value;
-
-		if (getStepSize() != -1) {
-			int minValueMod = getMinValue() % stepSize;
-			float mod = result % stepSize;
-			result = result - mod + minValueMod;
-			result = Math.min(result, getMaxValue());
+		if (getStepSize() > 0) {
+			float offset = value - getMinValue();
+			float mod = offset % getStepSize();
+			float halfStepSize = (float) getStepSize() / 2.0f;
+			float result = ((mod > halfStepSize) ? offset + getStepSize() - mod : offset - mod) + getMinValue();
+			return Math.min(result, getMaxValue());
 		}
 
-		return result;
+		return value;
 	}
 
 	/**
@@ -566,7 +565,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	public final void setValue(final float value) {
 		ensureAtLeast(value, getMinValue(), "The value must be at least the minimum value");
 		ensureAtMaximum(value, getMaxValue(), "The value must be at maximum the maximum value");
-		float roundedValue = roundToDecimals(value);
+		float roundedValue = adaptToStepSize(roundToDecimals(value));
 
 		if (this.value != roundedValue) {
 			this.value = roundedValue;
@@ -652,15 +651,17 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 * 
 	 * @param stepSize
 	 *            The step size, which should be set, as an {@link Integer}
-	 *            value. The value must be between 1 and the maximum value or
-	 *            -1, if the preference should allow to select a value from a
-	 *            continuous range
+	 *            value. The value must be at least 1 and at maximum the value
+	 *            of the method <code>getRange():int</code> or -1, if the
+	 *            preference should allow to select a value from a continuous
+	 *            range
 	 */
 	public final void setStepSize(final int stepSize) {
 		if (stepSize != -1) {
 			ensureAtLeast(stepSize, 1, "The step size must be at least 1");
-			ensureAtMaximum(stepSize, getMaxValue(), "The step size must be at maximum the maximum value");
+			ensureAtMaximum(stepSize, getRange(), "The step size must be at maximum the range");
 		}
+
 		this.stepSize = stepSize;
 		setValue(adaptToStepSize(getValue()));
 	}
