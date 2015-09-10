@@ -21,15 +21,18 @@ import static de.mrapp.android.preference.util.Condition.ensureAtLeast;
 import static de.mrapp.android.preference.util.Condition.ensureAtMaximum;
 import static de.mrapp.android.preference.util.Condition.ensureGreaterThan;
 import static de.mrapp.android.preference.util.Condition.ensureLessThan;
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
@@ -131,6 +134,12 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private int maxNumber;
 
 	/**
+	 * The unit, which is used for textual representation of the preference's
+	 * number.
+	 */
+	private CharSequence unit;
+
+	/**
 	 * Initializes the preference.
 	 * 
 	 * @param attributeSet
@@ -149,13 +158,17 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
+		TypedArray numericTypedArray = getContext().obtainStyledAttributes(attributeSet,
 				R.styleable.AbstractNumericPreference);
+		TypedArray unitTypedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractUnitPreference);
+
 		try {
-			obtainMaxNumber(typedArray);
-			obtainMinNumber(typedArray);
+			obtainMaxNumber(numericTypedArray);
+			obtainMinNumber(numericTypedArray);
+			obtainUnit(unitTypedArray);
 		} finally {
-			typedArray.recycle();
+			numericTypedArray.recycle();
 		}
 	}
 
@@ -185,6 +198,18 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_min_number);
 		setMinNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
+	}
+
+	/**
+	 * Obtains the unit, which should be used for textual representation of the
+	 * preference's number, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the unit should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainUnit(final TypedArray typedArray) {
+		setUnit(typedArray.getText(R.styleable.AbstractUnitPreference_unit));
 	}
 
 	/**
@@ -353,6 +378,43 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		return maxNumber - minNumber;
 	}
 
+	/**
+	 * Returns the unit, which is used for textual representation of the
+	 * preference's number.
+	 * 
+	 * @return The unit, which is used for textual representation or the
+	 *         preference's number, as an instance of the type
+	 *         {@link CharSequence} or null, if no unit is used
+	 */
+	public final CharSequence getUnit() {
+		return unit;
+	}
+
+	/**
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's number.
+	 * 
+	 * @param unit
+	 *            The unit, which should be set, as an instance of the type
+	 *            {@link CharSequence} or null, if no unit should be used
+	 */
+	public final void setUnit(final CharSequence unit) {
+		this.unit = unit;
+	}
+
+	/**
+	 * Sets the unit, which should be used for textual representation of the
+	 * preference's number.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the unit, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid string resource
+	 */
+	public final void setUnit(final int resourceId) {
+		setUnit(getContext().getText(resourceId));
+	}
+
 	@Override
 	public final void setNumber(final int number) {
 		if (!(getMinNumber() == 0 && getMaxNumber() == 0)) {
@@ -396,7 +458,11 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		numberPicker.setDescendantFocusability(
 				isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		numberPicker.setOnValueChangedListener(createNumberPickerListener());
-		container.addView(numberPicker, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		container.addView(numberPicker, 0, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+		TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
+		unitTextView.setText(getUnit());
+		unitTextView.setVisibility(TextUtils.isEmpty(getUnit()) ? View.GONE : View.VISIBLE);
 
 		dialogBuilder.setView(view);
 	}

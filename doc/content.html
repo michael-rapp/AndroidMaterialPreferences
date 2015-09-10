@@ -516,6 +516,12 @@
                         <td><center>10</center></td>
                         <td>The maximum number must be greater than the minimum number.</td>
                     </tr>
+ 		    <tr>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen number for textual representation. It the unit is set to null, no unit is appended.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
                 </table>
 
                 <h5><a name="number-picker-preference-xml-attributes">XML attributes</a></h5>
@@ -564,6 +570,13 @@
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>10</tt></td>
                         <td>Must be greater than the minimum number.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current number for textual representation. If the unit is null, no unit is appended.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
                     </tr>
                 </table>
 
