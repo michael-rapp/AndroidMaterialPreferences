@@ -55,7 +55,7 @@ License along with this program. If not, see
         <attr name="wrapSelectorWheel" format="boolean" />
     </declare-styleable>
     <declare-styleable name="NumberPickerPreference" parent="AbstractNumericPreference" />
-    <declare-styleable name="DigitPickerPreference">
+    <declare-styleable name="DigitPickerPreference" parent="AbstractUnitPreference">
         <attr name="numberOfDigits" format="integer" />
     </declare-styleable>
     <declare-styleable name="ResolutionPreference" parent="AbstractUnitPreference" />

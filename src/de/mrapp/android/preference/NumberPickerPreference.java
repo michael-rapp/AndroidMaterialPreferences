@@ -134,12 +134,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	private int maxNumber;
 
 	/**
-	 * The unit, which is used for textual representation of the preference's
-	 * number.
-	 */
-	private CharSequence unit;
-
-	/**
 	 * Initializes the preference.
 	 * 
 	 * @param attributeSet
@@ -158,17 +152,14 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 	 *            an instance of the type {@link AttributeSet}
 	 */
 	private void obtainStyledAttributes(final AttributeSet attributeSet) {
-		TypedArray numericTypedArray = getContext().obtainStyledAttributes(attributeSet,
+		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet,
 				R.styleable.AbstractNumericPreference);
-		TypedArray unitTypedArray = getContext().obtainStyledAttributes(attributeSet,
-				R.styleable.AbstractUnitPreference);
 
 		try {
-			obtainMaxNumber(numericTypedArray);
-			obtainMinNumber(numericTypedArray);
-			obtainUnit(unitTypedArray);
+			obtainMaxNumber(typedArray);
+			obtainMinNumber(typedArray);
 		} finally {
-			numericTypedArray.recycle();
+			typedArray.recycle();
 		}
 	}
 
@@ -198,18 +189,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		int defaultValue = getContext().getResources()
 				.getInteger(R.integer.number_picker_preference_default_min_number);
 		setMinNumber(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
-	}
-
-	/**
-	 * Obtains the unit, which should be used for textual representation of the
-	 * preference's number, from a specific typed array.
-	 * 
-	 * @param typedArray
-	 *            The typed array, the unit should be obtained from, as an
-	 *            instance of the class {@link TypedArray}
-	 */
-	private void obtainUnit(final TypedArray typedArray) {
-		setUnit(typedArray.getText(R.styleable.AbstractUnitPreference_unit));
 	}
 
 	/**
@@ -378,43 +357,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		return maxNumber - minNumber;
 	}
 
-	/**
-	 * Returns the unit, which is used for textual representation of the
-	 * preference's number.
-	 * 
-	 * @return The unit, which is used for textual representation or the
-	 *         preference's number, as an instance of the type
-	 *         {@link CharSequence} or null, if no unit is used
-	 */
-	public final CharSequence getUnit() {
-		return unit;
-	}
-
-	/**
-	 * Sets the unit, which should be used for textual representation of the
-	 * preference's number.
-	 * 
-	 * @param unit
-	 *            The unit, which should be set, as an instance of the type
-	 *            {@link CharSequence} or null, if no unit should be used
-	 */
-	public final void setUnit(final CharSequence unit) {
-		this.unit = unit;
-	}
-
-	/**
-	 * Sets the unit, which should be used for textual representation of the
-	 * preference's number.
-	 * 
-	 * @param resourceId
-	 *            The resource id of the unit, which should be set, as an
-	 *            {@link Integer} value. The resource id must correspond to a
-	 *            valid string resource
-	 */
-	public final void setUnit(final int resourceId) {
-		setUnit(getContext().getText(resourceId));
-	}
-
 	@Override
 	public final void setNumber(final int number) {
 		if (!(getMinNumber() == 0 && getMaxNumber() == 0)) {
@@ -458,7 +400,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 		numberPicker.setDescendantFocusability(
 				isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 		numberPicker.setOnValueChangedListener(createNumberPickerListener());
-		container.addView(numberPicker, 0, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		container.addView(numberPicker, 0, layoutParams);
 
 		TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
 		unitTextView.setText(getUnit());

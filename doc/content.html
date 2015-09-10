@@ -619,6 +619,12 @@
                         <td><center>4</center></td>
                         <td>The number of digits must be at least 1.</td>
                     </tr>
+                    <tr>
+                        <td><tt>getUnit():CharSequence</br>setUnit(CharSequence):void</br>setUnit(int):void</tt></td>
+                        <td>Returns or sets the unit, which is appended to the preference's currently chosen number for textual representation. It the unit is set to null, no unit is appended.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
                 </table>
 
                 <h5><a name="digit-picker-preference-xml-attributes">XML attributes</a></h5>
@@ -660,6 +666,13 @@
                         <td style="text-align: center;"><tt>integer</tt></td>
                         <td style="text-align: center;"><tt>4</tt></td>
                         <td>Must be at least 1.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:unit</tt></td>
+                        <td>The unit, which is appended to the preference's current number for textual representation. If the unit is null, no unit is appended.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
                     </tr>
                 </table>
 

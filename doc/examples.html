@@ -227,6 +227,7 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/digit_picker_preference_key"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/digit_picker_preference_summary"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/digit_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>"Unit"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
 <br/>
 <br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
@@ -238,6 +239,7 @@
                 <div class="code-block">DigitPickerPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;DigitPickerPreference(<strong><font color='#7f0055'>this</font></strong>);
 <br/>preference.setDefaultValue(25);
 <br/>preference.setNumberOfDigits(2);
+<br/>preference.setUnit(<font color='#2a00ff'>"Unit"</font>);
 <br/>preference.useInputMethod(true);
 <br/>preference.wrapSelectorWheel(false);
 <br/>preference.setDialogTitleColor(Color.BLACK);

@@ -25,9 +25,11 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
 import de.mrapp.android.dialog.MaterialDialogBuilder;
@@ -386,6 +388,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
 	@Override
 	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+		int digitPickerWidth = getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width);
+		LayoutParams layoutParams = new LayoutParams(digitPickerWidth, LayoutParams.WRAP_CONTENT);
 		View view = View.inflate(getContext(), R.layout.number_picker, null);
 		LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 		numberPickers = new NumberPicker[getNumberOfDigits()];
@@ -400,10 +404,12 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 					isInputMethodUsed() ? NumberPicker.FOCUS_BEFORE_DESCENDANTS : NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 			numberPicker.setOnValueChangedListener(createNumberPickerListener());
 			numberPickers[i] = numberPicker;
-			container.addView(numberPicker,
-					getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width),
-					LayoutParams.WRAP_CONTENT);
+			container.addView(numberPicker, i, layoutParams);
 		}
+
+		TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
+		unitTextView.setText(getUnit());
+		unitTextView.setVisibility(TextUtils.isEmpty(getUnit()) ? View.GONE : View.VISIBLE);
 
 		dialogBuilder.setView(view);
 	}
