@@ -209,11 +209,13 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		TypedArray seekBarTypedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
 		TypedArray unitTypedArray = getContext().obtainStyledAttributes(attributeSet,
 				R.styleable.AbstractUnitPreference);
+		TypedArray numericTypedArray = getContext().obtainStyledAttributes(attributeSet,
+				R.styleable.AbstractNumericPreference);
 
 		try {
 			obtainDecimals(seekBarTypedArray);
-			obtainMaxValue(seekBarTypedArray);
-			obtainMinValue(seekBarTypedArray);
+			obtainMaxValue(numericTypedArray);
+			obtainMinValue(numericTypedArray);
 			obtainStepSize(seekBarTypedArray);
 			obtainUnit(unitTypedArray);
 			obtainFloatingPointSeparator(seekBarTypedArray);
@@ -247,7 +249,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainMinValue(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_min_value);
-		setMinValue(typedArray.getInteger(R.styleable.SeekBarPreference_min, defaultValue));
+		setMinValue(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
 	}
 
 	/**
@@ -260,7 +262,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 	 */
 	private void obtainMaxValue(final TypedArray typedArray) {
 		int defaultValue = getContext().getResources().getInteger(R.integer.seek_bar_preference_default_max_value);
-		setMaxValue(typedArray.getInteger(R.styleable.SeekBarPreference_android_max, defaultValue));
+		setMaxValue(typedArray.getInteger(R.styleable.AbstractNumericPreference_android_max, defaultValue));
 	}
 
 	/**
