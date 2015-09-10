@@ -20,6 +20,8 @@ A feature release, which introduces the following new features:
     -	Some attributes have been renamed for greater consistency
     	between the library's preferences.
     	
+    -	https://sourceforge.net/p/androidmaterialpreferences/tickets/3/
+    	
     	
 Version:        1.4.0 
 Release date:   08.31.2015
