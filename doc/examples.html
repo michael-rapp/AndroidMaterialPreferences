@@ -183,6 +183,7 @@
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/number_picker_preference_key"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/number_picker_preference_summary"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/number_picker_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:unit=<font color='#2a00ff'>"Unit"</font>
 <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
 <br/>
 <br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
@@ -195,6 +196,7 @@
 <br/>preference.setDefaultValue(25);
 <br/>preference.setMinNumber(0);
 <br/>preference.setMaxNumber(100);
+<br/>preference.setUnit(<font color='#2a00ff'>"Unit"</font>);
 <br/>preference.useInputMethod(true);
 <br/>preference.wrapSelectorWheel(false);
 <br/>preference.setDialogTitleColor(Color.BLACK);
