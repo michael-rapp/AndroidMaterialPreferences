@@ -2,6 +2,25 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.5.0 
+Release date:   09.11.2015
+--------------------------
+
+A feature release, which introduces the following new features:
+    
+    -   The preferences NumberPickerPreference and 
+    	DigitPickerPreference do now allow to set an unit, which
+    	is used for printing textual representations of the
+    	preferences' current numbers. 
+    	
+    -	The preference NumberPickerPreference does now support to
+    	set the step size, the preference's number should be
+    	increased or decreased by when moving its selector wheel.
+    	
+    -	Some attributes have been renamed for greater consistency
+    	between the library's preferences.
+    	
+    	
 Version:        1.4.0 
 Release date:   08.31.2015
 --------------------------
