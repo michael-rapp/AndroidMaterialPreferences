@@ -33,6 +33,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -434,7 +435,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
 		numberFormat.setMaximumFractionDigits(getDecimals());
 		String valueString = numberFormat.format(value);
 
-		if (getSuffix() != null && getSuffix().length() > 0) {
+		if (!TextUtils.isEmpty(getSuffix())) {
 			return valueString + " " + getSuffix();
 		}
 
