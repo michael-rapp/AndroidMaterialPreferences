@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -162,9 +163,19 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	private int dialogTitleColor;
 
 	/**
+	 * The color of the message of the preference's dialog.
+	 */
+	private int dialogMessageColor;
+
+	/**
 	 * The color of the button text of the preference's dialog.
 	 */
 	private int dialogButtonTextColor;
+
+	/**
+	 * The background of the preference's dialog.
+	 */
+	private Drawable dialogBackground;
 
 	/**
 	 * True, if the currently persisted value should be shown as the summary,
@@ -188,7 +199,9 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 			obtainPositiveButtonText(typedArray);
 			obtainNegativeButtonText(typedArray);
 			obtainDialogTitleColor(typedArray);
+			obtainDialogMessageColor(typedArray);
 			obtainDialogButtonTextColor(typedArray);
+			obtainDialogBackground(typedArray);
 			obtainShowValueAsSummary(typedArray);
 		} finally {
 			typedArray.recycle();
@@ -205,12 +218,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 */
 	private void obtainDialogTitle(final TypedArray typedArray) {
 		CharSequence title = typedArray.getText(R.styleable.AbstractDialogPreference_android_dialogTitle);
-
-		if (title == null) {
-			title = getTitle();
-		}
-
-		setDialogTitle(title);
+		setDialogTitle(title != null ? title : getTitle());
 	}
 
 	/**
@@ -234,9 +242,9 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogIcon(final TypedArray typedArray) {
-		int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_android_dialogIcon, 0);
+		int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_android_dialogIcon, -1);
 
-		if (resourceId != 0) {
+		if (resourceId != -1) {
 			setDialogIcon(resourceId);
 		}
 	}
@@ -274,17 +282,19 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogTitleColor(final TypedArray typedArray) {
-		int color = typedArray.getColor(R.styleable.AbstractDialogPreference_dialogTitleColor, 0);
+		setDialogTitleColor(typedArray.getColor(R.styleable.AbstractDialogPreference_dialogTitleColor, -1));
+	}
 
-		if (color == 0) {
-			int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogTitleColor, 0);
-
-			if (resourceId != 0) {
-				color = getContext().getResources().getColor(resourceId);
-			}
-		}
-
-		setDialogTitleColor(color);
+	/**
+	 * Obtains the message color of the dialog, which is shown by the
+	 * preference, from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the message color should be obtained from, as
+	 *            an instance of the class {@link TypedArray}
+	 */
+	private void obtainDialogMessageColor(final TypedArray typedArray) {
+		setDialogMessageColor(typedArray.getColor(R.styleable.AbstractDialogPreference_dialogMessageColor, -1));
 	}
 
 	/**
@@ -296,17 +306,33 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogButtonTextColor(final TypedArray typedArray) {
-		int color = typedArray.getColor(R.styleable.AbstractDialogPreference_dialogButtonTextColor, 0);
+		setDialogButtonTextColor(typedArray.getColor(R.styleable.AbstractDialogPreference_dialogButtonTextColor, -1));
+	}
 
-		if (color == 0) {
-			int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogButtonTextColor, 0);
+	/**
+	 * Obtains the background of the dialog, which is shown by the preference,
+	 * from a specific typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the background should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	@SuppressWarnings("deprecation")
+	private void obtainDialogBackground(final TypedArray typedArray) {
+		int backgroundColor = typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
 
-			if (resourceId != 0) {
-				color = getContext().getResources().getColor(resourceId);
+		if (backgroundColor != -1) {
+			setDialogBackgroundColor(backgroundColor);
+		} else {
+			int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogBackground, -1);
+			Drawable background = null;
+
+			if (resourceId != -1) {
+				background = getContext().getResources().getDrawable(resourceId);
 			}
-		}
 
-		setDialogButtonTextColor(color);
+			setDialogBackground(background);
+		}
 	}
 
 	/**
@@ -341,7 +367,9 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 		dialogBuilder.setPositiveButton(getPositiveButtonText(), this);
 		dialogBuilder.setNegativeButton(getNegativeButtonText(), this);
 		dialogBuilder.setTitleColor(getDialogTitleColor());
+		dialogBuilder.setMessageColor(getDialogMessageColor());
 		dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
+		dialogBuilder.setBackground(getDialogBackground());
 
 		onPrepareDialog(dialogBuilder);
 
@@ -542,7 +570,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Returns the message of the preference's dialog.
 	 * 
 	 * @return The message of the preference's dialog as an instance of the
-	 *         class {@link CharSequence} or null, if no title is used
+	 *         class {@link CharSequence} or null, if no message is shown in the
+	 *         dialog
 	 */
 	public final CharSequence getDialogMessage() {
 		return dialogMessage;
@@ -553,7 +582,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * 
 	 * @param dialogMessage
 	 *            The message, which should be set, as an instance of the class
-	 *            {@link CharSequence} or null, if no title should be used
+	 *            {@link CharSequence} or null, if no message should be shown in
+	 *            the dialog
 	 */
 	public final void setDialogMessage(final CharSequence dialogMessage) {
 		this.dialogMessage = dialogMessage;
@@ -575,7 +605,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Returns the icon of the preference's dialog.
 	 * 
 	 * @return The icon of the preference's dialog as an instance of the class
-	 *         {@link Drawable} or null, if no icon is used
+	 *         {@link Drawable} or null, if no icon is shown in the dialog
 	 */
 	public final Drawable getDialogIcon() {
 		return dialogIcon;
@@ -586,7 +616,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * 
 	 * @param dialogIcon
 	 *            The dialog, which should be set, as an instance of the class
-	 *            {@link Drawable} or null, if no icon should be used
+	 *            {@link Drawable} or null, if no icon should be shown in the
+	 *            dialog
 	 */
 	public final void setDialogIcon(final Drawable dialogIcon) {
 		this.dialogIcon = dialogIcon;
@@ -609,8 +640,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Returns the text of the positive button of the preference's dialog.
 	 * 
 	 * @return The text of the positive button as an instance of the class
-	 *         {@link CharSequence} or null, if no positive button should be
-	 *         used
+	 *         {@link CharSequence} or null, if no positive button is shown in
+	 *         the dialog
 	 */
 	public final CharSequence getPositiveButtonText() {
 		return positiveButtonText;
@@ -622,7 +653,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * @param positiveButtonText
 	 *            The text, which should be set, as an instance of the class
 	 *            {@link CharSequence} or null, if no positive button should be
-	 *            used
+	 *            shown in the dialog
 	 */
 	public final void setPositiveButtonText(final CharSequence positiveButtonText) {
 		this.positiveButtonText = positiveButtonText;
@@ -644,8 +675,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Returns the text of the negative button of the preference's dialog.
 	 * 
 	 * @return The text of the negative button as an instance of the class
-	 *         {@link CharSequence} or null, if no negative button should be
-	 *         shown
+	 *         {@link CharSequence} or null, if no negative button is shown in
+	 *         the dialog
 	 */
 	public final CharSequence getNegativeButtonText() {
 		return negativeButtonText;
@@ -657,7 +688,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * @param negativeButtonText
 	 *            The text, which should be set, as an instance of the class
 	 *            {@link CharSequence} or null, if no negative button should be
-	 *            used
+	 *            shown in the dialog
 	 */
 	public final void setNegativeButtonText(final CharSequence negativeButtonText) {
 		this.negativeButtonText = negativeButtonText;
@@ -678,7 +709,8 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	/**
 	 * Returns the color of the title of the preference's dialog.
 	 * 
-	 * @return The color of the title as an {@link Integer} value
+	 * @return The color of the title as an {@link Integer} value or -1, if no
+	 *         custom title color is set
 	 */
 	public final int getDialogTitleColor() {
 		return dialogTitleColor;
@@ -688,16 +720,39 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Sets the color of the title of the preference's dialog.
 	 * 
 	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom title should be set
 	 */
 	public final void setDialogTitleColor(final int color) {
 		this.dialogTitleColor = color;
 	}
 
 	/**
+	 * Returns the color of the message of the preference's dialog.
+	 * 
+	 * @return The color of the message as an {@link Integer} value or -1, if no
+	 *         custom message color is set
+	 */
+	public final int getDialogMessageColor() {
+		return dialogMessageColor;
+	}
+
+	/**
+	 * Sets the color of the message of the preference's dialog.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom message color should be set
+	 */
+	public final void setDialogMessageColor(final int color) {
+		this.dialogMessageColor = color;
+	}
+
+	/**
 	 * Returns the color of the button text of the preference's dialog.
 	 * 
-	 * @return The color of the button text as an {@link Integer} value
+	 * @return The color of the button text as an {@link Integer} value or -1,
+	 *         if no custom text color is set
 	 */
 	public final int getDialogButtonTextColor() {
 		return dialogButtonTextColor;
@@ -707,10 +762,57 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 * Sets the color of the button text of the preference's dialog.
 	 * 
 	 * @param color
-	 *            The color, which should be set, as an {@link Integer} value
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom text color should be set
 	 */
 	public final void setDialogButtonTextColor(final int color) {
 		this.dialogButtonTextColor = color;
+	}
+
+	/**
+	 * Returns the background of the preference's dialog.
+	 * 
+	 * @return The background of the preference's dialog as an instance of the
+	 *         class {@link Drawable} or null, if no custom background is set
+	 */
+	public final Drawable getDialogBackground() {
+		return dialogBackground;
+	}
+
+	/**
+	 * Sets the background of the preference's dialog.
+	 * 
+	 * @param background
+	 *            The background, which should be set, as an instance of the
+	 *            class {@link Drawable} or null, if no custom background should
+	 *            be set
+	 */
+	public final void setDialogBackground(final Drawable background) {
+		this.dialogBackground = background;
+	}
+
+	/**
+	 * Sets the background of the preference's dialog.
+	 * 
+	 * @param resourceId
+	 *            The resource id of the background, which should be set, as an
+	 *            {@link Integer} value. The resource id must correspond to a
+	 *            valid drawable resource
+	 */
+	@SuppressWarnings("deprecation")
+	public final void setDialogBackground(final int resourceId) {
+		setDialogBackground(getContext().getResources().getDrawable(resourceId));
+	}
+
+	/**
+	 * Sets the background color of the preference's dialog.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom background color should be set
+	 */
+	public final void setDialogBackgroundColor(final int color) {
+		setDialogBackground(color != -1 ? new ColorDrawable(color) : null);
 	}
 
 	/**
