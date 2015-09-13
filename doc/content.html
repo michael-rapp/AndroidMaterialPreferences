@@ -120,26 +120,38 @@
                     </tr>
                     <tr>
                         <td><tt>getDialogTitleColor():int</br>setDialogTitleColor(int):void</tt></td>
-                        <td>Returns or sets the color of the title of the preference's dialog. If the color is 0, the color </br><tt>?attr/colorPrimary</tt> is used.</td>
-                        <td><center><tt>0</tt></center></td>
+                        <td>Returns or sets the color of the title of the preference's dialog. If the color is -1, the color </br><tt>?attr/colorPrimary</tt> is used.</td>
+                        <td><center><tt>-1</tt></center></td>
                         <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogMessageColor():int</br>setDialogMessageColor(int):void</tt></td>
+                        <td>Returns or sets the color of the message of the preference's dialog. If the color is -1, the color </br><tt>?android:attr/textColorSecondary</tt> is used.</td>
+                        <td><center><tt>-1</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>getDialogBackground():Drawable</br>setDialogBackground(Drawable):void</br>setDialogBackground(int):void</br>setDialogBackgroundColor(int):void</tt></td>
+                        <td>Returns or sets the background of the preference's dialog. If the background is null, the color </br><tt>?android:attr/background</tt> is used.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the background is specified via a resource ID, the ID must correspond to a valid drawable resource.</td>
                     </tr>
                     <tr>
                         <td><tt>getDialogButtonTextColor():int</br>setDialogButtonTextColor(int):void</tt></td>
-                        <td>Returns or sets the color of the button texts of the preference's dialog. If the color is 0, the color </br><tt>?attr/colorAccent</tt> is used.</td>
-                        <td><center><tt>0</tt></center></td>
+                        <td>Returns or sets the color of the button texts of the preference's dialog. If the color is -1, the color </br><tt>?attr/colorAccent</tt> is used.</td>
+                        <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
                     <tr>
                         <td><tt>getNegativeButton():CharSequence</br>setNegativeButton(CharSequence):void</br>setNegativeButton(int):void</tt></td>
                         <td>Returns or sets the text of the negative button of the preference's dialog. If the text is null or empty, no such button will be shown. These methods are already called by the single preference implementations and therefore there should be no need to call them manually.</td>
-                        <td><center><tt>0</tt></center></td>
+                        <td><center><tt>null</tt></center></td>
                         <td>If the text is specified via a resource ID, the ID must correspond to a valid string resource.</td>
                     </tr>
                     <tr>
                         <td><tt>getPositiveButton():CharSequence</br>setPositiveButton(CharSequence):void</br>setPositiveButton(int):void</tt></td>
                         <td>Returns or sets the text of the positive button of the preference's dialog. If the text is null or empty, no such button will be shown. These methods are already called by the single preference implementations and therefore there should be no need to call them manually.</td>
-                        <td><center><tt>0</tt></center></td>
+                        <td><center><tt>null</tt></center></td>
                         <td>If the text is specified via a resource ID, the ID must correspond to a valid string resource.</td>
                     </tr>
                     <tr>
@@ -181,6 +193,34 @@
                         <td>The icon of the dialog, which is shown by the preference.</td>
                         <td style="text-align: center;"><tt>reference</tt></td>
                         <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogTitleColor</tt></td>
+                        <td>The color of the title of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?attr/colorPrimary</tt></td>
+                        <td>none</td>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogMessageColor</tt></td>
+                        <td>The color of the message of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?android:attr/textColorSecondary</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogButtonTextColor</tt></td>
+                        <td>The text color of the buttons of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?attr/colorAccent</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogBackground</tt></td>
+                        <td>The background of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color|reference</tt></td>
+                        <td style="text-align: center;"><tt>?android:attr/background</tt></td>
                         <td>none</td>
                     </tr>
                     <tr>
@@ -411,6 +451,18 @@
                         <th style="min-width: 90px;">Restrictions</th>
                     </tr>
                     <tr>
+                        <td><tt>getDialogItemColor():int</br>setDialogItemColor(int):void</tt></td>
+                        <td>Returns or sets the color of the items of the preference's dialog. If the color is -1, the color <tt>?android:attr/textColorPrimary</tt> is used.</td>
+                        <td><center>-1</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogItemControlColor():int</br>setDialogItemControlColor(int):void</tt></td>
+                        <td>Returns or sets the color of the item controls of the preference's dialog. If the color is -1, the color <tt>?attr/colorAccent</tt> is used.</td>
+                        <td><center>-1</center></td>
+                        <td>Requires API level 16 or greater.</td>
+                    </tr>
+                    <tr>
                         <td><tt>getEntries():CharSequence[]</br>setEntries(CharSequence[]):void</br>setEntries(int):void</tt></td>
                         <td>Returns or sets the entries, which are shown in the preference's list.</td>
                         <td><center>Empty array</center></td>
@@ -447,6 +499,20 @@
                         <th>Value type</th>
                         <th>Default value</th>
                         <th>Restrictions</th>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogItemColor</tt></td>
+                        <td>The color of the items of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?android:attr/textColorPrimary</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogItemControlColor</tt></td>
+                        <td>The color of the item controls of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?attr/colorAccent</tt></td>
+                        <td>Requires API level 16 or greater.</td>
                     </tr>
                     <tr>
                         <td><tt>android:entries</tt></td>

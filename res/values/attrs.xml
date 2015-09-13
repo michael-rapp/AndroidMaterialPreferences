@@ -37,10 +37,14 @@ License along with this program. If not, see
         <attr name="android:positiveButtonText" />
         <attr name="android:negativeButtonText" />
         <attr name="dialogTitleColor" format="color" />
+        <attr name="dialogMessageColor" format="color" />
+        <attr name="dialogBackground" format="color|reference" />
         <attr name="dialogButtonTextColor" format="color" />
         <attr name="showValueAsSummary" format="boolean" />
     </declare-styleable>
     <declare-styleable name="ListPreference">
+        <attr name="dialogItemColor" format="color" />
+        <attr name="dialogItemControlColor" format="color" />
         <attr name="android:entries" />
         <attr name="android:entryValues" />
     </declare-styleable>

@@ -104,6 +104,16 @@ public class ListPreference extends AbstractDialogPreference {
 	};
 
 	/**
+	 * The color of the items of the preference's dialog.
+	 */
+	private int dialogItemColor;
+
+	/**
+	 * The color of the item controls of the preference's dialog.
+	 */
+	private int dialogItemControlColor;
+
+	/**
 	 * An array, which contains the entries, which are shown in the list.
 	 */
 	private CharSequence[] entries;
@@ -149,11 +159,37 @@ public class ListPreference extends AbstractDialogPreference {
 		TypedArray typedArray = getContext().obtainStyledAttributes(attributeSet, R.styleable.ListPreference);
 
 		try {
+			obtainDialogItemColor(typedArray);
+			obtainDialogItemControlColor(typedArray);
 			obtainEntries(typedArray);
 			obtainEntryValues(typedArray);
 		} finally {
 			typedArray.recycle();
 		}
+	}
+
+	/**
+	 * Obtains the item color of the preference's dialog from a specific typed
+	 * array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the item color should be obtained from, as an
+	 *            instance of the class {@link TypedArray}
+	 */
+	private void obtainDialogItemColor(final TypedArray typedArray) {
+		setDialogItemColor(typedArray.getColor(R.styleable.ListPreference_dialogItemColor, -1));
+	}
+
+	/**
+	 * Obtains the item control color of the preference's dialog from a specific
+	 * typed array.
+	 * 
+	 * @param typedArray
+	 *            The typed array, the item control color should be obtained
+	 *            from, as an instance of the class {@link TypedArray}
+	 */
+	private void obtainDialogItemControlColor(final TypedArray typedArray) {
+		setDialogItemControlColor(typedArray.getColor(R.styleable.ListPreference_dialogItemControlColor, -1));
 	}
 
 	/**
@@ -302,6 +338,49 @@ public class ListPreference extends AbstractDialogPreference {
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
 		initialize(attributeSet);
+	}
+
+	/**
+	 * Returns the color of the items of the preference's dialog.
+	 * 
+	 * @return The color of the items as an {@link Integer} value or -1, if no
+	 *         custom item color is set
+	 */
+	public final int getDialogItemColor() {
+		return dialogItemColor;
+	}
+
+	/**
+	 * Sets the color of the items of the preference's dialog.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom item color should be set
+	 */
+	public final void setDialogItemColor(final int color) {
+		this.dialogItemColor = color;
+	}
+
+	/**
+	 * Returns the color of the item controls of the preference's dialog.
+	 * 
+	 * @return The color of the item controls as an {@link Integer} value or -1,
+	 *         if no custom item color is set
+	 */
+	public final int getDialogItemControlColor() {
+		return dialogItemControlColor;
+	}
+
+	/**
+	 * Sets the color of the item controls of the preference's dialog.
+	 * 
+	 * @param color
+	 *            The color, which should be set, as an {@link Integer} value or
+	 *            -1, if no custom item control color should be set
+	 */
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	public final void setDialogItemControlColor(final int color) {
+		this.dialogItemControlColor = color;
 	}
 
 	/**
@@ -456,6 +535,8 @@ public class ListPreference extends AbstractDialogPreference {
 	protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
 		selectedIndex = indexOf(getValue());
 		dialogBuilder.setSingleChoiceItems(entries, selectedIndex, createListItemListener());
+		dialogBuilder.setItemColor(getDialogItemColor());
+		dialogBuilder.setItemControlColor(getDialogItemColor());
 	}
 
 	@Override
