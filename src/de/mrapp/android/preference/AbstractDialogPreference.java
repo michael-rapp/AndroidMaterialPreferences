@@ -205,12 +205,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 */
 	private void obtainDialogTitle(final TypedArray typedArray) {
 		CharSequence title = typedArray.getText(R.styleable.AbstractDialogPreference_android_dialogTitle);
-
-		if (title == null) {
-			title = getTitle();
-		}
-
-		setDialogTitle(title);
+		setDialogTitle(title != null ? title : getTitle());
 	}
 
 	/**
@@ -274,17 +269,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogTitleColor(final TypedArray typedArray) {
-		int color = typedArray.getColor(R.styleable.AbstractDialogPreference_dialogTitleColor, -1);
-
-		if (color == -1) {
-			int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogTitleColor, -1);
-
-			if (resourceId != -1) {
-				color = getContext().getResources().getColor(resourceId);
-			}
-		}
-
-		setDialogTitleColor(color);
+		setDialogTitleColor(typedArray.getColor(R.styleable.AbstractDialogPreference_dialogTitleColor, -1));
 	}
 
 	/**
@@ -296,17 +281,7 @@ public abstract class AbstractDialogPreference extends Preference implements OnC
 	 *            from, as an instance of the class {@link TypedArray}
 	 */
 	private void obtainDialogButtonTextColor(final TypedArray typedArray) {
-		int color = typedArray.getColor(R.styleable.AbstractDialogPreference_dialogButtonTextColor, -1);
-
-		if (color == -1) {
-			int resourceId = typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogButtonTextColor, -1);
-
-			if (resourceId != -1) {
-				color = getContext().getResources().getColor(resourceId);
-			}
-		}
-
-		setDialogButtonTextColor(color);
+		setDialogButtonTextColor(typedArray.getColor(R.styleable.AbstractDialogPreference_dialogButtonTextColor, -1));
 	}
 
 	/**
