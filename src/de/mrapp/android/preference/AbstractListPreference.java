@@ -30,6 +30,8 @@ import android.util.AttributeSet;
  * selectable items.
  * 
  * @author Michael Rapp
+ * 
+ * @since 1.7.0
  */
 public abstract class AbstractListPreference extends AbstractDialogPreference {
 
