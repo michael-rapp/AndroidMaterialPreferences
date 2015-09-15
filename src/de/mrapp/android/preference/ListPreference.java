@@ -113,7 +113,7 @@ public class ListPreference extends AbstractListPreference {
 	private int selectedIndex;
 
 	/**
-	 * Initializes the list preference.
+	 * Initializes the preference.
 	 */
 	private void initialize() {
 		setNegativeButtonText(android.R.string.cancel);
