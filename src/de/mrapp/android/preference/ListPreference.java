@@ -108,7 +108,7 @@ public class ListPreference extends AbstractListPreference {
 	private String value;
 
 	/**
-	 * The currently selected list entry.
+	 * The index of the currently selected list item.
 	 */
 	private int selectedIndex;
 
