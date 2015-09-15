@@ -236,7 +236,7 @@ public class ListPreference extends AbstractListPreference {
 	}
 
 	/**
-	 * Returns currently persisted value of the preference.
+	 * Returns the currently persisted value of the preference.
 	 * 
 	 * @return The currently persisted value of the preference as a
 	 *         {@link String}
