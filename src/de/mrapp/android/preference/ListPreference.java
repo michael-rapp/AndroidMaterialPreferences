@@ -116,33 +116,13 @@ public class ListPreference extends AbstractListPreference {
 	 * Initializes the preference.
 	 */
 	private void initialize() {
+		selectedIndex = -1;
 		setNegativeButtonText(android.R.string.cancel);
 	}
 
 	/**
-	 * Return the index, a specific list entry's value corresponds to.
-	 * 
-	 * @param value
-	 *            The value of the list entry, whose index should be returned,
-	 *            as an instance of the type {@link CharSequence}
-	 * @return The index, the given value corresponds to, as an {@link Integer}
-	 *         value or -1 if the list does not contain such a value
-	 */
-	private int indexOf(final CharSequence value) {
-		if (value != null && getEntryValues() != null) {
-			for (int i = getEntryValues().length - 1; i >= 0; i--) {
-				if (getEntryValues()[i].equals(value)) {
-					return i;
-				}
-			}
-		}
-
-		return -1;
-	}
-
-	/**
-	 * Creates a listener, which allows to persist the value a list item, which
-	 * is clicked by the user.
+	 * Creates and returns a listener, which allows to persist the value a list
+	 * item, which is clicked by the user.
 	 * 
 	 * @return The listener, which has been created, as an instance of the type
 	 *         {@link OnClickListener}
@@ -322,6 +302,8 @@ public class ListPreference extends AbstractListPreference {
 				setValue(newValue);
 			}
 		}
+
+		selectedIndex = -1;
 	}
 
 	@Override
