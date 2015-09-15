@@ -124,7 +124,7 @@ public class ListPreference extends AbstractListPreference {
 	 * 
 	 * @param value
 	 *            The value of the list entry, whose index should be returned,
-	 *            as an instance of the class {@link CharSequence}
+	 *            as an instance of the type {@link CharSequence}
 	 * @return The index, the given value corresponds to, as an {@link Integer}
 	 *         value or -1 if the list does not contain such a value
 	 */
@@ -279,7 +279,7 @@ public class ListPreference extends AbstractListPreference {
 	 * belongs to.
 	 * 
 	 * @return The entry, the currently persisted value of the preference
-	 *         belongs to, as an instance of the class {@link CharSequence}
+	 *         belongs to, as an instance of the type {@link CharSequence}
 	 */
 	public final CharSequence getEntry() {
 		int index = indexOf(value);
