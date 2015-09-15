@@ -147,6 +147,27 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
 	}
 
 	/**
+	 * Return the index of the entry, a specific value corresponds to.
+	 * 
+	 * @param value
+	 *            The value of the entry, whose index should be returned, as an
+	 *            instance of the type {@link CharSequence}
+	 * @return The index of the entry, the given value corresponds to, as an
+	 *         {@link Integer} value or -1 if there is no such entry
+	 */
+	protected final int indexOf(final CharSequence value) {
+		if (value != null && getEntryValues() != null) {
+			for (int i = getEntryValues().length - 1; i >= 0; i--) {
+				if (getEntryValues()[i].equals(value)) {
+					return i;
+				}
+			}
+		}
+
+		return -1;
+	}
+
+	/**
 	 * Creates a new preference, which provides a list of selectable items.
 	 * 
 	 * @param context
