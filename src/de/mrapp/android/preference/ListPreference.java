@@ -40,7 +40,7 @@ import de.mrapp.android.dialog.MaterialDialogBuilder;
 public class ListPreference extends AbstractListPreference {
 
 	/**
-	 * A data structure, which allows to save the internal state of an
+	 * A data structure, which allows to save the internal state of a
 	 * {@link ListPreference}.
 	 */
 	public static class SavedState extends BaseSavedState {
