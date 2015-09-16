@@ -179,6 +179,54 @@
 <br/>preference.setTitle(R.string.list_preference_title);
 <br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
 
+		<h4>Declaring a MultiChoiceListPreference via XML</h4>
+                
+                <p>The following code shows how the attributes of a <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a> can be specified, if the preference should be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.MultiChoiceListPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:defaultValue=<font color='#2a00ff'>"R.array.multi_choice_list_preference_entry_values"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:entries=<font color='#2a00ff'>"R.array.multi_choice_list_preference_entries"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:entryValues=<font color='#2a00ff'>"R.array.multi_choice_list_preference_entry_values"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitleColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessageColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogButtonTextColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogBackground=<font color='#2a00ff'>"@android:color/white"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogItemColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogItemControlColor=<font color='#2a00ff'>"@android:color/black"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogMessage=<font color='#2a00ff'>"@string/multi_choice_list_preference_dialog_message"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:dialogTitle=<font color='#2a00ff'>"@string/multi_choice_list_preference_dialog_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/multi_choice_list_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:summary=<font color='#2a00ff'>"@array/multi_choice_list_preference_summary"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/multi_choice_list_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:showValueAsSummary=<font color='#2a00ff'>"false"</font>&nbsp;<font color='#3f7f5f'>/></font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+		<h4>Instantiating a MultiChoiceListPreference programatically</h4>
+
+		<p>The code below illustrates how a <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a> can be initialized programmatically.</p>
+
+		<div class="code-block">MultiChoiceListPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;MultiChoiceListPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setDefaultValue(getResources().getTextArray(
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R.array.multi_choice_list_preference_values));
+<br/>preference.setEntries(R.array.multi_choice_list_preference_entries);
+<br/>preference.setEntryValues(R.array.multi_choice_list_preference_entry_values);
+<br/>preference.setDialogTitleColor(Color.BLACK);
+<br/>preference.setDialogMessageColor(Color.BLACK);
+<br/>preference.setDialogButtonTextColor(Color.BLACK);
+<br/>preference.setDialogBackgroundColor(Color.WHITE);
+<br/>preference.setDialogItemColor(Color.BLACK);
+<br/>preference.setDialogItemControlColor(Color.BLACK);
+<br/>preference.setDialogMessage(R.string.multi_choice_list_preference_dialog_message);
+<br/>preference.setDialogTitle(R.string.multi_choice_list_preference_dialog_title);
+<br/>preference.setKey(R.string.multi_choice_list_preference_key);
+<br/>preference.setSummary(R.string.multi_choice_list_preference_summary);
+<br/>preference.setTitle(R.string.multi_choice_list_preference_title);
+<br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
+
                 <h4>Declaring a NumberPickerPreference via XML</h4>
                 
                 <p>The following example illustrates how the attributes of a <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> can be specified, if the preference should be declared within a XML resource.</p>
