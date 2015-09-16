@@ -48,6 +48,11 @@
                         <li><a href="content.html#list-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#list-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+	            <li><a href="content.html#multi-choice-list-preference">MultiChoiceListPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#multi-choice-list-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#multi-choice-list-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
 		    <li><a href="content.html#number-picker-preference">NumberPickerPreference</a></li>
                     <ul>
                         <li><a href="content.html#number-picker-preference-getter-and-setter-methods">Getter and setter methods</a></li>
@@ -317,11 +322,7 @@
 
                 <h5><a name="seek-bar-preference-xml-attributes">XML attributes</a></h5>
 
-                <p>If a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> is created by beeing specified within a XML resource file, XML attributes can be used to customize the preference's behaviour and appearance. Besides the inherited attributes, which are defined by the Android API, the library does provide various custom attributes, which can be used to set the same attributes as the setter methods mentioned in the previous section. The custom attributes, respectively the inherited attributes, whose semantic is modified by the library, are defined within the file <tt>/res/values/attrs.xml</tt>. In the following two sections all custom attributes and the most important inherited attributes will be introduced. An example on how to define a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> by using a XML resource file, is available in the "Examples" section of this documentation.</p>
-
-                <h5><a name="custom-attributes">Custom attributes</a></h5>
-
-                <p>The following table shows the custom attributes of the <tt>Preference</tt>. All of them are optional.</p>
+                <p>If a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> is created by beeing specified within a XML resource file, XML attributes can be used to customize the preference's behaviour and appearance. Besides the inherited attributes, which are defined by the Android API, the library does provide various custom attributes, which can be used to set the same attributes as the setter methods mentioned in the previous section. The custom attributes, respectively the inherited attributes, whose semantic is modified by the library, are defined within the file <tt>/res/values/attrs.xml</tt>. In the following two sections all custom attributes and the most important inherited attributes will be introduced. An example on how to define a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> by using a XML resource file, is available in the "Examples" section of this documentation. The following table shows the custom attributes of the preference.</p>
 
                 <table>
                     <tr>
@@ -388,8 +389,6 @@
                         <td>none</td>
                     </tr>
                 </table>
-            
-                <p>If the restrictions of an attribute mentioned in the table above are violated, exceptions will be thrown at runtime. </p>
 
                 <h4><a name="edit-text-preference">4 EditTextPreference</a></h4>
 
@@ -482,7 +481,7 @@
                     </tr>
                     <tr>
                         <td><tt>getEntry():CharSequence</tt></td>
-                        <td>Returns the entries, which corresponds to the currently selected value.</td>
+                        <td>Returns the entry, which corresponds to the currently selected value.</td>
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
@@ -537,7 +536,109 @@
                     </tr>
                 </table>
 
-		<h4><a name="number-picker-preference">6 NumberPickerPreference</a></h4>
+		<h4><a name="multi-choice-list-preference">6 MultiChoiceListPreference</a></h4>
+
+                <p>The preference <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a> is very similar to the preference <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a>, which has been discussed in the previous section. It also provides a list of items in its dialog, but instead of allowing to choose only one item, multiple items can be selected at once. The values, which can be selected by the preference, as well as the corresponding entries, which are shown within the preference's list, can be specified as arrays by either using setter methods or XML attributes. The values of the currently selected items are persisted as a set of strings in the shared preferences.</p>
+
+                <h5><a name="multi-choice-list-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+		<p>The following table shows the getter and setter methods, which are provided in order to specify the properties of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> programmatically. Because the class is extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>, the methods of this class can also be used.</p>
+
+                <table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogItemColor():int</br>setDialogItemColor(int):void</tt></td>
+                        <td>Returns or sets the color of the items of the preference's dialog. If the color is -1, the color <tt>?android:attr/textColorPrimary</tt> is used.</td>
+                        <td><center>-1</center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogItemControlColor():int</br>setDialogItemControlColor(int):void</tt></td>
+                        <td>Returns or sets the color of the item controls of the preference's dialog. If the color is -1, the color <tt>?attr/colorAccent</tt> is used.</td>
+                        <td><center>-1</center></td>
+                        <td>Requires API level 16 or greater.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getEntries():CharSequence[]</br>setEntries(CharSequence[]):void</br>setEntries(int):void</tt></td>
+                        <td>Returns or sets the entries, which are shown in the preference's list.</td>
+                        <td><center>Empty array</center></td>
+                        <td>The array may not be null. If the array is specified as a resource ID, the ID must correspond to a valid array resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getEntryValues():CharSequence[]</br>setEntryValues(CharSequence[]):void</br>setEntryValues(int):void</tt></td>
+                        <td>Returns or sets the values, which correspond to the entries, which are shown in the preference's list.</td>
+                        <td><center>Empty array</center></td>
+                        <td>The array may not be null. If the array is specified as a resource ID, the ID must correspond to a valid array resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getValues():Set</br>setValues(Set):void</br>addValue(String):void</br>removeValue(String):void</br>addAllValues(Collection):void</br>removeAllValues(Collection):void</tt></td>
+                        <td>Returns or sets the currently persisted values of the preference or adds or removes specific values. If the values are changed, the changes are instantly persisted.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getSelectedEntries():CharSequence[]</tt></td>
+                        <td>Returns the entries, which correspond to the currently selected values.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h5><a name="multi-choice-list-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>As an alternative to using the setter methods, which have been discussed in the previous section, XML attributes can be used to specify the properties of a <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a> in a XML resouce. The following attributes are available.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+		    <tr>
+                        <td><tt>custom:dialogItemColor</tt></td>
+                        <td>The color of the items of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?android:attr/textColorPrimary</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogItemControlColor</tt></td>
+                        <td>The color of the item controls of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>?attr/colorAccent</tt></td>
+                        <td>Requires API level 16 or greater.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:entries</tt></td>
+                        <td>The entries, which are shown in the preference's list.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;"><tt>Empty array</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:entryValues</tt></td>
+                        <td>The values, which correspond to the entries, which are shown in the preference's list.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;"><tt>Empty array</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:defaultValue</tt></td>
+                        <td>A string array which contains the values, which should be selected by default.</td>
+                        <td style="text-align: center;"><tt>reference</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+
+		<h4><a name="number-picker-preference">7 NumberPickerPreference</a></h4>
 
                 <p>The purpose of the class <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> is to provide a preference implementation, which allows to choose a decimal number by using a <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widget. Such a widget allows to scroll through the range of possible numbers.</p>
 
@@ -659,7 +760,7 @@
                     </tr>
                 </table>
 
-		<h4><a name="digit-picker-preference">7 DigitPickerPreference</a></h4>
+		<h4><a name="digit-picker-preference">8 DigitPickerPreference</a></h4>
 
                 <p>The preference, which is provided by the class <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> is very similar to the preference, which has been discussed in the previous section. It also allows to choose a decimal number by using a <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widget. The difference is, that each digit of the number can be chosen individualy by using several <a href="http://developer.android.com/reference/android/widget/NumberPicker.html" target="_blank" class="code">NumberPicker</a> widgets.</p>
 
@@ -755,7 +856,7 @@
                     </tr>
                 </table>
 
-		<h4><a name="resolution-preference">8 ResolutionPreference</a></h4>
+		<h4><a name="resolution-preference">9 ResolutionPreference</a></h4>
 
                 <p>The purpose of the preference <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> is to enter two-dimensional image or video resolutions. It contains two <a href="http://developer.android.com/reference/android/widget/EditText.html" target="_blank" class="code">EditText</a> widgets, which allow to enter the width and height of the resolution. Both widgets are already validated by default in order to ensure, that they contain numbers, which are greater than 0. The resolution of a <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> is stored as a textual representation using the syntax <i>&lt;width&gt;x&lt;height&gt;</i>. Such a textual representation can be easily created by using the static method <tt>formatResolution(Context,int,int):String</tt>. When retrieving the stored resolution from the shared preferences, the width and height of the resolution can be retrieved by using the static method <tt>parseResolution(Context,String):Pair</tt>. This method returns an instance of the class <a href="http://developer.android.com/reference/android/util/Pair.html" target="_blank" class="code">Pair</a>, which contains two integer values. The first one represents the resolution's width, the second one represents the height.</p>
 
@@ -818,7 +919,7 @@
                     </tr>
                 </table>
 		
-		<h4><a name="color-palette-preference">9 ColorPalettePreference</a></h4>
+		<h4><a name="color-palette-preference">10 ColorPalettePreference</a></h4>
 
 		<p>The preference <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a> allows to choose a color from a predefined color palette. Therefore the preference's dialog shows previews of the available colors, which can be selected by the user, in a scrollable grid. Additionally, when the dialog is not shown, a preview of the currently selected color can be shown at the right edge of the preference. The previews of colors in the preference itself, as well as in its dialog, can be flexibly customized: The colors can be shown as a round or square shape and the width and color of the border surrounding it can be changed. By default the previews have a tiled background, which becomes visibe, if the previewed color is transparent. This background can also be changed. When the preference's <tt>showValueAsSummary</tt> attribute is set to <tt>true</tt>, a textual representation of the currently selected color is shown as its summary. The format of the textual representation can be chosen freely: The color's hexadecimal value or its RGB components can be printed.</p>
 
@@ -1044,7 +1145,7 @@
                     </tr>
                 </table>
 
-		<h4><a name="switch-preference">10 SwitchPreference</a></h4>
+		<h4><a name="switch-preference">11 SwitchPreference</a></h4>
 
 		<p>The class <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a> is an alternative implementation of the Android SDK's built-in preference <a href="http://developer.android.com/reference/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>, which is designed according to the Material design guidelines even on pre-Lollipop devices. It provides a toggleable option using a switch widget. Because no dialog is opened when clicking the preference, the getter- and setter-methods, respectively XML attributes, which have been mentioned in section 2 "Common properties" of this documentation, are not supported by this preference.</p>
 
@@ -1153,7 +1254,7 @@
                     </tr>
                 </table>
 
-		<h4><a name="validating-preferences">11 Validating preferences</a></h4>
+		<h4><a name="validating-preferences">12 Validating preferences</a></h4>
 
 		<p>Some preferences, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, can be validated and therefore are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The validation is performed according to so called <i>validators</i>, which can be added to the preference by using the following methods. If the validation fails, an error message will be prompted and the preference's dialog will refuse to be closed in order to ensure, that no invalid values can be stored.</p>
 

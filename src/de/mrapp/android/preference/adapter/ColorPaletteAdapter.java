@@ -21,7 +21,6 @@ import static de.mrapp.android.preference.util.Condition.ensureAtLeast;
 import static de.mrapp.android.preference.util.Condition.ensureNotNull;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
 import de.mrapp.android.preference.R;
-import de.mrapp.android.preference.util.BitmapUtil;
+import de.mrapp.android.preference.multithreading.ColorPreviewLoader;
 
 /**
  * An adapter, which provides colors for visualization using a {@link GridView}
@@ -65,29 +64,10 @@ public class ColorPaletteAdapter extends BaseAdapter {
 	private final int[] colorPalette;
 
 	/**
-	 * The size, which is used to preview colors.
+	 * The data loader, which is used to asynchronously load the previews of
+	 * colors.
 	 */
-	private final int previewSize;
-
-	/**
-	 * The shape, which is used to preview colors.
-	 */
-	private final PreviewShape previewShape;
-
-	/**
-	 * The border width, which is used to preview colors.
-	 */
-	private final int previewBorderWidth;
-
-	/**
-	 * The border color, which is used to preview colors.
-	 */
-	private final int previewBorderColor;
-
-	/**
-	 * The background, which is used to preview colors.
-	 */
-	private final Drawable previewBackground;
+	private final ColorPreviewLoader previewLoader;
 
 	/**
 	 * Inflates the view, which is used to visualize a color and initializes the
@@ -108,38 +88,6 @@ public class ColorPaletteAdapter extends BaseAdapter {
 		viewHolder.colorView = colorView;
 		view.setTag(viewHolder);
 		return view;
-	}
-
-	/**
-	 * Visualizes a specific color.
-	 * 
-	 * @param color
-	 *            The color, which should be visualized, as an {@link Integer}
-	 *            value
-	 * @param viewHolder
-	 *            The view holder, which contains the view, which should be used
-	 *            to visualize the given color, as an instance of the class
-	 *            {@link ViewHolder}. The view holder may not be null
-	 */
-	private void visualizeColor(final int color, final ViewHolder viewHolder) {
-		Bitmap bitmap = null;
-
-		if (previewBackground != null) {
-			Bitmap tile = BitmapUtil.convertDrawableToBitmap(previewBackground);
-			bitmap = BitmapUtil.createTiledBitmap(tile, previewSize, previewSize);
-		} else {
-			bitmap = Bitmap.createBitmap(previewSize, previewSize, Bitmap.Config.ARGB_8888);
-		}
-
-		bitmap = BitmapUtil.tint(bitmap, color);
-
-		if (previewShape == PreviewShape.CIRCLE) {
-			bitmap = BitmapUtil.clipCircle(bitmap, previewSize, previewBorderWidth, previewBorderColor);
-		} else {
-			bitmap = BitmapUtil.clipSquare(bitmap, previewSize, previewBorderWidth, previewBorderColor);
-		}
-
-		viewHolder.colorView.setImageBitmap(bitmap);
 	}
 
 	/**
@@ -180,11 +128,8 @@ public class ColorPaletteAdapter extends BaseAdapter {
 		ensureAtLeast(previewBorderWidth, 0, "The border width must be at least 0");
 		this.context = context;
 		this.colorPalette = colorPalette;
-		this.previewSize = previewSize;
-		this.previewShape = previewShape;
-		this.previewBorderWidth = previewBorderWidth;
-		this.previewBorderColor = previewBorderColor;
-		this.previewBackground = previewBackground;
+		this.previewLoader = new ColorPreviewLoader(context, previewBackground, previewShape, previewSize,
+				previewBorderWidth, previewBorderColor);
 	}
 
 	/**
@@ -231,7 +176,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
 
 		int color = getItem(position);
 		ViewHolder viewHolder = (ViewHolder) view.getTag();
-		visualizeColor(color, viewHolder);
+		previewLoader.load(color, viewHolder.colorView);
 
 		return view;
 	}

@@ -2,6 +2,22 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.7.0 
+Release date:   09.16.2015
+--------------------------
+
+A feature release, which introduces the following new features:
+
+	-	Added a preference, which allows to select multiple values
+		from a list (MultiChoiceListPreference).
+		
+	-	Previews of the ColorPalettePreference are now created
+		asynchronously.
+		
+	-	Round previews of the ColorPalettePreference are now
+		rendered antialiased when using no border.
+		
+		
 Version:        1.6.0 
 Release date:   09.13.2015
 --------------------------

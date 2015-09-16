@@ -25,7 +25,6 @@ import java.util.Locale;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -39,7 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
-import de.mrapp.android.preference.util.BitmapUtil;
+import de.mrapp.android.preference.multithreading.ColorPreviewLoader;
 
 /**
  * An abstract base class for all preferences, which allow to choose a color.
@@ -296,6 +295,12 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	private ImageView previewView;
 
 	/**
+	 * The data loader, which is used to load the preview of colors
+	 * asynchronously.
+	 */
+	private ColorPreviewLoader previewLoader;
+
+	/**
 	 * Initializes the preference.
 	 * 
 	 * @param attributeSet
@@ -304,6 +309,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
+		previewLoader = new ColorPreviewLoader(getContext(), getPreviewBackground(), getPreviewShape(),
+				getPreviewSize(), getPreviewBorderWidth(), getPreviewBorderColor());
 	}
 
 	/**
@@ -478,8 +485,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		if (previewView != null) {
 			if (isPreviewShown()) {
 				previewView.setVisibility(View.VISIBLE);
-				previewView.setImageBitmap(createPreview());
 				previewView.setLayoutParams(createPreviewLayoutParams());
+				previewLoader.load(getColor(), previewView);
 			} else {
 				previewView.setVisibility(View.INVISIBLE);
 				previewView.setImageBitmap(null);
@@ -499,33 +506,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 		LayoutParams layoutParams = new LayoutParams(getPreviewSize(), getPreviewSize());
 		layoutParams.gravity = Gravity.CENTER_VERTICAL;
 		return layoutParams;
-	}
-
-	/**
-	 * Creates a preview of the preference's color.
-	 * 
-	 * @return The preview, which has been created as an instance of the class
-	 *         {@link Bitmap}
-	 */
-	private Bitmap createPreview() {
-		Bitmap background = null;
-
-		if (getPreviewBackground() != null) {
-			Bitmap tile = BitmapUtil.convertDrawableToBitmap(getPreviewBackground());
-			background = BitmapUtil.createTiledBitmap(tile, getPreviewSize(), getPreviewSize());
-		} else {
-			background = Bitmap.createBitmap(getPreviewSize(), getPreviewSize(), Bitmap.Config.ARGB_8888);
-		}
-
-		background = BitmapUtil.tint(background, getColor());
-
-		if (getPreviewShape() == PreviewShape.CIRCLE) {
-			return BitmapUtil.clipCircle(background, getPreviewSize(), getPreviewBorderWidth(),
-					getPreviewBorderColor());
-		} else {
-			return BitmapUtil.clipSquare(background, getPreviewSize(), getPreviewBorderWidth(),
-					getPreviewBorderColor());
-		}
 	}
 
 	/**
@@ -672,6 +652,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewSize(final int previewSize) {
 		ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
 		this.previewSize = previewSize;
+
+		if (previewLoader != null) {
+			previewLoader.setSize(previewSize);
+		}
 	}
 
 	/**
@@ -695,6 +679,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewShape(final PreviewShape previewShape) {
 		ensureNotNull(previewShape, "The preview shape may not be null");
 		this.previewShape = previewShape;
+
+		if (previewLoader != null) {
+			previewLoader.setShape(previewShape);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -718,6 +707,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewBorderWidth(final int borderWidth) {
 		ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
 		this.previewBorderWidth = borderWidth;
+
+		if (previewLoader != null) {
+			previewLoader.setBorderWidth(borderWidth);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -740,6 +734,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	public final void setPreviewBorderColor(final int borderColor) {
 		this.previewBorderColor = borderColor;
+
+		if (previewLoader != null) {
+			previewLoader.setBorderColor(borderColor);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -758,10 +757,16 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 * 
 	 * @param background
 	 *            The background, which should be set, as an instance of the
-	 *            class {@link Drawable} or null, if no preview should be shown
+	 *            class {@link Drawable} or null, if no background should be
+	 *            shown
 	 */
 	public final void setPreviewBackground(final Drawable background) {
 		this.previewBackground = background;
+
+		if (previewLoader != null) {
+			previewLoader.setBackground(background);
+		}
+
 		adaptPreviewView();
 	}
 
