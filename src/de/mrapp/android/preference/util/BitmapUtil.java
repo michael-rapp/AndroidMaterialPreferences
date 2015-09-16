@@ -22,8 +22,10 @@ import static de.mrapp.android.preference.util.Condition.ensureNotNull;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -59,16 +61,14 @@ public final class BitmapUtil {
 	private static Bitmap clipCircle(final Bitmap bitmap, final int size) {
 		Bitmap squareBitmap = clipSquare(bitmap, size);
 		int squareSize = squareBitmap.getWidth();
-		float radius = squareSize / 2.0f;
+		float radius = (float) squareSize / 2.0f;
 		Bitmap clippedBitmap = Bitmap.createBitmap(squareSize, squareSize, Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(clippedBitmap);
 		Paint paint = new Paint();
-		paint.setFilterBitmap(false);
 		paint.setAntiAlias(true);
-		paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-		Path path = new Path();
-		path.addCircle(radius, radius, radius, Path.Direction.CCW);
-		canvas.clipPath(path);
+		paint.setColor(Color.BLACK);
+		canvas.drawCircle(radius, radius, radius, paint);
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 		canvas.drawBitmap(squareBitmap, new Rect(0, 0, squareSize, squareSize), new Rect(0, 0, squareSize, squareSize),
 				paint);
 		return clippedBitmap;
@@ -239,7 +239,7 @@ public final class BitmapUtil {
 		RectF dst = new RectF(offset, offset, result.getWidth() - offset, result.getHeight() - offset);
 		canvas.drawBitmap(clippedBitmap, src, dst, null);
 
-		if (borderWidth > 0) {
+		if (borderWidth > 0 && Color.alpha(borderColor) != 0) {
 			Paint paint = new Paint();
 			paint.setFilterBitmap(false);
 			paint.setStyle(Paint.Style.STROKE);
@@ -283,11 +283,10 @@ public final class BitmapUtil {
 		RectF dst = new RectF(offset, offset, result.getWidth() - offset, result.getHeight() - offset);
 		canvas.drawBitmap(clippedBitmap, src, dst, null);
 
-		if (borderWidth > 0) {
+		if (borderWidth > 0 && Color.alpha(borderColor) != 0) {
 			Paint paint = new Paint();
 			paint.setFilterBitmap(false);
 			paint.setAntiAlias(true);
-			paint.setFlags(Paint.ANTI_ALIAS_FLAG);
 			paint.setStrokeCap(Paint.Cap.ROUND);
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setStrokeWidth(borderWidth);
@@ -314,7 +313,6 @@ public final class BitmapUtil {
 	public static Bitmap tint(final Bitmap bitmap, final int color) {
 		ensureNotNull(bitmap, "The bitmap may not be null");
 		Bitmap result = bitmap;
-
 		Canvas canvas = new Canvas(result);
 		Paint paint = new Paint();
 		paint.setColor(color);
