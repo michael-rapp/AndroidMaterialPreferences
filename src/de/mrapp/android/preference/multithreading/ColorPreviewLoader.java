@@ -68,9 +68,29 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
 	 *            The context, which should be used by the data loader, as an
 	 *            instance of the class {@link Context}. The context may not be
 	 *            null
+	 * @param background
+	 *            The background of the preview as an instance of the class
+	 *            {@link Drawable} or null, if no background should be shown
+	 * @param shape
+	 *            The shape of the preview as a value of the enum
+	 *            {@link PreviewShape}. The shape may not be null
+	 * @param size
+	 *            The size of the preview as an {@link Integer} value in pixels.
+	 *            The size must be at least 1
+	 * @param borderWidth
+	 *            The border width of the preview as an {@link Integer} value in
+	 *            pixels. The border width must be at least 0
+	 * @param borderColor
+	 *            The border color of the preview as an {@link Integer} value
 	 */
-	public ColorPreviewLoader(final Context context) {
+	public ColorPreviewLoader(final Context context, final Drawable background, final PreviewShape shape,
+			final int size, final int borderWidth, final int borderColor) {
 		super(context);
+		setBackground(background);
+		setShape(shape);
+		setSize(size);
+		setBorderWidth(borderWidth);
+		setBorderColor(borderColor);
 	}
 
 	/**

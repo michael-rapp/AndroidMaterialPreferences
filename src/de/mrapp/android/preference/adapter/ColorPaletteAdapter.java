@@ -128,12 +128,8 @@ public class ColorPaletteAdapter extends BaseAdapter {
 		ensureAtLeast(previewBorderWidth, 0, "The border width must be at least 0");
 		this.context = context;
 		this.colorPalette = colorPalette;
-		this.previewLoader = new ColorPreviewLoader(context);
-		this.previewLoader.setBackground(previewBackground);
-		this.previewLoader.setShape(previewShape);
-		this.previewLoader.setSize(previewSize);
-		this.previewLoader.setBorderWidth(previewBorderWidth);
-		this.previewLoader.setBorderColor(previewBorderColor);
+		this.previewLoader = new ColorPreviewLoader(context, previewBackground, previewShape, previewSize,
+				previewBorderWidth, previewBorderColor);
 	}
 
 	/**
