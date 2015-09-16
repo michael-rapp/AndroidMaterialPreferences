@@ -298,7 +298,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 * The data loader, which is used to load the preview of colors
 	 * asynchronously.
 	 */
-	private final ColorPreviewLoader previewLoader;
+	private ColorPreviewLoader previewLoader;
 
 	/**
 	 * Initializes the preference.
@@ -309,6 +309,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	private void initialize(final AttributeSet attributeSet) {
 		obtainStyledAttributes(attributeSet);
+		previewLoader = new ColorPreviewLoader(getContext(), getPreviewBackground(), getPreviewShape(),
+				getPreviewSize(), getPreviewBorderWidth(), getPreviewBorderColor());
 	}
 
 	/**
@@ -529,7 +531,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet) {
 		super(context, attributeSet);
-		previewLoader = new ColorPreviewLoader(context);
 		initialize(attributeSet);
 	}
 
@@ -552,7 +553,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet,
 			final int defaultStyle) {
 		super(context, attributeSet, defaultStyle);
-		previewLoader = new ColorPreviewLoader(context);
 		initialize(attributeSet);
 	}
 
@@ -581,7 +581,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet, final int defaultStyle,
 			final int defaultStyleResource) {
 		super(context, attributeSet, defaultStyle, defaultStyleResource);
-		previewLoader = new ColorPreviewLoader(context);
 		initialize(attributeSet);
 	}
 
@@ -653,7 +652,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewSize(final int previewSize) {
 		ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
 		this.previewSize = previewSize;
-		this.previewLoader.setSize(previewSize);
+
+		if (previewLoader != null) {
+			previewLoader.setSize(previewSize);
+		}
 	}
 
 	/**
@@ -677,7 +679,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewShape(final PreviewShape previewShape) {
 		ensureNotNull(previewShape, "The preview shape may not be null");
 		this.previewShape = previewShape;
-		this.previewLoader.setShape(previewShape);
+
+		if (previewLoader != null) {
+			previewLoader.setShape(previewShape);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -701,7 +707,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	public final void setPreviewBorderWidth(final int borderWidth) {
 		ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
 		this.previewBorderWidth = borderWidth;
-		this.previewLoader.setBorderWidth(borderWidth);
+
+		if (previewLoader != null) {
+			previewLoader.setBorderWidth(borderWidth);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -724,7 +734,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	public final void setPreviewBorderColor(final int borderColor) {
 		this.previewBorderColor = borderColor;
-		this.previewLoader.setBorderColor(borderColor);
+
+		if (previewLoader != null) {
+			previewLoader.setBorderColor(borderColor);
+		}
+
 		adaptPreviewView();
 	}
 
@@ -748,7 +762,11 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 	 */
 	public final void setPreviewBackground(final Drawable background) {
 		this.previewBackground = background;
-		this.previewLoader.setBackground(background);
+
+		if (previewLoader != null) {
+			previewLoader.setBackground(background);
+		}
+
 		adaptPreviewView();
 	}
 
