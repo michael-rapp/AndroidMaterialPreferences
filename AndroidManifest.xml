@@ -19,8 +19,8 @@ License along with this program. If not, see
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.mrapp.android.preference"
-    android:versionCode="9"
-    android:versionName="1.7.0" >
+    android:versionCode="10"
+    android:versionName="1.7.1" >
 
     <uses-sdk
         android:minSdkVersion="11"
