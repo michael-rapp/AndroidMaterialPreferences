@@ -2,6 +2,17 @@ AndroidMaterialPreferences - RELEASE NOTES
 ==========================================
 
 
+Version:        1.7.1 
+Release date:   09.24.2015
+--------------------------
+
+A minor release, which introduces the following changes:
+
+	-	The number of columns and preview size, which is used to
+		show colors in the dialog of a ColorPalettePreference has
+		been adapted on tablets.
+		
+		
 Version:        1.7.0 
 Release date:   09.16.2015
 --------------------------
