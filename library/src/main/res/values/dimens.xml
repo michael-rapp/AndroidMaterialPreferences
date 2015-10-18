@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify 
+it under the terms of the GNU Lesser General Public License as published 
+by the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but 
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public 
+License along with this program. If not, see
+<http://www.gnu.org/licenses/>. 
+-->
+<resources>
+
+    <dimen name="digit_picker_width">32dp</dimen>
+    <dimen name="resolution_edit_text_width">96dp</dimen>
+    <dimen name="number_picker_unit_margin">8dp</dimen>
+
+    <!-- Default values -->
+    <dimen name="color_picker_preference_default_preview_size">38dp</dimen>
+    <dimen name="color_picker_preference_default_preview_border_width">1dp</dimen>
+    <dimen name="color_palette_preference_default_dialog_preview_size">72dp</dimen>
+    <dimen name="color_palette_preference_default_dialog_preview_border_width">1dp</dimen>
+
+</resources>
