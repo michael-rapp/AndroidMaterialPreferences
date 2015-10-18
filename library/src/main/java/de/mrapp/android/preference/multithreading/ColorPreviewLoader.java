@@ -23,8 +23,12 @@ import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
-import de.mrapp.android.preference.util.BitmapUtil;
 
+import static de.mrapp.android.util.BitmapUtil.clipCircle;
+import static de.mrapp.android.util.BitmapUtil.clipSquare;
+import static de.mrapp.android.util.BitmapUtil.drawableToBitmap;
+import static de.mrapp.android.util.BitmapUtil.tile;
+import static de.mrapp.android.util.BitmapUtil.tint;
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -201,18 +205,18 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
         Bitmap preview = null;
 
         if (getBackground() != null) {
-            Bitmap tile = BitmapUtil.convertDrawableToBitmap(getBackground());
-            preview = BitmapUtil.createTiledBitmap(tile, getSize(), getSize());
+            Bitmap tile = drawableToBitmap(getBackground());
+            preview = tile(tile, getSize(), getSize());
         } else {
             preview = Bitmap.createBitmap(getSize(), getSize(), Bitmap.Config.ARGB_8888);
         }
 
-        preview = BitmapUtil.tint(preview, color);
+        preview = tint(preview, color);
 
         if (getShape() == PreviewShape.CIRCLE) {
-            return BitmapUtil.clipCircle(preview, getSize(), getBorderWidth(), getBorderColor());
+            return clipCircle(preview, getSize(), getBorderWidth(), getBorderColor());
         } else {
-            return BitmapUtil.clipSquare(preview, getSize(), getBorderWidth(), getBorderColor());
+            return clipSquare(preview, getSize(), getBorderWidth(), getBorderColor());
         }
     }
 
