@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -23,6 +20,9 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.View;
@@ -36,6 +36,8 @@ import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validators;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureNotEmpty;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A preference, which allows to enter a two-dimensional image or video resulution via two {@link
@@ -87,9 +89,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
-         *         Parcelable}
+         *         Parcelable}. The state may not be null
          */
-        public SavedState(final Parcelable superState) {
+        public SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -99,9 +101,10 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
          * state of the superclass.
          *
          * @param source
-         *         The parcel to read read from as a instance of the class {@link Parcel}
+         *         The parcel to read read from as a instance of the class {@link Parcel}. The
+         *         parcel may not be null
          */
-        public SavedState(final Parcel source) {
+        public SavedState(@NonNull final Parcel source) {
             super(source);
             width = source.readInt();
             height = source.readInt();
@@ -115,8 +118,6 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         }
 
     }
-
-    ;
 
     /**
      * The regular expression, which is used to ensure, that a dimension of a resolution is at least
@@ -154,9 +155,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void initialize(final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet) {
         obtainStyledAttributes(attributeSet);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
@@ -172,9 +173,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.AbstractUnitPreference);
 
@@ -191,9 +192,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param typedArray
      *         The typed array, the unit should be obtained from, as an instance of the class {@link
-     *         TypedArray}
+     *         TypedArray}. The typed array may not be null
      */
-    private void obtainUnit(final TypedArray typedArray) {
+    private void obtainUnit(@NonNull final TypedArray typedArray) {
         CharSequence obtainedUnit = typedArray.getText(R.styleable.AbstractUnitPreference_unit);
 
         if (obtainedUnit == null) {
@@ -209,9 +210,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public ResolutionPreference(final Context context) {
+    public ResolutionPreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -221,12 +222,13 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public ResolutionPreference(final Context context, final AttributeSet attributeSet) {
+    public ResolutionPreference(@NonNull final Context context,
+                                @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize(attributeSet);
     }
@@ -237,17 +239,17 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public ResolutionPreference(final Context context, final AttributeSet attributeSet,
-                                final int defaultStyle) {
+    public ResolutionPreference(@NonNull final Context context,
+                                @Nullable final AttributeSet attributeSet, final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
     }
@@ -258,10 +260,10 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -272,8 +274,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ResolutionPreference(final Context context, final AttributeSet attributeSet,
-                                final int defaultStyle, final int defaultStyleResource) {
+    public ResolutionPreference(@NonNull final Context context,
+                                @Nullable final AttributeSet attributeSet, final int defaultStyle,
+                                final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet);
     }
@@ -282,15 +285,19 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      * Parses a specific textual representation of a resolution and returns its dimensions.
      *
      * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param resolution
      *         The textual representation of the resolution, which should be parsed, as a {@link
-     *         String}
+     *         String}. The resolution may neither be null, nor empty
      * @return A pair, which contains the width and height of the given resolution, as an instance
      * of the class {@link Pair}
      */
-    public static Pair<Integer, Integer> parseResolution(final Context context,
-                                                         final String resolution) {
+    public static Pair<Integer, Integer> parseResolution(@NonNull final Context context,
+                                                         @NonNull final String resolution) {
+        ensureNotNull(context, "The context may not be null");
+        ensureNotNull(resolution, "The resolution may not be null");
+        ensureNotEmpty(resolution, "The resolution may not be empty");
         String separator = context.getString(R.string.resolution_preference_separator);
         String[] dimensions = resolution.split(separator);
 
@@ -312,15 +319,21 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      * Creates and returns the textual representation of a specific resolution.
      *
      * @param context
-     *         The context, which should be used, as an instance of the class {@link Context}
+     *         The context, which should be used, as an instance of the class {@link Context}. The
+     *         context may not be null
      * @param width
-     *         The width of the resolution as an {@link Integer} value
+     *         The width of the resolution as an {@link Integer} value. The width must be at least
+     *         1
      * @param height
-     *         The height of the resolution as an {@link Integer} value
+     *         The height of the resolution as an {@link Integer} value. The height must be at least
+     *         1
      * @return The textual representation of the given resolution as a {@link String}
      */
-    public static String formatResolution(final Context context, final int width,
+    public static String formatResolution(@NonNull final Context context, final int width,
                                           final int height) {
+        ensureNotNull(context, "The context may not be null");
+        ensureAtLeast(width, 1, "The width must be at least 1");
+        ensureAtLeast(height, 1, "The height must be at least 1");
         String separator = context.getString(R.string.resolution_preference_separator);
         return width + separator + height;
     }
@@ -391,7 +404,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *         The unit, which should be set, as an instance of the type {@link CharSequence} or
      *         null, if no unit should be used
      */
-    public final void setUnit(final CharSequence unit) {
+    public final void setUnit(@Nullable final CharSequence unit) {
         this.unit = unit;
     }
 
@@ -403,7 +416,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *         The resource id of the unit, which should be set, as an {@link Integer} value. The
      *         resource id must correspond to a valid string resource
      */
-    public final void setUnit(final int resourceId) {
+    public final void setUnit(@StringRes final int resourceId) {
         setUnit(getContext().getText(resourceId));
     }
 
@@ -419,12 +432,13 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     @Override
     public final boolean validate() {
-        return (widthEditText != null ? widthEditText.validate() : true) &&
-                (heightEditText != null ? heightEditText.validate() : true);
+        return (widthEditText == null || widthEditText.validate()) &&
+                (heightEditText == null || heightEditText.validate());
     }
 
     @Override
-    protected final void onPrepareValidateableDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareValidateableDialog(
+            @NonNull final MaterialDialogBuilder dialogBuilder) {
         View view = View.inflate(getContext(), R.layout.resolution, null);
         TextView unitTextView = (TextView) view.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());

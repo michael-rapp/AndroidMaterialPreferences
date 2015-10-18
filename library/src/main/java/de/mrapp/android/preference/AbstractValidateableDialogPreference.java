@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -21,6 +18,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 
 import java.util.Collection;
@@ -104,9 +105,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.AbstractValidateableView);
         try {
@@ -125,9 +126,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param typedArray
      *         The typed array, the helper text should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainHelperText(final TypedArray typedArray) {
+    private void obtainHelperText(@NonNull final TypedArray typedArray) {
         setHelperText(typedArray.getString(R.styleable.AbstractValidateableView_helperText));
     }
 
@@ -136,9 +137,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param typedArray
      *         The typed array, the color of the helper text should be obtained from, as an instance
-     *         of the class {@link TypedArray}
+     *         of the class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainHelperTextColor(final TypedArray typedArray) {
+    @SuppressWarnings("deprecation")
+    private void obtainHelperTextColor(@NonNull final TypedArray typedArray) {
         setHelperTextColor(typedArray.getColor(R.styleable.AbstractValidateableView_helperTextColor,
                 getContext().getResources().getColor(R.color.default_helper_text_color)));
     }
@@ -148,9 +150,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param typedArray
      *         The typed array, the error color should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainErrorColor(final TypedArray typedArray) {
+    @SuppressWarnings("deprecation")
+    private void obtainErrorColor(@NonNull final TypedArray typedArray) {
         setErrorColor(typedArray.getColor(R.styleable.AbstractValidateableView_errorColor,
                 getContext().getResources().getColor(R.color.default_error_color)));
     }
@@ -162,9 +165,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      * @param typedArray
      *         The typed array, it should be obtained from, whether the value of the view should be
      *         validated, when its value has been changed, or not, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainValidateOnValueChange(final TypedArray typedArray) {
+    private void obtainValidateOnValueChange(@NonNull final TypedArray typedArray) {
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.validateable_dialog_preference_default_validate_on_value_change);
         validateOnValueChange(typedArray
@@ -179,9 +182,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      * @param typedArray
      *         The typed array, it should be obtained from, whether the value of the view should be
      *         validated, when the view loses its focus, or not, as an instance of the class {@link
-     *         TypedArray}
+     *         TypedArray}. The typed array may not be null
      */
-    private void obtainValidateOnFocusLost(final TypedArray typedArray) {
+    private void obtainValidateOnFocusLost(@NonNull final TypedArray typedArray) {
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.validateable_dialog_preference_default_validate_on_focus_lost);
         validateOnFocusLost(typedArray
@@ -198,7 +201,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         The builder, which is used to create the preference's dialog, as an instance of the
      *         class {@link MaterialDialogBuilder}
      */
-    protected abstract void onPrepareValidateableDialog(final MaterialDialogBuilder dialogBuilder);
+    protected abstract void onPrepareValidateableDialog(
+            @NonNull final MaterialDialogBuilder dialogBuilder);
 
     /**
      * Returns the listeners, which are notified when the view, which is contained by the
@@ -217,9 +221,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public AbstractValidateableDialogPreference(final Context context) {
+    public AbstractValidateableDialogPreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -228,13 +232,13 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public AbstractValidateableDialogPreference(final Context context,
-                                                final AttributeSet attributeSet) {
+    public AbstractValidateableDialogPreference(@NonNull final Context context,
+                                                @Nullable final AttributeSet attributeSet) {
         this(context, attributeSet, android.R.attr.dialogPreferenceStyle);
     }
 
@@ -243,17 +247,17 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public AbstractValidateableDialogPreference(final Context context,
-                                                final AttributeSet attributeSet,
+    public AbstractValidateableDialogPreference(@NonNull final Context context,
+                                                @Nullable final AttributeSet attributeSet,
                                                 final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
@@ -264,10 +268,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -278,8 +282,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AbstractValidateableDialogPreference(final Context context,
-                                                final AttributeSet attributeSet,
+    public AbstractValidateableDialogPreference(@NonNull final Context context,
+                                                @Nullable final AttributeSet attributeSet,
                                                 final int defaultStyle,
                                                 final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
@@ -303,7 +307,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         The helper text, which should be set, as an instance of the type {@link CharSequence}
      *         or null, if no helper text should be shown
      */
-    public final void setHelperText(final CharSequence helperText) {
+    public final void setHelperText(@Nullable final CharSequence helperText) {
         this.helperText = helperText;
     }
 
@@ -315,7 +319,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         be set, as an {@link Integer} value. The resource ID must correspond to a valid
      *         string resource
      */
-    public final void setHelperText(final int resourceId) {
+    public final void setHelperText(@StringRes final int resourceId) {
         setHelperText(getContext().getText(resourceId));
     }
 
@@ -334,7 +338,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      * @param color
      *         The color, which should be set, as an {@link Integer} value
      */
-    public final void setErrorColor(final int color) {
+    public final void setErrorColor(@ColorInt final int color) {
         this.errorColor = color;
     }
 
@@ -355,7 +359,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      * @param color
      *         The color, which should be set, as an {@link Integer} value
      */
-    public final void setHelperTextColor(final int color) {
+    public final void setHelperTextColor(@ColorInt final int color) {
         this.helperTextColor = color;
     }
 
@@ -365,13 +369,13 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
-    public final void addValidator(final Validator<ValueType> validator) {
+    public final void addValidator(@NonNull final Validator<ValueType> validator) {
         ensureNotNull(validator, "The validator may not be null");
         this.validators.add(validator);
     }
 
     @Override
-    public final void addAllValidators(final Collection<Validator<ValueType>> validators) {
+    public final void addAllValidators(@NonNull final Collection<Validator<ValueType>> validators) {
         ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
@@ -381,7 +385,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
 
     @SafeVarargs
     @Override
-    public final void addAllValidators(final Validator<ValueType>... validators) {
+    public final void addAllValidators(@NonNull final Validator<ValueType>... validators) {
         ensureNotNull(validators, "The array may not be null");
 
         for (Validator<ValueType> validator : validators) {
@@ -390,13 +394,14 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
-    public final void removeValidator(final Validator<ValueType> validator) {
+    public final void removeValidator(@NonNull final Validator<ValueType> validator) {
         ensureNotNull(validator, "The validator may not be null");
         this.validators.remove(validator);
     }
 
     @Override
-    public final void removeAllValidators(final Collection<Validator<ValueType>> validators) {
+    public final void removeAllValidators(
+            @NonNull final Collection<Validator<ValueType>> validators) {
         ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
@@ -406,7 +411,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
 
     @SafeVarargs
     @Override
-    public final void removeAllValidators(final Validator<ValueType>... validators) {
+    public final void removeAllValidators(@NonNull final Validator<ValueType>... validators) {
         ensureNotNull(validators, "The array may not be null");
 
         for (Validator<ValueType> validator : validators) {
@@ -440,19 +445,20 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
-    public final void addValidationListener(final ValidationListener<ValueType> listener) {
+    public final void addValidationListener(@NonNull final ValidationListener<ValueType> listener) {
         ensureNotNull(listener, "The listener may not be null");
         this.validationListeners.add(listener);
     }
 
     @Override
-    public final void removeValidationListener(final ValidationListener<ValueType> listener) {
+    public final void removeValidationListener(
+            @NonNull final ValidationListener<ValueType> listener) {
         ensureNotNull(listener, "The listener may not be null");
         this.validationListeners.remove(listener);
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
         dialogBuilder.addValidator(this);
         onPrepareValidateableDialog(dialogBuilder);
     }

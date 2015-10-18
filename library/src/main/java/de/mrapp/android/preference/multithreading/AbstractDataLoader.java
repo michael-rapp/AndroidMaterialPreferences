@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference.multithreading;
 
@@ -21,6 +18,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.lang.ref.SoftReference;
@@ -80,7 +78,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      * @return The data, which corresponds to the given key, as an instance of the generic type
      * DataType, or null, if no data with the given key is contained by the cache
      */
-    private DataType getCachedData(final KeyType key) {
+    private DataType getCachedData(@NonNull final KeyType key) {
         SoftReference<DataType> reference = cache.get(key);
 
         if (reference != null) {
@@ -105,7 +103,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      */
     @SuppressWarnings("unchecked")
     @SuppressLint("HandlerLeak")
-    private void loadDataAsynchronously(final KeyType key, final ViewType view,
+    private void loadDataAsynchronously(@NonNull final KeyType key, @NonNull final ViewType view,
                                         final ParamType... params) {
         final Handler handler = new Handler() {
 
@@ -156,7 +154,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      * @return The data, which has been loaded, as an instance of the generic type DataType
      */
     @SuppressWarnings("unchecked")
-    protected abstract DataType loadData(final KeyType key, final ParamType... params);
+    protected abstract DataType loadData(@NonNull final KeyType key, final ParamType... params);
 
     /**
      * The method, which is invoked on implementing subclasses, in order to show data after it has
@@ -169,7 +167,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      *         The data, which should be shown, as an instance of the generic type DataType. The
      *         data may not be null
      */
-    protected abstract void showData(final ViewType view, final DataType data);
+    protected abstract void showData(@NonNull final ViewType view, @NonNull final DataType data);
 
     /**
      * Creates a new data loader, which allows to asynchronously load data and show it in a view
@@ -179,7 +177,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      *         The context, which should be used by the data loader, as an instance of the class
      *         {@link Context}. The context may not be null
      */
-    public AbstractDataLoader(final Context context) {
+    public AbstractDataLoader(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
         this.context = context;
         this.cache = new HashMap<KeyType, SoftReference<DataType>>();
@@ -203,7 +201,8 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
      *         ParamType
      */
     @SafeVarargs
-    public final void load(final KeyType key, final ViewType view, final ParamType... params) {
+    public final void load(@NonNull final KeyType key, @NonNull final ViewType view,
+                           final ParamType... params) {
         ensureNotNull(key, "The key may not be null");
         ensureNotNull(view, "The view may not be null");
 

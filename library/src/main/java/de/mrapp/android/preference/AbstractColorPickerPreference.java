@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -26,6 +23,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -86,7 +87,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
          * @param value
          *         The value of the format as an {@link Integer} value
          */
-        private ColorFormat(final int value) {
+        ColorFormat(final int value) {
             this.value = value;
         }
 
@@ -119,8 +120,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
 
     }
 
-    ;
-
     /**
      * Contains all shapes, which can be used to show previews of colors.
      */
@@ -147,7 +146,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
          * @param value
          *         The value of the shape as an {@link Integer} value
          */
-        private PreviewShape(final int value) {
+        PreviewShape(final int value) {
             this.value = value;
         }
 
@@ -179,8 +178,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
         }
 
     }
-
-    ;
 
     /**
      * A data structure, which allows to save the internal state of an {@link
@@ -219,9 +216,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
-         *         Parcelable}
+         *         Parcelable}. The state may not be null
          */
-        public SavedState(final Parcelable superState) {
+        public SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -231,9 +228,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
          * reads the state of the superclass.
          *
          * @param source
-         *         The parcel to read read from as a instance of the class {@link Parcel}
+         *         The parcel to read read from as a instance of the class {@link Parcel}. The
+         *         parcel may not be null
          */
-        public SavedState(final Parcel source) {
+        public SavedState(@NonNull final Parcel source) {
             super(source);
             color = source.readInt();
         }
@@ -245,8 +243,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
         }
 
     }
-
-    ;
 
     /**
      * The currently persisted color.
@@ -303,9 +299,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void initialize(final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet) {
         obtainStyledAttributes(attributeSet);
         previewLoader =
                 new ColorPreviewLoader(getContext(), getPreviewBackground(), getPreviewShape(),
@@ -317,9 +313,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.AbstractColorPickerPreference);
         try {
@@ -341,9 +337,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the boolean value should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainShowPreview(final TypedArray typedArray) {
+    private void obtainShowPreview(@NonNull final TypedArray typedArray) {
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.color_picker_preference_default_show_preview);
         showPreview(typedArray
@@ -355,9 +351,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the size should be obtained from, as an instance of the class {@link
-     *         TypedArray}
+     *         TypedArray}. The typed array may not be null
      */
-    private void obtainPreviewSize(final TypedArray typedArray) {
+    private void obtainPreviewSize(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getDimensionPixelSize(R.dimen.color_picker_preference_default_preview_size);
         setPreviewSize(typedArray
@@ -370,9 +366,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the shape should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainPreviewShape(final TypedArray typedArray) {
+    private void obtainPreviewShape(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.color_picker_preference_default_preview_shape);
         setPreviewShape(PreviewShape.fromValue(typedArray
@@ -385,9 +381,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the border width should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainPreviewBorderWidth(final TypedArray typedArray) {
+    private void obtainPreviewBorderWidth(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_picker_preference_default_preview_border_width);
         setPreviewBorderWidth(typedArray
@@ -401,9 +397,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the border color should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainPreviewBorderColor(final TypedArray typedArray) {
+    @SuppressWarnings("deprecation")
+    private void obtainPreviewBorderColor(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getColor(R.color.color_picker_preference_default_preview_border_color);
         setPreviewBorderColor(typedArray
@@ -416,10 +413,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the background should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
     @SuppressWarnings("deprecation")
-    private void obtainPreviewBackground(final TypedArray typedArray) {
+    private void obtainPreviewBackground(@NonNull final TypedArray typedArray) {
         int backgroundColor = typedArray
                 .getColor(R.styleable.AbstractColorPickerPreference_previewBackground, -1);
 
@@ -439,9 +436,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param typedArray
      *         The typed array, the color format should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainColorFormat(final TypedArray typedArray) {
+    private void obtainColorFormat(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.color_picker_preference_default_color_format);
         setColorFormat(ColorFormat.fromValue(typedArray
@@ -459,7 +456,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      * @return A textual representation of the given color as an instance of the type {@link
      * CharSequence}
      */
-    private CharSequence formatColor(final ColorFormat colorFormat, final int color) {
+    private CharSequence formatColor(final ColorFormat colorFormat, @ColorInt final int color) {
         ensureNotNull(colorFormat, "The color format may not be null");
 
         if (colorFormat == ColorFormat.RGB) {
@@ -471,7 +468,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
         } else if (colorFormat == ColorFormat.HEX_3_BYTES) {
             return String.format("#%06X", (0xFFFFFF & color));
         } else {
-            return String.format("#%08X", (0xFFFFFFFF & color));
+            return String.format("#%08X", (color));
         }
     }
 
@@ -510,9 +507,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public AbstractColorPickerPreference(final Context context) {
+    public AbstractColorPickerPreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -521,12 +518,13 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet) {
+    public AbstractColorPickerPreference(@NonNull final Context context,
+                                         @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize(attributeSet);
     }
@@ -536,16 +534,17 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet,
+    public AbstractColorPickerPreference(@NonNull final Context context,
+                                         @Nullable final AttributeSet attributeSet,
                                          final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
@@ -556,10 +555,10 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -570,7 +569,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AbstractColorPickerPreference(final Context context, final AttributeSet attributeSet,
+    public AbstractColorPickerPreference(@NonNull final Context context,
+                                         @Nullable final AttributeSet attributeSet,
                                          final int defaultStyle, final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet);
@@ -591,7 +591,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      * @param color
      *         The color, which should be set, as an {@link Integer} value
      */
-    public final void setColor(final int color) {
+    public final void setColor(@ColorInt final int color) {
         if (this.color != color) {
             this.color = color;
             persistInt(color);
@@ -663,7 +663,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The shape, which should be set, as a value of the enum {@link PreviewShape}. The
      *         shape may not be null
      */
-    public final void setPreviewShape(final PreviewShape previewShape) {
+    public final void setPreviewShape(@NonNull final PreviewShape previewShape) {
         ensureNotNull(previewShape, "The preview shape may not be null");
         this.previewShape = previewShape;
 
@@ -717,7 +717,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      * @param borderColor
      *         The border color, which should be set, as an {@link Integer} value
      */
-    public final void setPreviewBorderColor(final int borderColor) {
+    public final void setPreviewBorderColor(@ColorInt final int borderColor) {
         this.previewBorderColor = borderColor;
 
         if (previewLoader != null) {
@@ -762,7 +762,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The resource id must correspond to a valid drawable resource
      */
     @SuppressWarnings("deprecation")
-    public final void setPreviewBackground(final int resourceId) {
+    public final void setPreviewBackground(@DrawableRes final int resourceId) {
         setPreviewBackground(getContext().getResources().getDrawable(resourceId));
     }
 
@@ -772,7 +772,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      * @param backgroundColor
      *         The background color, which should be set, as an {@link Integer} value
      */
-    public final void setPreviewBackgroundColor(final int backgroundColor) {
+    public final void setPreviewBackgroundColor(@ColorInt final int backgroundColor) {
         setPreviewBackground(new ColorDrawable(backgroundColor));
     }
 
@@ -796,7 +796,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The format, which should be set, as a value of the enum {@link ColorFormat}. The
      *         format may not be null
      */
-    public final void setColorFormat(final ColorFormat colorFormat) {
+    public final void setColorFormat(@NonNull final ColorFormat colorFormat) {
         ensureNotNull(colorFormat, "The color format may not be null");
         this.colorFormat = colorFormat;
     }

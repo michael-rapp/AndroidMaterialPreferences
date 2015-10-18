@@ -1,25 +1,25 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference.multithreading;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
@@ -86,9 +86,9 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
      * @param borderColor
      *         The border color of the preview as an {@link Integer} value
      */
-    public ColorPreviewLoader(final Context context, final Drawable background,
-                              final PreviewShape shape, final int size, final int borderWidth,
-                              final int borderColor) {
+    public ColorPreviewLoader(@NonNull final Context context, @Nullable final Drawable background,
+                              @NonNull final PreviewShape shape, final int size,
+                              final int borderWidth, @ColorInt final int borderColor) {
         super(context);
         setBackground(background);
         setShape(shape);
@@ -113,7 +113,7 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
      *         The background, which should be set, as an instance of the class {@link Drawable} or
      *         null, if no background should be shown
      */
-    public final void setBackground(final Drawable background) {
+    public final void setBackground(@Nullable final Drawable background) {
         this.background = background;
     }
 
@@ -134,7 +134,7 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
      *         The shape, which should be set, as a value of the enum {@link PreviewShape}. The
      *         shape may not be null
      */
-    public final void setShape(final PreviewShape shape) {
+    public final void setShape(@NonNull final PreviewShape shape) {
         ensureNotNull(shape, "The shape may not be null");
         this.shape = shape;
     }
@@ -196,13 +196,13 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
      * @param borderColor
      *         The border color, which should be set, as an {@link Integer} value
      */
-    public final void setBorderColor(final int borderColor) {
+    public final void setBorderColor(@ColorInt final int borderColor) {
         this.borderColor = borderColor;
     }
 
     @Override
-    protected final Bitmap loadData(final Integer color, final Void... params) {
-        Bitmap preview = null;
+    protected final Bitmap loadData(@NonNull final Integer color, final Void... params) {
+        Bitmap preview;
 
         if (getBackground() != null) {
             Bitmap tile = drawableToBitmap(getBackground());
@@ -221,7 +221,8 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
     }
 
     @Override
-    protected final void showData(final ImageView imageView, final Bitmap preview) {
+    protected final void showData(@NonNull final ImageView imageView,
+                                  @NonNull final Bitmap preview) {
         imageView.setImageBitmap(preview);
     }
 

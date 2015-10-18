@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -23,6 +20,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -85,9 +84,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
-         *         Parcelable}
+         *         Parcelable}. The state may not be null
          */
-        public SavedState(final Parcelable superState) {
+        public SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -97,9 +96,10 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
          * the state of the superclass.
          *
          * @param source
-         *         The parcel to read read from as a instance of the class {@link Parcel}
+         *         The parcel to read read from as a instance of the class {@link Parcel}. The
+         *         parcel may not be null
          */
-        public SavedState(final Parcel source) {
+        public SavedState(@NonNull final Parcel source) {
             super(source);
             currentNumber = source.readInt();
         }
@@ -111,8 +111,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
         }
 
     }
-
-    ;
 
     /**
      * The {@link NumberPicker} widget, which allows to choose a decimal number.
@@ -144,9 +142,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void initialize(final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet) {
         obtainStyledAttributes(attributeSet);
     }
 
@@ -155,9 +153,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.AbstractNumericPreference);
 
@@ -175,9 +173,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param typedArray
      *         The typed array, the maximum number should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainMaxNumber(final TypedArray typedArray) {
+    private void obtainMaxNumber(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.number_picker_preference_default_max_number);
         setMaxNumber(typedArray
@@ -189,9 +187,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param typedArray
      *         The typed array, the minimum number should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainMinNumber(final TypedArray typedArray) {
+    private void obtainMinNumber(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.number_picker_preference_default_min_number);
         setMinNumber(
@@ -204,9 +202,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param typedArray
      *         The typed array, the step size should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainStepSize(final TypedArray typedArray) {
+    private void obtainStepSize(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.number_picker_preference_default_step_size);
         setStepSize(typedArray
@@ -288,9 +286,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public NumberPickerPreference(final Context context) {
+    public NumberPickerPreference(@NonNull final Context context) {
         super(context);
         initialize(null);
     }
@@ -301,12 +299,13 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public NumberPickerPreference(final Context context, final AttributeSet attributeSet) {
+    public NumberPickerPreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize(attributeSet);
     }
@@ -317,16 +316,17 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public NumberPickerPreference(final Context context, final AttributeSet attributeSet,
+    public NumberPickerPreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet,
                                   final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
@@ -338,10 +338,10 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -352,8 +352,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public NumberPickerPreference(final Context context, final AttributeSet attributeSet,
-                                  final int defaultStyle, final int defaultStyleResource) {
+    public NumberPickerPreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet, final int defaultStyle,
+                                  final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet);
     }
@@ -472,7 +473,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
         View view = View.inflate(getContext(), R.layout.number_picker, null);
         LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 

@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -24,6 +21,9 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -95,9 +95,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
-         *         Parcelable}
+         *         Parcelable}. The state may not be null
          */
-        public SavedState(final Parcelable superState) {
+        public SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -107,9 +107,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
          * state of the superclass.
          *
          * @param source
-         *         The parcel to read read from as a instance of the class {@link Parcel}
+         *         The parcel to read read from as a instance of the class {@link Parcel}. The
+         *         parcel may not be null
          */
-        public SavedState(final Parcel source) {
+        public SavedState(@NonNull final Parcel source) {
             super(source);
             value = source.readFloat();
             currentValue = source.readFloat();
@@ -123,8 +124,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
         }
 
     }
-
-    ;
 
     /**
      * The numeric system, which is used.
@@ -188,9 +187,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void initialize(final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet) {
         obtainStyledAttributes(attributeSet);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
@@ -201,9 +200,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray seekBarTypedArray =
                 getContext().obtainStyledAttributes(attributeSet, R.styleable.SeekBarPreference);
         TypedArray unitTypedArray = getContext()
@@ -231,9 +230,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the number of decimals should be obtained from, as an instance of
-     *         the class {@link TypedArray}
+     *         the class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainDecimals(final TypedArray typedArray) {
+    private void obtainDecimals(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.seek_bar_preference_default_decimals);
         setDecimals(typedArray.getInteger(R.styleable.SeekBarPreference_decimals, defaultValue));
@@ -244,9 +243,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the minimum value should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainMinValue(final TypedArray typedArray) {
+    private void obtainMinValue(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.seek_bar_preference_default_min_value);
         setMinValue(typedArray.getInteger(R.styleable.AbstractNumericPreference_min, defaultValue));
@@ -257,9 +256,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the maximum value should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainMaxValue(final TypedArray typedArray) {
+    private void obtainMaxValue(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.seek_bar_preference_default_max_value);
         setMaxValue(typedArray
@@ -272,9 +271,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the step size should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainStepSize(final TypedArray typedArray) {
+    private void obtainStepSize(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.seek_bar_preference_default_step_size);
         setStepSize(typedArray
@@ -287,9 +286,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the unit should be obtained from, as an instance of the class {@link
-     *         TypedArray}
+     *         TypedArray}. The typed array may not be null
      */
-    private void obtainUnit(final TypedArray typedArray) {
+    private void obtainUnit(@NonNull final TypedArray typedArray) {
         setUnit(typedArray.getText(R.styleable.AbstractUnitPreference_unit));
     }
 
@@ -299,9 +298,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the symbol should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainFloatingPointSeparator(final TypedArray typedArray) {
+    private void obtainFloatingPointSeparator(@NonNull final TypedArray typedArray) {
         setFloatingPointSeparator(
                 typedArray.getText(R.styleable.SeekBarPreference_floatingPointSeparator));
     }
@@ -312,9 +311,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the boolean value should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainShowProgress(final TypedArray typedArray) {
+    private void obtainShowProgress(@NonNull final TypedArray typedArray) {
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.seek_bar_preference_default_show_progress);
         showProgress(
@@ -327,9 +326,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param typedArray
      *         The typed array, the summaries should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainSummaries(final TypedArray typedArray) {
+    private void obtainSummaries(@NonNull final TypedArray typedArray) {
         try {
             setSummaries(typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary));
         } catch (NullPointerException e) {
@@ -345,7 +344,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      * @return The rounded value as a {@link Float} value
      */
     private float roundToDecimals(final float value) {
-        return (float) (Math.round(getMultiplier() * value) / (float) getMultiplier());
+        return Math.round(getMultiplier() * value) / (float) getMultiplier();
     }
 
     /**
@@ -371,17 +370,18 @@ public class SeekBarPreference extends AbstractDialogPreference {
      * @return The listener, which has been created, as an instance of the type {@link
      * OnSeekBarChangeListener}
      */
-    private OnSeekBarChangeListener createSeekBarListener(final TextView progressTextView) {
+    private OnSeekBarChangeListener createSeekBarListener(
+            @NonNull final TextView progressTextView) {
         return new OnSeekBarChangeListener() {
 
             @Override
             public void onStopTrackingTouch(final android.widget.SeekBar seekBar) {
-                return;
+
             }
 
             @Override
             public void onStartTrackingTouch(final android.widget.SeekBar seekBar) {
-                return;
+
             }
 
             @Override
@@ -390,7 +390,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
                 currentValue = (float) getMinValue() + (float) progress / (float) getMultiplier();
                 currentValue = adaptToStepSize(currentValue);
                 progressTextView.setText(getProgressText(currentValue));
-
             }
 
         };
@@ -462,7 +461,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The context in which to store the preference's value as an instance of the class
      *         {@link Context}. The context may not be null
      */
-    public SeekBarPreference(final Context context) {
+    public SeekBarPreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -479,9 +478,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}. The attribute set may not be null
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public SeekBarPreference(final Context context, final AttributeSet attributeSet) {
+    public SeekBarPreference(@NonNull final Context context,
+                             @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize(attributeSet);
     }
@@ -492,17 +492,17 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param context
      *         The context in which to store Preference value as an instance of the class {@link
-     *         Context}
+     *         Context}. The context may not be null
      * @param attributeSet
      *         The attribute set, the preference's attributes should be obtained from, as an
-     *         instance of the type {@link AttributeSet}
+     *         instance of the type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public SeekBarPreference(final Context context, final AttributeSet attributeSet,
-                             final int defaultStyle) {
+    public SeekBarPreference(@NonNull final Context context,
+                             @Nullable final AttributeSet attributeSet, final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
     }
@@ -513,10 +513,10 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param context
      *         The context in which to store Preference value as an instance of the class {@link
-     *         Context}
+     *         Context}. The context may not be null
      * @param attributeSet
      *         The attribute set, the preference's attributes should be obtained from, as an
-     *         instance of the type {@link AttributeSet}
+     *         instance of the type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -527,8 +527,9 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SeekBarPreference(final Context context, final AttributeSet attributeSet,
-                             final int defaultStyle, final int defaultStyleResource) {
+    public SeekBarPreference(@NonNull final Context context,
+                             @Nullable final AttributeSet attributeSet, final int defaultStyle,
+                             final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet);
     }
@@ -692,7 +693,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The unit, which should be set, as an instance of the type {@link CharSequence} or
      *         null, if no unit should be used
      */
-    public final void setUnit(final CharSequence unit) {
+    public final void setUnit(@Nullable final CharSequence unit) {
         this.unit = unit;
     }
 
@@ -703,7 +704,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The resource id of the unit, which should be set, as an {@link Integer} value. The
      *         resource id must correspond to a valid string resource
      */
-    public final void setUnit(final int resourceId) {
+    public final void setUnit(@StringRes final int resourceId) {
         setUnit(getContext().getText(resourceId));
     }
 
@@ -727,7 +728,8 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The symbol, which should be set, as an instance of the type {@link CharSequence} or
      *         null, if the default symbol should be used. The length of the symbol must be 1
      */
-    public final void setFloatingPointSeparator(final CharSequence floatingPointSeparator) {
+    public final void setFloatingPointSeparator(
+            @Nullable final CharSequence floatingPointSeparator) {
         if (floatingPointSeparator != null) {
             ensureAtMaximum(floatingPointSeparator.length(), 1,
                     "The floating point separator's length must be 1");
@@ -743,7 +745,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The resource id of the symbol, which should be set, as an {@link Integer} value. The
      *         resource id must correspond to a valid string resource
      */
-    public final void setFloatingPointSeparator(final int resourceId) {
+    public final void setFloatingPointSeparator(@StringRes final int resourceId) {
         setFloatingPointSeparator(getContext().getResources().getText(resourceId));
     }
 
@@ -785,7 +787,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         The summaries, which should be set, as an array of the type {@link CharSequence} or
      *         null, if no summaries should be shown depending on the currently persisted value
      */
-    public final void setSummaries(final CharSequence[] summaries) {
+    public final void setSummaries(@Nullable final CharSequence[] summaries) {
         this.summaries = summaries;
     }
 
@@ -834,7 +836,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
         View layout = View.inflate(getContext(), R.layout.seek_bar, null);
 
         TextView progressTextView = (TextView) layout.findViewById(R.id.progress_text);

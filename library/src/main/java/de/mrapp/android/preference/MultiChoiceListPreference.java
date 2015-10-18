@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -26,6 +23,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -85,9 +84,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
-         *         Parcelable}
+         *         Parcelable}. The state may not be null
          */
-        public SavedState(final Parcelable superState) {
+        public SavedState(@NonNull final Parcelable superState) {
             super(superState);
         }
 
@@ -97,24 +96,23 @@ public class MultiChoiceListPreference extends AbstractListPreference {
          * the state of the superclass.
          *
          * @param source
-         *         The parcel to read read from as a instance of the class {@link Parcel}
+         *         The parcel to read read from as a instance of the class {@link Parcel}. The
+         *         parcel may not be null
          */
-        public SavedState(final Parcel source) {
+        public SavedState(@NonNull final Parcel source) {
             super(source);
-            List<String> list = new ArrayList<String>();
+            List<String> list = new ArrayList<>();
             source.readStringList(list);
-            values = new HashSet<String>(list);
+            values = new HashSet<>(list);
         }
 
         @Override
         public final void writeToParcel(final Parcel destination, final int flags) {
             super.writeToParcel(destination, flags);
-            destination.writeStringList(new ArrayList<String>(values));
+            destination.writeStringList(new ArrayList<>(values));
         }
 
     }
-
-    ;
 
     /**
      * The currently persisted values of the preference.
@@ -145,7 +143,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      * @return The currently persisted set or the given default value as an instance of the type
      * {@link Set}
      */
-    private Set<String> getPersistedSet(final Set<String> defaultValue) {
+    private Set<String> getPersistedSet(@Nullable final Set<String> defaultValue) {
         if (!shouldPersist()) {
             return defaultValue;
         }
@@ -162,8 +160,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      * @return A list, which contains the indices of the entries, the given values correspond to, as
      * an instance of the type {@link List}
      */
-    private List<Integer> indicesOf(final Set<String> values) {
-        List<Integer> indices = new ArrayList<Integer>();
+    private List<Integer> indicesOf(@Nullable final Set<String> values) {
+        List<Integer> indices = new ArrayList<>();
 
         if (values != null && getEntryValues() != null) {
             for (String value : values) {
@@ -185,15 +183,15 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         The set, which should be persisted, as an instance of the type {@link Set}
      * @return True, if the given set has been persisted, false otherwise
      */
-    private boolean persistSet(final Set<String> set) {
-        if (shouldPersist()) {
+    private boolean persistSet(@Nullable final Set<String> set) {
+        if (set != null && shouldPersist()) {
             if (set.equals(getPersistedSet(null))) {
                 return true;
             }
 
             Editor editor = getPreferenceManager().getSharedPreferences().edit();
             editor.putStringSet(getKey(), set);
-            editor.commit();
+            editor.apply();
             return true;
         }
 
@@ -228,9 +226,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public MultiChoiceListPreference(final Context context) {
+    public MultiChoiceListPreference(@NonNull final Context context) {
         super(context);
         initialize();
     }
@@ -240,12 +238,13 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public MultiChoiceListPreference(final Context context, final AttributeSet attributeSet) {
+    public MultiChoiceListPreference(@NonNull final Context context,
+                                     @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize();
     }
@@ -255,16 +254,17 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public MultiChoiceListPreference(final Context context, final AttributeSet attributeSet,
+    public MultiChoiceListPreference(@NonNull final Context context,
+                                     @Nullable final AttributeSet attributeSet,
                                      final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize();
@@ -275,10 +275,10 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -289,7 +289,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MultiChoiceListPreference(final Context context, final AttributeSet attributeSet,
+    public MultiChoiceListPreference(@NonNull final Context context,
+                                     @Nullable final AttributeSet attributeSet,
                                      final int defaultStyle, final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize();
@@ -312,8 +313,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         A set, which contains the values, which should be set, as an instance of the type
      *         {@link Set}
      */
-    public final void setValues(final Set<String> values) {
-        if (!values.equals(this.values)) {
+    public final void setValues(@Nullable final Set<String> values) {
+        if (values != null && !values.equals(this.values)) {
             this.values = values;
             persistSet(this.values);
             notifyChanged();
@@ -326,7 +327,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      * @param value
      *         The value, which should be added, as a {@link String}. The value may not be null
      */
-    public final void addValue(final String value) {
+    public final void addValue(@NonNull final String value) {
         ensureNotNull(value, "The value may not be null");
 
         if (this.values != null) {
@@ -335,7 +336,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
                 notifyChanged();
             }
         } else {
-            Set<String> newValues = new HashSet<String>();
+            Set<String> newValues = new HashSet<>();
             newValues.add(value);
             setValues(newValues);
         }
@@ -348,7 +349,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      * @param value
      *         The value, which should be removed, as a {@link String}. The value may not be null
      */
-    public final void removeValue(final String value) {
+    public final void removeValue(@NonNull final String value) {
         ensureNotNull(value, "The value may not be null");
 
         if (this.values != null) {
@@ -367,7 +368,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         A collection, which contains the values, which should be added, as an instance of the
      *         type {@link Collection} or an empty collection, if no values should be added
      */
-    public final void addAllValues(final Collection<String> values) {
+    public final void addAllValues(@NonNull final Collection<String> values) {
         ensureNotNull(values, "The values may not be null");
 
         if (this.values != null) {
@@ -376,7 +377,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
                 notifyChanged();
             }
         } else {
-            Set<String> newValues = new HashSet<String>();
+            Set<String> newValues = new HashSet<>();
             newValues.addAll(values);
             setValues(newValues);
         }
@@ -390,7 +391,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         A collection, which contains the values, which should be removed, as an instance of
      *         the type {@link Collection} or an empty collection, if no values should be removed
      */
-    public final void removeAllValues(final Collection<String> values) {
+    public final void removeAllValues(@NonNull final Collection<String> values) {
         ensureNotNull(values, "The values may not be null");
 
         if (this.values != null) {
@@ -456,7 +457,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         CharSequence[] defaultValues = typedArray.getTextArray(index);
 
         if (defaultValues != null) {
-            Set<String> defaultValue = new HashSet<String>();
+            Set<String> defaultValue = new HashSet<>();
 
             for (CharSequence value : defaultValues) {
                 defaultValue.add(value.toString());
@@ -475,7 +476,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
         selectedIndices = new HashSet<Integer>(indicesOf(values));
         boolean[] checkedItems = new boolean[getEntryValues().length];
 
@@ -491,7 +492,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     @Override
     protected final void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && selectedIndices != null && getEntryValues() != null) {
-            Set<String> newValues = new HashSet<String>();
+            Set<String> newValues = new HashSet<>();
 
             for (int selectedIndex : selectedIndices) {
                 newValues.add(getEntryValues()[selectedIndex].toString());

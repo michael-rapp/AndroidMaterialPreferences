@@ -1,19 +1,16 @@
 /*
  * AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
  *
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or 
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under the terms of the
+ * GNU Lesser General Public License as published by the Free Software Foundation, either version 3
+ * of the License, or (at your option) any later version.
  *
- * This program is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU 
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+ * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public 
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>. 
+ * You should have received a copy of the GNU Lesser General Public License along with this program.
+ * If not, see <http://www.gnu.org/licenses/>.
  */
 package de.mrapp.android.preference;
 
@@ -24,6 +21,11 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ArrayRes;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,9 +98,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param attributeSet
      *         The attribute set, which should be used to initialize the preferences, as an instance
-     *         of the type {@link AttributeSet}
+     *         of the type {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void initialize(final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet) {
         colorPalette = new int[0];
         setNegativeButtonText(android.R.string.cancel);
         obtainStyledAttributes(attributeSet);
@@ -109,9 +111,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
+     *         {@link AttributeSet} or null, if no attributes should be obtained
      */
-    private void obtainStyledAttributes(final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.ColorPalettePreference);
 
@@ -133,9 +135,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the color palette, should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainColorPalette(final TypedArray typedArray) {
+    private void obtainColorPalette(@NonNull final TypedArray typedArray) {
         int resourceId =
                 typedArray.getResourceId(R.styleable.ColorPalettePreference_colorPalette, -1);
 
@@ -154,9 +156,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the size should be obtained from, as an instance of the class {@link
-     *         TypedArray}
+     *         TypedArray}. The typed array may not be null
      */
-    private void obtainDialogPreviewSize(final TypedArray typedArray) {
+    private void obtainDialogPreviewSize(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_size);
         setDialogPreviewSize(typedArray
@@ -170,9 +172,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the shape should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
-    private void obtainDialogPreviewShape(final TypedArray typedArray) {
+    private void obtainDialogPreviewShape(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.color_palette_preference_default_dialog_preview_shape);
         setDialogPreviewShape(PreviewShape.fromValue(typedArray
@@ -185,9 +187,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the border width should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainDialogPreviewBorderWidth(final TypedArray typedArray) {
+    private void obtainDialogPreviewBorderWidth(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_border_width);
         setDialogPreviewBorderWidth(typedArray
@@ -201,9 +203,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the border color should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainDialogPreviewBorderColor(final TypedArray typedArray) {
+    @SuppressWarnings("deprecation")
+    private void obtainDialogPreviewBorderColor(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
         setDialogPreviewBorderColor(typedArray
@@ -217,10 +220,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the background should be obtained from, as an instance of the class
-     *         {@link TypedArray}
+     *         {@link TypedArray}. The typed array may not be null
      */
     @SuppressWarnings("deprecation")
-    private void obtainDialogPreviewBackground(final TypedArray typedArray) {
+    private void obtainDialogPreviewBackground(@NonNull final TypedArray typedArray) {
         int backgroundColor =
                 typedArray.getColor(R.styleable.ColorPalettePreference_dialogPreviewBackground, -1);
 
@@ -240,9 +243,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param typedArray
      *         The typed array, the number of columns should be obtained from, as an instance of the
-     *         class {@link TypedArray}
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void obtainNumberOfColumns(final TypedArray typedArray) {
+    private void obtainNumberOfColumns(@NonNull final TypedArray typedArray) {
         int defaultValue = getContext().getResources()
                 .getInteger(R.integer.color_palette_preference_default_number_of_columns);
         setNumberOfColumns(typedArray
@@ -263,7 +266,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
             public void onItemClick(final AdapterView<?> parent, final View view,
                                     final int position, final long id) {
                 ColorPalettePreference.this.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
-                getDialog().dismiss();
+
+                if (getDialog() != null) {
+                    getDialog().dismiss();
+                }
             }
 
         };
@@ -274,9 +280,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      */
-    public ColorPalettePreference(final Context context) {
+    public ColorPalettePreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -285,12 +291,13 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public ColorPalettePreference(final Context context, final AttributeSet attributeSet) {
+    public ColorPalettePreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         initialize(attributeSet);
     }
@@ -300,16 +307,17 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public ColorPalettePreference(final Context context, final AttributeSet attributeSet,
+    public ColorPalettePreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet,
                                   final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet);
@@ -320,10 +328,10 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
-     *         {@link Context}
+     *         {@link Context}. The context may not be null
      * @param attributeSet
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
-     *         type {@link AttributeSet}
+     *         type {@link AttributeSet} or null, if no attributes are available
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -334,8 +342,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ColorPalettePreference(final Context context, final AttributeSet attributeSet,
-                                  final int defaultStyle, final int defaultStyleResource) {
+    public ColorPalettePreference(@NonNull final Context context,
+                                  @Nullable final AttributeSet attributeSet, final int defaultStyle,
+                                  final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet);
     }
@@ -355,7 +364,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      * @param colorPalette
      *         The colors, which should be set, as an {@link Integer} array
      */
-    public final void setColorPalette(final int[] colorPalette) {
+    public final void setColorPalette(@NonNull final int[] colorPalette) {
         ensureNotNull(colorPalette, "The color palette may not be null");
         this.colorPalette = colorPalette;
     }
@@ -367,7 +376,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         The resource id of the color palette, which should be set, as an {@link Integer}
      *         value. The resource id must correspond to a valid integer array resource
      */
-    public final void setColorPalette(final int resourceId) {
+    public final void setColorPalette(@ArrayRes final int resourceId) {
         setColorPalette(getContext().getResources().getIntArray(resourceId));
     }
 
@@ -411,7 +420,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         The shape, which should be set, as a value of the enum {@link PreviewShape}. The
      *         shape may not be null
      */
-    public final void setDialogPreviewShape(final PreviewShape previewShape) {
+    public final void setDialogPreviewShape(@NonNull final PreviewShape previewShape) {
         ensureNotNull(previewShape, "The preview shape may not be null");
         this.dialogPreviewShape = previewShape;
     }
@@ -454,7 +463,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      * @param borderColor
      *         The border color, which should be set, as an {@link Integer} value
      */
-    public final void setDialogPreviewBorderColor(final int borderColor) {
+    public final void setDialogPreviewBorderColor(@ColorInt final int borderColor) {
         this.dialogPreviewBorderColor = borderColor;
     }
 
@@ -475,7 +484,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         The background, which should be set, as an instance of the class {@link Drawable} or
      *         null, if no background should be shown
      */
-    public final void setDialogPreviewBackground(final Drawable background) {
+    public final void setDialogPreviewBackground(@Nullable final Drawable background) {
         this.dialogPreviewBackground = background;
     }
 
@@ -487,7 +496,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         The resource id must correspond to a valid drawable resource
      */
     @SuppressWarnings("deprecation")
-    public final void setDialogPreviewBackground(final int resourceId) {
+    public final void setDialogPreviewBackground(@DrawableRes final int resourceId) {
         setDialogPreviewBackground(getContext().getResources().getDrawable(resourceId));
     }
 
@@ -498,7 +507,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      * @param color
      *         The background color, which should be set, as an {@link Integer} value
      */
-    public final void setDialogPreviewBackgroundColor(final int color) {
+    public final void setDialogPreviewBackgroundColor(@ColorInt final int color) {
         setDialogPreviewBackground(new ColorDrawable(color));
     }
 
@@ -531,7 +540,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
         adapter = new ColorPaletteAdapter(getContext(), getColorPalette(), getDialogPreviewSize(),
                 getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());
