@@ -7,18 +7,35 @@ A major release, which introduces the following changes:
 - The project has been migrated from the legacy Eclipse ADT folder structure to Android Studio. It now uses the Gradle build system and the library as well as the example app are contained by one single project.
 - The library can now be added to Android apps using the Gradle dependency `com.github.michael-rapp:android-material-preferences:2.0.0`
 
-## Version 1.7.0 (Sept. 24th 2015)
+## Version 1.7.1 (Sept. 24th 2015)
 
 A minor release, which introduces the following changes:
 
 - The number of columns and preview size, which is used to show colors in the dialog of a `ColorPalettePreference` has been adapted on tablets.
 
-## Version 1.5.0 (Sept. 13th 2015)
+## Version 1.7.0 (Sept. 16th 2015)
+
+A feature release, which introduces the following new features:
+
+- Added a preference, which allows to select multiple values from a list (`MultiChoiceListPreference`).
+- Previews of the `ColorPalettePreference` are now created asynchronously.
+- Round previews of the `ColorPalettePreference` are now rendered antialiased when using no border.
+
+# Version 1.6.0 (Sept. 13th 2015)
 
 A feature release, which introduces the following changes:
 
 - The library does now rely on version 1.2.0 of the library "AndroidMaterialDialog".
 - Additional setter/getter methods and XML attributes have been added in order to support greater customization of preferences' dialogs. All dialog preferences do now allow to specify the message color and background of their dialogs and the `ListPreference` furthermore allows to specify the color of the list items and controls.
+
+## Version 1.5.0 (Sept. 11th 2015)
+
+A feature release, which introduces the following new features:
+
+- The preferences `NumberPickerPreference` and `DigitPickerPreference` do now allow to set an unit, which is used for printing textual representations of the preferences' current numbers.
+- The preference `NumberPickerPreference` does now support to set the step size, the preference's number should be increased or decreased by when moving its selector wheel.
+- Some attributes have been renamed for greater consistency between the library's preferences.
+- Fixed issue https://github.com/michael-rapp/AndroidMaterialPreferences/issues/3
 
 ## Version 1.4.0 (Aug. 31th 2015)
 
@@ -27,7 +44,6 @@ A feature release, which introduces the following new features:
 - Added a preference, which allows to choose a color from a predefined color palette (`ResolutionPreference`).
 - Added a preference, which provides a toggleable option using a `Switch` widget (`SwitchPreference`).
 - Minor implementation and API changes for greater consistency with the Android SDK's built-in preferences.
-- Fixed issue https://github.com/michael-rapp/AndroidMaterialPreferences/issues/3
 
 ## Version 1.3.0 (Aug. 22th 2015)
 
