@@ -20,4 +20,27 @@ not, see <http://www.gnu.org/licenses/>.
     <color name="color_picker_preference_default_preview_border_color">#ffd2d2d2</color>
     <color name="color_palette_preference_default_dialog_preview_border_color">#ffd2d2d2</color>
 
+    <!-- Arrays -->
+    <array name="color_palette">
+        <item>#fff44336</item>
+        <item>#ffe91e63</item>
+        <item>#ff9c27b0</item>
+        <item>#ff673ab7</item>
+        <item>#ff3f51b5</item>
+        <item>#ff2196f3</item>
+        <item>#ff03a9f4</item>
+        <item>#ff00bcd4</item>
+        <item>#ff009688</item>
+        <item>#ff4caf50</item>
+        <item>#ff8bc34a</item>
+        <item>#ffcddc39</item>
+        <item>#ffffeb3b</item>
+        <item>#ffffc107</item>
+        <item>#ffff9800</item>
+        <item>#ffff5722</item>
+        <item>#ff795548</item>
+        <item>#ff9e9e9e</item>
+        <item>#ff607d8b</item>
+    </array>
+
 </resources>
