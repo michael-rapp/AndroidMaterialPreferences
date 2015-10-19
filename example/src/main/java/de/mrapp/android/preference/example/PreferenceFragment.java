@@ -26,7 +26,6 @@ import de.mrapp.android.preference.EditTextPreference;
 import de.mrapp.android.preference.ListPreference;
 import de.mrapp.android.preference.MultiChoiceListPreference;
 import de.mrapp.android.preference.NumberPickerPreference;
-import de.mrapp.android.preference.R;
 import de.mrapp.android.preference.ResolutionPreference;
 import de.mrapp.android.preference.SeekBarPreference;
 import de.mrapp.android.preference.SwitchPreference;
