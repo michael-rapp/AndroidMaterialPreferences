@@ -332,8 +332,6 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     public static String formatResolution(@NonNull final Context context, final int width,
                                           final int height) {
         ensureNotNull(context, "The context may not be null");
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        ensureAtLeast(height, 1, "The height must be at least 1");
         String separator = context.getString(R.string.resolution_preference_separator);
         return width + separator + height;
     }
