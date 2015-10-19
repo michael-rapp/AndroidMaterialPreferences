@@ -180,7 +180,7 @@ public abstract class AbstractDataLoader<DataType, KeyType, ViewType extends Vie
     public AbstractDataLoader(@NonNull final Context context) {
         ensureNotNull(context, "The context may not be null");
         this.context = context;
-        this.cache = new HashMap<KeyType, SoftReference<DataType>>();
+        this.cache = new HashMap<>();
         this.views = Collections.synchronizedMap(new WeakHashMap<ViewType, KeyType>());
         this.threadPool = Executors.newCachedThreadPool();
     }
