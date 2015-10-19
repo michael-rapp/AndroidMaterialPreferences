@@ -15,7 +15,7 @@ You should have received a copy of the GNU Lesser General Public License along w
 If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest
-    package="de.mrapp.android.preference"
+    package="de.mrapp.android.preference.example"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -24,7 +24,7 @@ If not, see <http://www.gnu.org/licenses/>.
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="de.mrapp.android.preference.MainActivity"
+            android:name="de.mrapp.android.preference.example.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
