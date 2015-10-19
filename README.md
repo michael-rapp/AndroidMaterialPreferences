@@ -4,6 +4,10 @@
 
 ![](doc/images/example.png)
 
+![](doc/images/example2.png)
+
+![](doc/images/example3.png)
+
 The library provides the following preferences:
 
 - A preference, which allows to enter a text via an `EditText` widget (`EditTextPreference`).
