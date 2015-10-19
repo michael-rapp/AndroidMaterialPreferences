@@ -33,7 +33,7 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 /**
- * A preference, which provides a two-state toggleable option using a {@link SwitchCompat} widget.
+ * A preference, which provides a two-state toggleable option using a SwitchCompat widget.
  *
  * @author Michael Rapp
  * @since 1.4.0
@@ -131,8 +131,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     }
 
     /**
-     * Creates a new preference, which provides a two-state toggleable option using a {@link
-     * SwitchCompat} widget.
+     * Creates a new preference, which provides a two-state toggleable option using a SwitchCompat
+     * widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -143,8 +143,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     }
 
     /**
-     * Creates a new preference, which provides a two-state toggleable option using a {@link
-     * SwitchCompat} widget.
+     * Creates a new preference, which provides a two-state toggleable option using a SwitchCompat
+     * widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -160,8 +160,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     }
 
     /**
-     * Creates a new preference, which provides a two-state toggleable option using a {@link
-     * SwitchCompat} widget.
+     * Creates a new preference, which provides a two-state toggleable option using a SwitchCompat
+     * widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -181,8 +181,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     }
 
     /**
-     * Creates a new preference, which provides a two-state toggleable option using a {@link
-     * SwitchCompat} widget.
+     * Creates a new preference, which provides a two-state toggleable option using a SwitchCompat
+     * widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class

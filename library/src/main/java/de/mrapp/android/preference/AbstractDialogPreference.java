@@ -420,7 +420,7 @@ public abstract class AbstractDialogPreference extends Preference
      *
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class {@link MaterialDialogBuilder}
+     *         class MaterialDialogBuilder
      */
     protected abstract void onPrepareDialog(@NonNull MaterialDialogBuilder dialogBuilder);
 

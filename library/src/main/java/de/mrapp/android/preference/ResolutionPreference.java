@@ -40,8 +40,8 @@ import static de.mrapp.android.util.Condition.ensureNotEmpty;
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
- * A preference, which allows to enter a two-dimensional image or video resulution via two {@link
- * EditText} widgets. The entered resolution will only be persisted, if confirmed by the user.
+ * A preference, which allows to enter a two-dimensional image or video resulution via two EditText
+ * widgets. The entered resolution will only be persisted, if confirmed by the user.
  *
  * @author Michael Rapp
  * @since 1.3.0
@@ -206,7 +206,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     /**
      * Creates a new preference, which allows to enter a two-dimensional image or video resolution
-     * via two {@link EditText} widgets.
+     * via two EditText widgets.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -218,7 +218,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     /**
      * Creates a new preference, which allows to enter a two-dimensional image or video resolution
-     * via two {@link EditText} widgets.
+     * via two EditText widgets.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -235,7 +235,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     /**
      * Creates a new preference, which allows to enter a two-dimensional image or video resolution
-     * via two {@link EditText} widgets.
+     * via two EditText widgets.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -256,7 +256,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     /**
      * Creates a new preference, which allows to enter a two-dimensional image or video resolution
-     * via two {@link EditText} widgets.
+     * via two EditText widgets.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class

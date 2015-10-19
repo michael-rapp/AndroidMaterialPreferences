@@ -31,8 +31,8 @@ import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 
 /**
- * A preference, which allows to enter a text via an {@link EditText} widget. The entered text will
- * only be persisted, if confirmed by the user.
+ * A preference, which allows to enter a text via an EditText widget. The entered text will only be
+ * persisted, if confirmed by the user.
  *
  * @author Michael Rapp
  * @since 1.0.0
@@ -122,7 +122,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     /**
-     * Creates a new preference, which allows to enter a text via an {@link EditText} widget.
+     * Creates a new preference, which allows to enter a text via an EditText widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -134,7 +134,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     /**
-     * Creates a new preference, which allows to enter a text via an {@link EditText} widget.
+     * Creates a new preference, which allows to enter a text via an EditText widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -150,7 +150,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     /**
-     * Creates a new preference, which allows to enter a text via an {@link EditText} widget.
+     * Creates a new preference, which allows to enter a text via an EditText widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -170,7 +170,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     /**
-     * Creates a new preference, which allows to enter a text via an {@link EditText} widget.
+     * Creates a new preference, which allows to enter a text via an EditText widget.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
