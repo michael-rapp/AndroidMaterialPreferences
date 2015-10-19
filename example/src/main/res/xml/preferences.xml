@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+Lesser General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program.
+If not, see <http://www.gnu.org/licenses/>.
+-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:custom="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/example_preferences_preference_category_title">
+        <de.mrapp.android.preference.EditTextPreference
+            android:defaultValue="@string/edit_text_preference_default_value"
+            android:dialogMessage="@string/edit_text_preference_dialog_message"
+            android:key="@string/edit_text_preference_key"
+            android:summary="@string/edit_text_preference_summary"
+            android:title="@string/edit_text_preference_title"/>
+
+        <de.mrapp.android.preference.ListPreference
+            android:defaultValue="@string/list_preference_default_value"
+            android:dialogMessage="@string/list_preference_dialog_message"
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entry_values"
+            android:key="@string/list_preference_key"
+            android:summary="@string/list_preference_summary"
+            android:title="@string/list_preference_title"/>
+
+        <de.mrapp.android.preference.MultiChoiceListPreference
+            android:defaultValue="@array/multi_choice_list_preference_default_value"
+            android:dialogMessage="@string/multi_choice_list_preference_dialog_message"
+            android:entries="@array/list_preference_entries"
+            android:entryValues="@array/list_preference_entry_values"
+            android:key="@string/multi_choice_list_preference_key"
+            android:summary="@string/multi_choice_list_preference_summary"
+            android:title="@string/multi_choice_list_preference_title"/>
+
+        <de.mrapp.android.preference.SeekBarPreference
+            android:defaultValue="33.336"
+            android:dialogMessage="@string/seek_bar_preference_dialog_message"
+            android:key="@string/seek_bar_preference_key"
+            android:max="@integer/seek_bar_preference_max_value"
+            android:summary="@string/seek_bar_preference_summary"
+            android:title="@string/seek_bar_preference_title"
+            custom:decimals="@integer/seek_bar_preference_decimals"
+            custom:floatingPointSeparator="@string/seek_bar_prefeence_floating_point_separator"
+            custom:min="@integer/seek_bar_preference_min_value"
+            custom:showProgress="true"
+            custom:unit="@string/unit"/>
+
+        <de.mrapp.android.preference.NumberPickerPreference
+            android:defaultValue="@integer/number_picker_preference_default_value"
+            android:dialogMessage="@string/number_picker_preference_dialog_message"
+            android:key="@string/number_picker_preference_key"
+            android:summary="@string/number_picker_preference_summary"
+            android:title="@string/number_picker_preference_title"
+            custom:unit="@string/unit"/>
+
+        <de.mrapp.android.preference.DigitPickerPreference
+            android:defaultValue="@integer/digit_picker_preference_default_value"
+            android:dialogMessage="@string/digit_picker_preference_dialog_message"
+            android:key="@string/digit_picker_preference_key"
+            android:summary="@string/digit_picker_preference_summary"
+            android:title="@string/digit_picker_preference_title"
+            custom:unit="@string/unit"/>
+
+        <de.mrapp.android.preference.ResolutionPreference
+            android:defaultValue="@string/resolution_preference_default_value"
+            android:dialogMessage="@string/resolution_preference_dialog_message"
+            android:key="@string/resolution_preference_key"
+            android:summary="@string/resolution_preference_summary"
+            android:title="@string/resolution_preference_title"/>
+
+        <de.mrapp.android.preference.ColorPalettePreference
+            android:defaultValue="@color/color_palette_preference_default_value"
+            android:dialogMessage="@string/color_palette_preference_dialog_message"
+            android:key="@string/color_palette_preference_key"
+            android:summary="@string/color_palette_preference_summary"
+            android:title="@string/color_palette_preference_title"
+            custom:colorPalette="@array/color_palette"/>
+
+        <de.mrapp.android.preference.SwitchPreference
+            android:defaultValue="@bool/switch_preference_default_value"
+            android:key="@string/switch_preference_key"
+            android:summary="@string/switch_preference_summary"
+            android:title="@string/switch_preference_title"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_preference_category_title">
+        <CheckBoxPreference
+            android:defaultValue="@bool/show_value_as_summary_preference_default_value"
+            android:key="@string/show_value_as_summary_preference_key"
+            android:summary="@string/show_value_as_summary_preference_summary"
+            android:title="@string/show_value_as_summary_preference_title"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

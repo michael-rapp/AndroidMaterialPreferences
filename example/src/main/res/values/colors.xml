@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+Lesser General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program.
+If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <color name="color_palette_preference_default_value">#FFF44336</color>
+
+    <array name="color_palette">
+        <item>@color/color_palette_preference_default_value</item>
+        <item>#FFE91E63</item>
+        <item>#FF9C27B0</item>
+        <item>#FF673AB7</item>
+        <item>#FF3F51B5</item>
+        <item>#FF2196F3</item>
+        <item>#FF03A9F4</item>
+        <item>#FF00BCD4</item>
+        <item>#FF009688</item>
+        <item>#FF4CAF50</item>
+        <item>#FF8BC34A</item>
+        <item>#FFCDDC39</item>
+        <item>#FFFFEB3B</item>
+        <item>#FFFFC107</item>
+        <item>#FFFF9800</item>
+        <item>#FFFF5722</item>
+        <item>#FF795548</item>
+        <item>#FF9E9E9E</item>
+        <item>#FF607D8B</item>
+        <item>#AAF44336</item>
+        <item>#AAE91E63</item>
+        <item>#AA9C27B0</item>
+        <item>#AA673AB7</item>
+        <item>#AA3F51B5</item>
+        <item>#AA2196F3</item>
+        <item>#AA03A9F4</item>
+        <item>#AA00BCD4</item>
+        <item>#AA009688</item>
+        <item>#AA4CAF50</item>
+        <item>#AA8BC34A</item>
+        <item>#AACDDC39</item>
+        <item>#AAFFEB3B</item>
+        <item>#AAFFC107</item>
+        <item>#AAFF9800</item>
+        <item>#AAFF5722</item>
+        <item>#AA795548</item>
+        <item>#AA9E9E9E</item>
+        <item>#AA607D8B</item>
+    </array>
+
+</resources>

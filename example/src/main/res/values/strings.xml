@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+AndroidMaterialPreferences Copyright 2014 - 2015 Michael Rapp
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU
+Lesser General Public License as published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
+even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this program.
+If not, see <http://www.gnu.org/licenses/>.
+-->
+<resources>
+
+    <string name="app_name">AndroidMaterialPreferences Example</string>
+    <string name="example_preferences_preference_category_title">Example preferences</string>
+    <string name="edit_text_preference_key">edit_text_preference_key</string>
+    <string name="edit_text_preference_title">EditTextPreference</string>
+    <string name="edit_text_preference_summary">This preference allows to enter a text</string>
+    <string name="edit_text_preference_default_value">Default</string>
+    <string name="edit_text_preference_dialog_message">Enter a text by using the EditText widget below.</string>
+    <string name="list_preference_key">list_preference_key</string>
+    <string name="list_preference_title">ListPreference</string>
+    <string name="list_preference_summary">This preference allows to select a value from a list</string>
+    <string name="list_preference_default_value">2</string>
+    <string name="list_preference_dialog_message">Select a value by using the ListView widget below.</string>
+    <string name="multi_choice_list_preference_key">multi_choice_list_preference_key</string>
+    <string name="multi_choice_list_preference_title">MultiChoiceListPreference</string>
+    <string name="multi_choice_list_preference_summary">This preference allows to select multiple values from a list</string>
+    <string name="multi_choice_list_preference_dialog_message">Select values by using the ListView widget below.</string>
+    <string name="seek_bar_preference_title">SeekBarPreference</string>
+    <string name="seek_bar_preference_dialog_message">This preference allows to set a floating point value between 25.00 and 150.00.</string>
+    <string name="seek_bar_preference_key">seek_bar_preference_key</string>
+    <string name="seek_bar_preference_summary">This preference allows to select a value from a continuous range</string>
+    <string name="seek_bar_prefeence_floating_point_separator">.</string>
+    <string name="number_picker_preference_key">number_picker_preference_key</string>
+    <string name="number_picker_preference_title">NumberPickerPreference</string>
+    <string name="number_picker_preference_summary">This preference allows to choose a decimal number</string>
+    <string name="number_picker_preference_dialog_message">Choose a decimal number from the widget below.</string>
+    <string name="digit_picker_preference_key">digit_picker_preference_key</string>
+    <string name="digit_picker_preference_title">DigitPickerPreference</string>
+    <string name="digit_picker_preference_summary">This preference allows to choose a decimal number, which consists  of individual digits</string>
+    <string name="digit_picker_preference_dialog_message">Choose a decimal number from the widgets below.</string>
+    <string name="resolution_preference_key">resolution_preference_key</string>
+    <string name="resolution_preference_title">ResolutionPreference</string>
+    <string name="resolution_preference_summary">This preference allows to enter an image or video resolution</string>
+    <string name="resolution_preference_dialog_message">Enter a resolution by using the widgets below.</string>
+    <string name="resolution_preference_default_value">1024x768</string>
+    <string name="color_palette_preference_key">color_palette_preference_key</string>
+    <string name="color_palette_preference_title">ColorPalettePreference</string>
+    <string name="color_palette_preference_summary">This preference allows to choose a color from a palette</string>
+    <string name="color_palette_preference_dialog_message">Choose a color from the palette below.</string>
+    <string name="settings_preference_category_title">Settings</string>
+    <string name="show_value_as_summary_preference_title">Show values as summaries</string>
+    <string name="show_value_as_summary_preference_summary">Allows to set, whether the value of a preference should be shown as its summary, or not</string>
+    <string name="show_value_as_summary_preference_key">show_value_as_summary_preference_key</string>
+    <string name="not_empty_validator_error_message">May not be empty</string>
+    <string name="switch_preference_key">switch_preference_key</string>
+    <string name="switch_preference_title">SwitchPreference</string>
+    <string name="switch_preference_summary">The state of this preference can be toggled</string>
+    <string name="switch_preference_summary_on">On</string>
+    <string name="switch_preference_summary_off">Off</string>
+    <string name="unit">Unit</string>
+
+    <string-array name="list_preference_entries">
+        <item>Value 1</item>
+        <item>Value 2</item>
+        <item>Value 3</item>
+        <item>Value 4</item>
+        <item>Value 5</item>
+    </string-array>
+    <string-array name="list_preference_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="multi_choice_list_preference_default_value">
+        <item>1</item>
+        <item>3</item>
+    </string-array>
+
+</resources>
