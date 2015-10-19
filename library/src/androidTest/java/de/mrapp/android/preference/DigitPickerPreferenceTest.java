@@ -52,7 +52,7 @@ public class DigitPickerPreferenceTest extends AndroidTestCase {
         int defaultNumberOfDigits = getContext().getResources()
                 .getInteger(R.integer.digit_picker_preference_default_number_of_digits);
         Context context = getContext();
-        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.number_picker_preference);
+        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.digit_picker_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
         DigitPickerPreference digitPickerPreference =
                 new DigitPickerPreference(context, attributeSet);
@@ -68,7 +68,7 @@ public class DigitPickerPreferenceTest extends AndroidTestCase {
                 .getInteger(R.integer.digit_picker_preference_default_number_of_digits);
         Context context = getContext();
         int defaultStyle = 0;
-        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.number_picker_preference);
+        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.digit_picker_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
         DigitPickerPreference digitPickerPreference =
                 new DigitPickerPreference(context, attributeSet, defaultStyle);
@@ -86,7 +86,8 @@ public class DigitPickerPreferenceTest extends AndroidTestCase {
             Context context = getContext();
             int defaultStyle = 0;
             int defaultStyleAttribute = 0;
-            XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.list_preference);
+            XmlPullParser xmlPullParser =
+                    context.getResources().getXml(R.xml.digit_picker_preference);
             AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
             DigitPickerPreference digitPickerPreference =
                     new DigitPickerPreference(context, attributeSet, defaultStyle,
