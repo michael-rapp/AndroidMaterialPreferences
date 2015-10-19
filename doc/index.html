@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <title>AndroidMaterialPreferences &#150; Documentation: General</title>
+        <link rel=stylesheet type=text/css href=style.css />
+        <link rel="icon" type="image/png" href="images/favicon.png" />
+    </head>
+    
+    <body>
+        <div class="content">
+            <div class="header">
+                <h1>AndroidMaterialPreferences &#150; Documentation</h1>
+                <h2>Documentation of the Android-library "AndroidMaterialPreferences".</h2>
+            </div>
+
+            <div class="navigation">
+                <div class="navigation-item-selected"><a href="index.html">GENERAL</a></div>
+                <div class="navigation-item"><a href="content.html">CONTENT</a></div>
+                <div class="navigation-item"><a href="examples.html">EXAMPLES</a></div>
+            </div>
+
+            <div class="text">
+                 <h3>General</h3>
+
+                 <h4>About</h4>
+
+    	         <p>"AndroidMaterialPreferences" is an Android-library, which provides various preferences, which are designed according to Android 5's Material Desing guidelines even on pre-Lollipop devices. The screenshots below show the appearances of the preferences, which are provided by the library.</p>
+
+                 <p><center><a href="images/example.png" target="_blank".><img src="images/example.png" width="800" alt="Example"></center></a></p>
+		 
+		 <p><center><a href="images/example2.png" target="_blank".><img src="images/example2.png" width="800" alt="Example"></center></a></p>
+
+		 <p><center><a href="images/example3.png" target="_blank".><img src="images/example3.png" width="800" alt="Example"></center></a></p>
+    
+                 <p>The aim of this documentation is to offer an overview of the project's source code and to explain, how the interface, which is provided by the library, can be used and how the underlying implementations are supposed to work.</p>            
+
+                <p>The library provides the following preferences:</p>
+
+                <ul>
+                    <li>A preference, which allows to enter a text via an <tt>EditText</tt> widget (EditTextPreference).</li>
+                    <li>A preference, which allows to select a value from a list (ListPreference).</li>
+		    <li>A preference, which allows to select multiple values from a list (MultiChoiceListPreference).</li>
+                    <li>A preference, which allows to choose a floating point value or an integer value from a continuous range via a <tt>SeekBar</tt> widget (SeekBarPreference).</li>
+                    <li>A preference, which allows to choose a decimal value via a <tt>NumberPicker</tt> widget (NumberPickerPreference).</li>
+		    <li>A preference, which allows to choose a decimal value, consisting of individual digits of which each can be chosen via a <tt>NumberPicker</tt> widget (DigitPickerPreference).</li>
+		    <li>A preference, which allows to choose an image or video resolution via two <tt>EditText</tt> widgets (ResolutionPreference).</li>
+		    <li>A preference, which allows to choose a color from a predefined color palette (ColorPalettePreference).</li>
+		    <li>A preference, which provides a toggleable option using a <tt>Switch</tt> widget (SwitchPreference).</li>
+		    <li>The library uses the AppCompat v7 revision 21 support library in order to retrieve the color of a the title and button texts of a preference's dialog from the applied theme. Alternatively, these colors can be set manually.</li>
+                </ul>
+
+                <h4>License Agreement</h4>
+
+                <p>This project is distributed under the GNU Lesser Public License version 3.0 (GLPLv3). For further information about this license agreement's content please refer to its full version, which is available at <a href="http://www.gnu.org/licenses/lgpl.txt">http://www.gnu.org/licenses/lgpl.txt</a>.</p>
+
+                <h4>Download</h4>
+
+                <p>The latest release of this library can be downloaded as a zip archive from the download section of the project's Github page, which is available <a href="https://github.com/michael-rapp/AndroidMaterialPreferences/releases">here</a>. Furthermore, the library's source code is available as a Git repository, which can be cloned using the URL <a href="https://github.com/michael-rapp/AndroidMaterialPreferences.git">https://github.com/michael-rapp/AndroidMaterialPreferences.git</a>.</p>
+
+                <p>Alternatively, the library can be added to your Android app as a Gradle dependency by adding the following to the module's <tt>build.gradle</tt> file:</p>
+
+		<div class="xml-block"><font color='black'>
+dependencies {
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;compile 'com.github.michael-rapp:android-material-preferences:2.0.0'
+<br/>}
+                </font></div>
+
+		<p>Before version 2.0.0 this project was hosted on <a href="https://sourceforge.net/projects/androidmaterialpreferences">Sourceforge</a>. These older versions used the legacy Eclipse ADT folder structure and are not available as Gradle artifacts.</p>
+
+                <h4>Contact information</h4>
+
+                <p>For personal feedback or questions feel free to contact me via the mail address, which is mentioned on my <a href="https://github.com/michael-rapp">Github profile</a>. If you have found any bugs or want to post a feature request, please use the <a href="https://github.com/michael-rapp/AndroidMaterialPreferences/issues">bugtracker</a> to report them.</p>     
+            </div>
+
+            <div class="copyright">
+                &#169; Copyright 2014 - 2015, Michael Rapp. All rights reserved.
+            </div>
+        </div>
+    </body>
+</html>
