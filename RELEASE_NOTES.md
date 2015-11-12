@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.1 (Nov. 12th 2015)
+
+A minor release, which introduces the following changes:
+
+- Version 3.0.0 of the library "AndroidMaterialDialog" is now used.
+
 ## Version 2.0.0 (Oct. 19th 2015)
 
 A major release, which introduces the following changes:
