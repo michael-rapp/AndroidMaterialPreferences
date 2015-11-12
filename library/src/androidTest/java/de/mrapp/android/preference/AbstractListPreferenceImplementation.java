@@ -17,9 +17,10 @@ package de.mrapp.android.preference;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 
 /**
  * An implementation of the abstract class {@link AbstractListPreference}, which is needed for test
@@ -102,13 +103,13 @@ public class AbstractListPreferenceImplementation extends AbstractListPreference
     }
 
     @Override
-    protected final void onPrepareDialog(final MaterialDialogBuilder dialogBuilder) {
-        return;
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+
     }
 
     @Override
     protected final void onDialogClosed(final boolean positiveResult) {
-        return;
+
     }
 
 }

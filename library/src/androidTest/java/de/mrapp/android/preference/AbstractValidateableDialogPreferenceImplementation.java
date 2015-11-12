@@ -17,9 +17,10 @@ package de.mrapp.android.preference;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 
 /**
  * An implementation of the abstract class {@link AbstractValidateableDialogPreference}, which is
@@ -108,8 +109,9 @@ public class AbstractValidateableDialogPreferenceImplementation
     }
 
     @Override
-    protected final void onPrepareValidateableDialog(final MaterialDialogBuilder dialogBuilder) {
-        return;
+    protected final void onPrepareValidateableDialog(
+            @NonNull final MaterialDialog.Builder dialogBuilder) {
+
     }
 
     @Override
@@ -119,7 +121,7 @@ public class AbstractValidateableDialogPreferenceImplementation
 
     @Override
     protected final void onDialogClosed(final boolean positiveResult) {
-        return;
+
     }
 
 }

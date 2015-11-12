@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 
@@ -244,7 +244,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
 
     @Override
     protected final void onPrepareValidateableDialog(
-            @NonNull final MaterialDialogBuilder dialogBuilder) {
+            @NonNull final MaterialDialog.Builder dialogBuilder) {
         editText = (EditText) View.inflate(getContext(), R.layout.edit_text, null);
         editText.addAllValidators(getValidators());
         editText.validateOnValueChange(isValidatedOnValueChange());

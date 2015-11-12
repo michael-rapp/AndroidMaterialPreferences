@@ -21,6 +21,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -34,7 +35,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.SeekBar;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
@@ -812,7 +813,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
     }
 
     @Override
-    public final void setSummary(final int resourceId) {
+    public final void setSummary(@ArrayRes final int resourceId) {
         try {
             setSummaries(getContext().getResources().getStringArray(resourceId));
         } catch (NotFoundException e) {
@@ -836,7 +837,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         View layout = View.inflate(getContext(), R.layout.seek_bar, null);
 
         TextView progressTextView = (TextView) layout.findViewById(R.id.progress_text);

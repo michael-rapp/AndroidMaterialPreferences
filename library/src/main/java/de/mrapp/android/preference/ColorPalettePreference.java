@@ -32,7 +32,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.adapter.ColorPaletteAdapter;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
@@ -540,7 +540,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         adapter = new ColorPaletteAdapter(getContext(), getColorPalette(), getDialogPreviewSize(),
                 getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());

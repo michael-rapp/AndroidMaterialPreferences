@@ -37,7 +37,7 @@ import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 
 /**
  * An abstract base class for all preferences, which will show a dialog when clicked by the user.
@@ -369,7 +369,7 @@ public abstract class AbstractDialogPreference extends Preference
      *         dialog should be created from scratch
      */
     private void showDialog(@Nullable final Bundle dialogState) {
-        MaterialDialogBuilder dialogBuilder = new MaterialDialogBuilder(getContext());
+        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(getContext());
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setMessage(getDialogMessage());
         dialogBuilder.setIcon(getDialogIcon());
@@ -420,9 +420,9 @@ public abstract class AbstractDialogPreference extends Preference
      *
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class MaterialDialogBuilder
+     *         class MaterialDialog.Builder
      */
-    protected abstract void onPrepareDialog(@NonNull MaterialDialogBuilder dialogBuilder);
+    protected abstract void onPrepareDialog(@NonNull MaterialDialog.Builder dialogBuilder);
 
     /**
      * The method, which is invoked on subclasses when the preference's dialog has been closed. This

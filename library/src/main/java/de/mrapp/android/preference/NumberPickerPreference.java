@@ -30,7 +30,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.NumberPicker;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
@@ -473,7 +473,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         View view = View.inflate(getContext(), R.layout.number_picker, null);
         LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 

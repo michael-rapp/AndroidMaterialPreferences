@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 import java.util.regex.Pattern;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validators;
@@ -436,7 +436,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     @Override
     protected final void onPrepareValidateableDialog(
-            @NonNull final MaterialDialogBuilder dialogBuilder) {
+            @NonNull final MaterialDialog.Builder dialogBuilder) {
         View view = View.inflate(getContext(), R.layout.resolution, null);
         TextView unitTextView = (TextView) view.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());

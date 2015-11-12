@@ -28,7 +28,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
@@ -45,8 +45,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  */
 public abstract class AbstractValidateableDialogPreference<ValueType>
         extends AbstractDialogPreference
-        implements de.mrapp.android.dialog.MaterialDialogBuilder.Validator,
-        Validateable<ValueType> {
+        implements de.mrapp.android.dialog.MaterialDialog.Validator, Validateable<ValueType> {
 
     /**
      * A set, which contains the validators, which are used to validate the view, which is contained
@@ -199,10 +198,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class MaterialDialogBuilder
+     *         class MaterialDialog.Builder
      */
     protected abstract void onPrepareValidateableDialog(
-            @NonNull final MaterialDialogBuilder dialogBuilder);
+            @NonNull final MaterialDialog.Builder dialogBuilder);
 
     /**
      * Returns the listeners, which are notified when the view, which is contained by the
@@ -458,7 +457,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         dialogBuilder.addValidator(this);
         onPrepareValidateableDialog(dialogBuilder);
     }

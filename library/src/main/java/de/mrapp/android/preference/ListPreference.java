@@ -27,7 +27,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 
 /**
  * A preference, which allows to select a value from a list. The selected value will immediately
@@ -276,7 +276,7 @@ public class ListPreference extends AbstractListPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         selectedIndex = indexOf(getValue());
         dialogBuilder.setSingleChoiceItems(getEntries(), selectedIndex, createListItemListener());
         dialogBuilder.setItemColor(getDialogItemColor());

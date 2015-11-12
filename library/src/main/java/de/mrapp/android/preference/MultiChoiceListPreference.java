@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import de.mrapp.android.dialog.MaterialDialogBuilder;
+import de.mrapp.android.dialog.MaterialDialog;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -476,8 +476,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialogBuilder dialogBuilder) {
-        selectedIndices = new HashSet<Integer>(indicesOf(values));
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+        selectedIndices = new HashSet<>(indicesOf(values));
         boolean[] checkedItems = new boolean[getEntryValues().length];
 
         for (int selectedIndex : selectedIndices) {
