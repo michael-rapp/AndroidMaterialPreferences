@@ -2,6 +2,8 @@
 
 ## Version 2.0.3 (Feb. 13th 2016)
 
+A minor release, which introduces the following changes:
+
 - Version 3.1.0 of the library "AndroidMaterialDialog" is now used.
 
 ## Version 2.0.2 (Dec. 13th 2015)
