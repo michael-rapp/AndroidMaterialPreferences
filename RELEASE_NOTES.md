@@ -1,5 +1,16 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.4 (Feb. 25th 2016)
+
+A minor release, which introduces the following changes:
+
+- The library is from now on distributed under the Apache License version 2.0. 
+- Updated dependency "AndroidUtil" to version 1.4.3.
+- Updated dependency "AndroidMaterialDialog" to version 3.1.1.
+- Updated dependency "AndroidMaterialValidation" to version 2.0.1.
+- Updated AppCompat support library to version 23.2.0.
+- Minor changes of the example app.
+
 ## Version 2.0.3 (Feb. 13th 2016)
 
 A minor release, which introduces the following changes:
