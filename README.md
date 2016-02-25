@@ -30,7 +30,7 @@ The latest release of this library can be downloaded as a zip archive from the d
 
 Alternatively, the library can be added to your Android app as a Gradle dependency by adding the following to the respective module's `build.gradle` file:
 
-```
+```groovy
 dependencies {
     compile 'com.github.michael-rapp:android-material-preferences:2.0.4'
 }
@@ -46,7 +46,7 @@ The following examples provide a quick overview on how to use the preferences, w
 
 The XML code below shows how to declare a `SeekBarPreference` as part of a `PreferenceScreen`. The example contains all of the preference's custom attributes.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -77,7 +77,7 @@ The XML code below shows how to declare a `SeekBarPreference` as part of a `Pref
 
 The example below shows how the attributes of an `EditTextPreference` can be specified within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -102,7 +102,7 @@ The example below shows how the attributes of an `EditTextPreference` can be spe
 
 The example illustrates how the attributes of a `ListPreference` can be specified, if the preference should be declared within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -131,7 +131,7 @@ The example illustrates how the attributes of a `ListPreference` can be specifie
 
 The following XML code shows how the attributes of a `MultiChoiceListPreference` can be specified, if the preference should be declared within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -160,7 +160,7 @@ The following XML code shows how the attributes of a `MultiChoiceListPreference`
 
 The following example illustrates how of a `NumberPickerPreference` can be specified via XML for use within a `PreferenceScreen`.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -191,7 +191,7 @@ The following example illustrates how of a `NumberPickerPreference` can be speci
 
 The following example illustrates how of a `DigitPickerPreference` can be declared within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -220,7 +220,7 @@ The following example illustrates how of a `DigitPickerPreference` can be declar
 
 The following XML code shows how of a `ResolutionPreference` can be declared within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -246,7 +246,7 @@ The following XML code shows how of a `ResolutionPreference` can be declared wit
 
 The following XML structure illustrates how a `ColorPalettePreference` can be specified within a XML resource file.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
@@ -284,7 +284,7 @@ The following XML structure illustrates how a `ColorPalettePreference` can be sp
 
 The following XML code shows how a `SwitchPreference` can be declared within a XML resource.
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?> 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:custom="http://schemas.android.com/apk/res-auto" >
