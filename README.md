@@ -22,7 +22,9 @@ The library provides the following preferences:
 
 ## License Agreement
 
-This project is distributed under the GNU Lesser Public License version 3.0 (GLPLv3). For further information about this license agreement's content please refer to its full version, which is available at http://www.gnu.org/licenses/lgpl.txt.
+This project is distributed under the Apache License version 2.0. For further information about this license agreement's content please refer to its full version, which is available at http://www.apache.org/licenses/LICENSE-2.0.txt.
+
+Prior to version 2.0.4 this library was distributed under the GNU Lesser General Public License version 3.0 (GLPLv3).
 
 ## Download
 
