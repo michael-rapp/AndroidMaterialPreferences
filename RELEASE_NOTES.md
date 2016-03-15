@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.5 (Mar. 15th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidUtil" to version 1.4.4.
+- Updated dependency "AndroidMaterialDialog" to version 3.2.0 (this increases the width of a preference's dialog on smartphones).
+- Updated AppCompat support library to version 23.2.1 (this prevents the example app from crashing because of a bug in the previous version. See here for details: https://code.google.com/p/android/issues/detail?id=201817).
+
 ## Version 2.0.4 (Feb. 25th 2016)
 
 A minor release, which introduces the following changes:
