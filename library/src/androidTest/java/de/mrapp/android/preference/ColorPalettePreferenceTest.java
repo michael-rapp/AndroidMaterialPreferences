@@ -18,6 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -39,7 +40,6 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
      * Tests, if all properties are set correctly by the constructor, which expects a context as a
      * parameter.
      */
-    @SuppressWarnings("deprecation")
     public final void testConstructorWithContextParameter() {
         int defaultDialogPreviewSize = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_size);
@@ -47,8 +47,8 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
                 .getInteger(R.integer.color_palette_preference_default_dialog_preview_shape));
         int defaultDialogPreviewBorderWidth = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_border_width);
-        int defaultDialogPreviewBorderColor = getContext().getResources()
-                .getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
+        int defaultDialogPreviewBorderColor = ContextCompat.getColor(getContext(),
+                R.color.color_palette_preference_default_dialog_preview_border_color);
         int defaultNumberOfColumns = getContext().getResources()
                 .getInteger(R.integer.color_palette_preference_default_number_of_columns);
         Context context = getContext();
@@ -70,7 +70,6 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
      * Tests, if all properties are set correctly by the constructor, which expects a context and an
      * attribute set as parameters.
      */
-    @SuppressWarnings("deprecation")
     public final void testConstructorWithContextAndAttributeSetParameters() {
         int defaultDialogPreviewSize = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_size);
@@ -78,8 +77,8 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
                 .getInteger(R.integer.color_palette_preference_default_dialog_preview_shape));
         int defaultDialogPreviewBorderWidth = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_border_width);
-        int defaultDialogPreviewBorderColor = getContext().getResources()
-                .getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
+        int defaultDialogPreviewBorderColor = ContextCompat.getColor(getContext(),
+                R.color.color_palette_preference_default_dialog_preview_border_color);
         int defaultNumberOfColumns = getContext().getResources()
                 .getInteger(R.integer.color_palette_preference_default_number_of_columns);
         Context context = getContext();
@@ -104,7 +103,6 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
      * Tests, if all properties are set correctly by the constructor, which expects a context, an
      * attribute set and a default style as parameters.
      */
-    @SuppressWarnings("deprecation")
     public final void testConstructorWithContextAttributeSetAndDefaultStyleParameters() {
         int defaultDialogPreviewSize = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_size);
@@ -112,8 +110,8 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
                 .getInteger(R.integer.color_palette_preference_default_dialog_preview_shape));
         int defaultDialogPreviewBorderWidth = getContext().getResources().getDimensionPixelSize(
                 R.dimen.color_palette_preference_default_dialog_preview_border_width);
-        int defaultDialogPreviewBorderColor = getContext().getResources()
-                .getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
+        int defaultDialogPreviewBorderColor = ContextCompat.getColor(getContext(),
+                R.color.color_palette_preference_default_dialog_preview_border_color);
         int defaultNumberOfColumns = getContext().getResources()
                 .getInteger(R.integer.color_palette_preference_default_number_of_columns);
         Context context = getContext();
@@ -139,7 +137,6 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
      * Tests, if all properties are set correctly by the constructor, which expects a context, an
      * attribute set, a default style and a default style attribute as parameters.
      */
-    @SuppressWarnings("deprecation")
     public final void testConstructorWithContextAttributeSetAndDefaultStyleAndDefaultStyleAttributeParameters() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             int defaultDialogPreviewSize = getContext().getResources().getDimensionPixelSize(
@@ -149,8 +146,8 @@ public class ColorPalettePreferenceTest extends AndroidTestCase {
                             R.integer.color_palette_preference_default_dialog_preview_shape));
             int defaultDialogPreviewBorderWidth = getContext().getResources().getDimensionPixelSize(
                     R.dimen.color_palette_preference_default_dialog_preview_border_width);
-            int defaultDialogPreviewBorderColor = getContext().getResources()
-                    .getColor(R.color.color_palette_preference_default_dialog_preview_border_color);
+            int defaultDialogPreviewBorderColor = ContextCompat.getColor(getContext(),
+                    R.color.color_palette_preference_default_dialog_preview_border_color);
             int defaultNumberOfColumns = getContext().getResources()
                     .getInteger(R.integer.color_palette_preference_default_number_of_columns);
             Context context = getContext();

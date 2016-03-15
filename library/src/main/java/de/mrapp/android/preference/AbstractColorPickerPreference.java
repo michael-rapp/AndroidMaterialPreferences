@@ -26,6 +26,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -398,10 +399,9 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The typed array, the border color should be obtained from, as an instance of the
      *         class {@link TypedArray}. The typed array may not be null
      */
-    @SuppressWarnings("deprecation")
     private void obtainPreviewBorderColor(@NonNull final TypedArray typedArray) {
-        int defaultValue = getContext().getResources()
-                .getColor(R.color.color_picker_preference_default_preview_border_color);
+        int defaultValue = ContextCompat.getColor(getContext(),
+                R.color.color_picker_preference_default_preview_border_color);
         setPreviewBorderColor(typedArray
                 .getColor(R.styleable.AbstractColorPickerPreference_previewBorderColor,
                         defaultValue));
@@ -414,7 +414,6 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The typed array, the background should be obtained from, as an instance of the class
      *         {@link TypedArray}. The typed array may not be null
      */
-    @SuppressWarnings("deprecation")
     private void obtainPreviewBackground(@NonNull final TypedArray typedArray) {
         int backgroundColor = typedArray
                 .getColor(R.styleable.AbstractColorPickerPreference_previewBackground, -1);
@@ -425,7 +424,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
             int resourceId = typedArray
                     .getResourceId(R.styleable.AbstractColorPickerPreference_previewBackground,
                             R.drawable.color_picker_default_preview_background);
-            setPreviewBackground(getContext().getResources().getDrawable(resourceId));
+            setPreviewBackground(ContextCompat.getDrawable(getContext(), resourceId));
         }
     }
 
@@ -760,9 +759,8 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      *         The resource id of the background, which should be set, as an {@link Integer} value.
      *         The resource id must correspond to a valid drawable resource
      */
-    @SuppressWarnings("deprecation")
     public final void setPreviewBackground(@DrawableRes final int resourceId) {
-        setPreviewBackground(getContext().getResources().getDrawable(resourceId));
+        setPreviewBackground(ContextCompat.getDrawable(getContext(), resourceId));
     }
 
     /**

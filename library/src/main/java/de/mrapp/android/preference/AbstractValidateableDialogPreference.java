@@ -21,6 +21,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
 import java.util.Collection;
@@ -137,10 +138,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         The typed array, the color of the helper text should be obtained from, as an instance
      *         of the class {@link TypedArray}. The typed array may not be null
      */
-    @SuppressWarnings("deprecation")
     private void obtainHelperTextColor(@NonNull final TypedArray typedArray) {
         setHelperTextColor(typedArray.getColor(R.styleable.AbstractValidateableView_helperTextColor,
-                getContext().getResources().getColor(R.color.default_helper_text_color)));
+                ContextCompat.getColor(getContext(), R.color.default_helper_text_color)));
     }
 
     /**
@@ -150,10 +150,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
      *         The typed array, the error color should be obtained from, as an instance of the class
      *         {@link TypedArray}. The typed array may not be null
      */
-    @SuppressWarnings("deprecation")
     private void obtainErrorColor(@NonNull final TypedArray typedArray) {
         setErrorColor(typedArray.getColor(R.styleable.AbstractValidateableView_errorColor,
-                getContext().getResources().getColor(R.color.default_error_color)));
+                ContextCompat.getColor(getContext(), R.color.default_error_color)));
     }
 
     /**

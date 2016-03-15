@@ -32,6 +32,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.Window;
 import android.view.WindowManager;
@@ -325,7 +326,6 @@ public abstract class AbstractDialogPreference extends Preference
      *         The typed array, the background should be obtained from, as an instance of the class
      *         {@link TypedArray}. The typed array may not be null
      */
-    @SuppressWarnings("deprecation")
     private void obtainDialogBackground(@NonNull final TypedArray typedArray) {
         int backgroundColor =
                 typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
@@ -338,7 +338,7 @@ public abstract class AbstractDialogPreference extends Preference
             Drawable background = null;
 
             if (resourceId != -1) {
-                background = getContext().getResources().getDrawable(resourceId);
+                background = ContextCompat.getDrawable(getContext(), resourceId);
             }
 
             setDialogBackground(background);
@@ -621,9 +621,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         The resource id of the icon, which should be set, as an {@link Integer} value. The
      *         resource id must correspond to a valid drawable resource
      */
-    @SuppressWarnings("deprecation")
     public final void setDialogIcon(@DrawableRes final int resourceId) {
-        dialogIcon = getContext().getResources().getDrawable(resourceId);
+        dialogIcon = ContextCompat.getDrawable(getContext(), resourceId);
     }
 
     /**
@@ -781,9 +780,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         The resource id of the background, which should be set, as an {@link Integer} value.
      *         The resource id must correspond to a valid drawable resource
      */
-    @SuppressWarnings("deprecation")
     public final void setDialogBackground(@DrawableRes final int resourceId) {
-        setDialogBackground(getContext().getResources().getDrawable(resourceId));
+        setDialogBackground(ContextCompat.getDrawable(getContext(), resourceId));
     }
 
     /**
