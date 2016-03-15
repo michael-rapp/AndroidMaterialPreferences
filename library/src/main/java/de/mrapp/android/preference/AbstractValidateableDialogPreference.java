@@ -362,6 +362,11 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
+    public final boolean validate(@NonNull final MaterialDialog dialog) {
+        return validate();
+    }
+
+    @Override
     public final Collection<Validator<ValueType>> getValidators() {
         return validators;
     }
