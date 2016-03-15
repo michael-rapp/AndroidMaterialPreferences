@@ -15,6 +15,9 @@ License.
 -->
 <resources>
 
+    <color name="color_primary">#ffd64937</color>
+    <color name="color_primary_dark">#ffbb4030</color>
+    <color name="color_accent">#ffd64937</color>
     <color name="color_palette_preference_default_value">#FFF44336</color>
 
     <array name="color_palette">
