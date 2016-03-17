@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.6 (Mar. 17th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidUtil to version 1.4.5.
+- Updated dependency "AndroidMaterialDialog" to version 3.2.2.
+- Updated dependency "AndroidMaterialValidation" to version 3.0.2.
+
 ## Version 2.0.5 (Mar. 15th 2016)
 
 A minor release, which introduces the following changes:
