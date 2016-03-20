@@ -27,6 +27,7 @@ import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.regex.Pattern;
@@ -462,6 +463,11 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     protected final void onPrepareValidateableDialog(
             @NonNull final MaterialDialog.Builder dialogBuilder) {
         View view = View.inflate(getContext(), R.layout.resolution, null);
+        RelativeLayout.LayoutParams layoutParams =
+                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        view.setLayoutParams(layoutParams);
         TextView unitTextView = (TextView) view.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());
 

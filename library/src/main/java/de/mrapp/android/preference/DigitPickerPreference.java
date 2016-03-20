@@ -26,6 +26,7 @@ import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
@@ -386,6 +387,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
                 getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width);
         LayoutParams layoutParams = new LayoutParams(digitPickerWidth, LayoutParams.WRAP_CONTENT);
         View view = View.inflate(getContext(), R.layout.number_picker, null);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
         numberPickers = new NumberPicker[getNumberOfDigits()];
 

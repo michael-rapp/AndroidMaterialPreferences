@@ -26,6 +26,7 @@ import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.validation.EditText;
@@ -249,6 +250,8 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     protected final void onPrepareValidateableDialog(
             @NonNull final MaterialDialog.Builder dialogBuilder) {
         editText = (EditText) View.inflate(getContext(), R.layout.edit_text, null);
+        editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.addAllValidators(getValidators());
         editText.validateOnValueChange(isValidatedOnValueChange());
         editText.validateOnFocusLost(isValidatedOnFocusLost());

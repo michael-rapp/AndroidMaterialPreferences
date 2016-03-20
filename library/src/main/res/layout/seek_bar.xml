@@ -14,7 +14,7 @@ implied. See the License for the specific language governing permissions and lim
 License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical">
 
@@ -28,7 +28,7 @@ License.
     <de.mrapp.android.preference.view.SeekBar
         android:id="@+id/seek_bar"
         style="@style/Theme.AppCompat"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
