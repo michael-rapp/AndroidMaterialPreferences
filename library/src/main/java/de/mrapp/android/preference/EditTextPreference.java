@@ -19,8 +19,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -163,7 +165,8 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
      *         will be retrieved from the current theme, or an explicit style resource
      */
     public EditTextPreference(@NonNull final Context context,
-                              @Nullable final AttributeSet attributeSet, final int defaultStyle) {
+                              @Nullable final AttributeSet attributeSet,
+                              @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize();
     }
@@ -188,8 +191,9 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public EditTextPreference(@NonNull final Context context,
-                              @Nullable final AttributeSet attributeSet, final int defaultStyle,
-                              final int defaultStyleResource) {
+                              @Nullable final AttributeSet attributeSet,
+                              @AttrRes final int defaultStyle,
+                              @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize();
     }

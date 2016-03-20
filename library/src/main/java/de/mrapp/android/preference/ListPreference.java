@@ -21,8 +21,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -179,7 +181,7 @@ public class ListPreference extends AbstractListPreference {
      *         will be retrieved from the current theme, or an explicit style resource
      */
     public ListPreference(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                          final int defaultStyle) {
+                          @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize();
     }
@@ -204,7 +206,8 @@ public class ListPreference extends AbstractListPreference {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public ListPreference(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                          final int defaultStyle, final int defaultStyleResource) {
+                          @AttrRes final int defaultStyle,
+                          @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize();
     }

@@ -17,9 +17,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -60,10 +62,21 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
-        TypedArray typedArray =
-                getContext().obtainStyledAttributes(attributeSet, R.styleable.SwitchPreference);
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
+        TypedArray typedArray = getContext()
+                .obtainStyledAttributes(attributeSet, R.styleable.SwitchPreference, defaultStyle,
+                        defaultStyleResource);
 
         try {
             obtainSwitchTextOn(typedArray);
@@ -155,7 +168,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     public SwitchPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        obtainStyledAttributes(attributeSet);
+        obtainStyledAttributes(attributeSet, 0, 0);
     }
 
     /**
@@ -174,9 +187,10 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      *         will be retrieved from the current theme, or an explicit style resource
      */
     public SwitchPreference(@NonNull final Context context,
-                            @Nullable final AttributeSet attributeSet, final int defaultStyle) {
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        obtainStyledAttributes(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -200,10 +214,11 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SwitchPreference(@NonNull final Context context,
-                            @Nullable final AttributeSet attributeSet, final int defaultStyle,
-                            final int defaultStyleResource) {
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        obtainStyledAttributes(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**

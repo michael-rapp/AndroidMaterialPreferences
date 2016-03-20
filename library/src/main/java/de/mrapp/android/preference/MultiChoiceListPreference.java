@@ -22,8 +22,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -264,7 +266,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      */
     public MultiChoiceListPreference(@NonNull final Context context,
                                      @Nullable final AttributeSet attributeSet,
-                                     final int defaultStyle) {
+                                     @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize();
     }
@@ -290,7 +292,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public MultiChoiceListPreference(@NonNull final Context context,
                                      @Nullable final AttributeSet attributeSet,
-                                     final int defaultStyle, final int defaultStyleResource) {
+                                     @AttrRes final int defaultStyle,
+                                     @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize();
     }

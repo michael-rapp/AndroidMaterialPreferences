@@ -18,9 +18,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.ArrayRes;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
@@ -61,11 +63,21 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      *         The attribute set, which should be used to initialize the list preferences, as an
      *         instance of the type {@link AttributeSet} or null, if no attributes should be
      *         obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void initialize(@Nullable final AttributeSet attributeSet) {
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
         entries = new CharSequence[0];
         entryValues = new CharSequence[0];
-        obtainStyledAttributes(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
@@ -74,10 +86,21 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.AbstractListPreference);
+                .obtainStyledAttributes(attributeSet, R.styleable.AbstractListPreference,
+                        defaultStyle, defaultStyleResource);
 
         try {
             obtainDialogItemColor(typedArray);
@@ -176,7 +199,7 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      */
     public AbstractListPreference(@NonNull final Context context) {
         super(context);
-        initialize(null);
+        initialize(null, 0, 0);
     }
 
     /**
@@ -192,7 +215,7 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
     public AbstractListPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize(attributeSet);
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -211,9 +234,9 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      */
     public AbstractListPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet,
-                                  final int defaultStyle) {
+                                  @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -236,10 +259,11 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public AbstractListPreference(@NonNull final Context context,
-                                  @Nullable final AttributeSet attributeSet, final int defaultStyle,
-                                  final int defaultStyleResource) {
+                                  @Nullable final AttributeSet attributeSet,
+                                  @AttrRes final int defaultStyle,
+                                  @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**

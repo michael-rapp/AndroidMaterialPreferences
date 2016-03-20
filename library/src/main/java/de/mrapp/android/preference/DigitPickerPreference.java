@@ -19,8 +19,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -132,24 +134,23 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
     private int numberOfDigits;
 
     /**
-     * Initializes the preference.
-     *
-     * @param attributeSet
-     *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet}
-     */
-    private void initialize(final AttributeSet attributeSet) {
-        obtainStyledAttributes(attributeSet);
-    }
-
-    /**
      * Obtains all attributes from a specific attribute set.
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
                 .obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
         try {
@@ -254,7 +255,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      */
     public DigitPickerPreference(@NonNull final Context context) {
         super(context);
-        initialize(null);
+        obtainStyledAttributes(null, 0, 0);
     }
 
     /**
@@ -271,7 +272,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
     public DigitPickerPreference(@NonNull final Context context,
                                  @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize(attributeSet);
+        obtainStyledAttributes(attributeSet, 0, 0);
     }
 
     /**
@@ -291,9 +292,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      */
     public DigitPickerPreference(@NonNull final Context context,
                                  @Nullable final AttributeSet attributeSet,
-                                 final int defaultStyle) {
+                                 @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -317,10 +318,11 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public DigitPickerPreference(@NonNull final Context context,
-                                 @Nullable final AttributeSet attributeSet, final int defaultStyle,
-                                 final int defaultStyleResource) {
+                                 @Nullable final AttributeSet attributeSet,
+                                 @AttrRes final int defaultStyle,
+                                 @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        initialize(attributeSet);
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**

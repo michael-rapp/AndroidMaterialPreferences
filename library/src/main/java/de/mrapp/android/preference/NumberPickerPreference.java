@@ -19,8 +19,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -142,9 +144,19 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void initialize(@Nullable final AttributeSet attributeSet) {
-        obtainStyledAttributes(attributeSet);
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
@@ -153,10 +165,21 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
      */
-    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet) {
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.AbstractNumericPreference);
+                .obtainStyledAttributes(attributeSet, R.styleable.AbstractNumericPreference,
+                        defaultStyle, defaultStyleResource);
 
         try {
             obtainMaxNumber(typedArray);
@@ -289,7 +312,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      */
     public NumberPickerPreference(@NonNull final Context context) {
         super(context);
-        initialize(null);
+        initialize(null, 0, 0);
     }
 
     /**
@@ -306,7 +329,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
     public NumberPickerPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize(attributeSet);
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -326,9 +349,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      */
     public NumberPickerPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet,
-                                  final int defaultStyle) {
+                                  @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -352,10 +375,11 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public NumberPickerPreference(@NonNull final Context context,
-                                  @Nullable final AttributeSet attributeSet, final int defaultStyle,
-                                  final int defaultStyleResource) {
+                                  @Nullable final AttributeSet attributeSet,
+                                  @AttrRes final int defaultStyle,
+                                  @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        initialize(attributeSet);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
