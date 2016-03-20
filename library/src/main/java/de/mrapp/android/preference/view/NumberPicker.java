@@ -18,9 +18,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.util.Log;
 
@@ -82,7 +84,7 @@ public class NumberPicker extends android.widget.NumberPicker {
      *         The attributes of the XML tag that is inflating the view, as an instance of the type
      *         {@link AttributeSet} or null, if no attributes are available
      */
-    public NumberPicker(final Context context, @Nullable final AttributeSet attributeSet) {
+    public NumberPicker(@NonNull final Context context, @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
         applyTheme();
     }
@@ -102,7 +104,7 @@ public class NumberPicker extends android.widget.NumberPicker {
      *         be retrieved from the current theme, or an explicit style resource
      */
     public NumberPicker(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                        final int defaultStyle) {
+                        @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         applyTheme();
     }
@@ -127,7 +129,7 @@ public class NumberPicker extends android.widget.NumberPicker {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public NumberPicker(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                        final int defaultStyle, final int defaultStyleResource) {
+                        @AttrRes final int defaultStyle, @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         applyTheme();
     }

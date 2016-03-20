@@ -21,9 +21,11 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
 import de.mrapp.android.preference.R;
@@ -103,7 +105,7 @@ public class SeekBar extends android.widget.SeekBar {
      *         be retrieved from the current theme, or an explicit style resource
      */
     public SeekBar(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                   final int defaultStyle) {
+                   @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         applyTheme();
     }
@@ -128,7 +130,7 @@ public class SeekBar extends android.widget.SeekBar {
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SeekBar(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                   final int defaultStyle, final int defaultStyleResource) {
+                   @AttrRes final int defaultStyle, @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         applyTheme();
     }
