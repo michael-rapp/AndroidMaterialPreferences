@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.9 (Mar. 21th 2016)
+
+A bugfix release, which introduces the following changes:
+
+- Updated dependency "AndroidUtil" to version 1.4.7, because the previous version conflicted with the Android design library.
+
 ## Version 2.0.8 (Mar. 21th 2016)
 
 A bugfix release, which introduces the following changes:
