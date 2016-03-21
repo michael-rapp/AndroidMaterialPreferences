@@ -115,6 +115,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
                             @StyleRes final int defaultStyleResource) {
         colorPalette = new int[0];
         setNegativeButtonText(android.R.string.cancel);
+        setPositiveButtonText(null);
         obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 

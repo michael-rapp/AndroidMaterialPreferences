@@ -43,8 +43,6 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
         assertNull(dialogPreference.getDialogTitle());
         assertNull(dialogPreference.getDialogIcon());
         assertNull(dialogPreference.getDialogMessage());
-        assertNull(dialogPreference.getPositiveButtonText());
-        assertNull(dialogPreference.getNegativeButtonText());
         assertNull(dialogPreference.getDialog());
         assertEquals(-1, dialogPreference.getDialogTitleColor());
         assertEquals(-1, dialogPreference.getDialogMessageColor());
@@ -68,8 +66,6 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
         assertNull(dialogPreference.getDialogTitle());
         assertNull(dialogPreference.getDialogIcon());
         assertNull(dialogPreference.getDialogMessage());
-        assertNull(dialogPreference.getPositiveButtonText());
-        assertNull(dialogPreference.getNegativeButtonText());
         assertNull(dialogPreference.getDialog());
         assertEquals(-1, dialogPreference.getDialogTitleColor());
         assertEquals(-1, dialogPreference.getDialogMessageColor());
