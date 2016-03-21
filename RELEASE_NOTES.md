@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.0.8 (Mar. 21th 2016)
+
+A bugfix release, which introduces the following changes:
+
+- Fixed faulty positions and sizes of `DialogPreferences`' widgets introduced by the previous release.
+- Updated dependency "AndroidUtil" to version 1.4.6.
+
 ## Version 2.0.7 (Mar. 18th 2016)
 
 A minor release, which introduces the following changes:
