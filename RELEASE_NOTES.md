@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.1.0 (May 2nd 2016)
+
+A feature release, which introduces the following changes:
+
+- It is now possible to select negative numbers using a `NumberPickerPreference` (https://github.com/michael-rapp/AndroidMaterialPreferences/issues/12) or a `SeekBarPreference`.
+- Updated dependency "AndroidUtil" to version 1.4.11.
+
 ## Version 2.0.9 (Mar. 21th 2016)
 
 A bugfix release, which introduces the following changes:
