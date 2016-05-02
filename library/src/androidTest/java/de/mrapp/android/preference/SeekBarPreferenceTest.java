@@ -220,7 +220,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setValue(-1.0f);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -234,7 +234,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setValue(101.0f);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -260,20 +260,6 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
     }
 
     /**
-     * Ensures, that an {@link IllegalArgumentException} is thrown, if the minimum value is set to
-     * less than 0.
-     */
-    public final void testSetMinValueLessThanZeroThrowsException() {
-        try {
-            SeekBarPreference seekBarPreference = new SeekBarPreference(getContext());
-            seekBarPreference.setMinValue(-1);
-            Assert.fail();
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-    }
-
-    /**
      * Ensures, that an {@link IllegalArgumentException} is thrown, if the minimum value is set to a
      * value equals or greater than the maximum value.
      */
@@ -283,7 +269,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setMinValue(100);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -319,7 +305,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setMaxValue(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -354,7 +340,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setStepSize(101);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -368,7 +354,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setStepSize(0);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -408,7 +394,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setDecimals(-1);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -456,7 +442,7 @@ public class SeekBarPreferenceTest extends AndroidTestCase {
             seekBarPreference.setFloatingPointSeparator("12");
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
