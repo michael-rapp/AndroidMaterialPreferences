@@ -400,7 +400,6 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         be less than the maximum number
      */
     public final void setMinNumber(final int minNumber) {
-        ensureAtLeast(minNumber, 0, "The minimum number must be at least 0");
         ensureSmaller(minNumber, getMaxNumber(),
                 "The minimum number must be less than the maximum number");
         this.minNumber = minNumber;
