@@ -608,7 +608,6 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *         be between 0 and the maximum value, the preference allows to choose
      */
     public final void setMinValue(final int minValue) {
-        ensureAtLeast(minValue, 0, "The minimum value must be at least 0");
         ensureSmaller(minValue, getMaxValue(),
                 "The minimum value must be less than the maximum value");
         this.minValue = minValue;
