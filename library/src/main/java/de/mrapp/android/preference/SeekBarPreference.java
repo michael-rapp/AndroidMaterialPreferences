@@ -605,7 +605,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
      *
      * @param minValue
      *         The minimum value, which should be set, as an {@link Integer} value. The value must
-     *         be between 0 and the maximum value, the preference allows to choose
+     *         be less than the maximum value, the preference allows to choose
      */
     public final void setMinValue(final int minValue) {
         ensureSmaller(minValue, getMaxValue(),
