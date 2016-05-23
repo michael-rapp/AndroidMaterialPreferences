@@ -37,6 +37,9 @@ License.
         <attr name="dialogBackground" format="color|reference"/>
         <attr name="dialogButtonTextColor" format="color"/>
         <attr name="showValueAsSummary" format="boolean"/>
+        <attr name="showDialogHeader" format="boolean"/>
+        <attr name="dialogHeaderBackground" format="color|reference"/>
+        <attr name="dialogHeaderIcon" format="reference"/>
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>

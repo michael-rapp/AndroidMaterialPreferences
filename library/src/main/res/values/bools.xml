@@ -18,6 +18,7 @@ License.
     <!-- Default values -->
     <bool name="color_picker_preference_default_show_preview">true</bool>
     <bool name="dialog_preference_default_show_value_as_summary">false</bool>
+    <bool name="dialog_preference_default_show_dialog_header">false</bool>
     <bool name="number_picker_preference_default_use_input_method">false</bool>
     <bool name="number_picker_preference_default_wrap_selector_wheel">true</bool>
     <bool name="two_state_preference_default_disable_dependents_state">false</bool>

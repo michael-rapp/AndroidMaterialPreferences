@@ -186,6 +186,21 @@ public abstract class AbstractDialogPreference extends Preference
     private boolean showValueAsSummary;
 
     /**
+     * True, if the header of the preference's dialog should be shown, false otherwise.
+     */
+    private boolean showDialogHeader;
+
+    /**
+     * The background of the header of the preference's dialog.
+     */
+    private Drawable dialogHeaderBackground;
+
+    /**
+     * The icon of the header of the preference's dialog.
+     */
+    private Drawable dialogHeaderIcon;
+
+    /**
      * Obtains all attributes from a specific attribute set.
      *
      * @param attributeSet
@@ -218,6 +233,9 @@ public abstract class AbstractDialogPreference extends Preference
             obtainDialogButtonTextColor(typedArray);
             obtainDialogBackground(typedArray);
             obtainShowValueAsSummary(typedArray);
+            obtainShowDialogHeader(typedArray);
+            obtainDialogHeaderBackground(typedArray);
+            obtainDialogHeaderIcon(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -375,6 +393,66 @@ public abstract class AbstractDialogPreference extends Preference
     }
 
     /**
+     * Obtains the boolean value, which specifies whether the header of the dialog, which is shown
+     * by the preference, should be shown, from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the boolean value should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainShowDialogHeader(@NonNull final TypedArray typedArray) {
+        boolean defaultValue = getContext().getResources()
+                .getBoolean(R.bool.dialog_preference_default_show_dialog_header);
+        showDialogHeader(typedArray
+                .getBoolean(R.styleable.AbstractDialogPreference_showDialogHeader, defaultValue));
+    }
+
+    /**
+     * Obtains the background of the header of the dialog, which is shown by the preference, from a
+     * specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the background should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogHeaderBackground(@NonNull final TypedArray typedArray) {
+        int backgroundColor = typedArray
+                .getColor(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+
+        if (backgroundColor != -1) {
+            setDialogHeaderBackgroundColor(backgroundColor);
+        } else {
+            int resourceId = typedArray
+                    .getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+
+            if (resourceId != -1) {
+                Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
+
+                if (background != null) {
+                    setDialogHeaderBackground(background);
+                }
+            }
+        }
+    }
+
+    /**
+     * Obtains the icon of the header of the dialog, which is shown by the preference, from a
+     * specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the icon should be obtained from, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogHeaderIcon(@NonNull final TypedArray typedArray) {
+        int resourceId =
+                typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderIcon, -1);
+
+        if (resourceId != -1) {
+            setDialogHeaderIcon(ContextCompat.getDrawable(getContext(), resourceId));
+        }
+    }
+
+    /**
      * Shows the preference's dialog.
      *
      * @param dialogState
@@ -392,6 +470,12 @@ public abstract class AbstractDialogPreference extends Preference
         dialogBuilder.setMessageColor(getDialogMessageColor());
         dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
         dialogBuilder.setBackground(getDialogBackground());
+        dialogBuilder.showHeader(isDialogHeaderShown());
+        dialogBuilder.setHeaderIcon(getDialogHeaderIcon());
+
+        if (getDialogHeaderBackground() != null) {
+            dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
+        }
 
         onPrepareDialog(dialogBuilder);
 
@@ -829,6 +913,99 @@ public abstract class AbstractDialogPreference extends Preference
      */
     public final void showValueAsSummary(final boolean showValueAsSummary) {
         this.showValueAsSummary = showValueAsSummary;
+    }
+
+    /**
+     * Returns, whether the header of the preference's dialog is shown, or not.
+     *
+     * @return True, if the header of the preference's dialog is shown, false otherwise
+     */
+    public final boolean isDialogHeaderShown() {
+        return showDialogHeader;
+    }
+
+    /**
+     * Sets, whether the header of the preference's dialog should be shown, or not.
+     *
+     * @param show
+     *         True, if the header of the preference's dialog should be shown, false otherwise
+     */
+    public final void showDialogHeader(final boolean show) {
+        this.showDialogHeader = show;
+    }
+
+    /**
+     * Returns the background of the header of the preference's dialog.
+     *
+     * @return The background of the header of the preference's dialog as an instance of the class
+     * {@link Drawable}
+     */
+    public final Drawable getDialogHeaderBackground() {
+        return dialogHeaderBackground;
+    }
+
+    /**
+     * Sets the background of the header of the preference's dialog.
+     *
+     * @param background
+     *         The background, which should be set, as an instance of the class {@link Drawable}.
+     *         The background may not be null
+     */
+    public final void setDialogHeaderBackground(@Nullable final Drawable background) {
+        this.dialogHeaderBackground = background;
+    }
+
+    /**
+     * Sets the background of the header of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the background, which should be set, as an {@link Integer} value.
+     *         The resource id must correspond to a valid drawable resource
+     */
+    public final void setDialogHeaderBackground(@DrawableRes final int resourceId) {
+        setDialogHeaderBackground(ContextCompat.getDrawable(getContext(), resourceId));
+    }
+
+    /**
+     * Sets the background color of the header of the preference's dialog.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value
+     */
+    public final void setDialogHeaderBackgroundColor(@ColorInt final int color) {
+        setDialogHeaderBackground(new ColorDrawable(color));
+    }
+
+    /**
+     * Returns the icon of the header of the preference's dialog.
+     *
+     * @return The icon of the header of the preference's dialog as an instance of the class {@link
+     * Drawable}
+     */
+    public final Drawable getDialogHeaderIcon() {
+        return dialogHeaderIcon;
+    }
+
+    /**
+     * Sets the icon of the header of the preference's dialog.
+     *
+     * @param icon
+     *         The icon, which should be set, as an instance of the class {@link Drawable} or null,
+     *         if no icon should be set
+     */
+    public final void setDialogHeaderIcon(@Nullable final Drawable icon) {
+        this.dialogHeaderIcon = icon;
+    }
+
+    /**
+     * Sets the icon of the header of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the icon, which should be set, as an {@link Integer} value. The
+     *         resource id must correspond to a valid drawable resource
+     */
+    public final void setDialogHeaderIcon(@DrawableRes final int resourceId) {
+        setDialogHeaderIcon(ContextCompat.getDrawable(getContext(), resourceId));
     }
 
     @Override
