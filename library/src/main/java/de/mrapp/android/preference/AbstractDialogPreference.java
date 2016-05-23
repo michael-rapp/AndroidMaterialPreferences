@@ -359,21 +359,22 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogBackground(@NonNull final TypedArray typedArray) {
-        int backgroundColor =
+        int resourceId =
                 typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
 
-        if (backgroundColor != -1) {
-            setDialogBackgroundColor(backgroundColor);
-        } else {
-            int resourceId = typedArray
-                    .getResourceId(R.styleable.AbstractDialogPreference_dialogBackground, -1);
-            Drawable background = null;
+        if (resourceId != -1) {
+            Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
 
-            if (resourceId != -1) {
-                background = ContextCompat.getDrawable(getContext(), resourceId);
+            if (background != null) {
+                setDialogBackground(background);
             }
+        } else {
+            int color =
+                    typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
 
-            setDialogBackground(background);
+            if (color != -1) {
+                setDialogBackgroundColor(color);
+            }
         }
     }
 
@@ -416,21 +417,21 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogHeaderBackground(@NonNull final TypedArray typedArray) {
-        int backgroundColor = typedArray
-                .getColor(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+        int resourceId = typedArray
+                .getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
 
-        if (backgroundColor != -1) {
-            setDialogHeaderBackgroundColor(backgroundColor);
+        if (resourceId != -1) {
+            Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
+
+            if (background != null) {
+                setDialogHeaderBackground(background);
+            }
         } else {
-            int resourceId = typedArray
-                    .getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+            int color = typedArray
+                    .getColor(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
 
-            if (resourceId != -1) {
-                Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
-
-                if (background != null) {
-                    setDialogHeaderBackground(background);
-                }
+            if (color != -1) {
+                setDialogHeaderBackgroundColor(color);
             }
         }
     }

@@ -22,8 +22,9 @@ License.
             android:dialogMessage="@string/edit_text_preference_dialog_message"
             android:key="@string/edit_text_preference_key"
             android:summary="@string/edit_text_preference_summary"
-            android:title="@string/edit_text_preference_title"/>
-
+            android:title="@string/edit_text_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
         <de.mrapp.android.preference.ListPreference
             android:defaultValue="@string/list_preference_default_value"
             android:dialogMessage="@string/list_preference_dialog_message"
@@ -31,8 +32,9 @@ License.
             android:entryValues="@array/list_preference_entry_values"
             android:key="@string/list_preference_key"
             android:summary="@string/list_preference_summary"
-            android:title="@string/list_preference_title"/>
-
+            android:title="@string/list_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
         <de.mrapp.android.preference.MultiChoiceListPreference
             android:defaultValue="@array/multi_choice_list_preference_default_value"
             android:dialogMessage="@string/multi_choice_list_preference_dialog_message"
@@ -40,7 +42,9 @@ License.
             android:entryValues="@array/list_preference_entry_values"
             android:key="@string/multi_choice_list_preference_key"
             android:summary="@string/multi_choice_list_preference_summary"
-            android:title="@string/multi_choice_list_preference_title"/>
+            android:title="@string/multi_choice_list_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
 
         <de.mrapp.android.preference.SeekBarPreference
             android:defaultValue="33.336"
@@ -50,54 +54,65 @@ License.
             android:summary="@string/seek_bar_preference_summary"
             android:title="@string/seek_bar_preference_title"
             custom:decimals="@integer/seek_bar_preference_decimals"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
             custom:floatingPointSeparator="@string/seek_bar_prefeence_floating_point_separator"
             custom:min="@integer/seek_bar_preference_min_value"
             custom:showProgress="true"
             custom:unit="@string/unit"/>
-
         <de.mrapp.android.preference.NumberPickerPreference
             android:defaultValue="@integer/number_picker_preference_default_value"
             android:dialogMessage="@string/number_picker_preference_dialog_message"
             android:key="@string/number_picker_preference_key"
             android:summary="@string/number_picker_preference_summary"
             android:title="@string/number_picker_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
             custom:unit="@string/unit"/>
-
         <de.mrapp.android.preference.DigitPickerPreference
             android:defaultValue="@integer/digit_picker_preference_default_value"
             android:dialogMessage="@string/digit_picker_preference_dialog_message"
             android:key="@string/digit_picker_preference_key"
             android:summary="@string/digit_picker_preference_summary"
             android:title="@string/digit_picker_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
             custom:unit="@string/unit"/>
-
         <de.mrapp.android.preference.ResolutionPreference
             android:defaultValue="@string/resolution_preference_default_value"
             android:dialogMessage="@string/resolution_preference_dialog_message"
             android:key="@string/resolution_preference_key"
             android:summary="@string/resolution_preference_summary"
-            android:title="@string/resolution_preference_title"/>
-
+            android:title="@string/resolution_preference_title"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
         <de.mrapp.android.preference.ColorPalettePreference
             android:defaultValue="@color/color_palette_preference_default_value"
             android:dialogMessage="@string/color_palette_preference_dialog_message"
             android:key="@string/color_palette_preference_key"
             android:summary="@string/color_palette_preference_summary"
             android:title="@string/color_palette_preference_title"
-            custom:colorPalette="@array/color_palette"/>
-
+            custom:colorPalette="@array/color_palette"
+            custom:dialogHeaderBackground="@drawable/dialog_header_background"
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
         <de.mrapp.android.preference.SwitchPreference
             android:defaultValue="@bool/switch_preference_default_value"
             android:key="@string/switch_preference_key"
             android:summary="@string/switch_preference_summary"
             android:title="@string/switch_preference_title"/>
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_preference_category_title">
         <CheckBoxPreference
             android:defaultValue="@bool/show_value_as_summary_preference_default_value"
             android:key="@string/show_value_as_summary_preference_key"
             android:summary="@string/show_value_as_summary_preference_summary"
             android:title="@string/show_value_as_summary_preference_title"/>
+        <CheckBoxPreference
+            android:defaultValue="@bool/show_dialog_header_preference_default_value"
+            android:key="@string/show_dialog_header_preference_key"
+            android:summary="@string/show_dialog_header_preference_summary"
+            android:title="@string/show_dialog_header_preference_title"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -57,6 +57,9 @@ License.
     <string name="show_value_as_summary_preference_title">Show values as summaries</string>
     <string name="show_value_as_summary_preference_summary">Allows to set, whether the value of a preference should be shown as its summary, or not</string>
     <string name="show_value_as_summary_preference_key">show_value_as_summary_preference_key</string>
+    <string name="show_dialog_header_preference_title">Show dialog headers</string>
+    <string name="show_dialog_header_preference_summary">Allows to set, whether the header of a preference\'s dialog should be shown, or not</string>
+    <string name="show_dialog_header_preference_key">show_dialog_header_preference_key</string>
     <string name="not_empty_validator_error_message">May not be empty</string>
     <string name="switch_preference_key">switch_preference_key</string>
     <string name="switch_preference_title">SwitchPreference</string>
