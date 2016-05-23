@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.2.0 (May 23th 2016)
+
+A feature release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 3.3.0. This enables the dialog of preferences to contain a header.
+- Updated AppCompat v7 support library to version 23.4.0.
+
 ## Version 2.1.0 (May 2nd 2016)
 
 A feature release, which introduces the following changes:
