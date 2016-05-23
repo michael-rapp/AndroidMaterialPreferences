@@ -22,7 +22,7 @@
             </div>
 
             <div class="text">
-                <h3>Content</h3>
+                <h3>Content</h3>Added new javadoc.
         
                 <h4>Table of contents</h4>
 
@@ -165,6 +165,24 @@
                         <td><center><tt>false</tt></center></td>
                         <td>none</td>
                     </tr>
+                    <tr>
+                        <td><tt>isDialogHeaderShown():boolean</br>showDialogHeader(boolean):void</tt></td>
+                        <td>Returns or sets, whether the header of the preference's dialog should be shown, or not.</td>
+                        <td><center><tt>false</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogHeaderBackground():Drawable</br>setDialogHeaderBackground(Drawable):void</br>setDialogHeaderBackground(int):void</tt></td>
+                        <td>Returns or sets the background of the header of the preference's dialog.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the backgronud is specified via a resource ID, the ID must correspond to a valid drawable resource</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogHeaderIcon():Drawable</br>setDialogHeaderIcon(Drawable):void</br>setDialogHeaderIcon(int):void</tt></td>
+                        <td>Returns or sets the icon of the header of the preference's dialog.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the icon is specified via a resource ID, the ID must correspond to a valid drawable resource</td>
+                    </tr>
                 </table>
 
                 <h5><a name="common-xml-attributes">XML attributes</a></h5>
@@ -231,6 +249,27 @@
                     <tr>
                         <td><tt>custom:showValueAsSummary</tt></td>
                         <td>Defines, whether the currently persisted value should be shown instead of the preference's summary, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:showDialogHeader</tt></td>
+                        <td>Defines, whether the header of the preference's dialog should be shown, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogHeaderBackground</tt></td>
+                        <td>The background of the header of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogHeaderIcon</tt></td>
+                        <td>The icon of the header of the preference's dialog.</td>
                         <td style="text-align: center;"><tt>boolean</tt></td>
                         <td style="text-align: center;"><tt>false</tt></td>
                         <td>none</td>
