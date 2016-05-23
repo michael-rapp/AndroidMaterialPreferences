@@ -99,7 +99,7 @@ public abstract class AbstractDialogPreference extends Preference
         public SavedState(@NonNull final Parcel source) {
             super(source);
             dialogShown = source.readInt() == 1;
-            dialogState = source.readBundle();
+            dialogState = source.readBundle(getClass().getClassLoader());
         }
 
         /**
