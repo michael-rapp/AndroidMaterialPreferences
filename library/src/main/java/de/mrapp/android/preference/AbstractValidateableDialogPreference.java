@@ -30,7 +30,9 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import de.mrapp.android.dialog.DialogValidator;
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.model.ValidateableDialog;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
@@ -46,8 +48,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @since 1.2.0
  */
 public abstract class AbstractValidateableDialogPreference<ValueType>
-        extends AbstractDialogPreference
-        implements de.mrapp.android.dialog.MaterialDialog.Validator, Validateable<ValueType> {
+        extends AbstractDialogPreference implements DialogValidator, Validateable<ValueType> {
 
     /**
      * A set, which contains the validators, which are used to validate the view, which is contained
@@ -384,7 +385,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
     }
 
     @Override
-    public final boolean validate(@NonNull final MaterialDialog dialog) {
+    public final boolean validate(@NonNull final ValidateableDialog dialog) {
         return validate();
     }
 
