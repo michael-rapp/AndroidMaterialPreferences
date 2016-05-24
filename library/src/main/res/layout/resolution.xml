@@ -18,6 +18,7 @@ License.
               android:layout_height="wrap_content"
               android:layout_centerInParent="true"
               android:orientation="horizontal"
+              android:paddingBottom="@dimen/dialog_message_bottom_padding"
               android:paddingLeft="@dimen/dialog_horizontal_padding"
               android:paddingRight="@dimen/dialog_horizontal_padding">
 

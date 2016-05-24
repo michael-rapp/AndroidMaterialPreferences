@@ -17,6 +17,7 @@ License.
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
+              android:paddingBottom="@dimen/dialog_message_bottom_padding"
               android:paddingLeft="@dimen/dialog_horizontal_padding"
               android:paddingRight="@dimen/dialog_horizontal_padding">
 
@@ -25,7 +26,7 @@ License.
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/dialog_content_spacing"/>
+        android:layout_marginBottom="@dimen/dialog_message_bottom_padding"/>
 
     <de.mrapp.android.preference.view.SeekBar
         android:id="@+id/seek_bar"
