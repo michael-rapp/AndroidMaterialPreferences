@@ -599,10 +599,7 @@ public abstract class AbstractDialogPreference extends Preference
         dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
         dialogBuilder.showContentDivider(isDialogContentDividerShown());
         dialogBuilder.setContentDividerColor(getDialogContentDividerColor());
-
-        if (getDialogHeaderBackground() != null) {
-            dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
-        }
+        dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
 
         onPrepareDialog(dialogBuilder);
 
