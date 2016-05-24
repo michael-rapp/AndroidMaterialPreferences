@@ -293,7 +293,7 @@ public abstract class AbstractDialogPreference extends Preference
             themeId = typedValue.resourceId;
         }
 
-        dialogTheme = themeId != 0 ? themeId : R.style.MaterialDialog;
+        dialogTheme = themeId != 0 ? themeId : R.style.MaterialDialog_Light;
     }
 
     /**
