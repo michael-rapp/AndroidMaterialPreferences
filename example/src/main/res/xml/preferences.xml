@@ -125,4 +125,14 @@ License.
             android:title="@string/show_dialog_content_divider_preference_title"/>
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/theme_preference_category_title">
+        <ListPreference
+            android:defaultValue="@string/theme_preference_default_value"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values"
+            android:key="@string/theme_preference_key"
+            android:summary="@string/theme_preference_summary"
+            android:title="@string/theme_preference_title"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>

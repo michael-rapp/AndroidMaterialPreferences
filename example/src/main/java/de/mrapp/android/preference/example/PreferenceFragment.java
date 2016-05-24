@@ -83,6 +83,33 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
     private SwitchPreference switchPreference;
 
     /**
+     * Initializes the preference, which allows to change the app's theme.
+     */
+    private void initializeThemePreference() {
+        Preference themePreference = findPreference(getString(R.string.theme_preference_key));
+        themePreference.setOnPreferenceChangeListener(createThemeChangeListener());
+    }
+
+    /**
+     * Creates and returns a listener, which allows to adapt the app's theme, when the value of the
+     * corresponding preference has been changed.
+     *
+     * @return The listener, which has been created, as an instance of the type {@link
+     * Preference.OnPreferenceChangeListener}
+     */
+    private Preference.OnPreferenceChangeListener createThemeChangeListener() {
+        return new Preference.OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+                getActivity().recreate();
+                return true;
+            }
+
+        };
+    }
+
+    /**
      * Adapts the summary of the {@link SwitchPreference}, depending on whether the values of
      * preferences should be shown as their summaries.
      *
@@ -216,6 +243,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        initializeThemePreference();
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());

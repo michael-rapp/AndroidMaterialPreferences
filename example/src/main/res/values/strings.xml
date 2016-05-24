@@ -66,6 +66,11 @@ License.
     <string name="show_dialog_content_divider_preference_title">Show dialog content divider</string>
     <string name="show_dialog_content_divider_preference_summary">Allows to set, whether the divider above the custom view of a preference\'s dialog should be shown, or not</string>
     <string name="show_dialog_content_divider_preference_key">show_dialog_content_divider_preference_key</string>
+    <string name="theme_preference_category_title">Theme</string>
+    <string name="theme_preference_default_value">0</string>
+    <string name="theme_preference_key">theme_preference_key</string>
+    <string name="theme_preference_title">Theme</string>
+    <string name="theme_preference_summary">Allows to choose the theme, which should be used by the example app</string>
     <string name="not_empty_validator_error_message">May not be empty</string>
     <string name="switch_preference_key">switch_preference_key</string>
     <string name="switch_preference_title">SwitchPreference</string>
@@ -74,6 +79,16 @@ License.
     <string name="switch_preference_summary_off">Off</string>
     <string name="unit">Unit</string>
 
+    <string-array name="theme_entries">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
     <string-array name="list_preference_entries">
         <item>Value 1</item>
         <item>Value 2</item>
@@ -81,6 +96,7 @@ License.
         <item>Value 4</item>
         <item>Value 5</item>
     </string-array>
+
     <string-array name="list_preference_entry_values">
         <item>0</item>
         <item>1</item>
@@ -88,6 +104,7 @@ License.
         <item>3</item>
         <item>4</item>
     </string-array>
+
     <string-array name="multi_choice_list_preference_default_value">
         <item>1</item>
         <item>3</item>
