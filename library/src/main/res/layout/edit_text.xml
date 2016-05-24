@@ -20,4 +20,6 @@ License.
     android:layout_height="wrap_content"
     android:inputType="textNoSuggestions"
     android:maxLines="1"
+    android:paddingLeft="@dimen/dialog_horizontal_padding"
+    android:paddingRight="@dimen/dialog_horizontal_padding"
     android:singleLine="true"/>

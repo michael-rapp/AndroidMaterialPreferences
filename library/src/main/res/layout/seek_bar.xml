@@ -16,7 +16,9 @@ License.
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:paddingLeft="@dimen/dialog_horizontal_padding"
+              android:paddingRight="@dimen/dialog_horizontal_padding">
 
     <TextView
         android:id="@+id/progress_text"
