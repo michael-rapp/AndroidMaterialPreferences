@@ -60,6 +60,12 @@ License.
     <string name="show_dialog_header_preference_title">Show dialog headers</string>
     <string name="show_dialog_header_preference_summary">Allows to set, whether the header of a preference\'s dialog should be shown, or not</string>
     <string name="show_dialog_header_preference_key">show_dialog_header_preference_key</string>
+    <string name="show_dialog_button_bar_divider_preference_title">Show dialog button bar divider</string>
+    <string name="show_dialog_button_bar_divider_preference_summary">Allows to set, whether the divider above the buttons of a preference\'s dialog should be shown, or not</string>
+    <string name="show_dialog_button_bar_divider_preference_key">show_dialog_button_bar_divider_preference_key</string>
+    <string name="show_dialog_content_divider_preference_title">Show dialog content divider</string>
+    <string name="show_dialog_content_divider_preference_summary">Allows to set, whether the divider above the custom view of a preference\'s dialog should be shown, or not</string>
+    <string name="show_dialog_content_divider_preference_key">show_dialog_content_divider_preference_key</string>
     <string name="not_empty_validator_error_message">May not be empty</string>
     <string name="switch_preference_key">switch_preference_key</string>
     <string name="switch_preference_title">SwitchPreference</string>

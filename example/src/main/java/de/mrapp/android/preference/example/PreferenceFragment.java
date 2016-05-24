@@ -156,6 +156,62 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         };
     }
 
+    /**
+     * Creates and returns a listener, which allows to adapt, whether the button bar dividers of the
+     * preference's dialogs should be shown, or not, when the corresponding setting has been
+     * changed.
+     *
+     * @return The listener, which has been created, as an instance of the type {@link
+     * OnPreferenceChangeListener}
+     */
+    private OnPreferenceChangeListener createShowDialogButtonBarDividerListener() {
+        return new OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+                boolean showDialogButtonBarDivider = (Boolean) newValue;
+                editTextPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                listPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                multiChoiceListPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                seekBarPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                numberPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                digitPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                resolutionPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                colorPalettePreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+                return true;
+            }
+
+        };
+    }
+
+    /**
+     * Creates and returns a listener, which allows to adapt, whether the content dividers of the
+     * preference's dialogs should be shown, or not, when the corresponding setting has been
+     * changed.
+     *
+     * @return The listener, which has been created, as an instance of the type {@link
+     * OnPreferenceChangeListener}
+     */
+    private OnPreferenceChangeListener createShowDialogContentDividerListener() {
+        return new OnPreferenceChangeListener() {
+
+            @Override
+            public boolean onPreferenceChange(final Preference preference, final Object newValue) {
+                boolean showDialogContentDivider = (Boolean) newValue;
+                editTextPreference.showDialogContentDivider(showDialogContentDivider);
+                listPreference.showDialogContentDivider(showDialogContentDivider);
+                multiChoiceListPreference.showDialogContentDivider(showDialogContentDivider);
+                seekBarPreference.showDialogContentDivider(showDialogContentDivider);
+                numberPickerPreference.showDialogContentDivider(showDialogContentDivider);
+                digitPickerPreference.showDialogContentDivider(showDialogContentDivider);
+                resolutionPreference.showDialogContentDivider(showDialogContentDivider);
+                colorPalettePreference.showDialogContentDivider(showDialogContentDivider);
+                return true;
+            }
+
+        };
+    }
+
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,6 +223,11 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
                 .getBoolean(getString(R.string.show_value_as_summary_preference_key), true);
         boolean showDialogHeader = sharedPreferences
                 .getBoolean(getString(R.string.show_dialog_header_preference_key), false);
+        boolean showDialogButtonBarDivider = sharedPreferences
+                .getBoolean(getString(R.string.show_dialog_button_bar_divider_preference_key),
+                        false);
+        boolean showDialogContentDivider = sharedPreferences
+                .getBoolean(getString(R.string.show_dialog_content_divider_preference_key), false);
 
         Preference showValueAsSummaryPreference =
                 findPreference(getString(R.string.show_value_as_summary_preference_key));
@@ -177,39 +238,65 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
                 findPreference(getString(R.string.show_dialog_header_preference_key));
         showDialogHeaderPreference.setOnPreferenceChangeListener(createShowDialogHeaderListener());
 
+        Preference showDialogButtonBarDividerPreference =
+                findPreference(getString(R.string.show_dialog_button_bar_divider_preference_key));
+        showDialogButtonBarDividerPreference
+                .setOnPreferenceChangeListener(createShowDialogButtonBarDividerListener());
+
+        Preference showDialogContentDividerPreference =
+                findPreference(getString(R.string.show_dialog_content_divider_preference_key));
+        showDialogContentDividerPreference
+                .setOnPreferenceChangeListener(createShowDialogContentDividerListener());
+
         editTextPreference =
                 (EditTextPreference) findPreference(getString(R.string.edit_text_preference_key));
         editTextPreference.addValidator(
                 Validators.notEmpty(getActivity(), R.string.not_empty_validator_error_message));
         editTextPreference.showValueAsSummary(showValueAsSummary);
         editTextPreference.showDialogHeader(true);
+        editTextPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        editTextPreference.showDialogContentDivider(showDialogContentDivider);
         listPreference = (ListPreference) findPreference(getString(R.string.list_preference_key));
         listPreference.showValueAsSummary(showValueAsSummary);
         listPreference.showDialogHeader(showDialogHeader);
+        listPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        listPreference.showDialogContentDivider(showDialogContentDivider);
         multiChoiceListPreference = (MultiChoiceListPreference) findPreference(
                 getString(R.string.multi_choice_list_preference_key));
         multiChoiceListPreference.showValueAsSummary(showValueAsSummary);
         multiChoiceListPreference.showDialogHeader(showDialogHeader);
+        multiChoiceListPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        multiChoiceListPreference.showDialogContentDivider(showDialogContentDivider);
         seekBarPreference =
                 (SeekBarPreference) findPreference(getString(R.string.seek_bar_preference_key));
         seekBarPreference.showValueAsSummary(showValueAsSummary);
         seekBarPreference.showDialogHeader(showDialogHeader);
+        seekBarPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        seekBarPreference.showDialogContentDivider(showDialogContentDivider);
         numberPickerPreference = (NumberPickerPreference) findPreference(
                 getString(R.string.number_picker_preference_key));
         numberPickerPreference.showValueAsSummary(showValueAsSummary);
         numberPickerPreference.showDialogHeader(showDialogHeader);
+        numberPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        numberPickerPreference.showDialogContentDivider(showDialogContentDivider);
         digitPickerPreference = (DigitPickerPreference) findPreference(
                 getString(R.string.digit_picker_preference_key));
         digitPickerPreference.showValueAsSummary(showValueAsSummary);
         digitPickerPreference.showDialogHeader(showDialogHeader);
+        digitPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        digitPickerPreference.showDialogContentDivider(showDialogContentDivider);
         resolutionPreference = (ResolutionPreference) findPreference(
                 getString(R.string.resolution_preference_key));
         resolutionPreference.showValueAsSummary(showValueAsSummary);
         resolutionPreference.showDialogHeader(showDialogHeader);
+        resolutionPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        resolutionPreference.showDialogContentDivider(showDialogContentDivider);
         colorPalettePreference = (ColorPalettePreference) findPreference(
                 getString(R.string.color_palette_preference_key));
         colorPalettePreference.showValueAsSummary(showValueAsSummary);
         colorPalettePreference.showDialogHeader(showDialogHeader);
+        colorPalettePreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        colorPalettePreference.showDialogContentDivider(showDialogContentDivider);
         switchPreference =
                 (SwitchPreference) findPreference(getString(R.string.switch_preference_key));
         adaptSwitchPreferenceSummary(showValueAsSummary);

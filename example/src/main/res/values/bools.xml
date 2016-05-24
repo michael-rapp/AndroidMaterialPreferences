@@ -18,5 +18,7 @@ License.
     <bool name="switch_preference_default_value">true</bool>
     <bool name="show_value_as_summary_preference_default_value">true</bool>
     <bool name="show_dialog_header_preference_default_value">false</bool>
+    <bool name="show_dialog_button_bar_divider_preference_default_value">false</bool>
+    <bool name="show_dialog_content_divider_preference_default_value">false</bool>
 
 </resources>
