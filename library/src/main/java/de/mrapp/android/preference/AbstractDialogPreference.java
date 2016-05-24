@@ -589,17 +589,35 @@ public abstract class AbstractDialogPreference extends Preference
         dialogBuilder.setIcon(getDialogIcon());
         dialogBuilder.setPositiveButton(getPositiveButtonText(), this);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), this);
-        dialogBuilder.setTitleColor(getDialogTitleColor());
-        dialogBuilder.setMessageColor(getDialogMessageColor());
-        dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
         dialogBuilder.setBackground(getDialogBackground());
         dialogBuilder.showHeader(isDialogHeaderShown());
         dialogBuilder.setHeaderIcon(getDialogHeaderIcon());
         dialogBuilder.showButtonBarDivider(isDialogButtonBarDividerShown());
-        dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
         dialogBuilder.showContentDivider(isDialogContentDividerShown());
-        dialogBuilder.setContentDividerColor(getDialogContentDividerColor());
-        dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
+
+        if (getDialogTitleColor() != -1) {
+            dialogBuilder.setTitleColor(getDialogTitleColor());
+        }
+
+        if (getDialogMessageColor() != -1) {
+            dialogBuilder.setMessageColor(getDialogMessageColor());
+        }
+
+        if (getDialogButtonTextColor() != -1) {
+            dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
+        }
+
+        if (getDialogButtonBarDividerColor() != -1) {
+            dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
+        }
+
+        if (getDialogContentDividerColor() != -1) {
+            dialogBuilder.setContentDividerColor(getDialogContentDividerColor());
+        }
+
+        if (getDialogHeaderBackground() != null) {
+            dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
+        }
 
         onPrepareDialog(dialogBuilder);
 
@@ -1074,8 +1092,8 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the background of the header of the preference's dialog.
      *
      * @param background
-     *         The background, which should be set, as an instance of the class {@link Drawable}.
-     *         The background may not be null
+     *         The background, which should be set, as an instance of the class {@link Drawable} or
+     *         null, if no custom background should be set
      */
     public final void setDialogHeaderBackground(@Nullable final Drawable background) {
         this.dialogHeaderBackground = background;
@@ -1096,10 +1114,11 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the background color of the header of the preference's dialog.
      *
      * @param color
-     *         The color, which should be set, as an {@link Integer} value
+     *         The color, which should be set, as an {@link Integer} value or -1, if no custom color
+     *         should be set
      */
     public final void setDialogHeaderBackgroundColor(@ColorInt final int color) {
-        setDialogHeaderBackground(new ColorDrawable(color));
+        setDialogHeaderBackground(color != -1 ? new ColorDrawable(color) : null);
     }
 
     /**
