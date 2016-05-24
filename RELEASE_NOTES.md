@@ -1,5 +1,14 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.3.0 (May 25th 2016)
+
+A feature release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 3.4.1. This introduces the dialogs of preferences to appear slightly different.
+- Theming the dialogs of preferences is now properly supported by either globally specifying a theme using the theme attribute `preferenceDialogTheme`, or by specifying a theme using the XML attribute `custom:dialogThemeResource` on a per-preference basis.
+- It is now possible to show a divider above the button bar and/or custom view of a preference's dialog.
+- The possibility to specify the control color of a `ListPreference` or `MultiChoiceListPreference` has been removed as it caused problems.
+
 ## Version 2.2.0 (May 23th 2016)
 
 A feature release, which introduces the following changes:
