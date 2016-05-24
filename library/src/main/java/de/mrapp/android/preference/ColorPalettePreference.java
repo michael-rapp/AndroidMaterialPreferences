@@ -562,11 +562,12 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
     @Override
     protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
-        adapter = new ColorPaletteAdapter(getContext(), getColorPalette(), getDialogPreviewSize(),
-                getDialogPreviewShape(), getDialogPreviewBorderWidth(),
+        adapter = new ColorPaletteAdapter(dialogBuilder.getContext(), getColorPalette(),
+                getDialogPreviewSize(), getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());
         int selectedIndex = adapter.indexOf(getColor());
-        gridView = (GridView) View.inflate(getContext(), R.layout.color_palette, null);
+        gridView =
+                (GridView) View.inflate(dialogBuilder.getContext(), R.layout.color_palette, null);
         gridView.setNumColumns(getNumberOfColumns());
         gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
         gridView.setOnItemClickListener(createItemClickListener());

@@ -249,7 +249,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     @Override
     protected final void onPrepareValidateableDialog(
             @NonNull final MaterialDialog.Builder dialogBuilder) {
-        editText = (EditText) View.inflate(getContext(), R.layout.edit_text, null);
+        editText = (EditText) View.inflate(dialogBuilder.getContext(), R.layout.edit_text, null);
         editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         editText.addAllValidators(getValidators());

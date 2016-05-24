@@ -497,13 +497,13 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
     @Override
     protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
-        View view = View.inflate(getContext(), R.layout.number_picker, null);
+        View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
 
         String[] displayedValues = createDisplayedValues();
-        numberPicker = new NumberPicker(getContext());
+        numberPicker = new NumberPicker(dialogBuilder.getContext());
         numberPicker.setDisplayedValues(displayedValues);
         numberPicker.setMinValue(0);
         numberPicker.setMaxValue(displayedValues.length - 1);

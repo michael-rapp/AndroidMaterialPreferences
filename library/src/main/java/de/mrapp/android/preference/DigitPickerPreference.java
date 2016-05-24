@@ -386,14 +386,14 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
         int digitPickerWidth =
                 getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width);
         LayoutParams layoutParams = new LayoutParams(digitPickerWidth, LayoutParams.WRAP_CONTENT);
-        View view = View.inflate(getContext(), R.layout.number_picker, null);
+        View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
         numberPickers = new NumberPicker[getNumberOfDigits()];
 
         for (int i = 0; i < getNumberOfDigits(); i++) {
-            NumberPicker numberPicker = new NumberPicker(getContext());
+            NumberPicker numberPicker = new NumberPicker(dialogBuilder.getContext());
             numberPicker.setMinValue(0);
             numberPicker.setMaxValue(NUMERIC_SYTEM - 1);
             numberPicker.setValue(getDigit(i, getCurrentNumber()));

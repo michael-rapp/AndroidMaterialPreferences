@@ -36,6 +36,7 @@ import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -128,6 +129,11 @@ public abstract class AbstractDialogPreference extends Preference
      * The preference's dialog.
      */
     private Dialog dialog;
+
+    /**
+     * The resource id of the theme, which is used by the preference's dialog.
+     */
+    private int dialogTheme;
 
     /**
      * True, if the preference's dialog has been closed affirmatively, false otherwise.
@@ -245,6 +251,7 @@ public abstract class AbstractDialogPreference extends Preference
                         defaultStyle, defaultStyleResource);
 
         try {
+            obtainDialogTheme(typedArray);
             obtainDialogTitle(typedArray);
             obtainDialogMessage(typedArray);
             obtainDialogIcon(typedArray);
@@ -265,6 +272,28 @@ public abstract class AbstractDialogPreference extends Preference
         } finally {
             typedArray.recycle();
         }
+    }
+
+    /**
+     * Obtains the theme, which should be used by the preference's dialog, from a specific typed
+     * array.
+     *
+     * @param typedArray
+     *         The typed array, the theme should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogTheme(@NonNull final TypedArray typedArray) {
+        int themeId = typedArray
+                .getResourceId(R.styleable.AbstractDialogPreference_dialogThemeResource, 0);
+
+        if (themeId == 0) {
+            TypedValue typedValue = new TypedValue();
+            getContext().getTheme()
+                    .resolveAttribute(R.attr.preferenceDialogTheme, typedValue, true);
+            themeId = typedValue.resourceId;
+        }
+
+        dialogTheme = themeId != 0 ? themeId : R.style.MaterialDialog;
     }
 
     /**
@@ -553,7 +582,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         dialog should be created from scratch
      */
     private void showDialog(@Nullable final Bundle dialogState) {
-        MaterialDialog.Builder dialogBuilder = new MaterialDialog.Builder(getContext());
+        MaterialDialog.Builder dialogBuilder =
+                new MaterialDialog.Builder(getContext(), dialogTheme);
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setMessage(getDialogMessage());
         dialogBuilder.setIcon(getDialogIcon());
@@ -610,7 +640,9 @@ public abstract class AbstractDialogPreference extends Preference
     /**
      * The method, which is invoked on subclasses when the preference's dialog is about to be
      * created. The builder, which is passed as a method parameter may be manipulated by subclasses
-     * in order to change the appearance of the dialog.
+     * in order to change the appearance of the dialog. When views are inflated inside this method,
+     * the context of the builder should be used in order to ensure that the dialog's theme is
+     * used.
      *
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
