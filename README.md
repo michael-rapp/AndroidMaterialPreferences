@@ -46,7 +46,7 @@ The following examples provide a quick overview on how to use the preferences, w
 
 ### Specifying a theme
 
-Most of the preferences, which are provided by the library show a dialog when the respective preference is clicked. The theme, which should be used for the dialogs, can be specified by using the theme attribute `preferenceDialogTheme`. The library comes with a predefined dark and light theme. When no theme is specified, the dark theme is used by default. The light theme can be referenced by using the resource id `@style/MaterialDialog.Light`, the dark theme corresponds to the id `@style/MaterialDialog` instead. In order specify the theme, which should be used, the attribute `preferenceDialogTheme` has to be overwritten in the theme of your app. By extending either one of default themes, which are provided by the library, custom theme attributes such like the attribute `colorAccent`, which is used to specify the default text color of a dialog's buttons, can be overwritten. The following example illustrates how this can be achieved by showing a sample `res/values/styles.xml` file:
+Most of the preferences, which are provided by the library show a dialog when the respective preference is clicked. The theme, which should be used for the dialogs, can be specified by using the theme attribute `preferenceDialogTheme`. The library comes with a predefined dark and light theme. When no theme is specified, the light theme is used by default. It can be referenced by using the resource id `@style/MaterialDialog.Light`, the dark theme corresponds to the id `@style/MaterialDialog` instead. In order specify the theme, which should be used, the attribute `preferenceDialogTheme` has to be overwritten in the theme of your app. By extending either one of default themes, which are provided by the library, custom theme attributes such like the attribute `colorAccent`, which is used to specify the default text color of a dialog's buttons, can be overwritten. The following example illustrates how this can be achieved by showing a sample `res/values/styles.xml` file:
 
 ```xml
 <resources>
@@ -55,10 +55,10 @@ Most of the preferences, which are provided by the library show a dialog when th
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
-        <item name="preferenceDialogTheme">@style/LightDialogTheme</item>
+        <item name="preferenceDialogTheme">@style/CustomLightTheme</item>
     </style>
 
-    <style name="CustomDialogTheme" parent="@style/MaterialDialog.Light">
+    <style name="CustomLightTheme" parent="@style/MaterialDialog.Light">
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
