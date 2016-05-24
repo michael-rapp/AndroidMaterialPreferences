@@ -67,6 +67,20 @@ Most of the preferences, which are provided by the library show a dialog when th
 
 If the theme of one of the preferences used in the app should differ from those used by the other ones, the attribute `custom:dialogThemeResource` can be used when specifying the preference as a XML resource. The examples shown below illustrate the use of this attribute.
 
+### Showing a header
+
+All preferences, which show a dialog, when they are clicked, can show a header at the top of their dialog. The header may contain a background color or image as well as an icon. In order to show such a header, the following XML attributes have to be added to the XML resource, which is used to declare the preference:
+
+```xml
+custom:showDialogHeader="true"
+custom:dialogHeaderBackground="@drawable/dialog_header_background"
+custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+```
+
+A preference's dialog, which contains such a header, may look like shown in the screenshot below:
+
+![](doc/images/example-header-preference.png)
+
 ### SeekBarPreference
 
 The XML code below shows how to declare a `SeekBarPreference` as part of a `PreferenceScreen`. The example contains all of the preference's custom attributes.
@@ -99,6 +113,10 @@ The XML code below shows how to declare a `SeekBarPreference` as part of a `Pref
 </PreferenceScreen>
 ```
 
+The following screenshot shows how a `SeekBarPreference` may look like:
+
+![](doc/images/example-seek-bar-preference.png)
+
 ### EditTextPreference
 
 The example below shows how the attributes of an `EditTextPreference` can be specified within a XML resource.
@@ -124,6 +142,10 @@ The example below shows how the attributes of an `EditTextPreference` can be spe
 
 </PreferenceScreen>
 ```
+
+The picture shown below show the appearance of a `EditTextPreference`:
+
+![](doc/images/example-edit-text-preference.png)
 
 ### ListPreference
 
@@ -155,6 +177,10 @@ The example illustrates how the attributes of a `ListPreference` can be specifie
 </PreferenceScreen>
 ```
 
+The screenshot below illustrates the appearance of a `ListPreference`:
+
+![](doc/images/example-list-preference.png)
+
 ### MultiChoiceListPreference
 
 The following XML code shows how the attributes of a `MultiChoiceListPreference` can be specified, if the preference should be declared within a XML resource.
@@ -184,6 +210,10 @@ The following XML code shows how the attributes of a `MultiChoiceListPreference`
 
 </PreferenceScreen>
 ```
+
+The screenshot, which is shown in the following, illustrates how a `MultiChoiceListPreference` may look like:
+
+![](doc/images/example-multi-choice-list-preference.png)
 
 ### NumberPickerPreference
 
@@ -217,6 +247,10 @@ The following example illustrates how of a `NumberPickerPreference` can be speci
 </PreferenceScreen>
 ```
 
+The screenshot below illustes how a `SeekBarPreference` may look like:
+
+![](doc/images/example-number-picker-preference.png)
+
 ### DigitPickerPreference
 
 The following example illustrates how of a `DigitPickerPreference` can be declared within a XML resource.
@@ -247,6 +281,10 @@ The following example illustrates how of a `DigitPickerPreference` can be declar
 </PreferenceScreen>
 ```
 
+The image shown below shows the appearance of a `DigitPickerPreference`:
+
+![](doc/images/example-digit-picker-preference.png)
+
 ### ResolutionPreference
 
 The following XML code shows how of a `ResolutionPreference` can be declared within a XML resource.
@@ -273,6 +311,10 @@ The following XML code shows how of a `ResolutionPreference` can be declared wit
 
 </PreferenceScreen>
 ```
+
+The following screenshot illustrates the appearance of a `ResolutionPreference`:
+
+![](doc/images/example-resolution-preference.png)
 
 ### ColorPalettePreference
 
@@ -313,6 +355,11 @@ The following XML structure illustrates how a `ColorPalettePreference` can be sp
 
 </PreferenceScreen>
 ```
+
+A `ColorPalettePreference` may look like shown in the screenshot below:
+
+![](doc/images/example-color-palette-preference.png)
+
 ### SwitchPreference
 
 The following XML code shows how a `SwitchPreference` can be declared within a XML resource.
