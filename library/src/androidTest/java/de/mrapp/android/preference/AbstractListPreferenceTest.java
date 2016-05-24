@@ -39,7 +39,6 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
         Context context = getContext();
         AbstractListPreference listPreference = new AbstractListPreferenceImplementation(context);
         assertEquals(-1, listPreference.getDialogItemColor());
-        assertEquals(-1, listPreference.getDialogItemControlColor());
         assertNotNull(listPreference.getEntries());
         assertEquals(0, listPreference.getEntries().length);
         assertNotNull(listPreference.getEntryValues());
@@ -57,7 +56,6 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
         AbstractListPreference listPreference =
                 new AbstractListPreferenceImplementation(context, attributeSet);
         assertEquals(-1, listPreference.getDialogItemColor());
-        assertEquals(-1, listPreference.getDialogItemControlColor());
         assertNotNull(listPreference.getEntries());
         assertEquals(0, listPreference.getEntries().length);
         assertNotNull(listPreference.getEntryValues());
@@ -76,7 +74,6 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
         AbstractListPreference listPreference =
                 new AbstractListPreferenceImplementation(context, attributeSet, defaultStyle);
         assertEquals(-1, listPreference.getDialogItemColor());
-        assertEquals(-1, listPreference.getDialogItemControlColor());
         assertNotNull(listPreference.getEntries());
         assertEquals(0, listPreference.getEntries().length);
         assertNotNull(listPreference.getEntryValues());
@@ -99,7 +96,6 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
                     new AbstractListPreferenceImplementation(context, attributeSet, defaultStyle,
                             defaultStyleAttribute);
             assertEquals(-1, listPreference.getDialogItemColor());
-            assertEquals(-1, listPreference.getDialogItemControlColor());
             assertNotNull(listPreference.getEntries());
             assertEquals(0, listPreference.getEntries().length);
             assertNotNull(listPreference.getEntryValues());
@@ -117,18 +113,6 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
                 new AbstractListPreferenceImplementation(getContext());
         listPreference.setDialogItemColor(color);
         assertEquals(color, listPreference.getDialogItemColor());
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to set the item control color of the
-     * preference's dialog.
-     */
-    public final void testSetDialogItemControlColor() {
-        int color = Color.BLACK;
-        AbstractListPreference listPreference =
-                new AbstractListPreferenceImplementation(getContext());
-        listPreference.setDialogItemControlColor(color);
-        assertEquals(color, listPreference.getDialogItemControlColor());
     }
 
     /**
@@ -168,7 +152,7 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
             new AbstractListPreferenceImplementation(getContext()).setEntries(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 
@@ -209,7 +193,7 @@ public class AbstractListPreferenceTest extends AndroidTestCase {
             new AbstractListPreferenceImplementation(getContext()).setEntryValues(null);
             Assert.fail();
         } catch (NullPointerException e) {
-            return;
+
         }
     }
 

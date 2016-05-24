@@ -488,7 +488,6 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
         dialogBuilder.setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
         dialogBuilder.setItemColor(getDialogItemColor());
-        dialogBuilder.setItemControlColor(getDialogItemColor());
     }
 
     @Override

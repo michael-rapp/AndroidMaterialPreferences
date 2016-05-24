@@ -283,7 +283,6 @@ public class ListPreference extends AbstractListPreference {
         selectedIndex = indexOf(getValue());
         dialogBuilder.setSingleChoiceItems(getEntries(), selectedIndex, createListItemListener());
         dialogBuilder.setItemColor(getDialogItemColor());
-        dialogBuilder.setItemControlColor(getDialogItemColor());
     }
 
     @Override

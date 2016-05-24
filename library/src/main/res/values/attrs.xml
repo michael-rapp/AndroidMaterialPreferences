@@ -43,7 +43,6 @@ License.
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>
-        <attr name="dialogItemControlColor" format="color"/>
         <attr name="android:entries"/>
         <attr name="android:entryValues"/>
     </declare-styleable>
