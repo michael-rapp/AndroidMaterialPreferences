@@ -44,6 +44,29 @@ Before version 2.0.0 this project was hosted on [Sourceforge](https://sourceforg
 
 The following examples provide a quick overview on how to use the preferences, which are provided by the library, in your own Android app. This project also contains the source code of an example app, which implements an use case of the library for demonstration purposes, as well as a more detailed documentation and auto-generated javadoc files.
 
+### Specifying a theme
+
+Most of the preferences, which are provided by the library show a dialog when the respective preference is clicked. The theme, which should be used for the dialogs, can be specified by using the theme attribute `preferenceDialogTheme`. The library comes with a predefined dark and light theme. When no theme is specified, the dark theme is used by default. The light theme can be referenced by using the resource id `@style/MaterialDialog.Light`, the dark theme corresponds to the id `@style/MaterialDialog` instead. In order specify the theme, which should be used, the attribute `preferenceDialogTheme` has to be overwritten in the theme of your app. By extending either one of default themes, which are provided by the library, custom theme attributes such like the attribute `colorAccent`, which is used to specify the default text color of a dialog's buttons, can be overwritten. The following example illustrates how this can be achieved by showing a sample `res/values/styles.xml` file:
+
+```xml
+<resources>
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="preferenceDialogTheme">@style/LightDialogTheme</item>
+    </style>
+
+    <style name="CustomDialogTheme" parent="@style/MaterialDialog.Light">
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+</resources>
+```
+
+If the theme of one of the preferences used in the app should differ from those used by the other ones, the attribute `custom:dialogThemeResource` can be used when specifying the preference as a XML resource. The examples shown below illustrate the use of this attribute.
+
 ### SeekBarPreference
 
 The XML code below shows how to declare a `SeekBarPreference` as part of a `PreferenceScreen`. The example contains all of the preference's custom attributes.
@@ -70,7 +93,8 @@ The XML code below shows how to declare a `SeekBarPreference` as part of a `Pref
         custom:min="25" 
         custom:showProgress="true" 
         custom:showValueAsSummary="false" 
-        custom:unit="Unit" /> 
+        custom:unit="Unit"
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -95,7 +119,8 @@ The example below shows how the attributes of an `EditTextPreference` can be spe
         android:key="@string/edit_text_preference_key" 
         android:summary="@string/edit_text_preference_summary" 
         android:title="@string/edit_text_preference_title" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -124,7 +149,8 @@ The example illustrates how the attributes of a `ListPreference` can be specifie
         android:key="@string/list_preference_key" 
         android:summary="@array/list_preference_summary" 
         android:title="@string/list_preference_title" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -153,7 +179,8 @@ The following XML code shows how the attributes of a `MultiChoiceListPreference`
         android:key="@string/multi_choice_list_preference_key" 
         android:summary="@array/multi_choice_list_preference_summary" 
         android:title="@string/multi_choice_list_preference_title" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -184,7 +211,8 @@ The following example illustrates how of a `NumberPickerPreference` can be speci
         android:title="@string/number_picker_preference_title" 
         custom:unit="Unit" 
         custom:stepSize="5" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -213,7 +241,8 @@ The following example illustrates how of a `DigitPickerPreference` can be declar
         android:summary="@array/digit_picker_preference_summary" 
         android:title="@string/digit_picker_preference_title" 
         custom:unit="Unit" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -239,7 +268,8 @@ The following XML code shows how of a `ResolutionPreference` can be declared wit
         android:key="@string/resolution_preference_key" 
         android:summary="@array/resolution_preference_summary" 
         android:title="@string/resolution_preference_title" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
@@ -278,7 +308,8 @@ The following XML structure illustrates how a `ColorPalettePreference` can be sp
         android:key="@string/color_palette_preference_key" 
         android:summary="@array/color_palette_preference_summary" 
         android:title="@string/color_palette_preference_title" 
-        custom:showValueAsSummary="false" /> 
+        custom:showValueAsSummary="false" 
+        custom:dialogThemeResource="@style/MaterialDialog" /> 
 
 </PreferenceScreen>
 ```
