@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.3.1 (May 25th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 3.4.2.
+- When no theme is specified using the theme attribute `preferenceDialogTheme` or the XML attribute `custom:dialogThemeResource`, the light theme is now used instead of the dark one for the preference's dialogs.
+
 ## Version 2.3.0 (May 25th 2016)
 
 A feature release, which introduces the following changes:
