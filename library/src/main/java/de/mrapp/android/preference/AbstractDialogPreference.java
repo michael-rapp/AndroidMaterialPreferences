@@ -201,6 +201,28 @@ public abstract class AbstractDialogPreference extends Preference
     private Drawable dialogHeaderIcon;
 
     /**
+     * True, if the divider, which is located above the button bar of the preference's dialog, is
+     * shown, false otherwise.
+     */
+    private boolean showDialogButtonBarDivider;
+
+    /**
+     * The color of the divider, which is located above the button bar of the preference's dialog.
+     */
+    private int dialogButtonBarDividerColor;
+
+    /**
+     * True, if the divider, which is located above the custom view of the preference's dialog, is
+     * shown, false otherwise.
+     */
+    private boolean showDialogContentDivider;
+
+    /**
+     * The color of the divider, which is located above the custom view of the preference's dialog.
+     */
+    private int dialogContentDividerColor;
+
+    /**
      * Obtains all attributes from a specific attribute set.
      *
      * @param attributeSet
@@ -236,6 +258,10 @@ public abstract class AbstractDialogPreference extends Preference
             obtainShowDialogHeader(typedArray);
             obtainDialogHeaderBackground(typedArray);
             obtainDialogHeaderIcon(typedArray);
+            obtainShowDialogButtonBarDivider(typedArray);
+            obtainDialogButtonBarDividerColor(typedArray);
+            obtainShowDialogContentDivider(typedArray);
+            obtainDialogContentDividerColor(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -454,6 +480,72 @@ public abstract class AbstractDialogPreference extends Preference
     }
 
     /**
+     * Obtains the boolean value, which specifies whether the divider, which is located above the
+     * buttons of the dialog, which is shown by the preference, should be shown, from a specific
+     * typed array.
+     *
+     * @param typedArray
+     *         The typed array, the boolean value should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainShowDialogButtonBarDivider(@NonNull final TypedArray typedArray) {
+        boolean defaultValue = getContext().getResources()
+                .getBoolean(R.bool.dialog_preference_default_show_dialog_button_bar_divider);
+        showDialogButtonBarDivider(typedArray
+                .getBoolean(R.styleable.AbstractDialogPreference_showDialogButtonBarDivider,
+                        defaultValue));
+    }
+
+    /**
+     * Obtains the color of the divider, which is located above the buttons of the dialog, which is
+     * shown by the preference, from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogButtonBarDividerColor(@NonNull final TypedArray typedArray) {
+        int defaultValue =
+                ContextCompat.getColor(getContext(), R.color.button_bar_divider_color_light);
+        setDialogButtonBarDividerColor(typedArray
+                .getColor(R.styleable.AbstractDialogPreference_dialogButtonBarDividerColor,
+                        defaultValue));
+    }
+
+    /**
+     * Obtains the boolean value, which specifies whether the divider, which is located above the
+     * custom view of the dialog, which is shown by the preference, should be shown, from a specific
+     * typed array.
+     *
+     * @param typedArray
+     *         The typed array, the boolean value should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainShowDialogContentDivider(@NonNull final TypedArray typedArray) {
+        boolean defaultValue = getContext().getResources()
+                .getBoolean(R.bool.dialog_preference_default_show_dialog_content_divider);
+        showDialogContentDivider(typedArray
+                .getBoolean(R.styleable.AbstractDialogPreference_showDialogContentDivider,
+                        defaultValue));
+    }
+
+    /**
+     * Obtains the color of the divider, which is located above the custom view of the dialog, which
+     * is shown by the preference, from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogContentDividerColor(@NonNull final TypedArray typedArray) {
+        int defaultValue =
+                ContextCompat.getColor(getContext(), R.color.content_divider_color_light);
+        setDialogButtonBarDividerColor(typedArray
+                .getColor(R.styleable.AbstractDialogPreference_dialogContentDividerColor,
+                        defaultValue));
+    }
+
+    /**
      * Shows the preference's dialog.
      *
      * @param dialogState
@@ -473,6 +565,10 @@ public abstract class AbstractDialogPreference extends Preference
         dialogBuilder.setBackground(getDialogBackground());
         dialogBuilder.showHeader(isDialogHeaderShown());
         dialogBuilder.setHeaderIcon(getDialogHeaderIcon());
+        dialogBuilder.showButtonBarDivider(isDialogButtonBarDividerShown());
+        dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
+        dialogBuilder.showContentDivider(isDialogContentDividerShown());
+        dialogBuilder.setContentDividerColor(getDialogContentDividerColor());
 
         if (getDialogHeaderBackground() != null) {
             dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
@@ -1007,6 +1103,98 @@ public abstract class AbstractDialogPreference extends Preference
      */
     public final void setDialogHeaderIcon(@DrawableRes final int resourceId) {
         setDialogHeaderIcon(ContextCompat.getDrawable(getContext(), resourceId));
+    }
+
+    /**
+     * Returns, whether the divider, which is located above the buttons of the preference's dialog,
+     * is shown, or not.
+     *
+     * @return True, if the divider, which is located above the buttons of the preference's dialog,
+     * is shown, false otherwise
+     */
+    public final boolean isDialogButtonBarDividerShown() {
+        return showDialogButtonBarDivider;
+    }
+
+    /**
+     * Sets, whether the divider, which is located above the buttons of the preference's dialog,
+     * should be shown, or not.
+     *
+     * @param show
+     *         True, if the divider, which is located above the buttons of the preference's dialog
+     *         should be shown, false otherwise
+     */
+    public final void showDialogButtonBarDivider(final boolean show) {
+        this.showDialogButtonBarDivider = show;
+    }
+
+    /**
+     * Returns the color of the divider, which is located above the buttons of the preference's
+     * dialog.
+     *
+     * @return The color of the divider, which is located above the buttons of the preference's
+     * dialog, as an {@link Integer} value or -1, if no custom color is set
+     */
+    public final int getDialogButtonBarDividerColor() {
+        return dialogButtonBarDividerColor;
+    }
+
+    /**
+     * Sets the color of the divider, which is located above the buttons of the preference's
+     * dialog.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value or -1, if no custom color
+     *         should be set
+     */
+    public final void setDialogButtonBarDividerColor(@ColorInt final int color) {
+        this.dialogButtonBarDividerColor = color;
+    }
+
+    /**
+     * Returns, whether the divider, which is located above the custom view of the preference's
+     * dialog, is shown, or not.
+     *
+     * @return True, if the divider, which is located above the custom view of the preference's
+     * dialog, is shown, false otherwise
+     */
+    public final boolean isDialogContentDividerShown() {
+        return showDialogContentDivider;
+    }
+
+    /**
+     * Sets, whether the divider, which is located above the custom view of the preference's dialog,
+     * should be shown, or not.
+     *
+     * @param show
+     *         True, if the divider, which is located above the custom view of the preference's
+     *         dialog, should be shown, false otherwise
+     */
+    public final void showDialogContentDivider(final boolean show) {
+        this.showDialogContentDivider = show;
+    }
+
+    /**
+     * Returns the color of the divider, which is located above the custom view of the preference's
+     * dialog.
+     *
+     * @return The color of the divider, which is located above the custom view of the preferene's
+     * dialog, as an {@link Integer} value or -1, if no custom color is set
+     */
+    public final int getDialogContentDividerColor() {
+        return dialogContentDividerColor;
+    }
+
+    /**
+     * Sets the color of the divider, which is located above the custom view of the preference's
+     * dialog.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value or -1, if no custom color
+     *         should be set
+     */
+    public final void setDialogContentDividerColor(@ColorInt final int color) {
+        this.dialogContentDividerColor = color;
     }
 
     @Override
