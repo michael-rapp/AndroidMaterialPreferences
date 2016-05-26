@@ -41,6 +41,12 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
     private int dialogItemColor;
 
     /**
+     * True, if the dividers, which are located above and below the list view of the preference's
+     * dialog, should be shown when the list view is scrolled, false otherwise.
+     */
+    private boolean showDialogDividersOnScroll;
+
+    /**
      * An array, which contains the entries, which are shown in the list.
      */
     private CharSequence[] entries;
@@ -99,6 +105,7 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
 
         try {
             obtainDialogItemColor(typedArray);
+            obtainShowDialogDividersOnScroll(typedArray);
             obtainEntries(typedArray);
             obtainEntryValues(typedArray);
         } finally {
@@ -116,6 +123,20 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
     private void obtainDialogItemColor(@NonNull final TypedArray typedArray) {
         setDialogItemColor(
                 typedArray.getColor(R.styleable.AbstractListPreference_dialogItemColor, -1));
+    }
+
+    /**
+     * Obtains, whether the dividers, which are shown above and below the list view of the
+     * preference's dialog, should be shown when the list view is scrolled, or not, from a specific
+     * typed array.
+     *
+     * @param typedArray
+     *         The typed array, the boolean value should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainShowDialogDividersOnScroll(@NonNull final TypedArray typedArray) {
+        showDialogDividersOnScroll(typedArray
+                .getBoolean(R.styleable.AbstractListPreference_showDialogDividersOnScroll, true));
     }
 
     /**
@@ -267,6 +288,29 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      */
     public final void setDialogItemColor(@ColorInt final int color) {
         this.dialogItemColor = color;
+    }
+
+    /**
+     * Returns, whether the dividers, which are located above and below the list view of the
+     * preference's dialog, are shown when the list view is scrolled, or not.
+     *
+     * @return True, if the dividers, which are located above and below the list view of the
+     * preference's dialog, are shown when the list view is scrolled, false otherwise
+     */
+    public final boolean areDialogDividersShownOnScroll() {
+        return showDialogDividersOnScroll;
+    }
+
+    /**
+     * Sets, whether the dividers, which are located above and below the list view of the
+     * preference's dialog, should be shown when the list view is scrolled, or not.
+     *
+     * @param show
+     *         True, if the dividers, which are located above and below the list view of the
+     *         preference's dialog, should be shown when the list view is scrolled, false otherwise
+     */
+    public final void showDialogDividersOnScroll(final boolean show) {
+        this.showDialogDividersOnScroll = show;
     }
 
     /**

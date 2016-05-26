@@ -49,6 +49,7 @@ License.
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>
+        <attr name="showDialogDividersOnScroll" format="boolean"/>
         <attr name="android:entries"/>
         <attr name="android:entryValues"/>
     </declare-styleable>
