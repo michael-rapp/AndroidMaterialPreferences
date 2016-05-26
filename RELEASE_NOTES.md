@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.4.0 (May 26th 2016)
+
+A feature release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 3.5.0. Therefore the possibility to specify, whether the divider, which is located above the custom view of a preference's dialog, should be shown, or not, is not available anymore.
+- Added the possibility to set, whether the dividers, which are located above and below the list view of a `ListPreference`'s or `MultiChoiceListPreference`'s dialog, should be shown when the list view is scrolled, or not.
+
 ## Version 2.3.1 (May 25th 2016)
 
 A minor release, which introduces the following changes:
