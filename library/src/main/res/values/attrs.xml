@@ -46,8 +46,6 @@ License.
         <attr name="dialogHeaderIcon" format="reference"/>
         <attr name="showDialogButtonBarDivider" format="boolean"/>
         <attr name="dialogButtonBarDividerColor" format="color"/>
-        <attr name="showDialogContentDivider" format="boolean"/>
-        <attr name="dialogContentDividerColor" format="color"/>
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>
