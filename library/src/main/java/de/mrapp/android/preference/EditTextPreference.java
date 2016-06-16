@@ -218,10 +218,10 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         boolean hasDisabledDependents = shouldDisableDependents();
         this.text = text;
         persistString(text);
-        boolean isDisabelingDependents = shouldDisableDependents();
+        boolean isDisablingDependents = shouldDisableDependents();
 
-        if (isDisabelingDependents != hasDisabledDependents) {
-            notifyDependencyChange(isDisabelingDependents);
+        if (isDisablingDependents != hasDisabledDependents) {
+            notifyDependencyChange(isDisablingDependents);
         }
 
         notifyChanged();
