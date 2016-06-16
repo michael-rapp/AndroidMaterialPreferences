@@ -136,7 +136,14 @@ public class SwitchPreference extends AbstractTwoStatePreference {
 
             @Override
             public void onCheckedChanged(final CompoundButton buttonView, final boolean isChecked) {
-                setChecked(isChecked);
+                if (getOnPreferenceChangeListener()
+                        .onPreferenceChange(SwitchPreference.this, isChecked)) {
+                    setChecked(isChecked);
+                } else {
+                    buttonView.setOnCheckedChangeListener(null);
+                    buttonView.setChecked(!isChecked);
+                    buttonView.setOnCheckedChangeListener(createCheckedChangeListener());
+                }
             }
 
         };
