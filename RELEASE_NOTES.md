@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.4.1 (Jun 16th 2016)
+
+A bugfix release, which introduces the following changes:
+
+- The `OnPreferenceChangeListener` of a `SwitchPreference` is now invoked, when the preference`s switch is toggled.
+
 ## Version 2.4.0 (May 26th 2016)
 
 A feature release, which introduces the following changes:
