@@ -33,6 +33,7 @@ import android.widget.TextView;
 import java.util.regex.Pattern;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validators;
@@ -53,7 +54,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     /**
      * A data structure, which allows to save the internal state of a {@link ResolutionPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link ResolutionPreference}

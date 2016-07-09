@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 
@@ -44,7 +45,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     /**
      * A data structure, which allows to save the internal state of an {@link EditTextPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SavedState} from

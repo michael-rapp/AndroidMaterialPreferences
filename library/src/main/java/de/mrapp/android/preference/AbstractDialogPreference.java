@@ -41,6 +41,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
  * An abstract base class for all preferences, which will show a dialog when clicked by the user.
@@ -55,7 +56,7 @@ public abstract class AbstractDialogPreference extends Preference
      * A data structure, which allows to save the internal state of an {@link
      * AbstractDialogPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SavedState} from

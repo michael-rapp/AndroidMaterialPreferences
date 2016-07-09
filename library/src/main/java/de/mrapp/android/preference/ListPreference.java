@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
  * A preference, which allows to select a value from a list. The selected value will immediately
@@ -42,7 +43,7 @@ public class ListPreference extends AbstractListPreference {
     /**
      * A data structure, which allows to save the internal state of a {@link ListPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link ListPreference} from

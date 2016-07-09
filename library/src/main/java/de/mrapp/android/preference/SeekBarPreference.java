@@ -39,6 +39,7 @@ import java.text.NumberFormat;
 
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.SeekBar;
+import de.mrapp.android.util.view.AbstractSavedState;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureAtMaximum;
@@ -61,7 +62,7 @@ public class SeekBarPreference extends AbstractDialogPreference {
     /**
      * A data structure, which allows to save the internal state of a {@link SeekBarPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SeekBarPreference} from

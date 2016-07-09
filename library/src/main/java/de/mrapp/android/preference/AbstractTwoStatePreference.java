@@ -28,6 +28,8 @@ import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import de.mrapp.android.util.view.AbstractSavedState;
+
 /**
  * An abstract base class for all preferences, which have two selectable states, persist a boolean
  * value in SharedPreferences and may have dependent preferences, that are enabled/disabled based on
@@ -42,7 +44,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
      * A data structure, which allows to save the internal state of an {@link
      * AbstractTwoStatePreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SavedState} from

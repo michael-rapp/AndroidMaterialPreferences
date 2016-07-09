@@ -40,6 +40,7 @@ import android.widget.LinearLayout.LayoutParams;
 import java.util.Locale;
 
 import de.mrapp.android.preference.multithreading.ColorPreviewLoader;
+import de.mrapp.android.util.view.AbstractSavedState;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureNotNull;
@@ -185,7 +186,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
      * A data structure, which allows to save the internal state of an {@link
      * AbstractColorPickerPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SavedState} from

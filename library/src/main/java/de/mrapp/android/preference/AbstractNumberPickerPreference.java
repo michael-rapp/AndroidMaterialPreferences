@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import de.mrapp.android.preference.view.NumberPicker;
+import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
  * An abstract base class for all preferences, which allow to choose decimal numbers via {@link
@@ -42,7 +43,7 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
      * A data structure, which allows to save the internal state of an {@link
      * AbstractNumberPickerPreference}.
      */
-    public static class SavedState extends BaseSavedState {
+    public static class SavedState extends AbstractSavedState {
 
         /**
          * A creator, which allows to create instances of the class {@link SavedState} from
