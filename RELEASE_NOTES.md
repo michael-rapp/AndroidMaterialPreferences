@@ -1,6 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
-## Version 2.4.1 (Jun 16th 2016)
+## Version 2.4.2 (Jul. 10th 2016)
+
+A bugfix release, which fixes the following issues:
+
+- https://github.com/michael-rapp/AndroidMaterialPreferences/issues/13, respectively https://github.com/michael-rapp/AndroidMaterialPreferences/issues/2
+- Updated dependency "AndroidUtil" to version 1.8.1.
+
+## Version 2.4.1 (Jun. 16th 2016)
 
 A bugfix release, which introduces the following changes:
 
