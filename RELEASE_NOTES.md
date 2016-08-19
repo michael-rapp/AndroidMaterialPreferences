@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.5.0 (Aug. 19th 2016)
+
+A feature release, which introduces the following changes:
+
+- Replaced `setWidth`- and `setHeight`-methods of the `ResolutionPreference` with a `setResolution`-method, which allows to set both values at once. This prevents inconsistencies where only one of both values is set.
+- Updated dependency "AndroidMaterialDialog" to version 3.6.0.
+- Updated dependency "AndroidUtil" to version 1.11.0.
+
 ## Version 2.4.2 (Jul. 10th 2016)
 
 A bugfix release, which fixes the following issues:
