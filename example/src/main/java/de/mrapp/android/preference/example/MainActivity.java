@@ -28,23 +28,9 @@ import android.support.v7.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     /**
-     * The fragment, which contains the preferences.
+     * The tag, which is used to show the activity's fragment.
      */
-    private Fragment preferenceFragment;
-
-    /**
-     * Shows the preference fragment, which contains the activity's content.
-     */
-    private void showPreferenceFragment() {
-        if (preferenceFragment == null) {
-            preferenceFragment = Fragment.instantiate(this, PreferenceFragment.class.getName());
-        }
-
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.addToBackStack("preferenceBackStack");
-        transaction.replace(R.id.fragment, preferenceFragment);
-        transaction.commit();
-    }
+    private static final String FRAGMENT_TAG = MainActivity.class.getSimpleName() + "::fragmentTag";
 
     @Override
     public final void setTheme(final int resid) {
@@ -64,19 +50,15 @@ public class MainActivity extends AppCompatActivity {
     protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fragment fragment = getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
 
-        if (savedInstanceState != null) {
-            preferenceFragment =
-                    getFragmentManager().getFragment(savedInstanceState, "preferenceFragment");
+        if (fragment == null) {
+            fragment = Fragment.instantiate(this, PreferenceFragment.class.getName());
         }
 
-        showPreferenceFragment();
-    }
-
-    @Override
-    protected final void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        getFragmentManager().putFragment(outState, "preferenceFragment", preferenceFragment);
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment, fragment);
+        transaction.commit();
     }
 
 }
