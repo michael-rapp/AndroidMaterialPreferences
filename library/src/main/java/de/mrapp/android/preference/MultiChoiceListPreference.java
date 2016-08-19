@@ -488,7 +488,6 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         }
 
         dialogBuilder.setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
-        dialogBuilder.showDividersOnScroll(areDialogDividersShownOnScroll());
 
         if (getDialogItemColor() != -1) {
             dialogBuilder.setItemColor(getDialogItemColor());

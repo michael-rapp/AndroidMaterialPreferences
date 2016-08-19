@@ -263,6 +263,12 @@ public abstract class AbstractDialogPreference extends Preference
     private int dialogButtonBarDividerColor;
 
     /**
+     * True, if the dividers, which are located above and below the list view of the preference's
+     * dialog, should be shown when the list view is scrolled, false otherwise.
+     */
+    private boolean showDialogDividersOnScroll;
+
+    /**
      * Obtains all attributes from a specific attribute set.
      *
      * @param attributeSet
@@ -301,6 +307,7 @@ public abstract class AbstractDialogPreference extends Preference
             obtainDialogHeaderIcon(typedArray);
             obtainShowDialogButtonBarDivider(typedArray);
             obtainDialogButtonBarDividerColor(typedArray);
+            obtainShowDialogDividersOnScroll(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -566,6 +573,20 @@ public abstract class AbstractDialogPreference extends Preference
     }
 
     /**
+     * Obtains, whether the dividers, which are shown above and below the list view of the
+     * preference's dialog, should be shown when the list view is scrolled, or not, from a specific
+     * typed array.
+     *
+     * @param typedArray
+     *         The typed array, the boolean value should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainShowDialogDividersOnScroll(@NonNull final TypedArray typedArray) {
+        showDialogDividersOnScroll(typedArray
+                .getBoolean(R.styleable.AbstractDialogPreference_showDialogDividersOnScroll, true));
+    }
+
+    /**
      * Shows the preference's dialog.
      *
      * @param dialogState
@@ -581,6 +602,7 @@ public abstract class AbstractDialogPreference extends Preference
         dialogBuilder.setNegativeButton(getNegativeButtonText(), this);
         dialogBuilder.showHeader(isDialogHeaderShown());
         dialogBuilder.showButtonBarDivider(isDialogButtonBarDividerShown());
+        dialogBuilder.showDividersOnScroll(areDialogDividersShownOnScroll());
 
         if (dialogIconId != -1) {
             dialogBuilder.setIcon(dialogIconId);
@@ -1230,6 +1252,29 @@ public abstract class AbstractDialogPreference extends Preference
      */
     public final void setDialogButtonBarDividerColor(@ColorInt final int color) {
         this.dialogButtonBarDividerColor = color;
+    }
+
+    /**
+     * Returns, whether the dividers, which are located above and below the list view of the
+     * preference's dialog, are shown when the list view is scrolled, or not.
+     *
+     * @return True, if the dividers, which are located above and below the list view of the
+     * preference's dialog, are shown when the list view is scrolled, false otherwise
+     */
+    public final boolean areDialogDividersShownOnScroll() {
+        return showDialogDividersOnScroll;
+    }
+
+    /**
+     * Sets, whether the dividers, which are located above and below the list view of the
+     * preference's dialog, should be shown when the list view is scrolled, or not.
+     *
+     * @param show
+     *         True, if the dividers, which are located above and below the list view of the
+     *         preference's dialog, should be shown when the list view is scrolled, false otherwise
+     */
+    public final void showDialogDividersOnScroll(final boolean show) {
+        this.showDialogDividersOnScroll = show;
     }
 
     @Override

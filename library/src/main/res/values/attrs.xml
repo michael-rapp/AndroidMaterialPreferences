@@ -46,10 +46,10 @@ License.
         <attr name="dialogHeaderIcon" format="reference"/>
         <attr name="showDialogButtonBarDivider" format="boolean"/>
         <attr name="dialogButtonBarDividerColor" format="color"/>
+        <attr name="showDialogDividersOnScroll" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>
-        <attr name="showDialogDividersOnScroll" format="boolean"/>
         <attr name="android:entries"/>
         <attr name="android:entryValues"/>
     </declare-styleable>
