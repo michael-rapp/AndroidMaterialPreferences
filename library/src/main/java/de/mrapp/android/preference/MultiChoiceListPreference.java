@@ -480,6 +480,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
     @Override
     protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+        super.onPrepareDialog(dialogBuilder);
         selectedIndices = new HashSet<>(indicesOf(values));
         boolean[] checkedItems = new boolean[getEntryValues().length];
 
@@ -488,10 +489,6 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         }
 
         dialogBuilder.setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
-
-        if (getDialogItemColor() != -1) {
-            dialogBuilder.setItemColor(getDialogItemColor());
-        }
     }
 
     @Override

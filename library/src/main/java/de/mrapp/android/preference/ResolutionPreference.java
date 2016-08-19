@@ -450,8 +450,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     }
 
     @Override
-    protected final void onPrepareValidateableDialog(
-            @NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+        super.onPrepareDialog(dialogBuilder);
         View view = View.inflate(dialogBuilder.getContext(), R.layout.resolution, null);
         RelativeLayout.LayoutParams layoutParams =
                 new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,

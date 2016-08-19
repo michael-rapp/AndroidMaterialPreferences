@@ -19,11 +19,14 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.AttrRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
+
+import de.mrapp.android.dialog.MaterialDialog;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -337,6 +340,14 @@ public abstract class AbstractListPreference extends AbstractDialogPreference {
      */
     public final void setEntryValues(@ArrayRes final int resourceId) {
         setEntryValues(getContext().getResources().getTextArray(resourceId));
+    }
+
+    @CallSuper
+    @Override
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+        if (getDialogItemColor() != -1) {
+            dialogBuilder.setItemColor(getDialogItemColor());
+        }
     }
 
     @Override

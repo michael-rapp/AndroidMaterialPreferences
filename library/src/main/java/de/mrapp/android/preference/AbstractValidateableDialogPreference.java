@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -212,18 +213,6 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
                 .getBoolean(R.styleable.AbstractValidateableView_validateOnFocusLost,
                         defaultValue));
     }
-
-    /**
-     * The method, which is invoked on subclasses when the preference's dialog is about to be
-     * created. The builder, which is passed as a method parameter may be manipulated by subclasses
-     * in order to change the appearance of the dialog.
-     *
-     * @param dialogBuilder
-     *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class MaterialDialog.Builder
-     */
-    protected abstract void onPrepareValidateableDialog(
-            @NonNull final MaterialDialog.Builder dialogBuilder);
 
     /**
      * Returns the listeners, which are notified when the view, which is contained by the
@@ -483,10 +472,10 @@ public abstract class AbstractValidateableDialogPreference<ValueType>
         this.validationListeners.remove(listener);
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         dialogBuilder.addValidator(this);
-        onPrepareValidateableDialog(dialogBuilder);
     }
 
 }
