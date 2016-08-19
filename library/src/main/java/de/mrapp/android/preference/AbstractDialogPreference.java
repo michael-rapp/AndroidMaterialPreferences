@@ -80,12 +80,6 @@ public abstract class AbstractDialogPreference extends Preference
                 };
 
         /**
-         * True, if the dialog of the {@link AbstractDialogPreference}, whose state is saved by the
-         * data structure, is currently shown, false otherwise.
-         */
-        public boolean dialogShown;
-
-        /**
          * The saved state of the dialog of the {@link AbstractDialogPreference} , whose state is
          * saved by the data structure.
          */
@@ -102,7 +96,6 @@ public abstract class AbstractDialogPreference extends Preference
          */
         public SavedState(@NonNull final Parcel source) {
             super(source);
-            dialogShown = source.readInt() == 1;
             dialogState = source.readBundle(getClass().getClassLoader());
         }
 
@@ -122,7 +115,6 @@ public abstract class AbstractDialogPreference extends Preference
         @Override
         public final void writeToParcel(final Parcel destination, final int flags) {
             super.writeToParcel(destination, flags);
-            destination.writeInt(dialogShown ? 1 : 0);
             destination.writeBundle(dialogState);
         }
 
@@ -1262,7 +1254,6 @@ public abstract class AbstractDialogPreference extends Preference
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState savedState = new SavedState(superState);
-        savedState.dialogShown = isDialogShown();
 
         if (isDialogShown()) {
             savedState.dialogState = dialog.onSaveInstanceState();
@@ -1278,7 +1269,7 @@ public abstract class AbstractDialogPreference extends Preference
         if (state != null && state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
 
-            if (savedState.dialogShown) {
+            if (savedState.dialogState != null) {
                 showDialog(savedState.dialogState);
             }
 

@@ -348,7 +348,6 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
                 new AbstractDialogPreferenceImplementation(getContext());
         AbstractDialogPreference.SavedState savedState =
                 (AbstractDialogPreference.SavedState) dialogPreference.onSaveInstanceState();
-        assertEquals(savedState.dialogShown, dialogPreference.isDialogShown());
         assertNull(savedState.dialogState);
     }
 
