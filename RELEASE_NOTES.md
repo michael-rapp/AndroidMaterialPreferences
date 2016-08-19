@@ -4,6 +4,7 @@
 
 A feature release, which introduces the following changes:
 
+- The `showDialogDividersOnScroll`-method is now available for all preferences, which show a dialog.
 - Replaced `setWidth`- and `setHeight`-methods of the `ResolutionPreference` with a `setResolution`-method, which allows to set both values at once. This prevents inconsistencies where only one of both values is set.
 - Updated dependency "AndroidMaterialDialog" to version 3.6.0.
 - Updated dependency "AndroidUtil" to version 1.11.0.
