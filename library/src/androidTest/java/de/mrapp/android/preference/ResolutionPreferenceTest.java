@@ -99,52 +99,42 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
     }
 
     /**
-     * Tests the functionality of the method, which allows to set the width of the preference's
-     * resolution.
+     * Tests the functionality of the method, which allows to set the preference's resolution.
      */
-    public final void testSetWidth() {
-        int width = 2;
-        ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
-        resolutionPreference.setWidth(width);
-        assertEquals(width, resolutionPreference.getWidth());
-    }
-
-    /**
-     * Ensures, that an {@link IllegalArgumentException} is thrown by the method, which allows to
-     * set the width of the preference's resolution, if the width is less than 1.
-     */
-    public final void testSetWidthThrowsException() {
-        try {
-            ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
-            resolutionPreference.setWidth(0);
-            Assert.fail();
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-    }
-
-    /**
-     * Tests the functionality of the method, which allows to set the height of the preference's
-     * resolution.
-     */
-    public final void testSetHeight() {
+    public final void testSetResolution() {
+        int width = 1;
         int height = 2;
         ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
-        resolutionPreference.setHeight(height);
+        resolutionPreference.setResolution(width, height);
+        assertEquals(width, resolutionPreference.getWidth());
         assertEquals(height, resolutionPreference.getHeight());
     }
 
     /**
      * Ensures, that an {@link IllegalArgumentException} is thrown by the method, which allows to
-     * set the height of the preference's resolution, if the height is less than 1.
+     * set the preference's resolution, if the width is less than 1.
      */
-    public final void testSetHeightThrowsException() {
+    public final void testSetResolutionThrowsExceptionIfWidthIsLessThanOne() {
         try {
             ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
-            resolutionPreference.setHeight(0);
+            resolutionPreference.setResolution(0, 1);
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
+        }
+    }
+
+    /**
+     * Ensures, that an {@link IllegalArgumentException} is thrown by the method, which allows to
+     * set the preference's resolution, if the height is less than 1.
+     */
+    public final void testSetResolutionThrowsExceptionIfHeightIsLessThanOne() {
+        try {
+            ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
+            resolutionPreference.setResolution(1, 0);
+            Assert.fail();
+        } catch (IllegalArgumentException e) {
+
         }
     }
 
@@ -183,8 +173,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
         ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
         resolutionPreference.setUnit(unit);
         resolutionPreference.setSummary(summary);
-        resolutionPreference.setWidth(width);
-        resolutionPreference.setHeight(height);
+        resolutionPreference.setResolution(width, height);
         assertEquals(summary, resolutionPreference.getSummary());
         resolutionPreference.showValueAsSummary(true);
         assertEquals(width + " x " + height + " " + unit, resolutionPreference.getSummary());
@@ -224,7 +213,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
             ResolutionPreference.parseResolution(getContext(), "1y2");
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -237,7 +226,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
             ResolutionPreference.parseResolution(getContext(), "1x.");
             Assert.fail();
         } catch (IllegalArgumentException e) {
-            return;
+
         }
     }
 
@@ -256,8 +245,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
         int height = 3;
         ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
         resolutionPreference.setPersistent(false);
-        resolutionPreference.setWidth(width);
-        resolutionPreference.setHeight(height);
+        resolutionPreference.setResolution(width, height);
         SavedState savedState = (SavedState) resolutionPreference.onSaveInstanceState();
         assertEquals(width, savedState.width);
         assertEquals(height, savedState.height);
@@ -268,8 +256,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
      */
     public final void testOnRestoreInstanceState() {
         ResolutionPreference resolutionPreference = new ResolutionPreference(getContext());
-        resolutionPreference.setWidth(2);
-        resolutionPreference.setHeight(3);
+        resolutionPreference.setResolution(2, 3);
         resolutionPreference.setPersistent(false);
         Parcelable parcelable = resolutionPreference.onSaveInstanceState();
         ResolutionPreference restoredResolutionPreference = new ResolutionPreference(getContext());

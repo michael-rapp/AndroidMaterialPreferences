@@ -372,21 +372,6 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     }
 
     /**
-     * Sets the width of the current resolution of the preference. By setting a value, it will be
-     * persisted.
-     *
-     * @param width
-     *         The width, which should be set, as an {@link Integer} value. The width must be at
-     *         least 1
-     */
-    public final void setWidth(final int width) {
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        this.width = width;
-        persistString(formatResolution(getContext(), getWidth(), getHeight()));
-        notifyChanged();
-    }
-
-    /**
      * Returns the height of the currently persisted resolution of the preference.
      *
      * @return The height of the currently persisted resolution as an {@link Integer} value
@@ -396,17 +381,21 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     }
 
     /**
-     * Sets the height of the current resolution of the preference. By setting a value, it will be
-     * persisted.
+     * Sets the current resolution of the preference. By setting a value, it will be persisted.
      *
+     * @param width
+     *         The width, which should be set, as an {@link Integer} value. The width must be at
+     *         least 1
      * @param height
      *         The height, which should be set, as an {@link Integer} value. The height must be at
      *         least 1
      */
-    public final void setHeight(final int height) {
+    public final void setResolution(final int width, final int height) {
+        ensureAtLeast(width, 1, "The width must be at least 1");
         ensureAtLeast(height, 1, "The height must be at least 1");
+        this.width = width;
         this.height = height;
-        persistString(formatResolution(getContext(), getWidth(), getHeight()));
+        persistString(formatResolution(getContext(), width, height));
         notifyChanged();
     }
 
@@ -503,8 +492,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
             int newHeight = Integer.parseInt(heightEditText.getText().toString());
 
             if (callChangeListener(formatResolution(getContext(), newWidth, newHeight))) {
-                setWidth(newWidth);
-                setHeight(newHeight);
+                setResolution(newWidth, newHeight);
             }
         }
 
@@ -528,8 +516,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
                 getPersistedString(formatResolution(getContext(), getWidth(), getHeight())) :
                 (String) defaultValue;
         Pair<Integer, Integer> dimensions = parseResolution(getContext(), resolution);
-        setWidth(dimensions.first);
-        setHeight(dimensions.second);
+        setResolution(dimensions.first, dimensions.second);
     }
 
     @Override
@@ -550,8 +537,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     protected final void onRestoreInstanceState(final Parcelable state) {
         if (state != null && state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
-            setWidth(savedState.width);
-            setHeight(savedState.height);
+            setResolution(savedState.width, savedState.height);
             super.onRestoreInstanceState(savedState.getSuperState());
         } else {
             super.onRestoreInstanceState(state);
