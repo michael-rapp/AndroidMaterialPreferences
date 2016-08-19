@@ -22,7 +22,7 @@ android {
 dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.github.michael-rapp:android-util:1.11.0'
-    compile 'com.github.michael-rapp:android-material-dialog:3.5.0'
+    compile 'com.github.michael-rapp:android-material-dialog:3.6.0'
     compile 'com.github.michael-rapp:android-material-validation:2.0.2'
 }
 

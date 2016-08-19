@@ -20,6 +20,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -157,6 +159,16 @@ public abstract class AbstractDialogPreference extends Preference
     private Drawable dialogIcon;
 
     /**
+     * The bitmap of the icon the preference's dialog.
+     */
+    private Bitmap dialogIconBitmap;
+
+    /**
+     * The resource id of the icon of the preference's dialog.
+     */
+    private int dialogIconId = -1;
+
+    /**
      * The text of the positive button of the preference's dialog.
      */
     private CharSequence positiveButtonText;
@@ -187,6 +199,21 @@ public abstract class AbstractDialogPreference extends Preference
     private Drawable dialogBackground;
 
     /**
+     * The bitmap of the background of the preference's dialog.
+     */
+    private Bitmap dialogBackgroundBitmap;
+
+    /**
+     * The resource id of the background of the preference's dialog.
+     */
+    private int dialogBackgroundId = -1;
+
+    /**
+     * The color of the background of the preference's dialog.
+     */
+    private int dialogBackgroundColor = -1;
+
+    /**
      * True, if the currently persisted value should be shown as the summary, instead of the given
      * summaries, false otherwise.
      */
@@ -203,9 +230,34 @@ public abstract class AbstractDialogPreference extends Preference
     private Drawable dialogHeaderBackground;
 
     /**
+     * The bitmap of the background of the header of the preference's dialog.
+     */
+    private Bitmap dialogHeaderBackgroundBitmap;
+
+    /**
+     * The resource id of the background of the header of the preference's dialog.
+     */
+    private int dialogHeaderBackgroundId = -1;
+
+    /**
+     * The color of the background of the header of the preference's dialog.
+     */
+    private int dialogHeaderBackgroundColor = -1;
+
+    /**
      * The icon of the header of the preference's dialog.
      */
     private Drawable dialogHeaderIcon;
+
+    /**
+     * The bitmap of the icon of the header of the preference's dialog.
+     */
+    private Bitmap dialogHeaderIconBitmap;
+
+    /**
+     * The resource id of the icon of the header of the preference's dialog.
+     */
+    private int dialogHeaderIconId = -1;
 
     /**
      * True, if the divider, which is located above the button bar of the preference's dialog, is
@@ -217,17 +269,6 @@ public abstract class AbstractDialogPreference extends Preference
      * The color of the divider, which is located above the button bar of the preference's dialog.
      */
     private int dialogButtonBarDividerColor;
-
-    /**
-     * True, if the divider, which is located above the custom view of the preference's dialog, is
-     * shown, false otherwise.
-     */
-    private boolean showDialogContentDivider;
-
-    /**
-     * The color of the divider, which is located above the custom view of the preference's dialog.
-     */
-    private int dialogContentDividerColor;
 
     /**
      * Obtains all attributes from a specific attribute set.
@@ -414,14 +455,10 @@ public abstract class AbstractDialogPreference extends Preference
      */
     private void obtainDialogBackground(@NonNull final TypedArray typedArray) {
         int resourceId =
-                typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
+                typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogBackground, -1);
 
         if (resourceId != -1) {
-            Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
-
-            if (background != null) {
-                setDialogBackground(background);
-            }
+            setDialogBackground(resourceId);
         } else {
             int color =
                     typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
@@ -475,11 +512,7 @@ public abstract class AbstractDialogPreference extends Preference
                 .getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
 
         if (resourceId != -1) {
-            Drawable background = ContextCompat.getDrawable(getContext(), resourceId);
-
-            if (background != null) {
-                setDialogHeaderBackground(background);
-            }
+            setDialogHeaderBackground(resourceId);
         } else {
             int color = typedArray
                     .getColor(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
@@ -503,7 +536,7 @@ public abstract class AbstractDialogPreference extends Preference
                 typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderIcon, -1);
 
         if (resourceId != -1) {
-            setDialogHeaderIcon(ContextCompat.getDrawable(getContext(), resourceId));
+            setDialogHeaderIcon(resourceId);
         }
     }
 
@@ -552,13 +585,38 @@ public abstract class AbstractDialogPreference extends Preference
                 new MaterialDialog.Builder(getContext(), dialogTheme);
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setMessage(getDialogMessage());
-        dialogBuilder.setIcon(getDialogIcon());
         dialogBuilder.setPositiveButton(getPositiveButtonText(), this);
         dialogBuilder.setNegativeButton(getNegativeButtonText(), this);
-        dialogBuilder.setBackground(getDialogBackground());
         dialogBuilder.showHeader(isDialogHeaderShown());
-        dialogBuilder.setHeaderIcon(getDialogHeaderIcon());
         dialogBuilder.showButtonBarDivider(isDialogButtonBarDividerShown());
+
+        if (dialogIconId != -1) {
+            dialogBuilder.setIcon(dialogIconId);
+        } else {
+            dialogBuilder.setIcon(dialogIconBitmap);
+        }
+
+        if (dialogBackgroundId != -1) {
+            dialogBuilder.setBackground(dialogBackgroundId);
+        } else if (dialogBackgroundColor != -1) {
+            dialogBuilder.setBackgroundColor(dialogBackgroundColor);
+        } else {
+            dialogBuilder.setBackground(dialogBackgroundBitmap);
+        }
+
+        if (dialogHeaderBackgroundId != -1) {
+            dialogBuilder.setHeaderBackground(dialogHeaderBackgroundId);
+        } else if (dialogHeaderBackgroundColor != -1) {
+            dialogBuilder.setHeaderBackgroundColor(dialogHeaderBackgroundColor);
+        } else {
+            dialogBuilder.setHeaderBackground(dialogHeaderBackgroundBitmap);
+        }
+
+        if (dialogHeaderIconId != -1) {
+            dialogBuilder.setHeaderIcon(dialogHeaderIconId);
+        } else {
+            dialogBuilder.setHeaderIcon(dialogHeaderIconBitmap);
+        }
 
         if (getDialogTitleColor() != -1) {
             dialogBuilder.setTitleColor(getDialogTitleColor());
@@ -574,10 +632,6 @@ public abstract class AbstractDialogPreference extends Preference
 
         if (getDialogButtonBarDividerColor() != -1) {
             dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
-        }
-
-        if (getDialogHeaderBackground() != null) {
-            dialogBuilder.setHeaderBackground(getDialogHeaderBackground());
         }
 
         onPrepareDialog(dialogBuilder);
@@ -811,11 +865,13 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the icon of the preference's dialog.
      *
      * @param dialogIcon
-     *         The dialog, which should be set, as an instance of the class {@link Drawable} or
-     *         null, if no icon should be shown in the dialog
+     *         The dialog, which should be set, as an instance of the class {@link Bitmap} or null,
+     *         if no icon should be shown in the dialog
      */
-    public final void setDialogIcon(@Nullable final Drawable dialogIcon) {
-        this.dialogIcon = dialogIcon;
+    public final void setDialogIcon(@Nullable final Bitmap dialogIcon) {
+        this.dialogIcon = new BitmapDrawable(getContext().getResources(), dialogIcon);
+        this.dialogIconBitmap = dialogIcon;
+        this.dialogIconId = -1;
     }
 
     /**
@@ -826,7 +882,9 @@ public abstract class AbstractDialogPreference extends Preference
      *         resource id must correspond to a valid drawable resource
      */
     public final void setDialogIcon(@DrawableRes final int resourceId) {
-        dialogIcon = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogIcon = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogIconBitmap = null;
+        this.dialogIconId = resourceId;
     }
 
     /**
@@ -970,11 +1028,14 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the background of the preference's dialog.
      *
      * @param background
-     *         The background, which should be set, as an instance of the class {@link Drawable} or
+     *         The background, which should be set, as an instance of the class {@link Bitmap} or
      *         null, if no custom background should be set
      */
-    public final void setDialogBackground(@Nullable final Drawable background) {
-        this.dialogBackground = background;
+    public final void setDialogBackground(@Nullable final Bitmap background) {
+        this.dialogBackground = new BitmapDrawable(getContext().getResources(), background);
+        this.dialogBackgroundBitmap = background;
+        this.dialogBackgroundId = -1;
+        this.dialogBackgroundColor = -1;
     }
 
     /**
@@ -985,7 +1046,10 @@ public abstract class AbstractDialogPreference extends Preference
      *         The resource id must correspond to a valid drawable resource
      */
     public final void setDialogBackground(@DrawableRes final int resourceId) {
-        setDialogBackground(ContextCompat.getDrawable(getContext(), resourceId));
+        this.dialogBackground = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogBackgroundBitmap = null;
+        this.dialogBackgroundId = resourceId;
+        this.dialogBackgroundColor = -1;
     }
 
     /**
@@ -996,7 +1060,10 @@ public abstract class AbstractDialogPreference extends Preference
      *         background color should be set
      */
     public final void setDialogBackgroundColor(@ColorInt final int color) {
-        setDialogBackground(color != -1 ? new ColorDrawable(color) : null);
+        this.dialogBackground = new ColorDrawable(color);
+        this.dialogBackgroundBitmap = null;
+        this.dialogBackgroundId = -1;
+        this.dialogBackgroundColor = color;
     }
 
     /**
@@ -1053,11 +1120,14 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the background of the header of the preference's dialog.
      *
      * @param background
-     *         The background, which should be set, as an instance of the class {@link Drawable} or
+     *         The background, which should be set, as an instance of the class {@link Bitmap} or
      *         null, if no custom background should be set
      */
-    public final void setDialogHeaderBackground(@Nullable final Drawable background) {
-        this.dialogHeaderBackground = background;
+    public final void setDialogHeaderBackground(@Nullable final Bitmap background) {
+        this.dialogHeaderBackground = new BitmapDrawable(getContext().getResources(), background);
+        this.dialogHeaderBackgroundBitmap = background;
+        this.dialogHeaderBackgroundId = -1;
+        this.dialogHeaderBackgroundColor = -1;
     }
 
     /**
@@ -1068,7 +1138,10 @@ public abstract class AbstractDialogPreference extends Preference
      *         The resource id must correspond to a valid drawable resource
      */
     public final void setDialogHeaderBackground(@DrawableRes final int resourceId) {
-        setDialogHeaderBackground(ContextCompat.getDrawable(getContext(), resourceId));
+        this.dialogHeaderBackground = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogHeaderBackgroundBitmap = null;
+        this.dialogHeaderBackgroundId = resourceId;
+        this.dialogHeaderBackgroundColor = -1;
     }
 
     /**
@@ -1079,7 +1152,10 @@ public abstract class AbstractDialogPreference extends Preference
      *         should be set
      */
     public final void setDialogHeaderBackgroundColor(@ColorInt final int color) {
-        setDialogHeaderBackground(color != -1 ? new ColorDrawable(color) : null);
+        this.dialogHeaderBackground = new ColorDrawable(color);
+        this.dialogHeaderBackgroundBitmap = null;
+        this.dialogHeaderBackgroundId = -1;
+        this.dialogHeaderBackgroundColor = color;
     }
 
     /**
@@ -1096,11 +1172,13 @@ public abstract class AbstractDialogPreference extends Preference
      * Sets the icon of the header of the preference's dialog.
      *
      * @param icon
-     *         The icon, which should be set, as an instance of the class {@link Drawable} or null,
-     *         if no icon should be set
+     *         The icon, which should be set, as an instance of the class {@link Bitmap} or null, if
+     *         no icon should be set
      */
-    public final void setDialogHeaderIcon(@Nullable final Drawable icon) {
-        this.dialogHeaderIcon = icon;
+    public final void setDialogHeaderIcon(@Nullable final Bitmap icon) {
+        this.dialogHeaderIcon = new BitmapDrawable(getContext().getResources(), icon);
+        this.dialogHeaderIconBitmap = icon;
+        this.dialogHeaderIconId = -1;
     }
 
     /**
@@ -1111,7 +1189,9 @@ public abstract class AbstractDialogPreference extends Preference
      *         resource id must correspond to a valid drawable resource
      */
     public final void setDialogHeaderIcon(@DrawableRes final int resourceId) {
-        setDialogHeaderIcon(ContextCompat.getDrawable(getContext(), resourceId));
+        this.dialogHeaderIcon = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogHeaderIconBitmap = null;
+        this.dialogHeaderIconId = resourceId;
     }
 
     /**

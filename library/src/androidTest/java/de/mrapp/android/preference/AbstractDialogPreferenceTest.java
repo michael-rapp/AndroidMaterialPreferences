@@ -14,9 +14,10 @@
 package de.mrapp.android.preference;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcelable;
 import android.test.AndroidTestCase;
@@ -157,14 +158,15 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
 
     /**
      * Tests the functionality of the method, which allows to set the icon of the preference's
-     * dialog and expects an instance of the class {@link Drawable} as a parameter.
+     * dialog and expects an instance of the class {@link Bitmap} as a parameter.
      */
-    public final void testSetDialogIconWithDrawableParameter() {
-        Drawable icon = new ColorDrawable(Color.BLACK);
+    public final void testSetDialogIconWithBitmapParameter() {
+        Bitmap icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         AbstractDialogPreference dialogPreference =
                 new AbstractDialogPreferenceImplementation(getContext());
         dialogPreference.setDialogIcon(icon);
-        assertEquals(icon, dialogPreference.getDialogIcon());
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) dialogPreference.getDialogIcon();
+        assertEquals(icon, bitmapDrawable.getBitmap());
     }
 
     /**
@@ -244,11 +246,12 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      * dialog.
      */
     public final void testSetDialogBackground() {
-        Drawable background = new ColorDrawable(Color.BLACK);
+        Bitmap background = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
         AbstractDialogPreference dialogPreference =
                 new AbstractDialogPreferenceImplementation(getContext());
         dialogPreference.setDialogBackground(background);
-        assertEquals(background, dialogPreference.getDialogBackground());
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) dialogPreference.getDialogBackground();
+        assertEquals(background, bitmapDrawable.getBitmap());
     }
 
     /**
