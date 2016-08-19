@@ -246,7 +246,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         editTextPreference.addValidator(
                 Validators.notEmpty(getActivity(), R.string.not_empty_validator_error_message));
         editTextPreference.showValueAsSummary(showValueAsSummary);
-        editTextPreference.showDialogHeader(true);
+        editTextPreference.showDialogHeader(showDialogHeader);
         editTextPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         listPreference = (ListPreference) findPreference(getString(R.string.list_preference_key));
         listPreference.showValueAsSummary(showValueAsSummary);
