@@ -138,7 +138,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.ColorPalettePreference);
+                .obtainStyledAttributes(attributeSet, R.styleable.ColorPalettePreference,
+                        defaultStyle, defaultStyleResource);
 
         try {
             obtainColorPalette(typedArray);
