@@ -784,6 +784,7 @@ public abstract class AbstractDialogPreference extends Preference
      * @return The dialog, which is shown by the preference, as an instance of the class {@link
      * Dialog} or null, if the dialog is currently not shown
      */
+    @Nullable
     public final Dialog getDialog() {
         if (isDialogShown()) {
             return dialog;
