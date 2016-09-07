@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.5.2 (Sep. 7th 2016)
+
+A bugfix release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialValidation" to version 2.0.3. This fixes a crash when showing an `EditTextPreference`'s dialog on devices with API level less than 16. 
+
 ## Version 2.5.1 (Aug. 19th 2016)
 
 A minor release, which introduces the following changes:
