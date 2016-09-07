@@ -838,6 +838,7 @@ public abstract class AbstractColorPickerPreference extends AbstractDialogPrefer
         return typedArray.getInt(index, 0);
     }
 
+    @SuppressWarnings("ResourceAsColor")
     @Override
     protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
         setColor(restoreValue ? getPersistedInt(getColor()) : (Integer) defaultValue);
