@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.AttrRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -428,6 +429,7 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
         setNumber(restoreValue ? getPersistedInt(getNumber()) : (Integer) defaultValue);
     }
 
+    @CallSuper
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -441,6 +443,7 @@ public abstract class AbstractNumberPickerPreference extends AbstractDialogPrefe
         return superState;
     }
 
+    @CallSuper
     @Override
     protected void onRestoreInstanceState(final Parcelable state) {
         if (state != null && state instanceof SavedState) {

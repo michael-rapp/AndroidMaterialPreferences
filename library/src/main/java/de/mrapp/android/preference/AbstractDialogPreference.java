@@ -30,6 +30,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -1278,13 +1279,15 @@ public abstract class AbstractDialogPreference extends Preference
         this.showDialogDividersOnScroll = show;
     }
 
+    @CallSuper
     @Override
-    public final void onClick(final DialogInterface dialog, final int which) {
+    public void onClick(final DialogInterface dialog, final int which) {
         dialogResultPositive = (which == Dialog.BUTTON_POSITIVE);
     }
 
+    @CallSuper
     @Override
-    public final void onDismiss(final DialogInterface dialog) {
+    public void onDismiss(final DialogInterface dialog) {
         this.dialog = null;
         onDialogClosed(dialogResultPositive);
     }
@@ -1296,6 +1299,7 @@ public abstract class AbstractDialogPreference extends Preference
         }
     }
 
+    @CallSuper
     @Override
     protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -1310,6 +1314,7 @@ public abstract class AbstractDialogPreference extends Preference
         return savedState;
     }
 
+    @CallSuper
     @Override
     protected void onRestoreInstanceState(final Parcelable state) {
         if (state != null && state instanceof SavedState) {
