@@ -38,7 +38,7 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.1.0
  */
-public abstract class AbstractNumberPickerPreference extends AbstractDialogPreference {
+public abstract class AbstractNumberPickerPreference extends DialogPreference {
 
     /**
      * A data structure, which allows to save the internal state of an {@link

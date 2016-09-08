@@ -27,11 +27,11 @@ import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 
 /**
- * Tests the functionality of the class {@link AbstractDialogPreference}.
+ * Tests the functionality of the class {@link DialogPreference}.
  *
  * @author Michael Rapp
  */
-public class AbstractDialogPreferenceTest extends AndroidTestCase {
+public class DialogPreferenceTest extends AndroidTestCase {
 
     /**
      * Tests, if all properties are set correctly by the constructor, which expects a context as a
@@ -39,8 +39,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testConstructorWithContextParameter() {
         Context context = getContext();
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(context);
+        DialogPreference dialogPreference = new DialogPreference(context);
         assertNull(dialogPreference.getDialogTitle());
         assertNull(dialogPreference.getDialogIcon());
         assertNull(dialogPreference.getDialogMessage());
@@ -60,10 +59,9 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
     public final void testConstructorWithContextAndAttributeSetParameters() {
         Context context = getContext();
         XmlPullParser xmlPullParser =
-                context.getResources().getXml(R.xml.abstract_dialog_preference);
+                context.getResources().getXml(R.xml.dialog_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(context, attributeSet);
+        DialogPreference dialogPreference = new DialogPreference(context, attributeSet);
         assertNull(dialogPreference.getDialogTitle());
         assertNull(dialogPreference.getDialogIcon());
         assertNull(dialogPreference.getDialogMessage());
@@ -84,10 +82,10 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
         Context context = getContext();
         int defaultStyle = 0;
         XmlPullParser xmlPullParser =
-                context.getResources().getXml(R.xml.abstract_dialog_preference);
+                context.getResources().getXml(R.xml.dialog_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(context, attributeSet, defaultStyle);
+        DialogPreference dialogPreference =
+                new DialogPreference(context, attributeSet, defaultStyle);
         assertNull(dialogPreference.getDialogTitle());
         assertNull(dialogPreference.getDialogIcon());
         assertNull(dialogPreference.getDialogMessage());
@@ -112,10 +110,10 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
             int defaultStyle = 0;
             int defaultStyleAttribute = 0;
             XmlPullParser xmlPullParser =
-                    context.getResources().getXml(R.xml.abstract_dialog_preference);
+                    context.getResources().getXml(R.xml.dialog_preference);
             AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
-            AbstractDialogPreference dialogPreference =
-                    new AbstractDialogPreferenceImplementation(context, attributeSet, defaultStyle,
+            DialogPreference dialogPreference =
+                    new DialogPreference(context, attributeSet, defaultStyle,
                             defaultStyleAttribute);
             assertNull(dialogPreference.getDialogTitle());
             assertNull(dialogPreference.getDialogIcon());
@@ -138,8 +136,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogTitleWithCharSequenceParameter() {
         CharSequence title = "title";
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogTitle(title);
         assertEquals(title, dialogPreference.getDialogTitle());
     }
@@ -150,8 +147,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogTitleWithResourceIdParameter() {
         int resourceId = android.R.string.ok;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogTitle(resourceId);
         assertEquals(getContext().getText(resourceId), dialogPreference.getDialogTitle());
     }
@@ -162,8 +158,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogIconWithBitmapParameter() {
         Bitmap icon = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogIcon(icon);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) dialogPreference.getDialogIcon();
         assertEquals(icon, bitmapDrawable.getBitmap());
@@ -175,8 +170,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogIconWithResourceIdParameter() {
         int resourceId = android.R.drawable.ic_dialog_alert;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogIcon(resourceId);
         assertNotNull(dialogPreference.getDialogIcon());
     }
@@ -187,8 +181,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogMessageWithCharSequenceParameter() {
         CharSequence message = "message";
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogMessage(message);
         assertEquals(message, dialogPreference.getDialogMessage());
     }
@@ -199,8 +192,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogMessageWithResourceIdParameter() {
         int resourceId = android.R.string.ok;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogMessage(resourceId);
         assertEquals(getContext().getText(resourceId), dialogPreference.getDialogMessage());
     }
@@ -211,8 +203,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogTitleColor() {
         int color = Color.BLACK;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogTitleColor(color);
         assertEquals(color, dialogPreference.getDialogTitleColor());
     }
@@ -223,8 +214,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogMessageColor() {
         int color = Color.BLACK;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogMessageColor(color);
         assertEquals(color, dialogPreference.getDialogMessageColor());
     }
@@ -235,8 +225,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogButtonTextColor() {
         int color = Color.BLACK;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogButtonTextColor(color);
         assertEquals(color, dialogPreference.getDialogButtonTextColor());
     }
@@ -247,8 +236,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogBackground() {
         Bitmap background = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogBackground(background);
         BitmapDrawable bitmapDrawable = (BitmapDrawable) dialogPreference.getDialogBackground();
         assertEquals(background, bitmapDrawable.getBitmap());
@@ -259,8 +247,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      * dialog, and expects a resource id as a parameter.
      */
     public final void testSetDialogBackgroundWithResourceIdParameter() {
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogBackground(android.R.drawable.ic_dialog_info);
         assertNotNull(dialogPreference.getDialogBackground());
     }
@@ -271,8 +258,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetDialogBackgroundColor() {
         int color = Color.BLACK;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setDialogBackgroundColor(color);
         ColorDrawable background = (ColorDrawable) dialogPreference.getDialogBackground();
         assertEquals(color, background.getColor());
@@ -285,8 +271,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetNegativeButtonWithCharSequenceParameter() {
         CharSequence buttonText = "buttonText";
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setNegativeButtonText(buttonText);
         assertEquals(buttonText, dialogPreference.getNegativeButtonText());
     }
@@ -297,8 +282,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetNegativeButtonWithResourceIdParameter() {
         int resourceId = android.R.string.cancel;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setNegativeButtonText(resourceId);
         assertEquals(getContext().getText(resourceId), dialogPreference.getNegativeButtonText());
     }
@@ -310,8 +294,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetPositiveButtonWithCharSequenceParameter() {
         CharSequence buttonText = "buttonText";
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setPositiveButtonText(buttonText);
         assertEquals(buttonText, dialogPreference.getPositiveButtonText());
     }
@@ -322,8 +305,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testSetPositiveButtonWithResourceIdParameter() {
         int resourceId = android.R.string.ok;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.setPositiveButtonText(resourceId);
         assertEquals(getContext().getText(resourceId), dialogPreference.getPositiveButtonText());
     }
@@ -334,8 +316,7 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      */
     public final void testShowValueAsSummary() {
         boolean showValueAsSummary = true;
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         dialogPreference.showValueAsSummary(showValueAsSummary);
         assertEquals(showValueAsSummary, dialogPreference.isValueShownAsSummary());
     }
@@ -344,10 +325,9 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      * Tests the functionality of the onSaveInstanceState-method.
      */
     public final void testOnSaveInstanceState() {
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
-        AbstractDialogPreference.SavedState savedState =
-                (AbstractDialogPreference.SavedState) dialogPreference.onSaveInstanceState();
+        DialogPreference dialogPreference = new DialogPreference(getContext());
+        DialogPreference.SavedState savedState =
+                (DialogPreference.SavedState) dialogPreference.onSaveInstanceState();
         assertNull(savedState.dialogState);
     }
 
@@ -355,11 +335,9 @@ public class AbstractDialogPreferenceTest extends AndroidTestCase {
      * Tests the functionality of the onRestoreInstanceState-method.
      */
     public final void testOnRestoreInstanceState() {
-        AbstractDialogPreference dialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference dialogPreference = new DialogPreference(getContext());
         Parcelable parcelable = dialogPreference.onSaveInstanceState();
-        AbstractDialogPreference restoredDialogPreference =
-                new AbstractDialogPreferenceImplementation(getContext());
+        DialogPreference restoredDialogPreference = new DialogPreference(getContext());
         restoredDialogPreference.onRestoreInstanceState(parcelable);
         assertEquals(dialogPreference.isDialogShown(), restoredDialogPreference.isDialogShown());
     }

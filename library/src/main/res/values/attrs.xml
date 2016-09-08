@@ -29,7 +29,7 @@ License.
     </declare-styleable>
 
     <!-- Preferences -->
-    <declare-styleable name="AbstractDialogPreference">
+    <declare-styleable name="DialogPreference">
         <attr name="android:dialogTitle"/>
         <attr name="android:dialogMessage"/>
         <attr name="android:dialogIcon"/>

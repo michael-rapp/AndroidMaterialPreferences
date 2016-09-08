@@ -57,7 +57,7 @@ import static de.mrapp.android.util.Condition.ensureSmaller;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public class SeekBarPreference extends AbstractDialogPreference {
+public class SeekBarPreference extends DialogPreference {
 
     /**
      * A data structure, which allows to save the internal state of a {@link SeekBarPreference}.

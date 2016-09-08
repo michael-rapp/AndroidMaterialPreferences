@@ -52,12 +52,10 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public abstract class AbstractDialogPreference extends Preference
-        implements OnClickListener, OnDismissListener {
+public class DialogPreference extends Preference implements OnClickListener, OnDismissListener {
 
     /**
-     * A data structure, which allows to save the internal state of an {@link
-     * AbstractDialogPreference}.
+     * A data structure, which allows to save the internal state of an {@link DialogPreference}.
      */
     public static class SavedState extends AbstractSavedState {
 
@@ -81,15 +79,15 @@ public abstract class AbstractDialogPreference extends Preference
                 };
 
         /**
-         * The saved state of the dialog of the {@link AbstractDialogPreference} , whose state is
-         * saved by the data structure.
+         * The saved state of the dialog of the {@link DialogPreference} , whose state is saved by
+         * the data structure.
          */
         public Bundle dialogState;
 
         /**
          * Creates a new data structure, which allows to store the internal state of an {@link
-         * AbstractDialogPreference}. This constructor is used when reading from a parcel. It reads
-         * the state of the superclass.
+         * DialogPreference}. This constructor is used when reading from a parcel. It reads the
+         * state of the superclass.
          *
          * @param source
          *         The parcel to read read from as a instance of the class {@link Parcel}. The
@@ -102,8 +100,8 @@ public abstract class AbstractDialogPreference extends Preference
 
         /**
          * Creates a new data structure, which allows to store the internal state of an {@link
-         * AbstractDialogPreference}. This constructor is called by derived classes when saving
-         * their states.
+         * DialogPreference}. This constructor is called by derived classes when saving their
+         * states.
          *
          * @param superState
          *         The state of the superclass of this view, as an instance of the type {@link
@@ -288,8 +286,8 @@ public abstract class AbstractDialogPreference extends Preference
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.AbstractDialogPreference,
-                        defaultStyle, defaultStyleResource);
+                .obtainStyledAttributes(attributeSet, R.styleable.DialogPreference, defaultStyle,
+                        defaultStyleResource);
 
         try {
             obtainDialogTheme(typedArray);
@@ -323,8 +321,7 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogTheme(@NonNull final TypedArray typedArray) {
-        int themeId = typedArray
-                .getResourceId(R.styleable.AbstractDialogPreference_dialogThemeResource, 0);
+        int themeId = typedArray.getResourceId(R.styleable.DialogPreference_dialogThemeResource, 0);
 
         if (themeId == 0) {
             TypedValue typedValue = new TypedValue();
@@ -345,8 +342,7 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogTitle(@NonNull final TypedArray typedArray) {
-        CharSequence title =
-                typedArray.getText(R.styleable.AbstractDialogPreference_android_dialogTitle);
+        CharSequence title = typedArray.getText(R.styleable.DialogPreference_android_dialogTitle);
         setDialogTitle(title != null ? title : getTitle());
     }
 
@@ -359,8 +355,7 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogMessage(@NonNull final TypedArray typedArray) {
-        setDialogMessage(
-                typedArray.getText(R.styleable.AbstractDialogPreference_android_dialogMessage));
+        setDialogMessage(typedArray.getText(R.styleable.DialogPreference_android_dialogMessage));
     }
 
     /**
@@ -372,8 +367,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         TypedArray}. The typed array may not be null
      */
     private void obtainDialogIcon(@NonNull final TypedArray typedArray) {
-        int resourceId = typedArray
-                .getResourceId(R.styleable.AbstractDialogPreference_android_dialogIcon, -1);
+        int resourceId =
+                typedArray.getResourceId(R.styleable.DialogPreference_android_dialogIcon, -1);
 
         if (resourceId != -1) {
             setDialogIcon(resourceId);
@@ -389,8 +384,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         the class {@link TypedArray}. The typed array may not be null
      */
     private void obtainPositiveButtonText(@NonNull final TypedArray typedArray) {
-        setPositiveButtonText(typedArray
-                .getText(R.styleable.AbstractDialogPreference_android_positiveButtonText));
+        setPositiveButtonText(
+                typedArray.getText(R.styleable.DialogPreference_android_positiveButtonText));
     }
 
     /**
@@ -402,8 +397,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         the class {@link TypedArray}. The typed array may not be null
      */
     private void obtainNegativeButtonText(@NonNull final TypedArray typedArray) {
-        setNegativeButtonText(typedArray
-                .getText(R.styleable.AbstractDialogPreference_android_negativeButtonText));
+        setNegativeButtonText(
+                typedArray.getText(R.styleable.DialogPreference_android_negativeButtonText));
     }
 
     /**
@@ -415,8 +410,7 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogTitleColor(@NonNull final TypedArray typedArray) {
-        setDialogTitleColor(
-                typedArray.getColor(R.styleable.AbstractDialogPreference_dialogTitleColor, -1));
+        setDialogTitleColor(typedArray.getColor(R.styleable.DialogPreference_dialogTitleColor, -1));
     }
 
     /**
@@ -429,7 +423,7 @@ public abstract class AbstractDialogPreference extends Preference
      */
     private void obtainDialogMessageColor(@NonNull final TypedArray typedArray) {
         setDialogMessageColor(
-                typedArray.getColor(R.styleable.AbstractDialogPreference_dialogMessageColor, -1));
+                typedArray.getColor(R.styleable.DialogPreference_dialogMessageColor, -1));
     }
 
     /**
@@ -441,8 +435,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         class {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogButtonTextColor(@NonNull final TypedArray typedArray) {
-        setDialogButtonTextColor(typedArray
-                .getColor(R.styleable.AbstractDialogPreference_dialogButtonTextColor, -1));
+        setDialogButtonTextColor(
+                typedArray.getColor(R.styleable.DialogPreference_dialogButtonTextColor, -1));
     }
 
     /**
@@ -455,13 +449,12 @@ public abstract class AbstractDialogPreference extends Preference
      */
     private void obtainDialogBackground(@NonNull final TypedArray typedArray) {
         int resourceId =
-                typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogBackground, -1);
+                typedArray.getResourceId(R.styleable.DialogPreference_dialogBackground, -1);
 
         if (resourceId != -1) {
             setDialogBackground(resourceId);
         } else {
-            int color =
-                    typedArray.getColor(R.styleable.AbstractDialogPreference_dialogBackground, -1);
+            int color = typedArray.getColor(R.styleable.DialogPreference_dialogBackground, -1);
 
             if (color != -1) {
                 setDialogBackgroundColor(color);
@@ -481,7 +474,7 @@ public abstract class AbstractDialogPreference extends Preference
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.dialog_preference_default_show_value_as_summary);
         showValueAsSummary(typedArray
-                .getBoolean(R.styleable.AbstractDialogPreference_showValueAsSummary, defaultValue));
+                .getBoolean(R.styleable.DialogPreference_showValueAsSummary, defaultValue));
     }
 
     /**
@@ -495,8 +488,8 @@ public abstract class AbstractDialogPreference extends Preference
     private void obtainShowDialogHeader(@NonNull final TypedArray typedArray) {
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.dialog_preference_default_show_dialog_header);
-        showDialogHeader(typedArray
-                .getBoolean(R.styleable.AbstractDialogPreference_showDialogHeader, defaultValue));
+        showDialogHeader(
+                typedArray.getBoolean(R.styleable.DialogPreference_showDialogHeader, defaultValue));
     }
 
     /**
@@ -508,14 +501,14 @@ public abstract class AbstractDialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogHeaderBackground(@NonNull final TypedArray typedArray) {
-        int resourceId = typedArray
-                .getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+        int resourceId =
+                typedArray.getResourceId(R.styleable.DialogPreference_dialogHeaderBackground, -1);
 
         if (resourceId != -1) {
             setDialogHeaderBackground(resourceId);
         } else {
-            int color = typedArray
-                    .getColor(R.styleable.AbstractDialogPreference_dialogHeaderBackground, -1);
+            int color =
+                    typedArray.getColor(R.styleable.DialogPreference_dialogHeaderBackground, -1);
 
             if (color != -1) {
                 setDialogHeaderBackgroundColor(color);
@@ -533,7 +526,7 @@ public abstract class AbstractDialogPreference extends Preference
      */
     private void obtainDialogHeaderIcon(@NonNull final TypedArray typedArray) {
         int resourceId =
-                typedArray.getResourceId(R.styleable.AbstractDialogPreference_dialogHeaderIcon, -1);
+                typedArray.getResourceId(R.styleable.DialogPreference_dialogHeaderIcon, -1);
 
         if (resourceId != -1) {
             setDialogHeaderIcon(resourceId);
@@ -553,8 +546,7 @@ public abstract class AbstractDialogPreference extends Preference
         boolean defaultValue = getContext().getResources()
                 .getBoolean(R.bool.dialog_preference_default_show_dialog_button_bar_divider);
         showDialogButtonBarDivider(typedArray
-                .getBoolean(R.styleable.AbstractDialogPreference_showDialogButtonBarDivider,
-                        defaultValue));
+                .getBoolean(R.styleable.DialogPreference_showDialogButtonBarDivider, defaultValue));
     }
 
     /**
@@ -569,8 +561,7 @@ public abstract class AbstractDialogPreference extends Preference
         int defaultValue =
                 ContextCompat.getColor(getContext(), R.color.button_bar_divider_color_light);
         setDialogButtonBarDividerColor(typedArray
-                .getColor(R.styleable.AbstractDialogPreference_dialogButtonBarDividerColor,
-                        defaultValue));
+                .getColor(R.styleable.DialogPreference_dialogButtonBarDividerColor, defaultValue));
     }
 
     /**
@@ -584,7 +575,7 @@ public abstract class AbstractDialogPreference extends Preference
      */
     private void obtainShowDialogDividersOnScroll(@NonNull final TypedArray typedArray) {
         showDialogDividersOnScroll(typedArray
-                .getBoolean(R.styleable.AbstractDialogPreference_showDialogDividersOnScroll, true));
+                .getBoolean(R.styleable.DialogPreference_showDialogDividersOnScroll, true));
     }
 
     /**
@@ -674,45 +665,13 @@ public abstract class AbstractDialogPreference extends Preference
     }
 
     /**
-     * The method, which is invoked on subclasses to determine, whether the soft input mode should
-     * be requested when the preference's dialog becomes shown, or not.
-     *
-     * @return True, if the soft input mode should be requested when the preference's dialog becomes
-     * shown, false otherwise
-     */
-    protected abstract boolean needInputMethod();
-
-    /**
-     * The method, which is invoked on subclasses when the preference's dialog is about to be
-     * created. The builder, which is passed as a method parameter may be manipulated by subclasses
-     * in order to change the appearance of the dialog. When views are inflated inside this method,
-     * the context of the builder should be used in order to ensure that the dialog's theme is
-     * used.
-     *
-     * @param dialogBuilder
-     *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class MaterialDialog.Builder
-     */
-    protected abstract void onPrepareDialog(@NonNull MaterialDialog.Builder dialogBuilder);
-
-    /**
-     * The method, which is invoked on subclasses when the preference's dialog has been closed. This
-     * method may be used within subclasses to evaluate the changes, which have been made while the
-     * dialog was shown.
-     *
-     * @param positiveResult
-     *         True, if the dialog has been close affirmatively, false otherwise
-     */
-    protected abstract void onDialogClosed(final boolean positiveResult);
-
-    /**
      * Creates a new preference, which will show a dialog when clicked by the user.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
      *         {@link Context}. The context may not be null
      */
-    public AbstractDialogPreference(@NonNull final Context context) {
+    public DialogPreference(@NonNull final Context context) {
         this(context, null);
     }
 
@@ -726,8 +685,8 @@ public abstract class AbstractDialogPreference extends Preference
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
      *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public AbstractDialogPreference(@NonNull final Context context,
-                                    @Nullable final AttributeSet attributeSet) {
+    public DialogPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet) {
         this(context, attributeSet, android.R.attr.dialogPreferenceStyle);
     }
 
@@ -745,9 +704,9 @@ public abstract class AbstractDialogPreference extends Preference
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public AbstractDialogPreference(@NonNull final Context context,
-                                    @Nullable final AttributeSet attributeSet,
-                                    @AttrRes final int defaultStyle) {
+    public DialogPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         obtainStyledAttributes(attributeSet, defaultStyle, 0);
     }
@@ -771,12 +730,50 @@ public abstract class AbstractDialogPreference extends Preference
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public AbstractDialogPreference(@NonNull final Context context,
-                                    @Nullable final AttributeSet attributeSet,
-                                    @AttrRes final int defaultStyle,
-                                    @StyleRes final int defaultStyleResource) {
+    public DialogPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
+    }
+
+    /**
+     * The method, which is invoked on subclasses to determine, whether the soft input mode should
+     * be requested when the preference's dialog becomes shown, or not.
+     *
+     * @return True, if the soft input mode should be requested when the preference's dialog becomes
+     * shown, false otherwise
+     */
+    protected boolean needInputMethod() {
+        return false;
+    }
+
+    /**
+     * The method, which is invoked on subclasses when the preference's dialog is about to be
+     * created. The builder, which is passed as a method parameter may be manipulated by subclasses
+     * in order to change the appearance of the dialog. When views are inflated inside this method,
+     * the context of the builder should be used in order to ensure that the dialog's theme is
+     * used.
+     *
+     * @param dialogBuilder
+     *         The builder, which is used to create the preference's dialog, as an instance of the
+     *         class MaterialDialog.Builder
+     */
+    protected void onPrepareDialog(@NonNull MaterialDialog.Builder dialogBuilder) {
+
+    }
+
+    /**
+     * The method, which is invoked on subclasses when the preference's dialog has been closed. This
+     * method may be used within subclasses to evaluate the changes, which have been made while the
+     * dialog was shown.
+     *
+     * @param positiveResult
+     *         True, if the dialog has been close affirmatively, false otherwise
+     */
+    protected void onDialogClosed(final boolean positiveResult) {
+
     }
 
     /**

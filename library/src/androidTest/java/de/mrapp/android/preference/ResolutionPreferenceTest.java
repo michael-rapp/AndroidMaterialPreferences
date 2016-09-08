@@ -67,8 +67,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
     public final void testConstructorWithContextAttributeSetAndDefaultStyleParameters() {
         Context context = getContext();
         int defaultStyle = 0;
-        XmlPullParser xmlPullParser =
-                context.getResources().getXml(R.xml.abstract_dialog_preference);
+        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.resolution_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
         ResolutionPreference resolutionPreference =
                 new ResolutionPreference(context, attributeSet, defaultStyle);
@@ -87,7 +86,7 @@ public class ResolutionPreferenceTest extends AndroidTestCase {
             int defaultStyle = 0;
             int defaultStyleAttribute = 0;
             XmlPullParser xmlPullParser =
-                    context.getResources().getXml(R.xml.abstract_dialog_preference);
+                    context.getResources().getXml(R.xml.resolution_preference);
             AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
             ResolutionPreference resolutionPreference =
                     new ResolutionPreference(context, attributeSet, defaultStyle,

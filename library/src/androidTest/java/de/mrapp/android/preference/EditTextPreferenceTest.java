@@ -64,8 +64,7 @@ public class EditTextPreferenceTest extends AndroidTestCase {
     public final void testConstructorWithContextAttributeSetAndDefaultStyleParameters() {
         Context context = getContext();
         int defaultStyle = 0;
-        XmlPullParser xmlPullParser =
-                context.getResources().getXml(R.xml.abstract_dialog_preference);
+        XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text_preference);
         AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
         EditTextPreference editTextPreference =
                 new EditTextPreference(context, attributeSet, defaultStyle);
@@ -83,8 +82,7 @@ public class EditTextPreferenceTest extends AndroidTestCase {
             Context context = getContext();
             int defaultStyle = 0;
             int defaultStyleAttribute = 0;
-            XmlPullParser xmlPullParser =
-                    context.getResources().getXml(R.xml.abstract_dialog_preference);
+            XmlPullParser xmlPullParser = context.getResources().getXml(R.xml.edit_text_preference);
             AttributeSet attributeSet = Xml.asAttributeSet(xmlPullParser);
             EditTextPreference editTextPreference =
                     new EditTextPreference(context, attributeSet, defaultStyle,

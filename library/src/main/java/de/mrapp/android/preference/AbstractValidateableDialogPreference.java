@@ -48,8 +48,8 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.2.0
  */
-public abstract class AbstractValidateableDialogPreference<ValueType>
-        extends AbstractDialogPreference implements DialogValidator, Validateable<ValueType> {
+public abstract class AbstractValidateableDialogPreference<ValueType> extends DialogPreference
+        implements DialogValidator, Validateable<ValueType> {
 
     /**
      * A set, which contains the validators, which are used to validate the view, which is contained

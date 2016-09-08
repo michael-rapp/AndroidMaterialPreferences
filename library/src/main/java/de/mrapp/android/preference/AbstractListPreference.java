@@ -36,7 +36,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.7.0
  */
-public abstract class AbstractListPreference extends AbstractDialogPreference {
+public abstract class AbstractListPreference extends DialogPreference {
 
     /**
      * The color of the items of the preference's dialog.

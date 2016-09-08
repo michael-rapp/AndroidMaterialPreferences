@@ -51,7 +51,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.4.0
  */
-public abstract class AbstractColorPickerPreference extends AbstractDialogPreference {
+public abstract class AbstractColorPickerPreference extends DialogPreference {
 
     /**
      * The formats, which are supported to print textual representations of colors.
