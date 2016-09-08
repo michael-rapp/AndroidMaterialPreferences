@@ -17,8 +17,11 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.DialogInterface.OnKeyListener;
+import android.content.DialogInterface.OnShowListener;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -40,6 +43,7 @@ import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -52,7 +56,9 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public class DialogPreference extends Preference implements OnClickListener, OnDismissListener {
+public class DialogPreference extends Preference
+        implements OnClickListener, OnShowListener, OnDismissListener, OnCancelListener,
+        OnKeyListener {
 
     /**
      * A data structure, which allows to save the internal state of an {@link DialogPreference}.
@@ -266,6 +272,31 @@ public class DialogPreference extends Preference implements OnClickListener, OnD
      * dialog, should be shown when the list view is scrolled, false otherwise.
      */
     private boolean showDialogDividersOnScroll;
+
+    /**
+     * The listener, which is notified, when a button of the preference's dialog has been clicked.
+     */
+    private OnClickListener onClickListener;
+
+    /**
+     * The listener, which is notified, when the preference's dialog has been shown.
+     */
+    private OnShowListener onShowListener;
+
+    /**
+     * The listener, which is notified, when the preference's dialog has been dismissed.
+     */
+    private OnDismissListener onDismissListener;
+
+    /**
+     * The listener, which is notified, when the preference's dialog has been canceled.
+     */
+    private OnCancelListener onCancelListener;
+
+    /**
+     * The listener, which is notified, when a key has been dispatched to the preference's dialog.
+     */
+    private OnKeyListener onKeyListener;
 
     /**
      * Obtains all attributes from a specific attribute set.
@@ -643,7 +674,10 @@ public class DialogPreference extends Preference implements OnClickListener, OnD
         onPrepareDialog(dialogBuilder);
 
         dialog = dialogBuilder.create();
+        dialog.setOnShowListener(this);
         dialog.setOnDismissListener(this);
+        dialog.setOnCancelListener(this);
+        dialog.setOnKeyListener(this);
 
         if (dialogState != null) {
             dialog.onRestoreInstanceState(dialogState);
@@ -1276,17 +1310,109 @@ public class DialogPreference extends Preference implements OnClickListener, OnD
         this.showDialogDividersOnScroll = show;
     }
 
+    /**
+     * Sets the listener, which should be notified, when a button of the preference's dialog has
+     * been clicked.
+     *
+     * @param listener
+     *         The listener, which should be set, as an instance of the type {@link OnClickListener}
+     *         or null, if no listener should be notified
+     */
+    public final void setOnClickListener(@Nullable final OnClickListener listener) {
+        onClickListener = listener;
+    }
+
+    /**
+     * Sets the listener, which should be notified, when the preference's dialog has been shown.
+     *
+     * @param listener
+     *         The listener, which should be set, as an instance of the type {@link OnShowListener}
+     *         or null, if no listener should be notified
+     */
+    public final void setOnShowListener(@Nullable final OnShowListener listener) {
+        onShowListener = listener;
+    }
+
+    /**
+     * Sets the listener, which should be notified, when the preference's dialog has been
+     * dismissed.
+     *
+     * @param listener
+     *         The listener, which should be set, as an instance of the type {@link
+     *         OnDismissListener} or null, if no listener should be notified
+     */
+    public final void setOnDismissListener(@Nullable final OnDismissListener listener) {
+        onDismissListener = listener;
+    }
+
+    /**
+     * Sets the listener, which should be notified, when the preference's dialog has been canceled.
+     *
+     * The listener will only be invoked, when the dialog is canceled. Cancel events alone will not
+     * capture all ways that the dialog might be dismissed. If the creator needs to know when a
+     * dialog is dismissed in general, use {@link #setOnDismissListener}.
+     *
+     * @param listener
+     *         The listener, which should be set, as an instance of the type {@link
+     *         OnCancelListener} or null, if no listener should be notified
+     */
+    public final void setOnCancelListener(@Nullable final OnCancelListener listener) {
+        onCancelListener = listener;
+    }
+
+    /**
+     * Sets the listener, which should be notified, when a key has been dispatched to the
+     * preference's dialog.
+     *
+     * @param listener
+     *         The listener, which should be set, as an instance of the type {@link OnKeyListener}
+     *         or null, if no listener should be notified
+     */
+    public final void setOnKeyListener(@Nullable final OnKeyListener listener) {
+        onKeyListener = listener;
+    }
+
     @CallSuper
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
         dialogResultPositive = (which == Dialog.BUTTON_POSITIVE);
+
+        if (onClickListener != null) {
+            onClickListener.onClick(dialog, which);
+        }
+    }
+
+    @CallSuper
+    @Override
+    public void onShow(final DialogInterface dialog) {
+        if (onShowListener != null) {
+            onShowListener.onShow(dialog);
+        }
     }
 
     @CallSuper
     @Override
     public void onDismiss(final DialogInterface dialog) {
+        if (onDismissListener != null) {
+            onDismissListener.onDismiss(dialog);
+        }
+
         this.dialog = null;
         onDialogClosed(dialogResultPositive);
+    }
+
+    @CallSuper
+    @Override
+    public void onCancel(final DialogInterface dialog) {
+        if (onCancelListener != null) {
+            onCancelListener.onCancel(dialog);
+        }
+    }
+
+    @CallSuper
+    @Override
+    public boolean onKey(final DialogInterface dialog, final int keyCode, final KeyEvent event) {
+        return onKeyListener != null && onKeyListener.onKey(dialog, keyCode, event);
     }
 
     @Override
