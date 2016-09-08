@@ -104,14 +104,4 @@ public class AbstractValidateableDialogPreferenceImplementation
         return false;
     }
 
-    @Override
-    protected final boolean needInputMethod() {
-        return false;
-    }
-
-    @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
-
-    }
-
 }

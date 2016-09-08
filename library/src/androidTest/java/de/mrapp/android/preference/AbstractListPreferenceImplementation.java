@@ -98,9 +98,4 @@ public class AbstractListPreferenceImplementation extends AbstractListPreference
         super(context, attributeSet, defaultStyle, defaultStyleResource);
     }
 
-    @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
-
-    }
-
 }
