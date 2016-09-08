@@ -350,9 +350,4 @@ public abstract class AbstractListPreference extends DialogPreference {
         }
     }
 
-    @Override
-    protected final boolean needInputMethod() {
-        return false;
-    }
-
 }

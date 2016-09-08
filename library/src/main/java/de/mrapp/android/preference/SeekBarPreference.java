@@ -859,11 +859,6 @@ public class SeekBarPreference extends DialogPreference {
     }
 
     @Override
-    protected final boolean needInputMethod() {
-        return false;
-    }
-
-    @Override
     protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         View layout = View.inflate(dialogBuilder.getContext(), R.layout.seek_bar, null);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,

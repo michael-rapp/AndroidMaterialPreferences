@@ -557,11 +557,6 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
     }
 
     @Override
-    protected final boolean needInputMethod() {
-        return false;
-    }
-
-    @Override
     protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         adapter = new ColorPaletteAdapter(dialogBuilder.getContext(), getColorPalette(),
                 getDialogPreviewSize(), getDialogPreviewShape(), getDialogPreviewBorderWidth(),
