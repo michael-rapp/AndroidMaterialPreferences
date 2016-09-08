@@ -1,5 +1,16 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.6.0 (Sep. 8th 2016)
+
+A feature release, which introduces the following features:
+
+- The class `AbstractDialogPreference` has been renamed to `DialogPreference` and is not abstract anymore. It can be used to show simple dialogs (optionally) containing a header, title, message and buttons.
+- A `setOnClickListener`-method, which allows to register a listener, which is notified, when a button of a preference's dialog is clicked, has been added to the class `DialogPreference`.
+- A `setOnShowListener`-method, which allows to register a listener, which is notified, when a preference's dialog is shown, has been added to the class `DialogPreference`.
+- A `setOnDismissListener`-method, which allows to register a listener, which is notified, when a preference's dialog is dismissed, has been added to the class `DialogPreference`.
+- A `setOnCancelListener`-method, which allows to register a listener, which is notified, when a preference's dialog is canceled, has been added to the class `DialogPreference`.
+- A `setOnKeyListener`-method, which allows to register a listener, which is notified, when a key is dispatched to a preference's dialog, has been added to the class `DialogPreference`.
+
 ## Version 2.5.2 (Sep. 7th 2016)
 
 A bugfix release, which introduces the following changes:
