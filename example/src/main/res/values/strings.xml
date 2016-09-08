@@ -17,6 +17,10 @@ License.
 
     <string name="app_name">AndroidMaterialPreferences Example</string>
     <string name="example_preferences_preference_category_title">Example preferences</string>
+    <string name="dialog_preference_key">dialog_preference_key</string>
+    <string name="dialog_preference_title">DialogPreference</string>
+    <string name="dialog_preference_summary">This preference allows to show a simple dialog</string>
+    <string name="dialog_preference_dialog_message">This is the message of the preference\'s dialog</string>
     <string name="edit_text_preference_key">edit_text_preference_key</string>
     <string name="edit_text_preference_title">EditTextPreference</string>
     <string name="edit_text_preference_summary">This preference allows to enter a text</string>

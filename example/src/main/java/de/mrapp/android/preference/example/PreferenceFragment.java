@@ -20,6 +20,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
 import de.mrapp.android.preference.ColorPalettePreference;
+import de.mrapp.android.preference.DialogPreference;
 import de.mrapp.android.preference.DigitPickerPreference;
 import de.mrapp.android.preference.EditTextPreference;
 import de.mrapp.android.preference.ListPreference;
@@ -36,6 +37,11 @@ import de.mrapp.android.validation.Validators;
  * @author Michael Rapp
  */
 public class PreferenceFragment extends android.preference.PreferenceFragment {
+
+    /**
+     * The {@link DialogPreference}.
+     */
+    private DialogPreference dialogPreference;
 
     /**
      * The {@link EditTextPreference}.
@@ -169,6 +175,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
                 boolean showDialogHeader = (Boolean) newValue;
+                dialogPreference.showDialogHeader(showDialogHeader);
                 editTextPreference.showDialogHeader(showDialogHeader);
                 listPreference.showDialogHeader(showDialogHeader);
                 multiChoiceListPreference.showDialogHeader(showDialogHeader);
@@ -197,6 +204,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
                 boolean showDialogButtonBarDivider = (Boolean) newValue;
+                dialogPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
                 editTextPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
                 listPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
                 multiChoiceListPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
@@ -241,6 +249,10 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         showDialogButtonBarDividerPreference
                 .setOnPreferenceChangeListener(createShowDialogButtonBarDividerListener());
 
+        dialogPreference =
+                (DialogPreference) findPreference(getString(R.string.dialog_preference_key));
+        dialogPreference.showDialogHeader(showDialogHeader);
+        dialogPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         editTextPreference =
                 (EditTextPreference) findPreference(getString(R.string.edit_text_preference_key));
         editTextPreference.addValidator(
