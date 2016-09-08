@@ -10,6 +10,7 @@
 
 The library provides the following preferences:
 
+- A preference, which allows to show simple dialogs (`DialogPreference`).
 - A preference, which allows to enter a text via an `EditText` widget (`EditTextPreference`).
 - A preference, which allows to select a value from a list (`ListPreference`).
 - A preference, which allows to select multiple values from a list (`MultiChoiceListPreference`).

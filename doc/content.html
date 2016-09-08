@@ -83,7 +83,7 @@
 
                 <h4><a name="implementation-details">1 Implementation details</a></h4>
 
-                <p>The preferences, which are provided by this library, are implemented as a custom preferences within the classes <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a>, <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a>, <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a>, <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a>, <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a>, <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> and <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a>. As all of this preferences show a dialog when clicked by the user in order to enter a value, all of these classes are delegated from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>. Preferences, which support validation, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. Additionally, the library also provides the preference <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>, which contains a toggleable switch and does not show a dialog when it is clicked.</p>
+                <p>The preferences, which are provided by this library, are implemented as a custom preferences within the classes <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a>, <a href="javadoc/de/mrapp/android/preference/MultiChoiceListPreference.html" target="_blank" class="code">MultiChoiceListPreference</a>, <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a>, <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a>, <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a>, <a href="javadoc/de/mrapp/android/preference/ResolutionPreference.html" target="_blank" class="code">ResolutionPreference</a> and <a href="javadoc/de/mrapp/android/preference/ColorPalettePreference.html" target="_blank" class="code">ColorPalettePreference</a>. As all of this preferences show a dialog when clicked by the user in order to enter a value, all of these classes are extended from the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a>. Preferences, which support validation, such like the <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a>, are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. Additionally, the library also provides the preference <a href="javadoc/de/mrapp/android/preference/SwitchPreference.html" target="_blank" class="code">SwitchPreference</a>, which contains a toggleable switch and does not show a dialog when it is clicked.</p>
 
                 <p>All preference implementations provide multiple constructors. The one of them, which only expects an instance of the class <a href="http://developer.android.com/reference/android/content/Context.html" target="_blank" class="code">Context</a> as a parameter, can be used instantiate the appropriate preference programmatically, the others are implicitly used by the Android SDK, when the preference is defined by using a XML resource file. Furthermore, all preference implementations override the method <tt>onSaveInstanceState():Parceable</tt> to store the preference's current state when the preference is destroyed, e.g. when the activity it belongs to loses its focus. This method is implicitly called by the Android SDK. For restoring a saved state afterwards, the method <tt>onRestoreInstanceState(Parceable):void</tt>, which is also implicitly called, is overridden.</tt></p>
 
@@ -91,11 +91,11 @@
 
                 <h4><a name="common-properties">2 Common properties</a></h4>
 
-                <p>In this section all properties, which are common for all preferences, which are provided by the library, will be discussed. These properties can be set by either using the setter methods, which are provided by the common base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>, or by specifying the preference via a XML resource.</p>
+                <p>In this section all properties, which are common for all preferences, which are provided by the library, will be discussed. These properties can be set by either using the setter methods, which are provided by the common base class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a>, or by specifying the preference via a XML resource.</p>
 
                 <h5><a name="common-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>In case, the preference has been instantiated programatically, the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> provides the following getter and setter methods in addition to the methods, which are inherited from its base class <a href="javadoc/de/mrapp/android/preference/Preference.html" target="_blank" class="code">Preference</a>.</p>
+                <p>In case, the preference has been instantiated programatically, the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a> provides the following getter and setter methods in addition to the methods, which are inherited from its base class <a href="javadoc/de/mrapp/android/preference/Preference.html" target="_blank" class="code">Preference</a>.</p>
 
 
                 <table>
@@ -312,7 +312,7 @@
 
                 <h5><a name="seek-bar-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>When a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> is instantiated programmatically, its properties can be set or retrieved by using the setter and getter methods, which are listed in the table below. As the class is extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>, the methods, which have been already discussed in the previous section, are also available.</p>
+                <p>When a <a href="javadoc/de/mrapp/android/preference/SeekBarPreference.html" target="_blank" class="code">SeekBarPreference</a> is instantiated programmatically, its properties can be set or retrieved by using the setter and getter methods, which are listed in the table below. As the class is extended from the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a>, the methods, which have been already discussed in the previous section, are also available.</p>
 
                 <table>
                     <tr>
@@ -461,7 +461,7 @@
 
                 <h5><a name="edit-text-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>When an <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> is instantiated programmatically, the following getter and setter method can be used to retrieve or set the preference's current value. Like all preferences, which are provided by this library, the class is extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> and therefore the methods of this base class, which have been already discussed, are also available.</p>
+                <p>When an <a href="javadoc/de/mrapp/android/preference/EditTextPreference.html" target="_blank" class="code">EditTextPreference</a> is instantiated programmatically, the following getter and setter method can be used to retrieve or set the preference's current value. Like all preferences, which are provided by this library, the class is extended from the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a> and therefore the methods of this base class, which have been already discussed, are also available.</p>
 
                 <table>
                     <tr>
@@ -505,7 +505,7 @@
 
                 <h5><a name="list-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>To specify the properties of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> programmatically, the following getter and setter method are provided. As the class is extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>, the methods of this base class can also be used.</p>
+                <p>To specify the properties of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> programmatically, the following getter and setter method are provided. As the class is extended from the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a>, the methods of this base class can also be used.</p>
 
                 <table>
                     <tr>
@@ -607,7 +607,7 @@
 
                 <h5><a name="multi-choice-list-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-		<p>The following table shows the getter and setter methods, which are provided in order to specify the properties of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> programmatically. Because the class is extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a>, the methods of this class can also be used.</p>
+		<p>The following table shows the getter and setter methods, which are provided in order to specify the properties of a <a href="javadoc/de/mrapp/android/preference/ListPreference.html" target="_blank" class="code">ListPreference</a> programmatically. Because the class is extended from the class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a>, the methods of this class can also be used.</p>
 
                 <table>
                     <tr>
@@ -709,7 +709,7 @@
 
                 <h5><a name="number-picker-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>The library's API provides the following getter and setter methods in order to adjust the properties of a  <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> programmatically. Furthermore, the methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can also be used.</p>
+                <p>The library's API provides the following getter and setter methods in order to adjust the properties of a  <a href="javadoc/de/mrapp/android/preference/NumberPickerPreference.html" target="_blank" class="code">NumberPickerPreference</a> programmatically. Furthermore, the methods of the base class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a> can also be used.</p>
 
                 <table>
                     <tr>
@@ -831,7 +831,7 @@
 
                 <h5><a name="digit-picker-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>The following getter and setter methods are provided in order to specify the properties of a  <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> programmatically. The methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can be used as well.</p>
+                <p>The following getter and setter methods are provided in order to specify the properties of a  <a href="javadoc/de/mrapp/android/preference/DigitPickerPreference.html" target="_blank" class="code">DigitPickerPreference</a> programmatically. The methods of the base class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a> can be used as well.</p>
 
                 <table>
                     <tr>
@@ -1340,7 +1340,7 @@
 
 		<h5><a name="validating-preferences-getter-and-setter-methods">Getter and setter methods</a></h5>
 
-                <p>The following getter and setter methods are provided in order to programmatically adapt the validation of preferences, which are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The methods of the base class <a href="javadoc/de/mrapp/android/preference/AbstractDialogPreference.html" target="_blank" class="code">AbstractDialogPreference</a> can be used as well.</p>
+                <p>The following getter and setter methods are provided in order to programmatically adapt the validation of preferences, which are extended from the class <a href="javadoc/de/mrapp/android/preference/AbstractValidateableDialogPreference.html" target="_blank" class="code">AbstractValidateableDialogPreference</a>. The methods of the base class <a href="javadoc/de/mrapp/android/preference/DialogPreference.html" target="_blank" class="code">DialogPreference</a> can be used as well.</p>
 
                 <table>
                     <tr>
