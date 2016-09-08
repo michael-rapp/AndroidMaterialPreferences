@@ -13,11 +13,14 @@
  */
 package de.mrapp.android.preference.example;
 
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import de.mrapp.android.preference.ColorPalettePreference;
 import de.mrapp.android.preference.DialogPreference;
@@ -219,6 +222,28 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         };
     }
 
+    /**
+     * Creates and returns a listener, which allows to show a toast, when a button of the {@link
+     * DialogPreference}'s dialog has been clicked.
+     *
+     * @return The listener, which has been created, as an instance of the type {@link
+     * OnClickListener}
+     */
+    private OnClickListener createDialogPreferenceClickListener() {
+        return new OnClickListener() {
+
+            @Override
+            public void onClick(final DialogInterface dialog, final int which) {
+                String button = getString(
+                        which == DialogInterface.BUTTON_POSITIVE ? android.R.string.ok :
+                                android.R.string.cancel);
+                String text = String.format(getString(R.string.dialog_dismissed_toast), button);
+                Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+            }
+
+        };
+    }
+
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -253,6 +278,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
                 (DialogPreference) findPreference(getString(R.string.dialog_preference_key));
         dialogPreference.showDialogHeader(showDialogHeader);
         dialogPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
+        dialogPreference.setOnClickListener(createDialogPreferenceClickListener());
         editTextPreference =
                 (EditTextPreference) findPreference(getString(R.string.edit_text_preference_key));
         editTextPreference.addValidator(

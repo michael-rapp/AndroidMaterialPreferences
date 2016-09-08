@@ -79,6 +79,7 @@ License.
     <string name="switch_preference_summary_on">On</string>
     <string name="switch_preference_summary_off">Off</string>
     <string name="unit">Unit</string>
+    <string name="dialog_dismissed_toast" formatted="false">Button \'%s\' clicked</string>
 
     <string-array name="theme_entries">
         <item>Light</item>
