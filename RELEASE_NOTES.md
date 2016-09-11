@@ -1,5 +1,15 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.6.1 (Sep. 12th 2016)
+
+A minor release, which introduces the following changes:
+
+- Updated `targetSdkVersion` to API level 24 (Android 7.0).
+- Updated AppCompat v7 support library to version 24.2.0.
+- Updated dependency "AndroidUtil" to version 1.11.1.
+- Updated dependency "AndroidMaterialDialog" to version 3.6.4.
+- Updated dependency "AndroidMaterialValidation" to version 2.0.4.
+
 ## Version 2.6.0 (Sep. 8th 2016)
 
 A feature release, which introduces the following features:
