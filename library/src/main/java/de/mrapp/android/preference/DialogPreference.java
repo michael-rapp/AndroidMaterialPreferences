@@ -186,9 +186,14 @@ public class DialogPreference extends Preference
     private int dialogMessageColor;
 
     /**
-     * The color of the button text of the preference's dialog.
+     * The text color of the buttons of the preference's dialog.
      */
     private int dialogButtonTextColor;
+
+    /**
+     * The text color of the buttons of the preference's dialog when disabled.
+     */
+    private int dialogDisabledButtonTextColor;
 
     /**
      * The background of the preference's dialog.
@@ -330,6 +335,7 @@ public class DialogPreference extends Preference
             obtainDialogTitleColor(typedArray);
             obtainDialogMessageColor(typedArray);
             obtainDialogButtonTextColor(typedArray);
+            obtainDialogDisabledButtonTextColor(typedArray);
             obtainDialogBackground(typedArray);
             obtainShowValueAsSummary(typedArray);
             obtainShowDialogHeader(typedArray);
@@ -462,12 +468,25 @@ public class DialogPreference extends Preference
      * specific typed array.
      *
      * @param typedArray
-     *         The typed array, the button text color should be obtained from, as an instance of the
-     *         class {@link TypedArray}. The typed array may not be null
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogButtonTextColor(@NonNull final TypedArray typedArray) {
         setDialogButtonTextColor(
                 typedArray.getColor(R.styleable.DialogPreference_dialogButtonTextColor, -1));
+    }
+
+    /**
+     * Obtains the disabled button text color of the dialog, which is shown by the preference, from
+     * a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogDisabledButtonTextColor(@NonNull final TypedArray typedArray) {
+        setDialogDisabledButtonTextColor(typedArray
+                .getColor(R.styleable.DialogPreference_dialogDisabledButtonTextColor, -1));
     }
 
     /**
@@ -665,6 +684,10 @@ public class DialogPreference extends Preference
 
         if (getDialogButtonTextColor() != -1) {
             dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
+        }
+
+        if (getDialogDisabledButtonTextColor() != -1) {
+            dialogBuilder.setDisabledButtonTextColor(getDialogDisabledButtonTextColor());
         }
 
         if (getDialogButtonBarDividerColor() != -1) {
@@ -1041,24 +1064,45 @@ public class DialogPreference extends Preference
     }
 
     /**
-     * Returns the color of the button text of the preference's dialog.
+     * Returns the text color of the buttons of the preference's dialog.
      *
-     * @return The color of the button text as an {@link Integer} value or -1, if no custom text
-     * color is set
+     * @return The text color of the buttons as an {@link Integer} value or -1, if no custom color
+     * is set
      */
     public final int getDialogButtonTextColor() {
         return dialogButtonTextColor;
     }
 
     /**
-     * Sets the color of the button text of the preference's dialog.
+     * Sets the text color of the buttons of the preference's dialog.
      *
      * @param color
-     *         The color, which should be set, as an {@link Integer} value or -1, if no custom text
-     *         color should be set
+     *         The color, which should be set, as an {@link Integer} value or -1, if no custom color
+     *         should be set
      */
     public final void setDialogButtonTextColor(@ColorInt final int color) {
         this.dialogButtonTextColor = color;
+    }
+
+    /**
+     * Returns the text color of the buttons of the preference's dialog when disabled.
+     *
+     * @return The disabled text color of the buttons as an {@link Integer} value or -1, if no
+     * custom color is set
+     */
+    public final int getDialogDisabledButtonTextColor() {
+        return dialogDisabledButtonTextColor;
+    }
+
+    /**
+     * Sets the text color of the buttons of the preference's dialog when disabled.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value, or -1, if no custom
+     *         color should be set
+     */
+    public final void setDialogDisabledButtonTextColor(@ColorInt final int color) {
+        this.dialogDisabledButtonTextColor = color;
     }
 
     /**
