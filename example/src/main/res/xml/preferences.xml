@@ -18,6 +18,7 @@ License.
 
     <PreferenceCategory android:title="@string/example_preferences_preference_category_title">
         <de.mrapp.android.preference.DialogPreference
+
             android:dialogMessage="@string/dialog_preference_dialog_message"
             android:key="@string/dialog_preference_key"
             android:summary="@string/dialog_preference_summary"
