@@ -489,6 +489,12 @@
                         <td><center><tt>null</tt></center></td>
                         <td>none</td>
                     </tr>
+                    <tr>
+                        <td><tt>getHint():CharSequence</br>setHint(CharSequence):void</br>setHint(int):void</tt></td>
+                        <td>Returns or sets the hint of the EditText widget, which is contained by the preference's dialog.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td>If the hint is specified as a resource ID, the resource ID must correspond to a valid string resource</td>
+                    </tr>
                 </table>
 
                 <h5><a name="edit-text-preference-xml-attributes">XML attributes</a></h5>
@@ -506,6 +512,13 @@
                     <tr>
                         <td><tt>android:defaultValue</tt></td>
                         <td>The preference's default text.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>null</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>android:hint</tt></td>
+                        <td>The hint of the EditText widget, which is contained by the preference's dialog.</td>
                         <td style="text-align: center;"><tt>string</tt></td>
                         <td style="text-align: center;"><tt>null</tt></td>
                         <td>none</td>
@@ -956,6 +969,18 @@
                         <td>If the unit is specified as a resource ID, the ID must correspond to a valid string resource.</td>
                     </tr>
                     <tr>
+                        <td><tt>getWidthHint():CharSequence</br>setWidthHint(CharSequence):void</br>setWidthHint(int):void</tt></td>
+                        <td>Returns or sets the hint of the EditText widget, which allows to enter the width of the resolution.</td>
+                        <td><center><tt>R.string.resolution_preference_width_hint</tt></center></td>
+                        <td>If the hint is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getHeightHint():CharSequence</br>setHeightHint(CharSequence):void</br>setHeightHint(int):void</tt></td>
+                        <td>Returns or sets the hint of the EditText widget, which allows to enter the height of the resolution.</td>
+                        <td><center><tt>R.string.resolution_preference_height_hint</tt></center></td>
+                        <td>If the hint is specified as a resource ID, the ID must correspond to a valid string resource.</td>
+                    </tr>
+                    <tr>
                         <td><tt>getWidth():int</br>setWidth(int):void</tt></td>
                         <td>Returns or sets the width of the preference's resolution. If a width is set, it is instantly persisted.</td>
                         <td><center>0</center></td>
@@ -981,11 +1006,25 @@
                         <th>Default value</th>
                         <th>Restrictions</th>
                     </tr>
-		    <tr>
+		            <tr>
                         <td><tt>custom:unit</tt></td>
                         <td>The unit, which is shown in the preference's dialog.</td>
                         <td style="text-align: center;"><tt>string</tt></td>
                         <td style="text-align: center;"><tt>R.string.resolution_preference_unit</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:widthHint</tt></td>
+                        <td>The hint of the EditText widget, which allows to enter the width of the resolution.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>R.string.resolution_preference_width_hint</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:heightHint</tt></td>
+                        <td>The hint of the EditText widget, which allows to enter the height of the resolution.</td>
+                        <td style="text-align: center;"><tt>string</tt></td>
+                        <td style="text-align: center;"><tt>R.string.resolution_preference_height_hint</tt></td>
                         <td>none</td>
                     </tr>
                     <tr>
