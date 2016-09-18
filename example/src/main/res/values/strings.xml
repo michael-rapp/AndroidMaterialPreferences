@@ -53,6 +53,8 @@ License.
     <string name="resolution_preference_title">ResolutionPreference</string>
     <string name="resolution_preference_summary">This preference allows to enter an image or video resolution</string>
     <string name="resolution_preference_dialog_message">Enter a resolution by using the widgets below.</string>
+    <string name="resolution_preference_width_hint">Width</string>
+    <string name="resolution_preference_height_hint">Height</string>
     <string name="resolution_preference_default_value">1024x768</string>
     <string name="color_palette_preference_key">color_palette_preference_key</string>
     <string name="color_palette_preference_title">ColorPalettePreference</string>

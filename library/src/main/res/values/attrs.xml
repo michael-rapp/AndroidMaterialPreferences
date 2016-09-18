@@ -71,7 +71,10 @@ License.
     <declare-styleable name="DigitPickerPreference" parent="AbstractUnitPreference">
         <attr name="numberOfDigits" format="integer"/>
     </declare-styleable>
-    <declare-styleable name="ResolutionPreference" parent="AbstractUnitPreference"/>
+    <declare-styleable name="ResolutionPreference" parent="AbstractUnitPreference">
+        <attr name="widthHint" format="string"/>
+        <attr name="heightHint" format="string"/>
+    </declare-styleable>
     <declare-styleable name="AbstractColorPickerPreference">
         <attr name="showPreview" format="boolean"/>
         <attr name="previewSize" format="dimension"/>

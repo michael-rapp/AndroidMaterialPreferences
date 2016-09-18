@@ -129,12 +129,12 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     private static final Pattern MIN_VALUE_REGEX = Pattern.compile("^(?!0).*");
 
     /**
-     * The edit text, which allows to enter the width of the resolution.
+     * The edit text widget, which allows to enter the width of the resolution.
      */
     private EditText widthEditText;
 
     /**
-     * The edit text, which allows to enter the height of the resolution.
+     * The edit text widget, which allows to enter the height of the resolution.
      */
     private EditText heightEditText;
 
@@ -152,6 +152,16 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      * The unit, which is used for textual representation of the preference's resolution.
      */
     private CharSequence unit;
+
+    /**
+     * The hint of the edit text widget, which allows to enter the width of the resolution.
+     */
+    private CharSequence widthHint;
+
+    /**
+     * The hint of the edit text widget, which allows to enter the height of the resolution.
+     */
+    private CharSequence heightHint;
 
     /**
      * Initializes the preference.
@@ -205,6 +215,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
         try {
             obtainUnit(typedArray);
+            obtainWidthHint(typedArray);
+            obtainHeightHint(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -226,6 +238,42 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         }
 
         setUnit(obtainedUnit);
+    }
+
+    /**
+     * Obtains the hint of the edit text widget, which allows to enter the width of the resolution,
+     * from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the hint should be obtained from, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainWidthHint(@NonNull final TypedArray typedArray) {
+        CharSequence obtainedHint = typedArray.getText(R.styleable.ResolutionPreference_widthHint);
+
+        if (obtainedHint == null) {
+            obtainedHint = getContext().getText(R.string.resolution_preference_width_hint);
+        }
+
+        setWidthHint(obtainedHint);
+    }
+
+    /**
+     * Obtains the hint of the edit text widget, which allows to enter the height of the resolution,
+     * from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the hint should be obtained from, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainHeightHint(@NonNull final TypedArray typedArray) {
+        CharSequence obtainedHint = typedArray.getText(R.styleable.ResolutionPreference_heightHint);
+
+        if (obtainedHint == null) {
+            obtainedHint = getContext().getText(R.string.resolution_preference_height_hint);
+        }
+
+        setHeightHint(obtainedHint);
     }
 
     /**
@@ -433,6 +481,71 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         setUnit(getContext().getText(resourceId));
     }
 
+    /**
+     * Returns the hint of the edit text widget, which allows to enter the width of the resolution.
+     *
+     * @return The hint of the edit text widget, which allows to enter the width of the resolution,
+     * as an instance of the type {@link CharSequence} or null, if no hint is set
+     */
+    public final CharSequence getWidthHint() {
+        return widthHint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which allows to enter the width of the resolution.
+     *
+     * @param hint
+     *         The hint, which should be set, as an instance of the type {@link CharSequence} or
+     *         null, if no hint should be set
+     */
+    public final void setWidthHint(@Nullable final CharSequence hint) {
+        this.widthHint = hint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which allows to enter the width of the resolution.
+     *
+     * @param resourceId
+     *         The resource id of the hint, which should be set, as an {@link Integer} value. The
+     *         resource id must correspond to a valid string resource
+     */
+    public final void setWidthHint(@StringRes final int resourceId) {
+        setWidthHint(getContext().getText(resourceId));
+    }
+
+    /**
+     * Returns the hint of the edit text widget, which allows to enter the height of the
+     * resolution.
+     *
+     * @return The hint of the edit text widget, which allows to enter the height of the resolution,
+     * as an instance of the type {@link CharSequence} or null, if no hint is set
+     */
+    public final CharSequence getHeightHint() {
+        return heightHint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which allows to enter the height of the resolution.
+     *
+     * @param hint
+     *         The hint, which should be set, as an instance of the type {@link CharSequence} or
+     *         null, if no hint should be set
+     */
+    public final void setHeightHint(@Nullable final CharSequence hint) {
+        this.heightHint = hint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which allows to enter the height of the resolution.
+     *
+     * @param resourceId
+     *         The resource id of the hint, which should be set, as an {@link Integer} value. The
+     *         resource id must correspond to a valid string resource
+     */
+    public final void setHeightHint(@StringRes final int resourceId) {
+        setHeightHint(getContext().getText(resourceId));
+    }
+
     @Override
     public final CharSequence getSummary() {
         if (isValueShownAsSummary()) {
@@ -466,12 +579,14 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         widthEditText.validateOnValueChange(isValidatedOnValueChange());
         widthEditText.validateOnFocusLost(isValidatedOnFocusLost());
         widthEditText.setErrorColor(getErrorColor());
+        widthEditText.setHint(getWidthHint());
 
         heightEditText = (EditText) view.findViewById(R.id.height_edit_text);
         heightEditText.addAllValidators(getValidators());
         heightEditText.validateOnValueChange(isValidatedOnValueChange());
         heightEditText.validateOnFocusLost(isValidatedOnFocusLost());
         heightEditText.setErrorColor(getErrorColor());
+        heightEditText.setHint(getHeightHint());
 
         for (ValidationListener<CharSequence> listener : getValidationListeners()) {
             widthEditText.addValidationListener(listener);

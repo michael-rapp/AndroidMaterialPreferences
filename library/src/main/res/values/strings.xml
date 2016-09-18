@@ -17,6 +17,8 @@ License.
 
     <string name="resolution_preference_separator">x</string>
     <string name="resolution_preference_unit">pixels</string>
+    <string name="resolution_preference_width_hint">Width</string>
+    <string name="resolution_preference_height_hint">Height</string>
     <string name="resolution_not_empty_error_message">May not be empty</string>
     <string name="resolution_number_error_message">Must be a number</string>
     <string name="resolution_min_value_error_message">Must be at least 1</string>

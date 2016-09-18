@@ -94,7 +94,9 @@ License.
             android:summary="@string/resolution_preference_summary"
             android:title="@string/resolution_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+            custom:heightHint="@string/resolution_preference_height_hint"
+            custom:widthHint="@string/resolution_preference_width_hint"/>
         <de.mrapp.android.preference.ColorPalettePreference
             android:defaultValue="@color/color_palette_preference_default_value"
             android:dialogMessage="@string/color_palette_preference_dialog_message"
