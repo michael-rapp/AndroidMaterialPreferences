@@ -323,7 +323,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
 
     @Override
     public final CharSequence getSummary() {
-        if (isValueShownAsSummary()) {
+        if (isValueShownAsSummary() && !TextUtils.isEmpty(getText())) {
             return getText();
         } else {
             return super.getSummary();

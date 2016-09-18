@@ -435,7 +435,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         if (isValueShownAsSummary()) {
             CharSequence[] entries = getSelectedEntries();
 
-            if (entries != null) {
+            if (entries != null && entries.length > 0) {
                 StringBuilder stringBuilder = new StringBuilder();
 
                 for (int i = 0; i < entries.length; i++) {
@@ -449,7 +449,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
                 return stringBuilder.toString();
             }
 
-            return null;
+            return super.getSummary();
         } else {
             return super.getSummary();
         }
