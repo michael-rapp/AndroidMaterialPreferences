@@ -28,6 +28,7 @@ License.
         <de.mrapp.android.preference.EditTextPreference
             android:defaultValue="@string/edit_text_preference_default_value"
             android:dialogMessage="@string/edit_text_preference_dialog_message"
+            android:hint="@string/edit_text_preference_hint"
             android:key="@string/edit_text_preference_key"
             android:summary="@string/edit_text_preference_summary"
             android:title="@string/edit_text_preference_title"

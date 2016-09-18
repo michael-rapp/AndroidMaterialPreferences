@@ -54,6 +54,9 @@ License.
         <attr name="android:entries"/>
         <attr name="android:entryValues"/>
     </declare-styleable>
+    <declare-styleable name="EditTextPreference">
+        <attr name="android:hint"/>
+    </declare-styleable>
     <declare-styleable name="SeekBarPreference" parent="AbstractNumericPreference">
         <attr name="android:summary"/>
         <attr name="showProgress" format="boolean"/>

@@ -26,6 +26,7 @@ License.
     <string name="edit_text_preference_summary">This preference allows to enter a text</string>
     <string name="edit_text_preference_default_value">Default</string>
     <string name="edit_text_preference_dialog_message">Enter a text by using the EditText widget below.</string>
+    <string name="edit_text_preference_hint">Hint</string>
     <string name="list_preference_key">list_preference_key</string>
     <string name="list_preference_title">ListPreference</string>
     <string name="list_preference_summary">This preference allows to select a value from a list</string>

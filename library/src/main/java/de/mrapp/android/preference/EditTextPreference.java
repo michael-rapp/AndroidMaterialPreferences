@@ -22,6 +22,7 @@ import android.os.Parcelable;
 import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -117,11 +118,72 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     private String text;
 
     /**
-     * Initializes the preference.
+     * The hint of the edit text widget, which is contained by the preference's dialog.
      */
-    private void initialize() {
+    private CharSequence hint;
+
+    /**
+     * Initializes the preference.
+     *
+     * @param attributeSet
+     *         The attribute set, the attributes should be obtained from, as an instance of the type
+     *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
         setPositiveButtonText(android.R.string.ok);
         setNegativeButtonText(android.R.string.cancel);
+    }
+
+    /**
+     * Obtains all attributes from a specific attribute set.
+     *
+     * @param attributeSet
+     *         The attribute set, the attributes should be obtained from, as an instance of the type
+     *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
+        TypedArray typedArray = getContext()
+                .obtainStyledAttributes(attributeSet, R.styleable.EditTextPreference, defaultStyle,
+                        defaultStyleResource);
+
+        try {
+            obtainHint(typedArray);
+        } finally {
+            typedArray.recycle();
+        }
+    }
+
+    /**
+     * Obtains the hint of the edit text widget, which is shown in the preference's dialog, from a
+     * specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the hint should be obtained from, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainHint(@NonNull final TypedArray typedArray) {
+        setHint(typedArray.getText(R.styleable.EditTextPreference_android_hint));
     }
 
     /**
@@ -132,8 +194,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
      *         {@link Context}. The context may not be null
      */
     public EditTextPreference(@NonNull final Context context) {
-        super(context);
-        initialize();
+        this(context, null);
     }
 
     /**
@@ -149,7 +210,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     public EditTextPreference(@NonNull final Context context,
                               @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        initialize();
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -170,7 +231,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
                               @Nullable final AttributeSet attributeSet,
                               @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        initialize();
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -197,7 +258,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
                               @AttrRes final int defaultStyle,
                               @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        initialize();
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
@@ -226,6 +287,38 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         }
 
         notifyChanged();
+    }
+
+    /**
+     * Returns the hint of the edit text widget, which is contained by the preference's dialog.
+     *
+     * @return The hint of the edit text widget, which is contained by the preference's dialog, as
+     * an instance of the type {@link CharSequence} or null, if no hint is set
+     */
+    public final CharSequence getHint() {
+        return hint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which is contained by the preference's dialog.
+     *
+     * @param hint
+     *         The hint, which should be set, as an instance of the type {@link CharSequence} or
+     *         null, if no hint should be set
+     */
+    public final void setHint(@Nullable final CharSequence hint) {
+        this.hint = hint;
+    }
+
+    /**
+     * Sets the hint of the edit text widget, which is contained by the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the hint, which should be set, as an {@link Integer} value. The
+     *         resource id must correspond to a valid string resource
+     */
+    public final void setHint(@StringRes final int resourceId) {
+        setHint(getContext().getText(resourceId));
     }
 
     @Override
@@ -259,6 +352,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         editText.setHelperText(getHelperText());
         editText.setHelperTextColor(getHelperTextColor());
         editText.setErrorColor(getErrorColor());
+        editText.setHint(getHint());
 
         for (ValidationListener<CharSequence> listener : getValidationListeners()) {
             editText.addValidationListener(listener);
