@@ -19,9 +19,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
+import de.mrapp.android.preference.ActionPreference;
 import de.mrapp.android.preference.ColorPalettePreference;
 import de.mrapp.android.preference.DialogPreference;
 import de.mrapp.android.preference.DigitPickerPreference;
@@ -244,6 +246,26 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         };
     }
 
+    /**
+     * Creates and returns a listener, which allows to show a toast, when the {@link
+     * ActionPreference} has been clicked.
+     *
+     * @return The listener, which has been created, as an instance of the type {@link
+     * OnPreferenceClickListener}
+     */
+    private OnPreferenceClickListener createActionPreferenceClickListener() {
+        return new OnPreferenceClickListener() {
+
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Toast.makeText(getActivity(), R.string.action_preference_toast, Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+            }
+
+        };
+    }
+
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -322,6 +344,9 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
         colorPalettePreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         switchPreference =
                 (SwitchPreference) findPreference(getString(R.string.switch_preference_key));
+        ActionPreference actionPreference =
+                (ActionPreference) findPreference(getString(R.string.action_preference_key));
+        actionPreference.setOnPreferenceClickListener(createActionPreferenceClickListener());
         adaptSwitchPreferenceSummary(showValueAsSummary);
     }
 

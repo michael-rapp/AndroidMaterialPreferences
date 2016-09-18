@@ -18,6 +18,9 @@ License.
     <dimen name="digit_picker_width">32dp</dimen>
     <dimen name="resolution_edit_text_width">96dp</dimen>
     <dimen name="number_picker_unit_margin">8dp</dimen>
+    <dimen name="action_preference_drawable_padding">8dp</dimen>
+    <dimen name="action_preference_text_size">14sp</dimen>
+    <dimen name="action_preference_height">64dp</dimen>
 
     <!-- Default values -->
     <dimen name="color_picker_preference_default_preview_size">38dp</dimen>

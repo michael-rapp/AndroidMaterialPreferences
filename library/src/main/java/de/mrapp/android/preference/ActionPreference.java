@@ -1,0 +1,211 @@
+/*
+ * Copyright 2014 - 2016 Michael Rapp
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package de.mrapp.android.preference;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.preference.Preference;
+import android.support.annotation.AttrRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.StyleRes;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+/**
+ * A preference, which acts as a button and displays a centered title.
+ *
+ * @author Michael Rapp
+ * @since 2.7.0
+ */
+public class ActionPreference extends Preference {
+
+    /**
+     * The text view, which is used to show the preference's title.
+     */
+    private TextView textView;
+
+    /**
+     * Initializes the preference.
+     *
+     * @param attributeSet
+     *         The attribute set, the attributes should be obtained from, as an instance of the type
+     *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
+        setLayoutResource(R.layout.action_preference);
+    }
+
+    /**
+     * Obtains all attributes from a specific attribute set.
+     *
+     * @param attributeSet
+     *         The attribute set, the attributes should be obtained from, as an instance of the type
+     *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    private void obtainStyledAttributes(@Nullable final AttributeSet attributeSet,
+                                        @AttrRes final int defaultStyle,
+                                        @StyleRes final int defaultStyleResource) {
+        TypedArray typedArray = getContext()
+                .obtainStyledAttributes(attributeSet, R.styleable.ActionPreference, defaultStyle,
+                        defaultStyleResource);
+
+        try {
+            obtainIcon(typedArray);
+        } finally {
+            typedArray.recycle();
+        }
+    }
+
+    /**
+     * Obtains the preference's icon from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the icon should be obtained from, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainIcon(@NonNull final TypedArray typedArray) {
+        setIcon(typedArray.getDrawable(R.styleable.ActionPreference_android_icon));
+    }
+
+    /**
+     * Adapts the preference's icon.
+     */
+    private void adaptIcon() {
+        if (textView != null) {
+            textView.setCompoundDrawablesWithIntrinsicBounds(getIcon(), null, null, null);
+        }
+    }
+
+    /**
+     * Creates a new preference, which acts as a button and displays a centered title.
+     *
+     * @param context
+     *         The context, which should be used by the preference, as an instance of the class
+     *         {@link Context}. The context may not be null
+     */
+    public ActionPreference(@NonNull final Context context) {
+        this(context, null);
+    }
+
+    /**
+     * Creates a new preference, which acts as a button and displays a centered title.
+     *
+     * @param context
+     *         The context, which should be used by the preference, as an instance of the class
+     *         {@link Context}. The context may not be null
+     * @param attributeSet
+     *         The attributes of the XML tag that is inflating the preference, as an instance of the
+     *         type {@link AttributeSet} or null, if no attributes are available
+     */
+    public ActionPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet) {
+        super(context, attributeSet);
+        initialize(attributeSet, 0, 0);
+    }
+
+    /**
+     * Creates a new preference, which acts as a button and displays a centered title.
+     *
+     * @param context
+     *         The context, which should be used by the preference, as an instance of the class
+     *         {@link Context}. The context may not be null
+     * @param attributeSet
+     *         The attributes of the XML tag that is inflating the preference, as an instance of the
+     *         type {@link AttributeSet} or null, if no attributes are available
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     */
+    public ActionPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle) {
+        super(context, attributeSet, defaultStyle);
+        initialize(attributeSet, defaultStyle, 0);
+    }
+
+    /**
+     * Creates a new preference, which acts as a button and displays a centered title.
+     *
+     * @param context
+     *         The context, which should be used by the preference, as an instance of the class
+     *         {@link Context}. The context may not be null
+     * @param attributeSet
+     *         The attributes of the XML tag that is inflating the preference, as an instance of the
+     *         type {@link AttributeSet} or null, if no attributes are available
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public ActionPreference(@NonNull final Context context,
+                            @Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        super(context, attributeSet, defaultStyle, defaultStyleResource);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
+    }
+
+    @Override
+    public final void setIcon(@Nullable final Drawable icon) {
+        super.setIcon(icon);
+        adaptIcon();
+    }
+
+    @Override
+    public final void setIcon(@DrawableRes final int resourceId) {
+        super.setIcon(resourceId);
+        adaptIcon();
+    }
+
+    @Override
+    protected final View onCreateView(final ViewGroup parent) {
+        View view = super.onCreateView(parent);
+        textView = (TextView) view.findViewById(android.R.id.title);
+        adaptIcon();
+        return view;
+    }
+
+}
