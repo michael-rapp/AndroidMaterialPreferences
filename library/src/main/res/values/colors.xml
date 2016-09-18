@@ -15,9 +15,11 @@ License.
 -->
 <resources>
 
+
     <!-- Default values -->
     <color name="color_picker_preference_default_preview_border_color">#ffd2d2d2</color>
     <color name="color_palette_preference_default_dialog_preview_border_color">#ffd2d2d2</color>
+    <color name="action_preference_default_disabled_text_color">#42000000</color>
 
     <!-- Arrays -->
     <array name="color_palette">

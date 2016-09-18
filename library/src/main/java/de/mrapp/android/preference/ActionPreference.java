@@ -15,19 +15,24 @@ package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import de.mrapp.android.util.ThemeUtil;
 
 /**
  * A preference, which acts as a button and displays a centered title.
@@ -41,6 +46,16 @@ public class ActionPreference extends Preference {
      * The text view, which is used to show the preference's title.
      */
     private TextView textView;
+
+    /**
+     * The text color of the preference's title.
+     */
+    private int textColor;
+
+    /**
+     * The text color of the preference's title when disabled.
+     */
+    private int disabledTextColor;
 
     /**
      * Initializes the preference.
@@ -88,6 +103,8 @@ public class ActionPreference extends Preference {
 
         try {
             obtainIcon(typedArray);
+            obtainTextColor(typedArray);
+            obtainDisabledTextColor(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -105,11 +122,59 @@ public class ActionPreference extends Preference {
     }
 
     /**
+     * Obtains the text color of the preference's title from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainTextColor(@NonNull final TypedArray typedArray) {
+        int defaultTextColor = ThemeUtil.getColor(getContext(), R.attr.colorAccent);
+        setTextColor(typedArray
+                .getColor(R.styleable.ActionPreference_android_textColor, defaultTextColor));
+    }
+
+    /**
+     * Obtains the disabled text color of the preference's title from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDisabledTextColor(@NonNull final TypedArray typedArray) {
+        int defaultTextColor = ContextCompat
+                .getColor(getContext(), R.color.action_preference_default_disabled_text_color);
+        setDisabledTextColor(typedArray
+                .getColor(R.styleable.ActionPreference_disabledTextColor, defaultTextColor));
+    }
+
+    /**
      * Adapts the preference's icon.
      */
     private void adaptIcon() {
         if (textView != null) {
             textView.setCompoundDrawablesWithIntrinsicBounds(getIcon(), null, null, null);
+        }
+    }
+
+    /**
+     * Adapts the enable state of the preference.
+     */
+    private void adaptEnableState() {
+        if (textView != null) {
+            textView.setEnabled(isEnabled());
+        }
+    }
+
+    /**
+     * Adapts the text color of the preference's title.
+     */
+    private void adaptTextColor() {
+        if (textView != null) {
+            int[][] states = new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{}};
+            int[] colors = new int[]{getDisabledTextColor(), getTextColor()};
+            ColorStateList colorStateList = new ColorStateList(states, colors);
+            textView.setTextColor(colorStateList);
         }
     }
 
@@ -188,6 +253,46 @@ public class ActionPreference extends Preference {
         initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
+    /**
+     * Returns the text color of the preference's title.
+     *
+     * @return The text color of the preference's title as an {@link Integer} value
+     */
+    public final int getTextColor() {
+        return textColor;
+    }
+
+    /**
+     * Sets the text color of the preference's title.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value
+     */
+    public final void setTextColor(@ColorInt final int color) {
+        this.textColor = color;
+        adaptTextColor();
+    }
+
+    /**
+     * Returns the text color of the preference's title when disabled.
+     *
+     * @return The text color of the preference's title when disabled as an {@link Integer} value
+     */
+    public final int getDisabledTextColor() {
+        return disabledTextColor;
+    }
+
+    /**
+     * Sets the text color of the preference's title when disabled.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value
+     */
+    public final void setDisabledTextColor(@ColorInt final int color) {
+        this.disabledTextColor = color;
+        adaptTextColor();
+    }
+
     @Override
     public final void setIcon(@Nullable final Drawable icon) {
         super.setIcon(icon);
@@ -201,10 +306,18 @@ public class ActionPreference extends Preference {
     }
 
     @Override
+    public final void setEnabled(final boolean enabled) {
+        super.setEnabled(enabled);
+        adaptEnableState();
+    }
+
+    @Override
     protected final View onCreateView(final ViewGroup parent) {
         View view = super.onCreateView(parent);
         textView = (TextView) view.findViewById(android.R.id.title);
         adaptIcon();
+        adaptEnableState();
+        adaptTextColor();
         return view;
     }
 
