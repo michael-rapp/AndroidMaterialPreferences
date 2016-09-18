@@ -78,6 +78,11 @@
                         <li><a href="content.html#switch-preference-getter-and-setter-methods">Getter and setter methods</a></li>
                         <li><a href="content.html#switch-preference-xml-attributes">XML attributes</a></li>
                     </ul>
+            <li><a href="content.html#action-preference">ActionPreference</a></li>
+                    <ul>
+                        <li><a href="content.html#action-preference-getter-and-setter-methods">Getter and setter methods</a></li>
+                        <li><a href="content.html#action-preference-xml-attributes">XML attributes</a></li>
+                    </ul>
                     <li><a href="content.html#validating-preferences">Validating preferences</a></li>
                 </ol>
 
@@ -1367,6 +1372,63 @@
                         <td>The default value of the preference.</td>
                         <td style="text-align: center;"><tt>boolean</tt></td>
                         <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                </table>
+                
+                <h4><a name="action-preference">12 ActionPreference</a></h4>
+
+		<p>The preference <a href="javadoc/de/mrapp/android/preference/ActionPreference.html" target="_blank" class="code">ActionPreference</a> is intended to be used as a button, which performs an action when clicked. In order to observe, when the preference is clicked, the classes' <tt>setOnPreferenceClickListener</tt>-method has to be used. The title of the preference is displayed centered. When setting an icon, it is shown next to the title. Because no dialog is shown when clicking the preference, the getter- and setter-methods, respectively XML attributes, which have been mentioned in section 2 "Common properties" of this documentation, are not supported by this preference.</p>
+
+		<h5><a name="action-preference-getter-and-setter-methods">Getter and setter methods</a></h5>
+
+                <p>The class <a href="javadoc/de/mrapp/android/preference/ActionPreference.html" target="_blank" class="code">ActionPreference</a> provides the following setter and getter methods.</p>
+                
+                <table>
+                    <tr>
+                        <th>Getter and setter methods</th>
+                        <th>Explaination</th>
+                        <th style="min-width: 90px;">Default value</th>
+                        <th style="min-width: 90px;">Restrictions</th>
+                    </tr>
+                    <tr>
+                        <td><tt>getTextColor():int</br>setTextColor(int):void</tt></td>
+                        <td>Returns or sets the text color of the preference's title.</td>
+                        <td><center><tt>R.attr.colorAccent</tt></center></td>
+                        <td>none</td>
+                    </tr>
+		            <tr>
+                        <td><tt>getDisabledTextColor():int</br>setDisabledTextColor(int):void</tt></td>
+                        <td>Returns or sets the text color of the preference's title when disabled.</td>
+                        <td><center><tt>null</tt></center></td>
+                        <td><tt>#42000000</tt></td>
+                    </tr>
+                </table>
+                
+                <h5><a name="action-preference-xml-attributes">XML attributes</a></h5>
+
+                <p>As an alternative to the previously mentioned getter and setter methods, the following XML attributes can be used in order to specify the properties of a <a href="javadoc/de/mrapp/android/preference/ActionPreference.html" target="_blank" class="code">ActionPreference</a>.</p>
+
+                <table style="width: 100%">
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Explaination</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
+                    </tr>
+		            <tr>
+                        <td><tt>android:textColor</tt></td>
+                        <td>The text color of the preference's title.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>R.attr.colorAccent</tt></td>
+                        <td>none</td>
+                    </tr>
+		            <tr>
+                        <td><tt>custom:disabledTextColor</tt></td>
+                        <td>The text color of the preference's title when disabled.</td>
+                        <td style="text-align: center;"><tt>color</tt></td>
+                        <td style="text-align: center;"><tt>#420000</tt></td>
                         <td>none</td>
                     </tr>
                 </table>

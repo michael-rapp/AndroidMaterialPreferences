@@ -474,6 +474,34 @@
 <br/>preference.setTitle(R.string.switch_preference_title);
 <br/>preference.showValueAsSummary(<strong><font color='#7f0055'>false</font></strong>);</div>
             </div>
+            
+            		<h4>Declaring a ActionPreference via XML</h4>
+                
+                <p>The following XML code shows how a <a href="javadoc/de/mrapp/android/preference/ActionPreference.html" target="_blank" class="code">ActionPreference</a> can be declared within a XML resource.</p>
+
+                <div class="xml-block"><font color='#3f7f5f'>&lt;?xml</font>&nbsp;version=<font color='#2a00ff'>"1.0"</font>&nbsp;encoding=<font color='#2a00ff'>"utf-8"</font>?&gt;
+<br/><font color='#3f7f5f'>&lt;PreferenceScreen&nbsp;</font>xmlns:android="<font color='#2a00ff'>http://schemas.android.com/apk/res/android</font>"
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;xmlns:custom=<font color='#2a00ff'>"http://schemas.android.com/apk/res-auto"</font>&nbsp;<font color='#3f7f5f'>&gt;</font><br/>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;<font color='#3f7f5f'>&lt;de.mrapp.android.preference.ActionPreference</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:key=<font color='#2a00ff'>"@string/action_preference_key"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:title=<font color='#2a00ff'>"@string/action_preference_title"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:icon=<font color='#2a00ff'>"@drawable/action_preference_icon"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;android:textColor=<font color='#2a00ff'>"@color/text_color"</font>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custom:disabledTextColor=<font color='#2a00ff'>"@color/disabled_text_color"</font>
+<br/>
+<br/><font color='#3f7f5f'>&lt;/PreferenceScreen&gt;</font></div>
+
+                <h4>Instantiating a ActionPreference programatically</h4>
+
+                <p>The following example shows how a <a href="javadoc/de/mrapp/android/preference/ActionPreference.html" target="_blank" class="code">ActionPreference</a> can be instantiated programmatically.</p>
+
+                <div class="code-block">ActionPreference&nbsp;preference&nbsp;=&nbsp;<strong><font color='#7f0055'>new</font></strong>&nbsp;ActionPreference(<strong><font color='#7f0055'>this</font></strong>);
+<br/>preference.setKey(R.string.action_preference_key);
+<br/>preference.setTitle(R.string.action_preference_title);
+<br/>preference.setIcon(R.drawable.action_preference_icon);
+<br/>preference.setTextColor(R.color.text_color);
+<br/>preference.setDisabledTextColor(R.color.disabled_text_color);
+            </div>
 
             <div class="copyright">
                 &#169; Copyright 2014 - 2016, Michael Rapp. All rights reserved.
