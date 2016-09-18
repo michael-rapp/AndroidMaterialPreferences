@@ -20,6 +20,7 @@ The library provides the following preferences:
 - A preference, which allows to choose an image or video resolution via two `EditText` widgets (`ResolutionPreference`).
 - A preference, which allows to choose a color from a predefined color palette (`ColorPalettePreference`).
 - A preference, which provides a toggleable option using a `Switch` widget (`SwitchPreference`).
+- A preference, which acts as a button and shows a centered title (`ActionPreference`).
 
 ## License Agreement
 
