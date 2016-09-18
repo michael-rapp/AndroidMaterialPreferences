@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.7.0 (Sep. 19th 2016)
+
+A feature releae, which introduces the following features:
+
+- Added the preference `ActionPreference`, which acts as a button and displays a centered title.
+- It is now possible to set the hint of an `EditTextPreference`'s `EditText` widget.
+- It is now possible to set the hints of an `ResolutionPreference`'s `EditText` widgets.
+
 ## Version 2.6.4 (Sep. 16th 2016)
 
 A minor release, which introduces the following changes:
