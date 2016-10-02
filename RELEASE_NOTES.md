@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 2.7.1 (Okt. 2nd 2016)
+
+A bugfix release, which fixes the following issues:
+
+- Updated dependency "AndroidMaterialDialog" to version 3.6.10. This fixes a problem with themes not being applied.
+
 ## Version 2.7.0 (Sep. 19th 2016)
 
 A feature releae, which introduces the following features:
