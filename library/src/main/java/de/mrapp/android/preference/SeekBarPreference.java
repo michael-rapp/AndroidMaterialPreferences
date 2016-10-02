@@ -839,6 +839,7 @@ public class SeekBarPreference extends DialogPreference {
         this.summaries = null;
     }
 
+    @SuppressWarnings("ResourceType")
     @Override
     public final void setSummary(@ArrayRes final int resourceId) {
         try {
