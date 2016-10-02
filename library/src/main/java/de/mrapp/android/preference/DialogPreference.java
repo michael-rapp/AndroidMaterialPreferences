@@ -656,7 +656,7 @@ public class DialogPreference extends Preference
             dialogBuilder.setBackground(dialogBackgroundId);
         } else if (dialogBackgroundColor != -1) {
             dialogBuilder.setBackgroundColor(dialogBackgroundColor);
-        } else {
+        } else if (dialogBackgroundBitmap != null) {
             dialogBuilder.setBackground(dialogBackgroundBitmap);
         }
 
@@ -664,7 +664,7 @@ public class DialogPreference extends Preference
             dialogBuilder.setHeaderBackground(dialogHeaderBackgroundId);
         } else if (dialogHeaderBackgroundColor != -1) {
             dialogBuilder.setHeaderBackgroundColor(dialogHeaderBackgroundColor);
-        } else {
+        } else if (dialogHeaderBackgroundBitmap != null) {
             dialogBuilder.setHeaderBackground(dialogHeaderBackgroundBitmap);
         }
 
