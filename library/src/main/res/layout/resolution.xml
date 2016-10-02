@@ -27,8 +27,7 @@ License.
         android:layout_width="@dimen/resolution_edit_text_width"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:maxLines="1"
-        android:singleLine="true"/>
+        android:maxLines="1"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,8 +40,7 @@ License.
         android:layout_width="@dimen/resolution_edit_text_width"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:maxLines="1"
-        android:singleLine="true"/>
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/unit_text_view"
