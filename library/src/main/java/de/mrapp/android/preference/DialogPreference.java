@@ -36,6 +36,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -44,6 +45,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -277,6 +279,39 @@ public class DialogPreference extends Preference
      * dialog, should be shown when the list view is scrolled, false otherwise.
      */
     private boolean showDialogDividersOnScroll;
+
+    /**
+     * The custom view, which should be used to show the title of the preference's dialog.
+     */
+    private View customDialogTitleView;
+
+    /**
+     * The resource id of the custom view, which should be used to show the title of the
+     * preference's dialog.
+     */
+    private int customDialogTitleViewId = -1;
+
+    /**
+     * The custom view, which should be used to show the message of the preference's dialog.
+     */
+    private View customDialogMessageView;
+
+    /**
+     * The resource id of the custom view, which should be used to show the message of the
+     * preference's dialog.
+     */
+    private int customDialogMessageViewId = -1;
+
+    /**
+     * The custom view, which should be used to show the buttons of the preference's dialog.
+     */
+    private View customDialogButtonBarView;
+
+    /**
+     * The resource id of the custom view, which should be used to show the buttons of the
+     * preference's dialog.
+     */
+    private int customDialogButtonBarViewId = -1;
 
     /**
      * The listener, which is notified, when a button of the preference's dialog has been clicked.
@@ -692,6 +727,30 @@ public class DialogPreference extends Preference
 
         if (getDialogButtonBarDividerColor() != -1) {
             dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
+        }
+
+        if (customDialogTitleView != null) {
+            dialogBuilder.setCustomTitle(customDialogTitleView);
+        }
+
+        if (customDialogTitleViewId != -1) {
+            dialogBuilder.setCustomTitle(customDialogTitleViewId);
+        }
+
+        if (customDialogMessageView != null) {
+            dialogBuilder.setCustomMessage(customDialogMessageView);
+        }
+
+        if (customDialogMessageViewId != -1) {
+            dialogBuilder.setCustomMessage(customDialogMessageViewId);
+        }
+
+        if (customDialogButtonBarView != null) {
+            dialogBuilder.setCustomButtonBar(customDialogButtonBarView);
+        }
+
+        if (customDialogButtonBarViewId != -1) {
+            dialogBuilder.setCustomButtonBar(customDialogButtonBarViewId);
         }
 
         onPrepareDialog(dialogBuilder);
@@ -1352,6 +1411,72 @@ public class DialogPreference extends Preference
      */
     public final void showDialogDividersOnScroll(final boolean show) {
         this.showDialogDividersOnScroll = show;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the title of the preference's dialog.
+     *
+     * @param view
+     *         The custom view, which should be set, as an instance of the class {@link View} or
+     *         null, if no custom view should be used
+     */
+    public final void setCustomDialogTitle(@Nullable final View view) {
+        this.customDialogTitleView = view;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the title of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the custom view, which should be set, as an {@link Integer} value.
+     *         The resource id must correspond to a valid layout resource
+     */
+    public final void setCustomDialogTitle(@LayoutRes final int resourceId) {
+        this.customDialogTitleViewId = resourceId;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the message of the preference's dialog.
+     *
+     * @param view
+     *         The custom view, which should be set, as an instance of the class {@link View} or
+     *         null, if no custom view should be used
+     */
+    public final void setCustomDialogMessage(@Nullable final View view) {
+        this.customDialogMessageView = view;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the message of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of custom view, which should be set, as an {@link Integer} value. The
+     *         resource id must correspond to a valid layout resource
+     */
+    public final void setCustomDialogMessageView(@LayoutRes final int resourceId) {
+        this.customDialogMessageViewId = resourceId;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the buttons of the preference's dialog.
+     *
+     * @param view
+     *         The custom view, which should be set, as an instance of the class {@link View} or
+     *         null, if no custom view should be set
+     */
+    public final void setCustomDialogButtonBar(@Nullable final View view) {
+        this.customDialogButtonBarView = view;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the buttons of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the custom view, which should be set, as an {@link Integer} value.
+     *         The resource id must correspond to a valid layout resource
+     */
+    public final void setCustomDialogButtonBarViewId(@LayoutRes final int resourceId) {
+        this.customDialogButtonBarViewId = resourceId;
     }
 
     /**
