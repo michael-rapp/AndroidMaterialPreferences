@@ -1453,7 +1453,7 @@ public class DialogPreference extends Preference
      *         The resource id of custom view, which should be set, as an {@link Integer} value. The
      *         resource id must correspond to a valid layout resource
      */
-    public final void setCustomDialogMessageView(@LayoutRes final int resourceId) {
+    public final void setCustomDialogMessage(@LayoutRes final int resourceId) {
         this.customDialogMessageViewId = resourceId;
     }
 
@@ -1475,7 +1475,7 @@ public class DialogPreference extends Preference
      *         The resource id of the custom view, which should be set, as an {@link Integer} value.
      *         The resource id must correspond to a valid layout resource
      */
-    public final void setCustomDialogButtonBarViewId(@LayoutRes final int resourceId) {
+    public final void setCustomDialogButtonBar(@LayoutRes final int resourceId) {
         this.customDialogButtonBarViewId = resourceId;
     }
 
