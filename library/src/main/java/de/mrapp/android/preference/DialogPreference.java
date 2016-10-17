@@ -876,7 +876,7 @@ public class DialogPreference extends Preference
      *         The builder, which is used to create the preference's dialog, as an instance of the
      *         class MaterialDialog.Builder
      */
-    protected void onPrepareDialog(@NonNull MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
 
     }
 
