@@ -107,8 +107,8 @@
                     <tr>
                         <th>Getter and setter methods</th>
                         <th>Explaination</th>
-                        <th style="min-width: 90px;">Default value</th>
-                        <th style="min-width: 190px;">Restrictions</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
                     </tr>
                     <tr>
                         <td><tt>getDialogTitle():CharSequence</br>setDialogTitle(CharSequence):void</br>setDialogTitle(int):void</tt></td>
@@ -206,6 +206,54 @@
                         <td><center><tt>-1</tt></center></td>
                         <td>none</td>
                     </tr>
+                    <tr>
+                        <td><tt>isDialogFullscreen():boolean</br>setDialogFullscreen(boolean):void</tt></td>
+                        <td>Returns or sets, whether the preference's dialog is shown fullscreen, or not.</td>
+                        <td><center><tt>false</tt></center></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogGravity():int</br>setDialogGravity(int):void</tt></td>
+                        <td>Returns or sets the gravity of the preference's dialog.</td>
+                        <td><center><tt>-1</tt></center></td>
+                        <td>The gravity must consist of the values given in <tt>Dialog.Gravity</tt>. Multiple values can be combined by using the bitwise OR operator</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogWidth():int</br>setDialogWidth(int):void</tt></td>
+                        <td>Returns or sets the width of the preference's dialog in pixels.</td>
+                        <td><center><tt>0</tt></center></td>
+                        <td>The width must be at least 1, or <tt>Dialog.MATCH_PARENT</tt>, respectively <tt>Dialog.WRAP_CONTENT</tt></td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogHeight():int</br>setDialogHeight(int):void</tt></td>
+                        <td>Returns or sets the height of the preference's dialog in pixels.</td>
+                        <td><center><tt>0</tt></center></td>
+                        <td>The height must be at least 1, or <tt>Dialog.MATCH_PARENT</tt>, respectively <tt>Dialog.WRAP_CONTENT</tt></td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogMaxWidth():int</br>setDialogMaxWidth(int):void</tt></td>
+                        <td>Returns or sets the maximum width of the preference's dialog in pixels.</td>
+                        <td><center><tt>-1</tt></center></td>
+                        <td>The maximum width must be at least 1, or -1, if no maximum width should be set</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogMaxHeight():int</br>setDialogMaxHeight(int):void</tt></td>
+                        <td>Returns or sets the maximum height of the preference's dialog in pixels.</td>
+                        <td><center><tt>-1</tt></center></td>
+                        <td>The maximum height must be at least 1, or -1, if no maximum height should be set</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogMarginLeft():int</br>getDialogMarginTop():int</br>getDialogMarginRight():int</br>getDialogMarginBottom():int</br>setDialogMargin(int,int,int,int):void</tt></td>
+                        <td>Returns or sets the margin of the preference's dialog in pixels.</td>
+                        <td><center><tt>R.dimen.</br>dialog_horizontal_margin</tt> as left and right padding and <tt>R.dimen.</br>dialog_vertical_margin</tt> as top and bottom padding</center></td>
+                        <td>All margins must be at least 0</td>
+                    </tr>
+                    <tr>
+                        <td><tt>getDialogFitsSystemWindowsLeft():boolean</br>getDialogFitsSystemWindowsTop():boolean</br>getDialogFitsSystemWindowsRight():boolean</br>getDialogfitsSystemWindowsBottom():boolean</br>setDialogFitsSystemWindows(boolean,boolean,</br>&nbsp;&nbsp;&nbsp;&nbsp;boolean,boolean):void</tt></td>
+                        <td>Returns or sets, whether the content of the preference's dialog should account for system screen decorations such as the status bar and inset its content, or not.</td>
+                        <td><center><tt>true, true, true, true</tt></center></td>
+                        <td>none</td>
+                    </tr>
                 </table>
 
                 <h5><a name="common-xml-attributes">XML attributes</a></h5>
@@ -216,9 +264,9 @@
                     <tr>
                         <th>Attribute</th>
                         <th>Explaination</th>
-                        <th style="min-width: 80px;">Value type</th>
-                        <th style="min-width: 90px;">Default value</th>
-                        <th style="min-width: 90px;">Restrictions</th>
+                        <th>Value type</th>
+                        <th>Default value</th>
+                        <th>Restrictions</th>
                     </tr>
                     <tr>
                         <td><tt>android:dialogMessage</tt></td>
@@ -252,7 +300,7 @@
                         <td><tt>custom:dialogMessageColor</tt></td>
                         <td>The color of the message of the preference's dialog.</td>
                         <td style="text-align: center;"><tt>color</tt></td>
-                        <td style="text-align: center;"><tt>?android:attr/textColorSecondary</tt></td>
+                        <td style="text-align: center;"><tt>?android:attr/</br>textColorSecondary</tt></td>
                         <td>none</td>
                     </tr>
                     <tr>
@@ -316,6 +364,62 @@
                         <td>The color of the divider, which is located above the buttons of the preference's dialog.</td>
                         <td style="text-align: center;"><tt>color</tt></td>
                         <td style="text-align: center;"><tt>-1</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogFullscreen</tt></td>
+                        <td>Defines, whether the preference's dialog is shown fullscreen, or not.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>false</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogGravity</tt></td>
+                        <td>The gravity of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>integer</tt></td>
+                        <td style="text-align: center;"><tt>center</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogWidth</tt></td>
+                        <td>The width of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogHeight</tt></td>
+                        <td>The height of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>0</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogMaxWidth</tt></td>
+                        <td>The maximum width of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>-1</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogMaxHeight</tt></td>
+                        <td>The maximum height of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>-1</tt></td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogMarginLeft</br>custom:dialogMarginTop</br>custom:dialogMarginRight</br>custom:dialogMarginBottom</tt></td>
+                        <td>The margin of the preference's dialog.</td>
+                        <td style="text-align: center;"><tt>dimension</tt></td>
+                        <td style="text-align: center;"><tt>R.dimen.</br>dialog_horizontal_margin</tt> as left and right margin and <tt>R.dimen.</br>dialog_vertical_margin</tt> as top and bottom margin</td>
+                        <td>none</td>
+                    </tr>
+                    <tr>
+                        <td><tt>custom:dialogFitsSystemWindowsLeft</br>custom:dialogFitsSystemWindowsTop</br>custom:dialogFitsSystemWindowsRight</br>custom:dialogFitsSystemWindowsBottom</tt></td>
+                        <td>Whether the preference's dialog should account for system screen decorations such as the status bar and inset its content.</td>
+                        <td style="text-align: center;"><tt>boolean</tt></td>
+                        <td style="text-align: center;"><tt>true, true, true, true</tt></td>
                         <td>none</td>
                     </tr>
                 </table>
