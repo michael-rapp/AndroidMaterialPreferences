@@ -14,7 +14,6 @@
 package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -22,6 +21,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.DialogInterface.OnShowListener;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -51,6 +51,7 @@ import android.view.WindowManager;
 
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.animation.DialogAnimation;
+import de.mrapp.android.dialog.model.Dialog;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -131,7 +132,7 @@ public class DialogPreference extends Preference
     /**
      * The preference's dialog.
      */
-    private Dialog dialog;
+    private MaterialDialog dialog;
 
     /**
      * The resource id of the theme, which is used by the preference's dialog.
@@ -142,6 +143,47 @@ public class DialogPreference extends Preference
      * True, if the preference's dialog has been closed affirmatively, false otherwise.
      */
     private boolean dialogResultPositive;
+
+    /**
+     * True, if the preference's dialog is shown fullscreen, false otherwise.
+     */
+    private boolean dialogFullscreen;
+
+    /**
+     * The gravity of the preference's dialog.
+     */
+    private int dialogGravity = -1;
+
+    /**
+     * The width of the preference's dialog.
+     */
+    private int dialogWidth = 0;
+
+    /**
+     * The height of the preference's dialog.
+     */
+    private int dialogHeight = 0;
+
+    /**
+     * The maximum width of the preference's dialog.
+     */
+    private int dialogMaxWidth = -1;
+
+    /**
+     * The maximum height of the preference's dialog.
+     */
+    private int dialogMaxHeight = -1;
+
+    /**
+     * The margin of the preference's dialog.
+     */
+    private int[] dialogMargin;
+
+    /**
+     * A boolean array, which contains, whether the preference's dialog should inset its content as
+     * specific edges, or not.
+     */
+    private boolean[] dialogFitsSystemWindows;
 
     /**
      * The title of the preference's dialog.
@@ -378,6 +420,14 @@ public class DialogPreference extends Preference
 
         try {
             obtainDialogTheme(typedArray);
+            obtainDialogFullscreen(typedArray);
+            obtainDialogGravity(typedArray);
+            obtainDialogWidth(typedArray);
+            obtainDialogHeight(typedArray);
+            obtainDialogMaxWidth(typedArray);
+            obtainDialogMaxHeight(typedArray);
+            obtainDialogMargin(typedArray);
+            obtainDialogFitsSystemWindows(typedArray);
             obtainDialogTitle(typedArray);
             obtainDialogMessage(typedArray);
             obtainDialogIcon(typedArray);
@@ -419,6 +469,162 @@ public class DialogPreference extends Preference
         }
 
         dialogTheme = themeId != 0 ? themeId : R.style.MaterialDialog_Light;
+    }
+
+    /**
+     * Obtains, whether the preference's dialog should be shown fullscreen, or not, from a specific
+     * typed array.
+     *
+     * @param typedArray
+     *         The typed array, it should be obtained from, whether the preference's dialog should
+     *         be shown fullscreen, or not, as an instance of the class {@link TypedArray}. The
+     *         typed array may not be null
+     */
+    private void obtainDialogFullscreen(@NonNull final TypedArray typedArray) {
+        setDialogFullscreen(
+                typedArray.getBoolean(R.styleable.DialogPreference_dialogFullscreen, false));
+    }
+
+    /**
+     * Obtains the gravity of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the gravity should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogGravity(@NonNull final TypedArray typedArray) {
+        int gravity = typedArray.getInteger(R.styleable.DialogPreference_dialogGravity, -1);
+        setDialogGravity(gravity);
+    }
+
+    /**
+     * Obtains the width of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the width should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogWidth(@NonNull final TypedArray typedArray) {
+        int width = 0;
+
+        try {
+            width = typedArray
+                    .getDimensionPixelSize(R.styleable.DialogPreference_dialogWidth, width);
+        } catch (Resources.NotFoundException | UnsupportedOperationException e) {
+            width = typedArray.getInteger(0, width);
+        }
+
+        if (width != 0) {
+            setDialogWidth(width);
+        }
+    }
+
+    /**
+     * Obtains the height of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the height should be obtained from, as an instance of the class
+     *         {@link TypedArray} the typed array may not be null
+     */
+    private void obtainDialogHeight(@NonNull final TypedArray typedArray) {
+        int height = 0;
+
+        try {
+            height = typedArray
+                    .getDimensionPixelSize(R.styleable.DialogPreference_dialogHeight, height);
+        } catch (Resources.NotFoundException | UnsupportedOperationException e) {
+            height = typedArray.getInteger(0, height);
+        }
+
+        if (height != 0) {
+            setDialogHeight(height);
+        }
+    }
+
+    /**
+     * Obtains the maximum width of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the maximum width should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogMaxWidth(@NonNull final TypedArray typedArray) {
+        try {
+            int maxWidth = typedArray
+                    .getDimensionPixelSize(R.styleable.DialogPreference_dialogMaxWidth, -1);
+
+            if (maxWidth != -1) {
+                setDialogMaxWidth(maxWidth);
+            }
+        } catch (Resources.NotFoundException | UnsupportedOperationException e) {
+            // No need to handle
+        }
+    }
+
+    /**
+     * Obtains the maximum height of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the maximum height should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogMaxHeight(@NonNull final TypedArray typedArray) {
+        try {
+            int maxHeight = typedArray
+                    .getDimensionPixelSize(R.styleable.DialogPreference_dialogMaxHeight, -1);
+
+            if (maxHeight != -1) {
+                setDialogMaxHeight(maxHeight);
+            }
+        } catch (Resources.NotFoundException | UnsupportedOperationException e) {
+            // No need to handle
+        }
+    }
+
+    /**
+     * Obtains the margin of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the margin should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogMargin(@NonNull final TypedArray typedArray) {
+        int defaultHorizontalMargin =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_horizontal_margin);
+        int defaultVerticalMargin =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_vertical_margin);
+        int left = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogMarginLeft,
+                defaultHorizontalMargin);
+        int top = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogMarginTop,
+                defaultVerticalMargin);
+        int right = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogMarginRight,
+                defaultHorizontalMargin);
+        int bottom = typedArray
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogMarginBottom,
+                        defaultVerticalMargin);
+        setDialogMargin(left, top, right, bottom);
+
+    }
+
+    /**
+     * Obtains, whether the preference's dialog should account for system screen decorations such as
+     * the status bar and inset its content, or not.
+     *
+     * @param typedArray
+     *         The typed array, it should be obtained from, whether the preference's dialog should
+     *         account for system screen decorations, or not, as an instance of the class {@link
+     *         TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogFitsSystemWindows(@NonNull final TypedArray typedArray) {
+        boolean left = typedArray
+                .getBoolean(R.styleable.DialogPreference_dialogFitsSystemWindowsLeft, true);
+        boolean top = typedArray
+                .getBoolean(R.styleable.DialogPreference_dialogFitsSystemWindowsTop, true);
+        boolean right = typedArray
+                .getBoolean(R.styleable.DialogPreference_dialogFitsSystemWindowsRight, true);
+        boolean bottom = typedArray
+                .getBoolean(R.styleable.DialogPreference_dialogFitsSystemWindowsBottom, true);
+        setDialogFitsSystemWindows(left, top, right, bottom);
     }
 
     /**
@@ -689,6 +895,14 @@ public class DialogPreference extends Preference
     private void showDialog(@Nullable final Bundle dialogState) {
         MaterialDialog.Builder dialogBuilder =
                 new MaterialDialog.Builder(getContext(), dialogTheme);
+        dialogBuilder.setFullscreen(isDialogFullscreen());
+        dialogBuilder.setMaxWidth(getDialogMaxWidth());
+        dialogBuilder.setMaxHeight(getDialogMaxHeight());
+        dialogBuilder.setMargin(getDialogLeftMargin(), getDialogTopMargin(), getDialogRightMargin(),
+                getDialogBottomMargin());
+        dialogBuilder.setFitsSystemWindows(isDialogFitsSystemWindowsLeft(),
+                isDialogFitsSystemWindowsTop(), isDialogFitsSystemWindowsRight(),
+                isDialogFitsSystemWindowsBottom());
         dialogBuilder.setTitle(getDialogTitle());
         dialogBuilder.setMessage(getDialogMessage());
         dialogBuilder.setPositiveButton(getPositiveButtonText(), this);
@@ -726,6 +940,18 @@ public class DialogPreference extends Preference
             dialogBuilder.setHeaderIcon(dialogHeaderIconId);
         } else {
             dialogBuilder.setHeaderIcon(dialogHeaderIconBitmap);
+        }
+
+        if (getDialogGravity() != -1) {
+            dialogBuilder.setGravity(getDialogGravity());
+        }
+
+        if (getDialogWidth() != 0) {
+            dialogBuilder.setWidth(getDialogWidth());
+        }
+
+        if (getDialogHeight() != 0) {
+            dialogBuilder.setHeight(getDialogHeight());
         }
 
         if (getDialogTitleColor() != -1) {
@@ -915,10 +1141,10 @@ public class DialogPreference extends Preference
      * Returns the dialog, which is shown by the preference.
      *
      * @return The dialog, which is shown by the preference, as an instance of the class {@link
-     * Dialog} or null, if the dialog is currently not shown
+     * android.app.Dialog} or null, if the dialog is currently not shown
      */
     @Nullable
-    public final Dialog getDialog() {
+    public final android.app.Dialog getDialog() {
         if (isDialogShown()) {
             return dialog;
         } else {
@@ -933,6 +1159,268 @@ public class DialogPreference extends Preference
      */
     public final boolean isDialogShown() {
         return dialog != null && dialog.isShowing();
+    }
+
+    /**
+     * Returns, whether the preference's dialog is shown fullscreen, or not.
+     *
+     * @return True, if the preference's dialog is shown fullscreen, false otherwise
+     */
+    public final boolean isDialogFullscreen() {
+        return dialogFullscreen;
+    }
+
+    /**
+     * Sets, whether the preference's dialog should be shown fullscreen, or not.
+     *
+     * @param fullscreen
+     *         True, if the preference's dialog should be shown fullscreen, false otherwise
+     */
+    public final void setDialogFullscreen(final boolean fullscreen) {
+        this.dialogFullscreen = fullscreen;
+    }
+
+    /**
+     * Returns the gravity of the preference's dialog.
+     *
+     * @return The gravity of the preference's dialog as an {@link Integer} value or -1, if the
+     * default gravity is used. The gravity consists of the flags given in {@link Dialog.Gravity}
+     */
+    public final int getDialogGravity() {
+        return dialogGravity;
+    }
+
+    /**
+     * Sets the gravity of the preference's dialog.
+     *
+     * @param gravity
+     *         The gravity, which should be set, as an {@link Integer} value or -1, if the default
+     *         gravity should be used. The gravity must consist of the flags given in {@link
+     *         Dialog.Gravity}
+     */
+    public final void setDialogGravity(final int gravity) {
+        this.dialogGravity = gravity;
+    }
+
+    /**
+     * Returns the width of the preference's dialog.
+     *
+     * @return The width of the preference's dialog in pixels as an {@link Integer} value or {@link
+     * Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default width is
+     * used
+     */
+    public final int getDialogWidth() {
+        return dialogWidth;
+    }
+
+    /**
+     * Sets the width of the preference's dialog.
+     *
+     * @param width
+     *         The width, which should be set, in pixels as an {@link Integer} value or {@link
+     *         Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default
+     *         width should be used
+     */
+    public final void setDialogWidth(final int width) {
+        this.dialogWidth = width;
+    }
+
+    /**
+     * Returns the height of the preference's dialog.
+     *
+     * @return The height of the preference's dialog in pixels as an {@link Integer} value or {@link
+     * Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default height is
+     * used
+     */
+    public final int getDialogHeight() {
+        return dialogHeight;
+    }
+
+    /**
+     * Sets the height of the preference's dialog.
+     *
+     * @param height
+     *         The height, which should be set, in pixels as an {@link Integer} value or {@link
+     *         Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default
+     *         height should be used
+     */
+    public final void setDialogHeight(final int height) {
+        this.dialogHeight = height;
+    }
+
+    /**
+     * Returns the maximum width of the preference's dialog.
+     *
+     * @return The maximum width of the preference's dialog in pixels as an {@link Integer} value or
+     * -1, if no maximum width is set
+     */
+    public final int getDialogMaxWidth() {
+        return dialogMaxWidth;
+    }
+
+    /**
+     * Sets the maximum width of the preference's dialog.
+     *
+     * @param maxWidth
+     *         The maximum width, which should be set, in pixels as an {@link Integer} value. The
+     *         maximum width must be at least 1, or -1, if no maximum width should be set
+     */
+    public final void setDialogMaxWidth(final int maxWidth) {
+        this.dialogMaxWidth = maxWidth;
+    }
+
+    /**
+     * Returns the maximum height of the preference's dialog.
+     *
+     * @return The maximum height of the preference's dialog in pixels as an {@link Integer} value
+     * or -1, if no maximum height is set
+     */
+    public final int getDialogMaxHeight() {
+        return dialogMaxHeight;
+    }
+
+    /**
+     * Sets the maximum height of the preference's dialog.
+     *
+     * @param maxHeight
+     *         The maximum height, which should be set, in pixels as an {@link Integer} value. The
+     *         maximum height must be at least 1, or -1, if no maximum height should be set
+     */
+    public final void setDialogMaxHeight(final int maxHeight) {
+        this.dialogMaxHeight = maxHeight;
+    }
+
+    /**
+     * Returns the left margin of the preference's dialog.
+     *
+     * @return The left margin of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogLeftMargin() {
+        return dialogMargin[0];
+    }
+
+    /**
+     * Returns the top margin of the preference's dialog.
+     *
+     * @return The top margin of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogTopMargin() {
+        return dialogMargin[1];
+    }
+
+    /**
+     * Returns the right margin of the preference's dialog.
+     *
+     * @return The right margin of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogRightMargin() {
+        return dialogMargin[2];
+    }
+
+    /**
+     * Returns the bottom margin of the preference's dialog.
+     *
+     * @return The bottom margin of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogBottomMargin() {
+        return dialogMargin[3];
+    }
+
+    /**
+     * Sets the margin of the preference's dialog.
+     *
+     * @param left
+     *         The left margin, which should be set, in pixels as an {@link Integer} value. The left
+     *         margin must be at least 0
+     * @param top
+     *         The left margin, which should be set, in pixels as an {@link Integer} value. The left
+     *         margin must be at least 0
+     * @param right
+     *         The left margin, which should be set, in pixels as an {@link Integer} value. The left
+     *         margin must be at least 0
+     * @param bottom
+     *         The left margin, which should be set, in pixels as an {@link Integer} value. The left
+     *         margin must be at least 0
+     */
+    public final void setDialogMargin(final int left, final int top, final int right,
+                                      final int bottom) {
+        this.dialogMargin = new int[]{left, top, right, bottom};
+    }
+
+    /**
+     * Returns, whether the preference's dialog accounts for system screen decorations such as the
+     * status bar and insets its content at the left edge.
+     *
+     * @return True, if the preference's dialog insets its content at the left edge, false otherwise
+     */
+    boolean isDialogFitsSystemWindowsLeft() {
+        return dialogFitsSystemWindows[0];
+    }
+
+    /**
+     * Returns, whether the preference's dialog accounts for system screen decorations such as the
+     * status bar and insets its content at the top edge.
+     *
+     * @return True, if the preference's dialog insets its content at the top edge, false otherwise
+     */
+    boolean isDialogFitsSystemWindowsTop() {
+        return dialogFitsSystemWindows[1];
+    }
+
+    /**
+     * Returns, whether the preference's dialog accounts for system screen decorations such as the
+     * status bar and insets its content at the right edge.
+     *
+     * @return True, if the preference's dialog insets its content at the right edge, false
+     * otherwise
+     */
+    boolean isDialogFitsSystemWindowsRight() {
+        return dialogFitsSystemWindows[2];
+    }
+
+    /**
+     * Returns, whether the preference's dialog accounts for system screen decorations such as the
+     * status bar and insets its content at the bottom edge.
+     *
+     * @return True, if the preference's dialog insets its content at the bottom edge, false
+     * otherwise
+     */
+    public final boolean isDialogFitsSystemWindowsBottom() {
+        return dialogFitsSystemWindows[3];
+    }
+
+    /**
+     * Sets, whether the preference's dialog should account for system screen decorations such as
+     * the status bar and inset its content, or not.
+     *
+     * @param fitsSystemWindows
+     *         True, if the preference's dialog should inset its content, false otherwise
+     */
+    public final void setDialogFitsSystemWindows(final boolean fitsSystemWindows) {
+        setDialogFitsSystemWindows(fitsSystemWindows, fitsSystemWindows, fitsSystemWindows,
+                fitsSystemWindows);
+    }
+
+    /**
+     * Sets, whether the preference's dialog should account for system screen decorations such as
+     * the status bar and inset its content, or not.
+     *
+     * @param left
+     *         True, if the preference's dialog should inset its content at the left edge, false
+     *         otherwise
+     * @param top
+     *         True, if the preference's dialog should inset its content at the top edge, false
+     *         otherwise
+     * @param right
+     *         True, if the preference's dialog should inset its content at the right edge, false
+     *         otherwise
+     * @param bottom
+     *         True, if the preference's dialog should inset its content at the bottom edge, false
+     *         otherwise
+     */
+    public final void setDialogFitsSystemWindows(final boolean left, final boolean top,
+                                                 final boolean right, final boolean bottom) {
+        this.dialogFitsSystemWindows = new boolean[]{left, top, right, bottom};
     }
 
     /**
@@ -1626,7 +2114,7 @@ public class DialogPreference extends Preference
     @CallSuper
     @Override
     public void onClick(final DialogInterface dialog, final int which) {
-        dialogResultPositive = (which == Dialog.BUTTON_POSITIVE);
+        dialogResultPositive = (which == DialogInterface.BUTTON_POSITIVE);
 
         if (onClickListener != null) {
             onClickListener.onClick(dialog, which);
