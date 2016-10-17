@@ -14,6 +14,7 @@
 package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -51,7 +52,6 @@ import android.view.WindowManager;
 
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.animation.DialogAnimation;
-import de.mrapp.android.dialog.model.Dialog;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -1141,10 +1141,10 @@ public class DialogPreference extends Preference
      * Returns the dialog, which is shown by the preference.
      *
      * @return The dialog, which is shown by the preference, as an instance of the class {@link
-     * android.app.Dialog} or null, if the dialog is currently not shown
+     * Dialog} or null, if the dialog is currently not shown
      */
     @Nullable
-    public final android.app.Dialog getDialog() {
+    public final Dialog getDialog() {
         if (isDialogShown()) {
             return dialog;
         } else {
@@ -1184,7 +1184,8 @@ public class DialogPreference extends Preference
      * Returns the gravity of the preference's dialog.
      *
      * @return The gravity of the preference's dialog as an {@link Integer} value or -1, if the
-     * default gravity is used. The gravity consists of the flags given in {@link Dialog.Gravity}
+     * default gravity is used. The gravity consists of the flags given in
+     * <code>Dialog.Gravity</code>
      */
     public final int getDialogGravity() {
         return dialogGravity;
@@ -1195,8 +1196,8 @@ public class DialogPreference extends Preference
      *
      * @param gravity
      *         The gravity, which should be set, as an {@link Integer} value or -1, if the default
-     *         gravity should be used. The gravity must consist of the flags given in {@link
-     *         Dialog.Gravity}
+     *         gravity should be used. The gravity must consist of the flags given in
+     *         <code>Dialog.Gravity</code>
      */
     public final void setDialogGravity(final int gravity) {
         this.dialogGravity = gravity;
@@ -1205,9 +1206,9 @@ public class DialogPreference extends Preference
     /**
      * Returns the width of the preference's dialog.
      *
-     * @return The width of the preference's dialog in pixels as an {@link Integer} value or {@link
-     * Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default width is
-     * used
+     * @return The width of the preference's dialog in pixels as an {@link Integer} value or
+     * <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0, if the
+     * default width is used
      */
     public final int getDialogWidth() {
         return dialogWidth;
@@ -1217,9 +1218,9 @@ public class DialogPreference extends Preference
      * Sets the width of the preference's dialog.
      *
      * @param width
-     *         The width, which should be set, in pixels as an {@link Integer} value or {@link
-     *         Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default
-     *         width should be used
+     *         The width, which should be set, in pixels as an {@link Integer} value or
+     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0,
+     *         if the default width should be used
      */
     public final void setDialogWidth(final int width) {
         this.dialogWidth = width;
@@ -1228,9 +1229,9 @@ public class DialogPreference extends Preference
     /**
      * Returns the height of the preference's dialog.
      *
-     * @return The height of the preference's dialog in pixels as an {@link Integer} value or {@link
-     * Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default height is
-     * used
+     * @return The height of the preference's dialog in pixels as an {@link Integer} value or
+     * <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0, if the
+     * default height is used
      */
     public final int getDialogHeight() {
         return dialogHeight;
@@ -1240,9 +1241,9 @@ public class DialogPreference extends Preference
      * Sets the height of the preference's dialog.
      *
      * @param height
-     *         The height, which should be set, in pixels as an {@link Integer} value or {@link
-     *         Dialog#MATCH_PARENT}, respectively {@link Dialog#WRAP_CONTENT} or 0, if the default
-     *         height should be used
+     *         The height, which should be set, in pixels as an {@link Integer} value or
+     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0,
+     *         if the default height should be used
      */
     public final void setDialogHeight(final int height) {
         this.dialogHeight = height;
@@ -1924,7 +1925,7 @@ public class DialogPreference extends Preference
      * Returns the animation, which is used to show the preference's dialog.
      *
      * @return The animation, which is used to show the preference's dialog, as an instance of the
-     * class {@link DialogAnimation} or null, if no animation is used
+     * class DialogAnimation or null, if no animation is used
      */
     public final DialogAnimation getDialogShowAnimation() {
         return dialogShowAnimation;
@@ -1934,8 +1935,8 @@ public class DialogPreference extends Preference
      * Sets the animation, which should be used to show the preference's dialog.
      *
      * @param animation
-     *         The animation, which should be set, as an instance of the class {@link
-     *         DialogAnimation} or null, if no animation should be used
+     *         The animation, which should be set, as an instance of the class DialogAnimation or
+     *         null, if no animation should be used
      */
     public final void setDialogShowAnimation(@Nullable final DialogAnimation animation) {
         this.dialogShowAnimation = animation;
@@ -1945,7 +1946,7 @@ public class DialogPreference extends Preference
      * Returns the animation, which is used to dismiss the preference's dialog.
      *
      * @return The animation, which is used to dismiss the preference's dialog, as an instance of
-     * the class {@link DialogAnimation}
+     * the class DialogAnimation
      */
     public final DialogAnimation getDialogDismissAnimation() {
         return dialogDismissAnimation;
@@ -1955,8 +1956,8 @@ public class DialogPreference extends Preference
      * Sets the animation, which should be used to dismiss the preference's dialog.
      *
      * @param animation
-     *         The animation, which should be set, as an instance of the class {@link
-     *         DialogAnimation} or null, if no animation should be used
+     *         The animation, which should be set, as an instance of the class DialogAnimation or
+     *         null, if no animation should be used
      */
     public final void setDialogDismissAnimation(@Nullable final DialogAnimation animation) {
         this.dialogDismissAnimation = animation;
@@ -1966,7 +1967,7 @@ public class DialogPreference extends Preference
      * Returns the animation, which is used to cancel the preference's dialog.
      *
      * @return The animation, which is used to cancel the preference's dialog, as an instance of the
-     * class {@link DialogAnimation} or null, if no animation is used
+     * class DialogAnimation or null, if no animation is used
      */
     public final DialogAnimation getDialogCancelAnimation() {
         return dialogCancelAnimation;
@@ -1976,8 +1977,8 @@ public class DialogPreference extends Preference
      * Sets the animation, which should be used to cancel the preference's dialog.
      *
      * @param animation
-     *         The animation, which should be set, as an instance of the class {@link
-     *         DialogAnimation} or null, if no animation should be used
+     *         The animation, which should be set, as an instance of the class DialogAnimation or
+     *         null, if no animation should be used
      */
     public final void setDialogCancelAnimation(@Nullable final DialogAnimation animation) {
         this.dialogCancelAnimation = animation;
