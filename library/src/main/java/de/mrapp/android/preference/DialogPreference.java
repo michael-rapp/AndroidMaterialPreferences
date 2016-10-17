@@ -696,6 +696,9 @@ public class DialogPreference extends Preference
         dialogBuilder.showHeader(isDialogHeaderShown());
         dialogBuilder.showButtonBarDivider(isDialogButtonBarDividerShown());
         dialogBuilder.showDividersOnScroll(areDialogDividersShownOnScroll());
+        dialogBuilder.setShowAnimation(getDialogShowAnimation());
+        dialogBuilder.setDismissAnimation(getDialogDismissAnimation());
+        dialogBuilder.setCancelAnimation(getDialogCancelAnimation());
 
         if (dialogIconId != -1) {
             dialogBuilder.setIcon(dialogIconId);
