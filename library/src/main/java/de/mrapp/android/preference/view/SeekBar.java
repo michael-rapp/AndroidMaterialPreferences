@@ -15,7 +15,6 @@ package de.mrapp.android.preference.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffColorFilter;
@@ -29,6 +28,7 @@ import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
 import de.mrapp.android.preference.R;
+import de.mrapp.android.util.ThemeUtil;
 
 /**
  * A custom view, which is extended from the view {@link android.widget.SeekBar} in order to provide
@@ -54,12 +54,8 @@ public class SeekBar extends android.widget.SeekBar {
      * Applies the attributes of the context's theme on the seek bar.
      */
     private void applyTheme() {
-        TypedArray typedArray =
-                getContext().getTheme().obtainStyledAttributes(new int[]{R.attr.colorAccent});
-        int color = typedArray.getColor(0, 0);
-
-        if (color != 0) {
-            setSeekBarColor(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setSeekBarColor(ThemeUtil.getColor(getContext(), R.attr.colorAccent));
         }
     }
 

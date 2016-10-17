@@ -15,7 +15,6 @@ package de.mrapp.android.preference.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
@@ -29,6 +28,7 @@ import android.util.Log;
 import java.lang.reflect.Field;
 
 import de.mrapp.android.preference.R;
+import de.mrapp.android.util.ThemeUtil;
 
 /**
  * A custom view, which is extended from the view {@link android.widget.NumberPicker} in order to
@@ -53,12 +53,8 @@ public class NumberPicker extends android.widget.NumberPicker {
      * Applies the attributes of the context's theme on the number picker.
      */
     private void applyTheme() {
-        TypedArray typedArray =
-                getContext().getTheme().obtainStyledAttributes(new int[]{R.attr.colorAccent});
-        int color = typedArray.getColor(0, 0);
-
-        if (color != 0) {
-            setDividerColor(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            setDividerColor(ThemeUtil.getColor(getContext(), R.attr.colorAccent));
         }
     }
 
