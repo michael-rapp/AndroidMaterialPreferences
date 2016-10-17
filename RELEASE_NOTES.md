@@ -1,6 +1,16 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
-## Version 2.7.1 (Okt. 2nd 2016)
+## Version 3.0.0 (Oct. 17th 2016)
+
+A major release, which introduces the following features:
+
+- It is now possible to use custom views for displaying the title, message or buttons of a preference's dialog.
+- The library now uses version 4.0.0 of the dependency "AndroidMaterialDialog".
+- This enables to use show or hide the dialogs of preferences by using animations.
+- It also enables to specify the size and location of a preference's dialog.
+- It allows to show the dialog of preferences fullscreen. 
+
+## Version 2.7.1 (Oct. 2nd 2016)
 
 A bugfix release, which fixes the following issues:
 
