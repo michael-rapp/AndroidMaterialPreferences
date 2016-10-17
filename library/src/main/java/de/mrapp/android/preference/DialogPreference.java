@@ -50,6 +50,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.animation.DialogAnimation;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -279,6 +280,21 @@ public class DialogPreference extends Preference
      * dialog, should be shown when the list view is scrolled, false otherwise.
      */
     private boolean showDialogDividersOnScroll;
+
+    /**
+     * The animation, which is used to show the preference's dialog.
+     */
+    private DialogAnimation dialogShowAnimation;
+
+    /**
+     * The animation, which is used to dismiss the preference's dialog.
+     */
+    private DialogAnimation dialogDismissAnimation;
+
+    /**
+     * The animation, which is used to cancel the preference's dialog.
+     */
+    private DialogAnimation dialogCancelAnimation;
 
     /**
      * The custom view, which should be used to show the title of the preference's dialog.
@@ -1411,6 +1427,69 @@ public class DialogPreference extends Preference
      */
     public final void showDialogDividersOnScroll(final boolean show) {
         this.showDialogDividersOnScroll = show;
+    }
+
+    /**
+     * Returns the animation, which is used to show the preference's dialog.
+     *
+     * @return The animation, which is used to show the preference's dialog, as an instance of the
+     * class {@link DialogAnimation} or null, if no animation is used
+     */
+    public final DialogAnimation getDialogShowAnimation() {
+        return dialogShowAnimation;
+    }
+
+    /**
+     * Sets the animation, which should be used to show the preference's dialog.
+     *
+     * @param animation
+     *         The animation, which should be set, as an instance of the class {@link
+     *         DialogAnimation} or null, if no animation should be used
+     */
+    public final void setDialogShowAnimation(@Nullable final DialogAnimation animation) {
+        this.dialogShowAnimation = animation;
+    }
+
+    /**
+     * Returns the animation, which is used to dismiss the preference's dialog.
+     *
+     * @return The animation, which is used to dismiss the preference's dialog, as an instance of
+     * the class {@link DialogAnimation}
+     */
+    public final DialogAnimation getDialogDismissAnimation() {
+        return dialogDismissAnimation;
+    }
+
+    /**
+     * Sets the animation, which should be used to dismiss the preference's dialog.
+     *
+     * @param animation
+     *         The animation, which should be set, as an instance of the class {@link
+     *         DialogAnimation} or null, if no animation should be used
+     */
+    public final void setDialogDismissAnimation(@Nullable final DialogAnimation animation) {
+        this.dialogDismissAnimation = animation;
+    }
+
+    /**
+     * Returns the animation, which is used to cancel the preference's dialog.
+     *
+     * @return The animation, which is used to cancel the preference's dialog, as an instance of the
+     * class {@link DialogAnimation} or null, if no animation is used
+     */
+    public final DialogAnimation getDialogCancelAnimation() {
+        return dialogCancelAnimation;
+    }
+
+    /**
+     * Sets the animation, which should be used to cancel the preference's dialog.
+     *
+     * @param animation
+     *         The animation, which should be set, as an instance of the class {@link
+     *         DialogAnimation} or null, if no animation should be used
+     */
+    public final void setDialogCancelAnimation(@Nullable final DialogAnimation animation) {
+        this.dialogCancelAnimation = animation;
     }
 
     /**
