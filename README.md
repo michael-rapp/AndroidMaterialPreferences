@@ -1,5 +1,7 @@
 # AndroidMaterialPreferences - README
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=X75YSLEJV3DWE)
+
 "AndroidMaterialPreferences" is an Android-library, which provides various preferences, which are designed according to Android 5's Material Design guidelines even on pre-Lollipop devices.
 
 ![](doc/images/example.png)
