@@ -167,10 +167,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
         if (resourceId != -1) {
             int[] obtainedColorPalette = getContext().getResources().getIntArray(resourceId);
-
-            if (obtainedColorPalette != null) {
-                setColorPalette(obtainedColorPalette);
-            }
+            setColorPalette(obtainedColorPalette);
         }
     }
 

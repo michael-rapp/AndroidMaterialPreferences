@@ -314,7 +314,7 @@ public class ActionPreference extends Preference {
     @Override
     protected final View onCreateView(final ViewGroup parent) {
         View view = super.onCreateView(parent);
-        textView = (TextView) view.findViewById(android.R.id.title);
+        textView = view.findViewById(android.R.id.title);
         adaptIcon();
         adaptEnableState();
         adaptTextColor();

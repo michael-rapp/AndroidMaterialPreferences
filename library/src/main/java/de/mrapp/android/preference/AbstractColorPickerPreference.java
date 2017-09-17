@@ -847,7 +847,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
     @Override
     protected final View onCreateView(final ViewGroup parent) {
         View view = super.onCreateView(parent);
-        LinearLayout widgetFrame = (LinearLayout) view.findViewById(android.R.id.widget_frame);
+        LinearLayout widgetFrame = view.findViewById(android.R.id.widget_frame);
         widgetFrame.setVisibility(View.VISIBLE);
         previewView = new ImageView(getContext());
         widgetFrame.addView(previewView, createPreviewLayoutParams());

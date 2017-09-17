@@ -501,7 +501,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
         View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
-        LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
+        LinearLayout container = view.findViewById(R.id.number_picker_container);
 
         String[] displayedValues = createDisplayedValues();
         numberPicker = new NumberPicker(dialogBuilder.getContext());
@@ -519,7 +519,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
                 new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         container.addView(numberPicker, 0, layoutParams);
 
-        TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
+        TextView unitTextView = container.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());
         unitTextView.setVisibility(TextUtils.isEmpty(getUnit()) ? View.GONE : View.VISIBLE);
 

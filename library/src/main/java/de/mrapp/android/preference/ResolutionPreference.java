@@ -571,17 +571,17 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         view.setLayoutParams(layoutParams);
-        TextView unitTextView = (TextView) view.findViewById(R.id.unit_text_view);
+        TextView unitTextView = view.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());
 
-        widthEditText = (EditText) view.findViewById(R.id.width_edit_text);
+        widthEditText = view.findViewById(R.id.width_edit_text);
         widthEditText.addAllValidators(getValidators());
         widthEditText.validateOnValueChange(isValidatedOnValueChange());
         widthEditText.validateOnFocusLost(isValidatedOnFocusLost());
         widthEditText.setErrorColor(getErrorColor());
         widthEditText.setHint(getWidthHint());
 
-        heightEditText = (EditText) view.findViewById(R.id.height_edit_text);
+        heightEditText = view.findViewById(R.id.height_edit_text);
         heightEditText.addAllValidators(getValidators());
         heightEditText.validateOnValueChange(isValidatedOnValueChange());
         heightEditText.validateOnFocusLost(isValidatedOnFocusLost());

@@ -80,7 +80,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.color_palette_item, parent, false);
-        ImageView colorView = (ImageView) view.findViewById(R.id.color_view);
+        ImageView colorView = view.findViewById(R.id.color_view);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.colorView = colorView;
         view.setTag(viewHolder);
@@ -172,7 +172,6 @@ public class ColorPaletteAdapter extends BaseAdapter {
         int color = getItem(position);
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         previewLoader.load(color, viewHolder.colorView);
-
         return view;
     }
 

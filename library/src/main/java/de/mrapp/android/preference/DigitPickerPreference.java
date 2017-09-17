@@ -154,7 +154,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference);
+                .obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference,
+                        defaultStyle, defaultStyleResource);
         try {
             obtainNumberOfDigits(typedArray);
         } finally {
@@ -390,7 +391,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
         View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
-        LinearLayout container = (LinearLayout) view.findViewById(R.id.number_picker_container);
+        LinearLayout container = view.findViewById(R.id.number_picker_container);
         numberPickers = new NumberPicker[getNumberOfDigits()];
 
         for (int i = 0; i < getNumberOfDigits(); i++) {
@@ -407,7 +408,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
             container.addView(numberPicker, i, layoutParams);
         }
 
-        TextView unitTextView = (TextView) container.findViewById(R.id.unit_text_view);
+        TextView unitTextView = container.findViewById(R.id.unit_text_view);
         unitTextView.setText(getUnit());
         unitTextView.setVisibility(TextUtils.isEmpty(getUnit()) ? View.GONE : View.VISIBLE);
 

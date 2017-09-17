@@ -1021,7 +1021,10 @@ public class DialogPreference extends Preference
     private void requestInputMode() {
         if (needInputMethod()) {
             Window window = dialog.getWindow();
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+            if (window != null) {
+                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
         }
     }
 

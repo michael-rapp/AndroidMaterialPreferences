@@ -865,11 +865,11 @@ public class SeekBarPreference extends DialogPreference {
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        TextView progressTextView = (TextView) layout.findViewById(R.id.progress_text);
+        TextView progressTextView = layout.findViewById(R.id.progress_text);
         progressTextView.setText(getProgressText(getCurrentValue()));
         progressTextView.setVisibility(isProgressShown() ? View.VISIBLE : View.GONE);
 
-        SeekBar seekBar = (SeekBar) layout.findViewById(R.id.seek_bar);
+        SeekBar seekBar = layout.findViewById(R.id.seek_bar);
         seekBar.setMax(getRange() * getMultiplier());
         seekBar.setProgress(Math.round((getCurrentValue() - getMinValue()) * getMultiplier()));
         seekBar.setOnSeekBarChangeListener(createSeekBarListener(progressTextView));
