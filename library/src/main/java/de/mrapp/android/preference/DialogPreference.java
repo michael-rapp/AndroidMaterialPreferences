@@ -325,6 +325,12 @@ public class DialogPreference extends Preference
     private int dialogButtonBarDividerColor;
 
     /**
+     * The left and right margin of the divider, which is located above the button bar of the
+     * preference's dialog.
+     */
+    private int dialogButtonBarDividerMargin;
+
+    /**
      * True, if the dividers, which are located above and below the list view of the preference's
      * dialog, should be shown when the list view is scrolled, false otherwise.
      */
@@ -452,6 +458,7 @@ public class DialogPreference extends Preference
             obtainDialogHeaderIcon(typedArray);
             obtainShowDialogButtonBarDivider(typedArray);
             obtainDialogButtonBarDividerColor(typedArray);
+            obtainDialogButtonBarDividerMargin(typedArray);
             obtainShowDialogDividersOnScroll(typedArray);
         } finally {
             typedArray.recycle();
@@ -897,6 +904,20 @@ public class DialogPreference extends Preference
                 ContextCompat.getColor(getContext(), R.color.button_bar_divider_color_light);
         setDialogButtonBarDividerColor(typedArray
                 .getColor(R.styleable.DialogPreference_dialogButtonBarDividerColor, defaultValue));
+    }
+
+    /**
+     * Obtains the left and right margin of the divider, which is located above the buttons of the
+     * dialog, which shown by the preference, from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the margin should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogButtonBarDividerMargin(@NonNull final TypedArray typedArray) {
+        setDialogButtonBarDividerMargin(typedArray
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogButtonBarDividerMargin,
+                        0));
     }
 
     /**
@@ -1991,6 +2012,30 @@ public class DialogPreference extends Preference
      */
     public final void setDialogButtonBarDividerColor(@ColorInt final int color) {
         this.dialogButtonBarDividerColor = color;
+    }
+
+    /**
+     * Returns the left and right margin of the divider, which is located above the buttons of the
+     * preference's dialog.
+     *
+     * @return The left and right margin of the divider, which is located above the buttons of the
+     * preference's dialog, in pixels as an {@link Integer} value
+     */
+    public final int getDialogButtonBarDividerMargin() {
+        return dialogButtonBarDividerMargin;
+    }
+
+    /**
+     * Sets the left and right margin of the divider, which is located above the buttons of the
+     * preference's dialog.
+     *
+     * @param margin
+     *         The left and right margin, which should be set, in pixels as an {@link Integer}
+     *         value. The margin must be at least 0
+     */
+    public final void setDialogButtonBarDividerMargin(final int margin) {
+        ensureAtLeast(margin, 0, "The margin must be at least 0");
+        this.dialogButtonBarDividerMargin = margin;
     }
 
     /**
