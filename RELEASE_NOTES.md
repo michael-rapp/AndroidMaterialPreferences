@@ -4,6 +4,9 @@
 
 A feature release, which introduces the following changes:
  
+- Added a setter method and theme attributes for customizing the padding of a preference's dialog.
+- Added a setter method and a theme attribute for customizing the left and right margin of the divider, which is located above the buttons of a preference's dialog.
+- It is now possible to use custom views for displaying the header of a preference's dialog.
 - Updated `targetSdkVersion` to API level 26 (Android 8.0).
 - Updated AppCompat v7 support library to version 25.3.1.
 - Updated dependency "AndroidUtil" to version 1.27.0. The library now uses the class `AbstractDataBinder` of this dependency instead of shipping its own implementation.
