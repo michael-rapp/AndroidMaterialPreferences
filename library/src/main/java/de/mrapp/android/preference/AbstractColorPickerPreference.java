@@ -39,7 +39,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import java.util.Locale;
 
-import de.mrapp.android.preference.multithreading.ColorPreviewLoader;
+import de.mrapp.android.preference.multithreading.ColorPreviewDataBinder;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
@@ -295,7 +295,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
     /**
      * The data loader, which is used to load the preview of colors asynchronously.
      */
-    private ColorPreviewLoader previewLoader;
+    private ColorPreviewDataBinder previewLoader;
 
     /**
      * Initializes the preference.
@@ -317,7 +317,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
                             @StyleRes final int defaultStyleResource) {
         obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
         previewLoader =
-                new ColorPreviewLoader(getContext(), getPreviewBackground(), getPreviewShape(),
+                new ColorPreviewDataBinder(getContext(), getPreviewBackground(), getPreviewShape(),
                         getPreviewSize(), getPreviewBorderWidth(), getPreviewBorderColor());
     }
 

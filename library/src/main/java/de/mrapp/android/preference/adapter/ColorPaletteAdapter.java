@@ -27,7 +27,7 @@ import android.widget.ImageView;
 
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
 import de.mrapp.android.preference.R;
-import de.mrapp.android.preference.multithreading.ColorPreviewLoader;
+import de.mrapp.android.preference.multithreading.ColorPreviewDataBinder;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
 import static de.mrapp.android.util.Condition.ensureNotNull;
@@ -65,7 +65,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
     /**
      * The data loader, which is used to asynchronously load the previews of colors.
      */
-    private final ColorPreviewLoader previewLoader;
+    private final ColorPreviewDataBinder previewLoader;
 
     /**
      * Inflates the view, which is used to visualize a color and initializes the corresponding view
@@ -125,7 +125,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
         this.context = context;
         this.colorPalette = colorPalette;
         this.previewLoader =
-                new ColorPreviewLoader(context, previewBackground, previewShape, previewSize,
+                new ColorPreviewDataBinder(context, previewBackground, previewShape, previewSize,
                         previewBorderWidth, previewBorderColor);
     }
 

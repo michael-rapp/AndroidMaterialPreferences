@@ -22,6 +22,7 @@ import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
+import de.mrapp.android.util.multithreading.AbstractDataBinder;
 
 import static de.mrapp.android.util.BitmapUtil.clipCircle;
 import static de.mrapp.android.util.BitmapUtil.clipSquare;
@@ -37,7 +38,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 1.7.0
  */
-public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, ImageView, Void> {
+public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, ImageView, Void> {
 
     /**
      * The background of the preview.
@@ -85,9 +86,9 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
      * @param borderColor
      *         The border color of the preview as an {@link Integer} value
      */
-    public ColorPreviewLoader(@NonNull final Context context, @Nullable final Drawable background,
-                              @NonNull final PreviewShape shape, final int size,
-                              final int borderWidth, @ColorInt final int borderColor) {
+    public ColorPreviewDataBinder(@NonNull final Context context, @Nullable final Drawable background,
+                                  @NonNull final PreviewShape shape, final int size,
+                                  final int borderWidth, @ColorInt final int borderColor) {
         super(context);
         setBackground(background);
         setShape(shape);
@@ -199,8 +200,10 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
         this.borderColor = borderColor;
     }
 
+    @Nullable
     @Override
-    protected final Bitmap loadData(@NonNull final Integer color, final Void... params) {
+    protected final Bitmap doInBackground(@NonNull final Integer key,
+                                          @NonNull final Void... params) {
         Bitmap preview;
 
         if (getBackground() != null) {
@@ -210,7 +213,7 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
             preview = Bitmap.createBitmap(getSize(), getSize(), Bitmap.Config.ARGB_8888);
         }
 
-        preview = tint(preview, color);
+        preview = tint(preview, key);
 
         if (getShape() == PreviewShape.CIRCLE) {
             return clipCircle(preview, getSize(), getBorderWidth(), getBorderColor());
@@ -220,9 +223,9 @@ public class ColorPreviewLoader extends AbstractDataLoader<Bitmap, Integer, Imag
     }
 
     @Override
-    protected final void showData(@NonNull final ImageView imageView,
-                                  @NonNull final Bitmap preview) {
-        imageView.setImageBitmap(preview);
+    protected final void onPostExecute(@NonNull final ImageView view, @Nullable final Bitmap data,
+                                       @NonNull final Void... params) {
+        view.setImageBitmap(data);
     }
 
 }
