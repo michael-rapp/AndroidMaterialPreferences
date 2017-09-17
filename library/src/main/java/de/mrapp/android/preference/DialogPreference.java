@@ -385,6 +385,17 @@ public class DialogPreference extends Preference
     private int customDialogButtonBarViewId = -1;
 
     /**
+     * The custom view, which should be used to show the header of the preference's dialog.
+     */
+    private View customDialogHeaderView;
+
+    /**
+     * The resource id of the custom view, which should be used to show the header of the
+     * preference's dialog.
+     */
+    private int customDialogHeaderViewId = -1;
+
+    /**
      * The listener, which is notified, when a button of the preference's dialog has been clicked.
      */
     private OnClickListener onClickListener;
@@ -1048,6 +1059,14 @@ public class DialogPreference extends Preference
 
         if (customDialogButtonBarViewId != -1) {
             dialogBuilder.setCustomButtonBar(customDialogButtonBarViewId);
+        }
+
+        if (customDialogHeaderView != null) {
+            dialogBuilder.setCustomHeader(customDialogHeaderView);
+        }
+
+        if (customDialogHeaderViewId != -1) {
+            dialogBuilder.setCustomHeader(customDialogHeaderViewId);
         }
 
         onPrepareDialog(dialogBuilder);
@@ -2133,6 +2152,7 @@ public class DialogPreference extends Preference
      */
     public final void setCustomDialogTitle(@Nullable final View view) {
         this.customDialogTitleView = view;
+        this.customDialogTitleViewId = -1;
     }
 
     /**
@@ -2143,6 +2163,7 @@ public class DialogPreference extends Preference
      *         The resource id must correspond to a valid layout resource
      */
     public final void setCustomDialogTitle(@LayoutRes final int resourceId) {
+        this.customDialogTitleView = null;
         this.customDialogTitleViewId = resourceId;
     }
 
@@ -2155,6 +2176,7 @@ public class DialogPreference extends Preference
      */
     public final void setCustomDialogMessage(@Nullable final View view) {
         this.customDialogMessageView = view;
+        this.customDialogMessageViewId = -1;
     }
 
     /**
@@ -2165,6 +2187,7 @@ public class DialogPreference extends Preference
      *         resource id must correspond to a valid layout resource
      */
     public final void setCustomDialogMessage(@LayoutRes final int resourceId) {
+        this.customDialogMessageView = null;
         this.customDialogMessageViewId = resourceId;
     }
 
@@ -2177,6 +2200,7 @@ public class DialogPreference extends Preference
      */
     public final void setCustomDialogButtonBar(@Nullable final View view) {
         this.customDialogButtonBarView = view;
+        this.customDialogButtonBarViewId = -1;
     }
 
     /**
@@ -2187,7 +2211,32 @@ public class DialogPreference extends Preference
      *         The resource id must correspond to a valid layout resource
      */
     public final void setCustomDialogButtonBar(@LayoutRes final int resourceId) {
+        this.customDialogButtonBarView = null;
         this.customDialogButtonBarViewId = resourceId;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the header of the preference's dialog.
+     *
+     * @param view
+     *         The custom view, which should be set, as an instance of the class {@link View} or
+     *         null, if no custom view should be set
+     */
+    public final void setCustomDialogHeader(@Nullable final View view) {
+        this.customDialogHeaderView = view;
+        this.customDialogHeaderViewId = -1;
+    }
+
+    /**
+     * Sets the custom view, which should be used to show the header of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id of the custom view, which should be set, as an {@link Integer} value.
+     *         The resource id must correspond to a valid layout resource
+     */
+    public final void setCustomDialogHeader(@LayoutRes final int resourceId) {
+        this.customDialogHeaderView = null;
+        this.customDialogHeaderViewId = resourceId;
     }
 
     /**
