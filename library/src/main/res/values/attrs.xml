@@ -70,6 +70,10 @@ License.
         <attr name="dialogMarginTop" format="dimension"/>
         <attr name="dialogMarginRight" format="dimension"/>
         <attr name="dialogMarginBottom" format="dimension"/>
+        <attr name="dialogPaddingLeft" format="dimension"/>
+        <attr name="dialogPaddingTop" format="dimension"/>
+        <attr name="dialogPaddingRight" format="dimension"/>
+        <attr name="dialogPaddingBottom" format="dimension"/>
         <attr name="dialogFitsSystemWindowsLeft" format="boolean"/>
         <attr name="dialogFitsSystemWindowsTop" format="boolean"/>
         <attr name="dialogFitsSystemWindowsRight" format="boolean"/>

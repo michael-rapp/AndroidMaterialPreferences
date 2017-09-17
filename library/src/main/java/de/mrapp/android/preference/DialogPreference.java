@@ -54,6 +54,8 @@ import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.animation.DialogAnimation;
 import de.mrapp.android.util.view.AbstractSavedState;
 
+import static de.mrapp.android.util.Condition.ensureAtLeast;
+
 /**
  * An abstract base class for all preferences, which will show a dialog when clicked by the user.
  *
@@ -178,6 +180,11 @@ public class DialogPreference extends Preference
      * The margin of the preference's dialog.
      */
     private int[] dialogMargin;
+
+    /**
+     * The padding of the preference's dialog.
+     */
+    private int[] dialogPadding;
 
     /**
      * A boolean array, which contains, whether the preference's dialog should inset its content as
@@ -427,6 +434,7 @@ public class DialogPreference extends Preference
             obtainDialogMaxWidth(typedArray);
             obtainDialogMaxHeight(typedArray);
             obtainDialogMargin(typedArray);
+            obtainDialogPadding(typedArray);
             obtainDialogFitsSystemWindows(typedArray);
             obtainDialogTitle(typedArray);
             obtainDialogMessage(typedArray);
@@ -603,7 +611,27 @@ public class DialogPreference extends Preference
                 .getDimensionPixelSize(R.styleable.DialogPreference_dialogMarginBottom,
                         defaultVerticalMargin);
         setDialogMargin(left, top, right, bottom);
+    }
 
+    /**
+     * Obtains the padding of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the padding should be obtained from, as an instance of the class
+     *         {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogPadding(@NonNull final TypedArray typedArray) {
+        int defaultTopPadding =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_top_padding);
+        int left =
+                typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingLeft, 0);
+        int top = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingTop,
+                defaultTopPadding);
+        int right = typedArray
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingRight, 0);
+        int bottom = typedArray
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingBottom, 0);
+        setDialogPadding(left, top, right, bottom);
     }
 
     /**
@@ -900,6 +928,9 @@ public class DialogPreference extends Preference
         dialogBuilder.setMaxHeight(getDialogMaxHeight());
         dialogBuilder.setMargin(getDialogLeftMargin(), getDialogTopMargin(), getDialogRightMargin(),
                 getDialogBottomMargin());
+        dialogBuilder
+                .setPadding(getDialogPaddingLeft(), getDialogPaddingTop(), getDialogPaddingRight(),
+                        getDialogPaddingBottom());
         dialogBuilder.setFitsSystemWindows(isDialogFitsSystemWindowsLeft(),
                 isDialogFitsSystemWindowsTop(), isDialogFitsSystemWindowsRight(),
                 isDialogFitsSystemWindowsBottom());
@@ -1352,12 +1383,73 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Returns the left padding of the preference's dialog.
+     *
+     * @return The left padding of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogPaddingLeft() {
+        return dialogPadding[0];
+    }
+
+    /**
+     * Returns the top padding of the preference's dialog.
+     *
+     * @return The top padding of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogPaddingTop() {
+        return dialogPadding[1];
+    }
+
+    /**
+     * Returns the right padding of the preference's dialog.
+     *
+     * @return The right padding of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogPaddingRight() {
+        return dialogPadding[2];
+    }
+
+    /**
+     * Returns the bottom padding of the preference's dialog.
+     *
+     * @return The bottom padding of the preference's dialog in pixels as an {@link Integer} value
+     */
+    public final int getDialogPaddingBottom() {
+        return dialogPadding[3];
+    }
+
+    /**
+     * Sets the padding of the preference's dialog.
+     *
+     * @param left
+     *         The left padding, which should be set, in pixels as an {@link Integer} value. The
+     *         left padding must be at least 0
+     * @param top
+     *         The top padding, which should be set, in pixels as an {@link Integer} value. The top
+     *         padding must be at least 0
+     * @param right
+     *         The right padding, which should be set, in pixels as an {@link Integer} value. The
+     *         right padding must be at least 0
+     * @param bottom
+     *         The bottom padding, which should be set, in pixels as an {@link Integer} value. The
+     *         bottom padding must be at least 0
+     */
+    public final void setDialogPadding(final int left, final int top, final int right,
+                                       final int bottom) {
+        ensureAtLeast(left, 0, "The left padding must be at least 0");
+        ensureAtLeast(top, 0, "The top padding must be at least 0");
+        ensureAtLeast(right, 0, "The right padding must be at least 0");
+        ensureAtLeast(bottom, 0, "The bottom padding must be at least 0");
+        this.dialogPadding = new int[]{left, top, right, bottom};
+    }
+
+    /**
      * Returns, whether the preference's dialog accounts for system screen decorations such as the
      * status bar and insets its content at the left edge.
      *
      * @return True, if the preference's dialog insets its content at the left edge, false otherwise
      */
-    boolean isDialogFitsSystemWindowsLeft() {
+    public final boolean isDialogFitsSystemWindowsLeft() {
         return dialogFitsSystemWindows[0];
     }
 
@@ -1367,7 +1459,7 @@ public class DialogPreference extends Preference
      *
      * @return True, if the preference's dialog insets its content at the top edge, false otherwise
      */
-    boolean isDialogFitsSystemWindowsTop() {
+    public final boolean isDialogFitsSystemWindowsTop() {
         return dialogFitsSystemWindows[1];
     }
 
@@ -1378,7 +1470,7 @@ public class DialogPreference extends Preference
      * @return True, if the preference's dialog insets its content at the right edge, false
      * otherwise
      */
-    boolean isDialogFitsSystemWindowsRight() {
+    public final boolean isDialogFitsSystemWindowsRight() {
         return dialogFitsSystemWindows[2];
     }
 
