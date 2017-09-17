@@ -6,7 +6,7 @@ A feature release, which introduces the following changes:
  
 - Updated `targetSdkVersion` to API level 26 (Android 8.0).
 - Updated AppCompat v7 support library to version 25.3.1.
-- Updated dependency "AndroidUtil" to version 1.27.0.
+- Updated dependency "AndroidUtil" to version 1.27.0. The library now uses the class `AbstractDataBinder` of this dependency instead of shipping its own implementation.
 - Updated dependency "AndroidMaterialDialog" to version 4.1.0.
 
 ## Version 3.0.1 (Jan. 26th 2017)
