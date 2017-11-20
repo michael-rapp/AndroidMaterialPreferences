@@ -154,7 +154,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.NumberPickerPreference,
+                .obtainStyledAttributes(attributeSet, R.styleable.AbstractNumberPickerPreference,
                         defaultStyle, defaultStyleResource);
         try {
             obtainNumberOfDigits(typedArray);
