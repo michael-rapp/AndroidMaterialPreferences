@@ -662,16 +662,24 @@ public class DialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogPadding(@NonNull final TypedArray typedArray) {
+        int defaultLeftPadding =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_left_padding);
         int defaultTopPadding =
                 getContext().getResources().getDimensionPixelSize(R.dimen.dialog_top_padding);
-        int left =
-                typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingLeft, 0);
+        int defaultRightPadding =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_right_padding);
+        int defaultBottomPadding =
+                getContext().getResources().getDimensionPixelSize(R.dimen.dialog_bottom_padding);
+        int left = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingLeft,
+                defaultLeftPadding);
         int top = typedArray.getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingTop,
                 defaultTopPadding);
         int right = typedArray
-                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingRight, 0);
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingRight,
+                        defaultRightPadding);
         int bottom = typedArray
-                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingBottom, 0);
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogPaddingBottom,
+                        defaultBottomPadding);
         setDialogPadding(left, top, right, bottom);
     }
 
