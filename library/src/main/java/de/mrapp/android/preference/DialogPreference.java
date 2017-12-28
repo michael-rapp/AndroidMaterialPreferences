@@ -860,6 +860,8 @@ public class DialogPreference extends Preference
 
         if (resourceId != -1) {
             setDialogWindowBackground(resourceId);
+        } else {
+            setDialogWindowBackground(android.R.drawable.dialog_holo_light_frame);
         }
     }
 
@@ -1066,7 +1068,7 @@ public class DialogPreference extends Preference
 
         if (dialogWindowBackgroundId != -1) {
             dialogBuilder.setWindowBackground(dialogWindowBackgroundId);
-        } else if (dialogWindowBackgroundBitmap != null) {
+        } else {
             dialogBuilder.setBackground(dialogBackgroundBitmap);
         }
 
@@ -1942,7 +1944,7 @@ public class DialogPreference extends Preference
      * Returns the window background of the preference's dialog.
      *
      * @return The window background of the preference's dialog as an instance of the class {@link
-     * Drawable} or null, if the default window background is used
+     * Drawable} or null, if no window background is set
      */
     public final Drawable getDialogWindowBackground() {
         return dialogWindowBackground;
@@ -1967,7 +1969,7 @@ public class DialogPreference extends Preference
      *
      * @param windowBackground
      *         The window background, which should be set, as an instance of the class {@link
-     *         Bitmap} or null, if the default window background should be used
+     *         Bitmap} or null, if no window background should be set
      */
     public final void setDialogWindowBackground(@Nullable final Bitmap windowBackground) {
         this.dialogWindowBackground =
