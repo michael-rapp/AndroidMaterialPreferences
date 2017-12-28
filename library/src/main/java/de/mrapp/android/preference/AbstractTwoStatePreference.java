@@ -21,6 +21,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -289,7 +290,8 @@ public abstract class AbstractTwoStatePreference extends Preference {
      * @param checked
      *         True, if the preference should be checked, false otherwise
      */
-    public final void setChecked(final boolean checked) {
+    @CallSuper
+    public void setChecked(final boolean checked) {
         boolean hasDisabledDependents = shouldDisableDependents();
         this.checked = checked;
         persistBoolean(checked);
