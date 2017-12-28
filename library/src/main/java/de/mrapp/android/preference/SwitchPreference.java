@@ -140,9 +140,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
                         .onPreferenceChange(SwitchPreference.this, isChecked)) {
                     setChecked(isChecked);
                 } else {
-                    buttonView.setOnCheckedChangeListener(null);
-                    buttonView.setChecked(!isChecked);
-                    buttonView.setOnCheckedChangeListener(createCheckedChangeListener());
+                    setChecked(!isChecked);
                 }
             }
 
@@ -300,6 +298,17 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     public final void setSwitchTextOff(@StringRes final int resourceId) {
         setSwitchTextOff(getContext().getString(resourceId));
+    }
+
+    @Override
+    public final void setChecked(final boolean checked) {
+        super.setChecked(checked);
+
+        if (switchCompat != null) {
+            switchCompat.setOnCheckedChangeListener(null);
+            switchCompat.setChecked(checked);
+            switchCompat.setOnCheckedChangeListener(createCheckedChangeListener());
+        }
     }
 
     @Override
