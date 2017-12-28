@@ -268,6 +268,21 @@ public class DialogPreference extends Preference
     private int dialogBackgroundColor = -1;
 
     /**
+     * The window background of the preference's dialog.
+     */
+    private Drawable dialogWindowBackground;
+
+    /**
+     * The bitmap of the window background of the preference's dialog.
+     */
+    private Bitmap dialogWindowBackgroundBitmap;
+
+    /**
+     * The resource id of the window background of the preference's dialog.
+     */
+    private int dialogWindowBackgroundId = -1;
+
+    /**
      * True, if the currently persisted value should be shown as the summary, instead of the given
      * summaries, false otherwise.
      */
@@ -462,6 +477,7 @@ public class DialogPreference extends Preference
             obtainDialogButtonTextColor(typedArray);
             obtainDialogDisabledButtonTextColor(typedArray);
             obtainDialogBackground(typedArray);
+            obtainDialogWindowBackground(typedArray);
             obtainShowValueAsSummary(typedArray);
             obtainShowDialogHeader(typedArray);
             obtainDialogHeaderBackground(typedArray);
@@ -815,6 +831,23 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Obtains the window background of the dialog, which is shown by the preference, from a
+     * specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the window background should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogWindowBackground(@NonNull final TypedArray typedArray) {
+        int resourceId =
+                typedArray.getResourceId(R.styleable.DialogPreference_dialogWindowBackground, -1);
+
+        if (resourceId != -1) {
+            setDialogWindowBackground(resourceId);
+        }
+    }
+
+    /**
      * Obtains the boolean value, which specifies whether the currently persisted value should be
      * shown as the summary, instead of the given summaries, from a specific typed array.
      *
@@ -985,6 +1018,12 @@ public class DialogPreference extends Preference
         } else if (dialogBackgroundColor != -1) {
             dialogBuilder.setBackgroundColor(dialogBackgroundColor);
         } else if (dialogBackgroundBitmap != null) {
+            dialogBuilder.setBackground(dialogBackgroundBitmap);
+        }
+
+        if (dialogWindowBackgroundId != -1) {
+            dialogBuilder.setWindowBackground(dialogWindowBackgroundId);
+        } else if (dialogWindowBackgroundBitmap != null) {
             dialogBuilder.setBackground(dialogBackgroundBitmap);
         }
 
@@ -1854,6 +1893,44 @@ public class DialogPreference extends Preference
         this.dialogBackgroundBitmap = null;
         this.dialogBackgroundId = -1;
         this.dialogBackgroundColor = color;
+    }
+
+    /**
+     * Returns the window background of the preference's dialog.
+     *
+     * @return The window background of the preference's dialog as an instance of the class {@link
+     * Drawable} or null, if the default window background is used
+     */
+    public final Drawable getDialogWindowBackground() {
+        return dialogWindowBackground;
+    }
+
+    /**
+     * Sets the window background of the preference's dialog.
+     *
+     * @param resourceId
+     *         The resource id, which corresponds to the window background, which should be set, as
+     *         an {@link Integer} value. The resource id must correspond to a valid drawable
+     *         resource
+     */
+    public final void setDialogWindowBackground(@DrawableRes final int resourceId) {
+        this.dialogWindowBackground = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogWindowBackgroundBitmap = null;
+        this.dialogWindowBackgroundId = resourceId;
+    }
+
+    /**
+     * Sets the window background of the preference's dialog.
+     *
+     * @param windowBackground
+     *         The window background, which should be set, as an instance of the class {@link
+     *         Bitmap} or null, if the default window background should be used
+     */
+    public final void setDialogWindowBackground(@Nullable final Bitmap windowBackground) {
+        this.dialogWindowBackground =
+                windowBackground != null ? new BitmapDrawable(windowBackground) : null;
+        this.dialogWindowBackgroundBitmap = windowBackground;
+        this.dialogWindowBackgroundId = -1;
     }
 
     /**

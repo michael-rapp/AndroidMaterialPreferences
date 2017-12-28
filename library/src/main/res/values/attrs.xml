@@ -87,6 +87,7 @@ License.
         <attr name="dialogTitleColor" format="color"/>
         <attr name="dialogMessageColor" format="color"/>
         <attr name="dialogBackground" format="color|reference"/>
+        <attr name="dialogWindowBackground" format="reference"/>
         <attr name="dialogButtonTextColor" format="color"/>
         <attr name="dialogDisabledButtonTextColor" format="color"/>
         <attr name="showValueAsSummary" format="boolean"/>
