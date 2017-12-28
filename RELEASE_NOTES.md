@@ -6,7 +6,8 @@ A feature release, which introduces the following changes:
  
 - Added a setter method and theme attributes for customizing the padding of a preference's dialog.
 - Added a setter method and a theme attribute for customizing the left and right margin of the divider, which is located above the buttons of a preference's dialog.
-- Added a setter method and a theme attribute for setting the window background of a `DialogPreference`'s dialog. This allows customize the dialog's shape. 
+- Added setter methods and a theme attribute for setting the window background of a preference's dialog. This allows customize the dialog's shape.
+- Added setter methods and theme attributes for specifying the scrollable area of a preference's dialog.
 - It is now possible to use custom views for displaying the header of a preference's dialog.
 - Fixed an issue, which prevented the switch of a `SwitchPreference` from being adapted when clicking the preference's background. 
 - Updated `targetSdkVersion` to API level 26 (Android 8.0).

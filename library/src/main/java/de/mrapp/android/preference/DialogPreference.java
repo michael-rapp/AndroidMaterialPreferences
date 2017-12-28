@@ -51,6 +51,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.ScrollableArea;
+import de.mrapp.android.dialog.ScrollableArea.Area;
 import de.mrapp.android.dialog.animation.DialogAnimation;
 import de.mrapp.android.util.view.AbstractSavedState;
 
@@ -351,6 +353,11 @@ public class DialogPreference extends Preference
     private boolean showDialogDividersOnScroll;
 
     /**
+     * The scrollable area of the preference's dialog.
+     */
+    private ScrollableArea dialogScrollableArea;
+
+    /**
      * The animation, which is used to show the preference's dialog.
      */
     private DialogAnimation dialogShowAnimation;
@@ -486,6 +493,7 @@ public class DialogPreference extends Preference
             obtainDialogButtonBarDividerColor(typedArray);
             obtainDialogButtonBarDividerMargin(typedArray);
             obtainShowDialogDividersOnScroll(typedArray);
+            obtainDialogScrollableArea(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -976,6 +984,28 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Obtains the scrollable area of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the scrollable area should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogScrollableArea(@NonNull final TypedArray typedArray) {
+        int topIndex = typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaTop, -1);
+
+        if (topIndex != -1) {
+            int bottomIndex =
+                    typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaBottom, -1);
+
+            if (bottomIndex != -1) {
+                setDialogScrollableArea(Area.fromIndex(topIndex), Area.fromIndex(bottomIndex));
+            } else {
+                setDialogScrollableArea(Area.fromIndex(topIndex));
+            }
+        }
+    }
+
+    /**
      * Shows the preference's dialog.
      *
      * @param dialogState
@@ -1006,6 +1036,11 @@ public class DialogPreference extends Preference
         dialogBuilder.setShowAnimation(getDialogShowAnimation());
         dialogBuilder.setDismissAnimation(getDialogDismissAnimation());
         dialogBuilder.setCancelAnimation(getDialogCancelAnimation());
+
+        if (dialogScrollableArea != null) {
+            dialogBuilder.setScrollableArea(dialogScrollableArea.getTopScrollableArea(),
+                    dialogScrollableArea.getBottomScrollableArea());
+        }
 
         if (dialogIconId != -1) {
             dialogBuilder.setIcon(dialogIconId);
@@ -2148,6 +2183,44 @@ public class DialogPreference extends Preference
      */
     public final void showDialogDividersOnScroll(final boolean show) {
         this.showDialogDividersOnScroll = show;
+    }
+
+    /**
+     * Returns the scrollable area of the preference's dialog.
+     *
+     * @return The scrollable area of the preference's dialog as an instance of the class {@link
+     * ScrollableArea} or null, if the default scrollable area is used
+     */
+    public final ScrollableArea getDialogScrollableArea() {
+        return dialogScrollableArea;
+    }
+
+    /**
+     * Sets the scrollable area of the preference's dialog.
+     *
+     * @param area
+     *         The area, which should be set, as a value of the enum {@link Area} or null, if no
+     *         scrollable area should be set
+     */
+    public final void setDialogScrollableArea(@Nullable final Area area) {
+        this.dialogScrollableArea = ScrollableArea.create(area);
+    }
+
+    /**
+     * Sets the scrollable area of the preference's dialog.
+     *
+     * @param top
+     *         The top scrollable area, which should be set, as a value of the enum {@link Area} or
+     *         null, if no scrollable area should be set
+     * @param bottom
+     *         The bottom scrollable area, which should be set, as a value of the enum {@link Area}
+     *         or null, if no scrollable area should be set. The index of the bottom area must be at
+     *         leas the index of the top area. If the top area is null, the bottom area must be null
+     *         as well
+     */
+    public final void setDialogScrollableArea(@Nullable final Area top,
+                                              @Nullable final Area bottom) {
+        this.dialogScrollableArea = ScrollableArea.create(top, bottom);
     }
 
     /**

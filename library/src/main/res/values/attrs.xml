@@ -98,6 +98,20 @@ License.
         <attr name="dialogDividerColor" format="color"/>
         <attr name="dialogDividerMargin" format="dimension"/>
         <attr name="showDialogDividersOnScroll" format="boolean"/>
+        <attr name="dialogScrollableAreaTop" format="integer">
+            <enum name="header" value="0"/>
+            <enum name="title" value="1"/>
+            <enum name="message" value="2"/>
+            <enum name="content" value="3"/>
+            <enum name="button_bar" value="4"/>
+        </attr>
+        <attr name="dialogScrollableAreaBottom" format="integer">
+            <enum name="header" value="0"/>
+            <enum name="title" value="1"/>
+            <enum name="message" value="2"/>
+            <enum name="content" value="3"/>
+            <enum name="button_bar" value="4"/>
+        </attr>
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">
         <attr name="dialogItemColor" format="color"/>
