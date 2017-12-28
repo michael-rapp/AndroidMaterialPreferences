@@ -325,10 +325,9 @@ public class DialogPreference extends Preference
     private int dialogDividerColor;
 
     /**
-     * The left and right margin of the divider, which is located above the button bar of the
-     * preference's dialog.
+     * The left and right margin of dividers, which are contained by the preference's dialog.
      */
-    private int dialogButtonBarDividerMargin;
+    private int dialogDividerMargin;
 
     /**
      * True, if the dividers, which are located above and below the list view of the preference's
@@ -925,7 +924,7 @@ public class DialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogButtonBarDividerMargin(@NonNull final TypedArray typedArray) {
-        setDialogButtonBarDividerMargin(typedArray
+        setDialogDividerMargin(typedArray
                 .getDimensionPixelSize(R.styleable.DialogPreference_dialogButtonBarDividerMargin,
                         0));
     }
@@ -2030,27 +2029,26 @@ public class DialogPreference extends Preference
     }
 
     /**
-     * Returns the left and right margin of the divider, which is located above the buttons of the
-     * preference's dialog.
+     * Returns the left and right margin of dividers, which are contained by the preference's
+     * dialog.
      *
-     * @return The left and right margin of the divider, which is located above the buttons of the
-     * preference's dialog, in pixels as an {@link Integer} value
+     * @return The left and right margin of dividers, which are contained by preference's dialog, in
+     * pixels as an {@link Integer} value
      */
-    public final int getDialogButtonBarDividerMargin() {
-        return dialogButtonBarDividerMargin;
+    public final int getDialogDividerMargin() {
+        return dialogDividerMargin;
     }
 
     /**
-     * Sets the left and right margin of the divider, which is located above the buttons of the
-     * preference's dialog.
+     * Sets the left and right margin of divider, which are contained by the preference's dialog.
      *
      * @param margin
      *         The left and right margin, which should be set, in pixels as an {@link Integer}
      *         value. The margin must be at least 0
      */
-    public final void setDialogButtonBarDividerMargin(final int margin) {
+    public final void setDialogDividerMargin(final int margin) {
         ensureAtLeast(margin, 0, "The margin must be at least 0");
-        this.dialogButtonBarDividerMargin = margin;
+        this.dialogDividerMargin = margin;
     }
 
     /**
