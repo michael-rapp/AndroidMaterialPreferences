@@ -13,7 +13,7 @@ A feature release, which introduces the following changes:
 - Updated `targetSdkVersion` to API level 26 (Android 8.0).
 - Updated AppCompat v7 support library to version 27.0.2.
 - Updated dependency "AndroidUtil" to version 1.18.3. The library now uses the class `AbstractDataBinder` of this dependency instead of shipping its own implementation.
-- Updated dependency "AndroidMaterialDialog" to version 4.2.0. In particular, this solves an issue, which caused the background of dialogs to be black on pre-Lollipop devices.
+- Updated dependency "AndroidMaterialDialog" to version 4.2.1. In particular, this solves an issue, which caused the background of dialogs to be black on pre-Lollipop devices.
 
 ## Version 3.0.1 (Jan. 26th 2017)
 
