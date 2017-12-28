@@ -320,9 +320,9 @@ public class DialogPreference extends Preference
     private boolean showDialogButtonBarDivider;
 
     /**
-     * The color of the divider, which is located above the button bar of the preference's dialog.
+     * The color of dividers, which are contained by the preference's dialog.
      */
-    private int dialogButtonBarDividerColor;
+    private int dialogDividerColor;
 
     /**
      * The left and right margin of the divider, which is located above the button bar of the
@@ -911,9 +911,8 @@ public class DialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogButtonBarDividerColor(@NonNull final TypedArray typedArray) {
-        int defaultValue =
-                ContextCompat.getColor(getContext(), R.color.button_bar_divider_color_light);
-        setDialogButtonBarDividerColor(typedArray
+        int defaultValue = ContextCompat.getColor(getContext(), R.color.divider_color_light);
+        setDialogDividerColor(typedArray
                 .getColor(R.styleable.DialogPreference_dialogButtonBarDividerColor, defaultValue));
     }
 
@@ -1033,8 +1032,8 @@ public class DialogPreference extends Preference
             dialogBuilder.setDisabledButtonTextColor(getDialogDisabledButtonTextColor());
         }
 
-        if (getDialogButtonBarDividerColor() != -1) {
-            dialogBuilder.setButtonBarDividerColor(getDialogButtonBarDividerColor());
+        if (getDialogDividerColor() != -1) {
+            dialogBuilder.setDividerColor(getDialogDividerColor());
         }
 
         if (customDialogTitleView != null) {
@@ -2011,26 +2010,23 @@ public class DialogPreference extends Preference
     }
 
     /**
-     * Returns the color of the divider, which is located above the buttons of the preference's
-     * dialog.
+     * Returns the color of dividers, which are contained by the preference's dialog.
      *
-     * @return The color of the divider, which is located above the buttons of the preference's
-     * dialog, as an {@link Integer} value or -1, if no custom color is set
+     * @return The color of dividers as an {@link Integer} value or -1, if no custom color is set
      */
-    public final int getDialogButtonBarDividerColor() {
-        return dialogButtonBarDividerColor;
+    public final int getDialogDividerColor() {
+        return dialogDividerColor;
     }
 
     /**
-     * Sets the color of the divider, which is located above the buttons of the preference's
-     * dialog.
+     * Sets the color of dividers, which are contained by the preference's dialog.
      *
      * @param color
      *         The color, which should be set, as an {@link Integer} value or -1, if no custom color
      *         should be set
      */
-    public final void setDialogButtonBarDividerColor(@ColorInt final int color) {
-        this.dialogButtonBarDividerColor = color;
+    public final void setDialogDividerColor(@ColorInt final int color) {
+        this.dialogDividerColor = color;
     }
 
     /**

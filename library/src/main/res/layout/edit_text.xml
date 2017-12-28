@@ -21,5 +21,7 @@ License.
     android:inputType="textNoSuggestions"
     android:maxLines="1"
     android:paddingBottom="@dimen/dialog_message_bottom_padding"
-    android:paddingLeft="@dimen/dialog_horizontal_padding"
-    android:paddingRight="@dimen/dialog_horizontal_padding"/>
+    android:paddingEnd="@dimen/dialog_right_padding"
+    android:paddingLeft="@dimen/dialog_left_padding"
+    android:paddingRight="@dimen/dialog_right_padding"
+    android:paddingStart="@dimen/dialog_left_padding"/>

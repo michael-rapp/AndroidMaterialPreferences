@@ -17,8 +17,10 @@ License.
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/dialog_horizontal_padding"
-                android:paddingRight="@dimen/dialog_horizontal_padding">
+                android:paddingEnd="@dimen/dialog_right_padding"
+                android:paddingLeft="@dimen/dialog_left_padding"
+                android:paddingRight="@dimen/dialog_right_padding"
+                android:paddingStart="@dimen/dialog_left_padding">
 
     <LinearLayout
         android:id="@+id/number_picker_container"

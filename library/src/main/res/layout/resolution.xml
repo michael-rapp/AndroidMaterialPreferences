@@ -19,8 +19,10 @@ License.
               android:layout_centerInParent="true"
               android:orientation="horizontal"
               android:paddingBottom="@dimen/dialog_message_bottom_padding"
-              android:paddingLeft="@dimen/dialog_horizontal_padding"
-              android:paddingRight="@dimen/dialog_horizontal_padding">
+              android:paddingEnd="@dimen/dialog_right_padding"
+              android:paddingLeft="@dimen/dialog_left_padding"
+              android:paddingRight="@dimen/dialog_right_padding"
+              android:paddingStart="@dimen/dialog_left_padding">
 
     <de.mrapp.android.validation.EditText
         android:id="@+id/width_edit_text"
