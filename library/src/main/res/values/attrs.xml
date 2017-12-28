@@ -94,8 +94,8 @@ License.
         <attr name="dialogHeaderBackground" format="color|reference"/>
         <attr name="dialogHeaderIcon" format="reference"/>
         <attr name="showDialogButtonBarDivider" format="boolean"/>
-        <attr name="dialogButtonBarDividerColor" format="color"/>
-        <attr name="dialogButtonBarDividerMargin" format="dimension"/>
+        <attr name="dialogDividerColor" format="color"/>
+        <attr name="dialogDividerMargin" format="dimension"/>
         <attr name="showDialogDividersOnScroll" format="boolean"/>
     </declare-styleable>
     <declare-styleable name="AbstractListPreference">

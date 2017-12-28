@@ -911,8 +911,8 @@ public class DialogPreference extends Preference
      */
     private void obtainDialogButtonBarDividerColor(@NonNull final TypedArray typedArray) {
         int defaultValue = ContextCompat.getColor(getContext(), R.color.divider_color_light);
-        setDialogDividerColor(typedArray
-                .getColor(R.styleable.DialogPreference_dialogButtonBarDividerColor, defaultValue));
+        setDialogDividerColor(
+                typedArray.getColor(R.styleable.DialogPreference_dialogDividerColor, defaultValue));
     }
 
     /**
@@ -925,8 +925,7 @@ public class DialogPreference extends Preference
      */
     private void obtainDialogButtonBarDividerMargin(@NonNull final TypedArray typedArray) {
         setDialogDividerMargin(typedArray
-                .getDimensionPixelSize(R.styleable.DialogPreference_dialogButtonBarDividerMargin,
-                        0));
+                .getDimensionPixelSize(R.styleable.DialogPreference_dialogDividerMargin, 0));
     }
 
     /**
