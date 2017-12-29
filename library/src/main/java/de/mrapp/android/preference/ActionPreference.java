@@ -17,12 +17,10 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.preference.Preference;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
@@ -146,15 +144,6 @@ public class ActionPreference extends Preference {
                 .getColor(getContext(), R.color.action_preference_default_disabled_text_color);
         setDisabledTextColor(typedArray
                 .getColor(R.styleable.ActionPreference_disabledTextColor, defaultTextColor));
-    }
-
-    /**
-     * Adapts the preference's icon.
-     */
-    private void adaptIcon() {
-        if (textView != null) {
-            textView.setCompoundDrawablesWithIntrinsicBounds(getIcon(), null, null, null);
-        }
     }
 
     /**
@@ -294,18 +283,6 @@ public class ActionPreference extends Preference {
     }
 
     @Override
-    public final void setIcon(@Nullable final Drawable icon) {
-        super.setIcon(icon);
-        adaptIcon();
-    }
-
-    @Override
-    public final void setIcon(@DrawableRes final int resourceId) {
-        super.setIcon(resourceId);
-        adaptIcon();
-    }
-
-    @Override
     public final void setEnabled(final boolean enabled) {
         super.setEnabled(enabled);
         adaptEnableState();
@@ -315,7 +292,6 @@ public class ActionPreference extends Preference {
     protected final View onCreateView(final ViewGroup parent) {
         View view = super.onCreateView(parent);
         textView = view.findViewById(android.R.id.title);
-        adaptIcon();
         adaptEnableState();
         adaptTextColor();
         return view;

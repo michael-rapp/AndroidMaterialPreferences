@@ -15,6 +15,6 @@ License.
 -->
 <resources>
 
-    <dimen name="action_preference_height">78dp</dimen>
+    <dimen name="action_preference_min_height">78dp</dimen>
 
 </resources>
