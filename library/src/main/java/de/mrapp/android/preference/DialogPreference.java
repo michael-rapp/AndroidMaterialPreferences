@@ -2198,8 +2198,8 @@ public class DialogPreference extends Preference
     /**
      * Returns the scrollable area of the preference's dialog.
      *
-     * @return The scrollable area of the preference's dialog as an instance of the class {@link
-     * ScrollableArea} or null, if the default scrollable area is used
+     * @return The scrollable area of the preference's dialog as an instance of the class
+     * ScrollableArea or null, if the default scrollable area is used
      */
     public final ScrollableArea getDialogScrollableArea() {
         return dialogScrollableArea;
