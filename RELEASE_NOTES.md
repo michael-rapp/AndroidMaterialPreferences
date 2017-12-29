@@ -1,6 +1,6 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
-## Version 3.1.0 (Dec. 28th 2017)
+## Version 3.1.0 (Dec. 29th 2017)
 
 A feature release, which introduces the following changes:
  
@@ -9,7 +9,8 @@ A feature release, which introduces the following changes:
 - Added setter methods and a theme attribute for setting the window background of a preference's dialog. This allows customize the dialog's shape.
 - Added setter methods and theme attributes for specifying the scrollable area of a preference's dialog.
 - It is now possible to use custom views for displaying the header of a preference's dialog.
-- Fixed an issue, which prevented the switch of a `SwitchPreference` from being adapted when clicking the preference's background. 
+- Fixed an issue, which prevented the switch of a `SwitchPreference` from being adapted when clicking the preference's background.
+- Revised the layout of an `ActionPreference`. It now uses an `ImageView` to display the preference's icon and can therefore be used together with arbitrary preferences.
 - Updated `targetSdkVersion` to API level 26 (Android 8.0).
 - Updated AppCompat v7 support library to version 27.0.2.
 - Updated dependency "AndroidUtil" to version 1.18.3. The library now uses the class `AbstractDataBinder` of this dependency instead of shipping its own implementation.
