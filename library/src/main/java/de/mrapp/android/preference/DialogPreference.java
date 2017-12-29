@@ -2209,8 +2209,8 @@ public class DialogPreference extends Preference
      * Sets the scrollable area of the preference's dialog.
      *
      * @param area
-     *         The area, which should be set, as a value of the enum {@link Area} or null, if no
-     *         scrollable area should be set
+     *         The area, which should be set, as a value of the enum Area or null, if no scrollable
+     *         area should be set
      */
     public final void setDialogScrollableArea(@Nullable final Area area) {
         this.dialogScrollableArea = ScrollableArea.create(area);
@@ -2220,13 +2220,12 @@ public class DialogPreference extends Preference
      * Sets the scrollable area of the preference's dialog.
      *
      * @param top
-     *         The top scrollable area, which should be set, as a value of the enum {@link Area} or
-     *         null, if no scrollable area should be set
+     *         The top scrollable area, which should be set, as a value of the enum Area or null, if
+     *         no scrollable area should be set
      * @param bottom
-     *         The bottom scrollable area, which should be set, as a value of the enum {@link Area}
-     *         or null, if no scrollable area should be set. The index of the bottom area must be at
-     *         leas the index of the top area. If the top area is null, the bottom area must be null
-     *         as well
+     *         The bottom scrollable area, which should be set, as a value of the enum Area or null,
+     *         if no scrollable area should be set. The index of the bottom area must be at leas the
+     *         index of the top area. If the top area is null, the bottom area must be null as well
      */
     public final void setDialogScrollableArea(@Nullable final Area top,
                                               @Nullable final Area bottom) {
