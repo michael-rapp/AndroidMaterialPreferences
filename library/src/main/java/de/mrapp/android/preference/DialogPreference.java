@@ -1069,7 +1069,7 @@ public class DialogPreference extends Preference
         if (dialogWindowBackgroundId != -1) {
             dialogBuilder.setWindowBackground(dialogWindowBackgroundId);
         } else {
-            dialogBuilder.setBackground(dialogBackgroundBitmap);
+            dialogBuilder.setBackground(dialogWindowBackgroundBitmap);
         }
 
         if (dialogHeaderBackgroundId != -1) {
