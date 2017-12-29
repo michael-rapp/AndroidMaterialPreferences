@@ -13,7 +13,6 @@
  */
 package de.mrapp.android.preference.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.ColorFilter;
 import android.graphics.PorterDuff.Mode;
@@ -24,7 +23,7 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.util.AttributeSet;
 
 import de.mrapp.android.preference.R;
@@ -38,7 +37,7 @@ import de.mrapp.android.util.ThemeUtil;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public class SeekBar extends android.widget.SeekBar {
+public class SeekBar extends AppCompatSeekBar {
 
     /**
      * The drawable, which is used to visualize the seek bar's thumb.
@@ -103,31 +102,6 @@ public class SeekBar extends android.widget.SeekBar {
     public SeekBar(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
                    @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        applyTheme();
-    }
-
-    /**
-     * Creates a new seek bar.
-     *
-     * @param context
-     *         The context, which should be used by the seek bar, as an instance of the class {@link
-     *         Context}. The context may not be null
-     * @param attributeSet
-     *         The attributes of the XML tag that is inflating the view, as an instance of the type
-     *         {@link AttributeSet} or null, if no attributes are available
-     * @param defaultStyle
-     *         The default style to apply to this view. If 0, no style will be applied (beyond what
-     *         is included in the theme). This may either be an attribute resource, whose value will
-     *         be retrieved from the current theme, or an explicit style resource
-     * @param defaultStyleResource
-     *         A resource identifier of a style resource that supplies default values for the view,
-     *         used only if the default style is 0 or can not be found in the theme. Can be 0 to not
-     *         look for defaults
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SeekBar(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
-                   @AttrRes final int defaultStyle, @StyleRes final int defaultStyleResource) {
-        super(context, attributeSet, defaultStyle, defaultStyleResource);
         applyTheme();
     }
 
