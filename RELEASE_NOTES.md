@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 3.1.1 (Jan. 5th 2018)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialValidation" to version 2.1.4. This fixes crashes on older devices when using an `EditTextPreference`.
+
 ## Version 3.1.0 (Dec. 29th 2017)
 
 A feature release, which introduces the following changes:
