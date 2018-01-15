@@ -19,7 +19,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.Preference;
 import android.support.annotation.AttrRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
@@ -39,7 +38,7 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.4.0
  */
-public abstract class AbstractTwoStatePreference extends Preference {
+public abstract class AbstractTwoStatePreference extends AbstractPreference {
 
     /**
      * A data structure, which allows to save the internal state of an {@link
@@ -394,6 +393,11 @@ public abstract class AbstractTwoStatePreference extends Preference {
     public final void setDisableDependentsState(final boolean disableDependentsState) {
         this.disableDependentsState = disableDependentsState;
         notifyChanged();
+    }
+
+    @Override
+    public final void performClick() {
+        onClick();
     }
 
     @Override

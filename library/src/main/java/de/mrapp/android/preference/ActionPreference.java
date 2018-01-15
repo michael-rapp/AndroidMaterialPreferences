@@ -18,7 +18,6 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.preference.Preference;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -38,7 +37,7 @@ import de.mrapp.android.util.ThemeUtil;
  * @author Michael Rapp
  * @since 2.7.0
  */
-public class ActionPreference extends Preference {
+public class ActionPreference extends AbstractPreference {
 
     /**
      * The text view, which is used to show the preference's title.
@@ -280,6 +279,15 @@ public class ActionPreference extends Preference {
     public final void setDisabledTextColor(@ColorInt final int color) {
         this.disabledTextColor = color;
         adaptTextColor();
+    }
+
+    @Override
+    public final void performClick() {
+        OnPreferenceClickListener clickListener = getOnPreferenceClickListener();
+
+        if (clickListener != null) {
+            clickListener.onPreferenceClick(this);
+        }
     }
 
     @Override

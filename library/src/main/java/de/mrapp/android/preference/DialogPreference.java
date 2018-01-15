@@ -32,7 +32,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.preference.Preference;
 import android.support.annotation.AttrRes;
 import android.support.annotation.CallSuper;
 import android.support.annotation.ColorInt;
@@ -64,7 +63,7 @@ import static de.mrapp.android.util.Condition.ensureAtLeast;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public class DialogPreference extends Preference
+public class DialogPreference extends AbstractPreference
         implements OnClickListener, OnShowListener, OnDismissListener, OnCancelListener,
         OnKeyListener {
 
@@ -2210,7 +2209,7 @@ public class DialogPreference extends Preference
      *
      * @param area
      *         The area, which should be set, as a value of the enum Area or null, if no scrollable
-     *         area should be set
+     *         area should be setr
      */
     public final void setDialogScrollableArea(@Nullable final Area area) {
         this.dialogScrollableArea = ScrollableArea.create(area);
@@ -2451,6 +2450,11 @@ public class DialogPreference extends Preference
      */
     public final void setOnKeyListener(@Nullable final OnKeyListener listener) {
         onKeyListener = listener;
+    }
+
+    @Override
+    public final void performClick() {
+        onClick();
     }
 
     @CallSuper
