@@ -25,13 +25,10 @@ import android.support.annotation.StyleRes;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 /**
  * A preference, which provides a two-state toggleable option using a SwitchCompat widget.
@@ -54,7 +51,29 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     /**
      * The switch, which allows to toggle the preference's value.
      */
-    private SwitchCompat switchCompat;
+    private SwitchCompat switchWidget;
+
+    /**
+     * Initializes the preference.
+     *
+     * @param attributeSet
+     *         The attribute set, the attributes should be obtained from, as an instance of the type
+     *         {@link AttributeSet} or null, if no attributes should be obtained
+     * @param defaultStyle
+     *         The default style to apply to this preference. If 0, no style will be applied (beyond
+     *         what is included in the theme). This may either be an attribute resource, whose value
+     *         will be retrieved from the current theme, or an explicit style resource
+     * @param defaultStyleResource
+     *         A resource identifier of a style resource that supplies default values for the
+     *         preference, used only if the default style is 0 or can not be found in the theme. Can
+     *         be 0 to not look for defaults
+     */
+    private void initialize(@Nullable final AttributeSet attributeSet,
+                            @AttrRes final int defaultStyle,
+                            @StyleRes final int defaultStyleResource) {
+        setWidgetLayoutResource(R.layout.switch_widget);
+        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
+    }
 
     /**
      * Obtains all attributes from a specific attribute set.
@@ -115,12 +134,12 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      * currently checked or not.
      */
     private void adaptSwitch() {
-        if (switchCompat != null) {
-            switchCompat.setTextOn(getSwitchTextOn());
-            switchCompat.setTextOff(getSwitchTextOff());
-            switchCompat.setShowText(!TextUtils.isEmpty(getSwitchTextOn()) ||
+        if (switchWidget != null) {
+            switchWidget.setTextOn(getSwitchTextOn());
+            switchWidget.setTextOff(getSwitchTextOff());
+            switchWidget.setShowText(!TextUtils.isEmpty(getSwitchTextOn()) ||
                     !TextUtils.isEmpty(getSwitchTextOff()));
-            switchCompat.setChecked(isChecked());
+            switchWidget.setChecked(isChecked());
         }
     }
 
@@ -173,7 +192,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     public SwitchPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
         super(context, attributeSet);
-        obtainStyledAttributes(attributeSet, 0, 0);
+        initialize(attributeSet, 0, 0);
     }
 
     /**
@@ -195,7 +214,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
                             @Nullable final AttributeSet attributeSet,
                             @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
-        obtainStyledAttributes(attributeSet, defaultStyle, 0);
+        initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
@@ -223,7 +242,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
                             @AttrRes final int defaultStyle,
                             @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
-        obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
+        initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
@@ -304,25 +323,18 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     public final void setChecked(final boolean checked) {
         super.setChecked(checked);
 
-        if (switchCompat != null) {
-            switchCompat.setOnCheckedChangeListener(null);
-            switchCompat.setChecked(checked);
-            switchCompat.setOnCheckedChangeListener(createCheckedChangeListener());
+        if (switchWidget != null) {
+            switchWidget.setOnCheckedChangeListener(null);
+            switchWidget.setChecked(checked);
+            switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
         }
     }
 
     @Override
     protected final View onCreateView(final ViewGroup parent) {
         View view = super.onCreateView(parent);
-        LinearLayout widgetFrame = view.findViewById(android.R.id.widget_frame);
-        widgetFrame.setVisibility(View.VISIBLE);
-        switchCompat = new SwitchCompat(getContext());
-        switchCompat.setFocusable(false);
-        switchCompat.setOnCheckedChangeListener(createCheckedChangeListener());
-        LayoutParams layoutParams =
-                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER_VERTICAL;
-        widgetFrame.addView(switchCompat, layoutParams);
+        switchWidget = view.findViewById(R.id.switch_widget);
+        switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
         adaptSwitch();
         return view;
     }
