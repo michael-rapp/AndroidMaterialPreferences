@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 3.1.2 (Jan. 15th 2018)
+
+A minor release, which introduces the following changes:
+
+- All of the library's preferences now extend the class `AbstractPreference`. It provides a `performClick`-method.
+
 ## Version 3.1.1 (Jan. 5th 2018)
 
 A minor release, which introduces the following changes:
