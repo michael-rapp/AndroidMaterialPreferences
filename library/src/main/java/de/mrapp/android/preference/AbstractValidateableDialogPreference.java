@@ -34,6 +34,7 @@ import java.util.Set;
 import de.mrapp.android.dialog.DialogValidator;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.model.ValidateableDialog;
+import de.mrapp.android.util.datastructure.ListenerList;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
@@ -61,7 +62,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
      * A set, which contains the listeners, which are notified when the view, which is contained by
      * the preference's dialog, has been validated.
      */
-    private transient Set<ValidationListener<ValueType>> validationListeners;
+    private transient ListenerList<ValidationListener<ValueType>> validationListeners;
 
     /**
      * True, if the view, which is contained by the preference's dialog should be automatically
@@ -108,7 +109,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
     private void initialize(final AttributeSet attributeSet, @AttrRes final int defaultStyle,
                             @StyleRes final int defaultStyleResource) {
         validators = new LinkedHashSet<>();
-        validationListeners = new LinkedHashSet<>();
+        validationListeners = new ListenerList<>();
         obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
     }
 
@@ -218,11 +219,11 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
      * Returns the listeners, which are notified when the view, which is contained by the
      * preference's dialog, has been validated.
      *
-     * @return A set, which contains the listeners, which are notified when the view, which is
+     * @return A list, which contains the listeners, which are notified when the view, which is
      * contained by the preference's dialog, has been validated, as an instance of the type {@link
-     * Set} or an empty set, if no validators are used
+     * ListenerList} or an empty list, if no validators are used
      */
-    protected final Set<ValidationListener<ValueType>> getValidationListeners() {
+    protected final ListenerList<ValidationListener<ValueType>> getValidationListeners() {
         return validationListeners;
     }
 
