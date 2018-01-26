@@ -86,7 +86,8 @@ public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, 
      * @param borderColor
      *         The border color of the preview as an {@link Integer} value
      */
-    public ColorPreviewDataBinder(@NonNull final Context context, @Nullable final Drawable background,
+    public ColorPreviewDataBinder(@NonNull final Context context,
+                                  @Nullable final Drawable background,
                                   @NonNull final PreviewShape shape, final int size,
                                   final int borderWidth, @ColorInt final int borderColor) {
         super(context);
@@ -224,7 +225,7 @@ public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, 
 
     @Override
     protected final void onPostExecute(@NonNull final ImageView view, @Nullable final Bitmap data,
-                                       @NonNull final Void... params) {
+                                       final long duration, @NonNull final Void... params) {
         view.setImageBitmap(data);
     }
 
