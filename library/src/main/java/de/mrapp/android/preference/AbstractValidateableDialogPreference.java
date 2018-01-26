@@ -220,8 +220,8 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
      * preference's dialog, has been validated.
      *
      * @return A list, which contains the listeners, which are notified when the view, which is
-     * contained by the preference's dialog, has been validated, as an instance of the type {@link
-     * ListenerList} or an empty list, if no validators are used
+     * contained by the preference's dialog, has been validated, as an instance of the type
+     * ListenerList or an empty list, if no validators are used
      */
     protected final ListenerList<ValidationListener<ValueType>> getValidationListeners() {
         return validationListeners;
