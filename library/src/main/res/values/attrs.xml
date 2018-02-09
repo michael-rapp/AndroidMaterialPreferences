@@ -85,6 +85,7 @@ License.
         <attr name="android:dialogTitle"/>
         <attr name="android:dialogMessage"/>
         <attr name="android:dialogIcon"/>
+        <attr name="dialogIconTint" format="color"/>
         <attr name="android:positiveButtonText"/>
         <attr name="android:negativeButtonText"/>
         <attr name="dialogThemeResource" format="reference"/>
@@ -98,6 +99,7 @@ License.
         <attr name="showDialogHeader" format="boolean"/>
         <attr name="dialogHeaderBackground" format="color|reference"/>
         <attr name="dialogHeaderIcon" format="reference"/>
+        <attr name="dialogHeaderIconTint" format="color"/>
         <attr name="showDialogButtonBarDivider" format="boolean"/>
         <attr name="dialogDividerColor" format="color"/>
         <attr name="dialogDividerMargin" format="dimension"/>

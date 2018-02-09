@@ -22,9 +22,11 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.DialogInterface.OnShowListener;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -42,6 +44,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -56,6 +59,7 @@ import de.mrapp.android.dialog.animation.DialogAnimation;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 import static de.mrapp.android.util.Condition.ensureAtLeast;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * An abstract base class for all preferences, which will show a dialog when clicked by the user.
@@ -219,6 +223,16 @@ public class DialogPreference extends Preference
     private int dialogIconId = -1;
 
     /**
+     * The color state list, which is used to tint the icon of the preference's dialog.
+     */
+    private ColorStateList dialogIconTintList;
+
+    /**
+     * The mode, which is used to tint the icon of the preference's dialog.
+     */
+    private PorterDuff.Mode dialogIconTintMode = PorterDuff.Mode.SRC_ATOP;
+
+    /**
      * The text of the positive button of the preference's dialog.
      */
     private CharSequence positiveButtonText;
@@ -328,6 +342,17 @@ public class DialogPreference extends Preference
      * The resource id of the icon of the header of the preference's dialog.
      */
     private int dialogHeaderIconId = -1;
+
+    /**
+     * The color state list, which is used to tint the icon of the header of the preference's
+     * dialog.
+     */
+    private ColorStateList dialogHeaderIconTintList;
+
+    /**
+     * The mode, which is used to tint the icon of the header of the preference's dialog.
+     */
+    private PorterDuff.Mode dialogHeaderIconTintMode = PorterDuff.Mode.SRC_ATOP;
 
     /**
      * True, if the divider, which is located above the button bar of the preference's dialog, is
@@ -476,6 +501,7 @@ public class DialogPreference extends Preference
             obtainDialogTitle(typedArray);
             obtainDialogMessage(typedArray);
             obtainDialogIcon(typedArray);
+            obtainDialogIconTintList(typedArray);
             obtainPositiveButtonText(typedArray);
             obtainNegativeButtonText(typedArray);
             obtainDialogTitleColor(typedArray);
@@ -488,6 +514,7 @@ public class DialogPreference extends Preference
             obtainShowDialogHeader(typedArray);
             obtainDialogHeaderBackground(typedArray);
             obtainDialogHeaderIcon(typedArray);
+            obtainDialogHeaderIconTintList(typedArray);
             obtainShowDialogButtonBarDivider(typedArray);
             obtainDialogButtonBarDividerColor(typedArray);
             obtainDialogButtonBarDividerMargin(typedArray);
@@ -746,6 +773,19 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Obtains the color state list, which is used to tint the icon of the preference's dialog, from
+     * a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color state list should be obtained from, as an instance of the
+     *         type {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogIconTintList(@NonNull final TypedArray typedArray) {
+        setDialogIconTintList(
+                typedArray.getColorStateList(R.styleable.DialogPreference_dialogIconTint));
+    }
+
+    /**
      * Obtains the positive button text of the dialog, which is shown by the preference, from a
      * specific typed array.
      *
@@ -936,6 +976,19 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Obtains the color state list, which is used to tint the icon of the header of the
+     * preference's dialog, from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color state list should be obtained from, as an instance of the
+     *         type {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogHeaderIconTintList(@NonNull final TypedArray typedArray) {
+        setDialogHeaderIconTintList(
+                typedArray.getColorStateList(R.styleable.DialogPreference_dialogHeaderIconTint));
+    }
+
+    /**
      * Obtains the boolean value, which specifies whether the divider, which is located above the
      * buttons of the dialog, which is shown by the preference, should be shown, from a specific
      * typed array.
@@ -1045,6 +1098,10 @@ public class DialogPreference extends Preference
         dialogBuilder.setShowAnimation(getDialogShowAnimation());
         dialogBuilder.setDismissAnimation(getDialogDismissAnimation());
         dialogBuilder.setCancelAnimation(getDialogCancelAnimation());
+        dialogBuilder.setIconTintList(getDialogIconTintList());
+        dialogBuilder.setIconTintMode(getDialogIconTintMode());
+        dialogBuilder.setHeaderIconTintList(getDialogHeaderIconTintList());
+        dialogBuilder.setHeaderIconTintMode(getDialogHeaderIconTintMode());
 
         if (dialogScrollableArea != null) {
             dialogBuilder.setScrollableArea(dialogScrollableArea.getTopScrollableArea(),
@@ -1734,9 +1791,63 @@ public class DialogPreference extends Preference
      *         resource id must correspond to a valid drawable resource
      */
     public final void setDialogIcon(@DrawableRes final int resourceId) {
-        this.dialogIcon = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogIcon = AppCompatResources.getDrawable(getContext(), resourceId);
         this.dialogIconBitmap = null;
         this.dialogIconId = resourceId;
+    }
+
+    /**
+     * Returns the color state list, which is used to tint the icon of the preference's dialog.
+     *
+     * @return The color state list, which is used to tint the icon of the preference's dialog, as
+     * an instance of the class {@link ColorStateList} or null, if no color state list has been set
+     */
+    public final ColorStateList getDialogIconTintList() {
+        return dialogIconTintList;
+    }
+
+    /**
+     * Sets the color, which should be used to tint the icon of the preference's dialog.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value
+     */
+    public final void setDialogIconTint(@ColorInt final int color) {
+        setDialogIconTintList(ColorStateList.valueOf(color));
+    }
+
+    /**
+     * Sets the color state list, which should be used to tint the icon of the preference's dialog.
+     *
+     * @param tintList
+     *         The color state list, which should be set, as an instance of the class {@link
+     *         ColorStateList} or null, if no color state list should be set
+     */
+    public final void setDialogIconTintList(@Nullable final ColorStateList tintList) {
+        this.dialogIconTintList = tintList;
+    }
+
+    /**
+     * Returns the mode, which is used to tint the icon of the preference's dialog.
+     *
+     * @return The mode, which is used to tint the icon of the preference's dialog as a value of the
+     * enum {@link PorterDuff.Mode}. The mode may not be null
+     */
+    @NonNull
+    public final PorterDuff.Mode getDialogIconTintMode() {
+        return dialogIconTintMode;
+    }
+
+    /**
+     * Sets the mode, which should be used to tint the icon of the preference's dialog.
+     *
+     * @param mode
+     *         The mode, which should be set, as a value of the enum {@link PorterDuff.Mode}. The
+     *         mode may not be null
+     */
+    public final void setDialogIconTintMode(@NonNull final PorterDuff.Mode mode) {
+        ensureNotNull(mode, "The dialog icon tint mode may not be null");
+        this.dialogIconTintMode = mode;
     }
 
     /**
@@ -2100,9 +2211,68 @@ public class DialogPreference extends Preference
      *         resource id must correspond to a valid drawable resource
      */
     public final void setDialogHeaderIcon(@DrawableRes final int resourceId) {
-        this.dialogHeaderIcon = ContextCompat.getDrawable(getContext(), resourceId);
+        this.dialogHeaderIcon = AppCompatResources.getDrawable(getContext(), resourceId);
         this.dialogHeaderIconBitmap = null;
         this.dialogHeaderIconId = resourceId;
+    }
+
+    /**
+     * Returns the color state list, which is used to tint the icon of the header of the
+     * preference's dialog.
+     *
+     * @return The color state list, which is used to tint the icon of the header of the
+     * preference's dialog, as an instance of the class {@link ColorStateList} or null, if no color
+     * state list has been set
+     */
+    public final ColorStateList getDialogHeaderIconTintList() {
+        return dialogHeaderIconTintList;
+    }
+
+    /**
+     * Sets the color, which should be used to tint the icon of the header of the preference's
+     * dialog.
+     *
+     * @param color
+     *         The color, which should be set, as an {@link Integer} value
+     */
+    public final void setDialogHeaderIconTint(@ColorInt final int color) {
+        setDialogHeaderIconTintList(ColorStateList.valueOf(color));
+    }
+
+    /**
+     * Sets the color state list, which should be used to tint the icon of the header of the
+     * preference's dialog.
+     *
+     * @param tintList
+     *         The color state list, which should be set, as an instance of the class {@link
+     *         ColorStateList} or null, if no color state list should be set
+     */
+    public final void setDialogHeaderIconTintList(@Nullable final ColorStateList tintList) {
+        this.dialogHeaderIconTintList = tintList;
+    }
+
+    /**
+     * Returns the mode, which is used to tint the icon of the header of the preference's dialog.
+     *
+     * @return The mode, which is used to tint the icon of the header of the preference's dialog as
+     * a value of the enum {@link PorterDuff.Mode}. The mode may not be null
+     */
+    @NonNull
+    public final PorterDuff.Mode getDialogHeaderIconTintMode() {
+        return dialogHeaderIconTintMode;
+    }
+
+    /**
+     * Sets the mode, which should be used to tint the icon of the header of the preference's
+     * dialog.
+     *
+     * @param mode
+     *         The mode, which should be set, as a value of the enum {@link PorterDuff.Mode}. The
+     *         mode may not be null
+     */
+    public final void setDialogHeaderIconTintMode(@NonNull final PorterDuff.Mode mode) {
+        ensureNotNull(mode, "The dialog icon tint mode may not be null");
+        this.dialogHeaderIconTintMode = mode;
     }
 
     /**
@@ -2427,7 +2597,7 @@ public class DialogPreference extends Preference
 
     /**
      * Sets the listener, which should be notified, when the preference's dialog has been canceled.
-     *
+     * <p>
      * The listener will only be invoked, when the dialog is canceled. Cancel events alone will not
      * capture all ways that the dialog might be dismissed. If the creator needs to know when a
      * dialog is dismissed in general, use {@link #setOnDismissListener}.

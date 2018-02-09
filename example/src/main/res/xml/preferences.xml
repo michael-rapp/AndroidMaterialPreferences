@@ -24,7 +24,8 @@ License.
             android:summary="@string/dialog_preference_summary"
             android:title="@string/dialog_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"/>
         <de.mrapp.android.preference.EditTextPreference
             android:defaultValue="@string/edit_text_preference_default_value"
             android:dialogMessage="@string/edit_text_preference_dialog_message"
@@ -33,7 +34,8 @@ License.
             android:summary="@string/edit_text_preference_summary"
             android:title="@string/edit_text_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"/>
         <de.mrapp.android.preference.ListPreference
             android:defaultValue="@string/list_preference_default_value"
             android:dialogMessage="@string/list_preference_dialog_message"
@@ -43,7 +45,8 @@ License.
             android:summary="@string/list_preference_summary"
             android:title="@string/list_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"/>
         <de.mrapp.android.preference.MultiChoiceListPreference
             android:defaultValue="@array/multi_choice_list_preference_default_value"
             android:dialogMessage="@string/multi_choice_list_preference_dialog_message"
@@ -53,7 +56,8 @@ License.
             android:summary="@string/multi_choice_list_preference_summary"
             android:title="@string/multi_choice_list_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"/>
 
         <de.mrapp.android.preference.SeekBarPreference
             android:defaultValue="33.336"
@@ -64,7 +68,8 @@ License.
             android:title="@string/seek_bar_preference_title"
             custom:decimals="@integer/seek_bar_preference_decimals"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"
             custom:floatingPointSeparator="@string/seek_bar_prefeence_floating_point_separator"
             custom:min="@integer/seek_bar_preference_min_value"
             custom:showProgress="true"
@@ -76,7 +81,8 @@ License.
             android:summary="@string/number_picker_preference_summary"
             android:title="@string/number_picker_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"
             custom:unit="@string/unit"/>
         <de.mrapp.android.preference.DigitPickerPreference
             android:defaultValue="@integer/digit_picker_preference_default_value"
@@ -85,7 +91,8 @@ License.
             android:summary="@string/digit_picker_preference_summary"
             android:title="@string/digit_picker_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"
             custom:unit="@string/unit"/>
         <de.mrapp.android.preference.ResolutionPreference
             android:defaultValue="@string/resolution_preference_default_value"
@@ -94,7 +101,8 @@ License.
             android:summary="@string/resolution_preference_summary"
             android:title="@string/resolution_preference_title"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"
             custom:heightHint="@string/resolution_preference_height_hint"
             custom:widthHint="@string/resolution_preference_width_hint"/>
         <de.mrapp.android.preference.ColorPalettePreference
@@ -105,7 +113,8 @@ License.
             android:title="@string/color_palette_preference_title"
             custom:colorPalette="@array/color_palette"
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
-            custom:dialogHeaderIcon="@drawable/dialog_header_icon"/>
+            custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
+            custom:dialogHeaderIconTint="@android:color/white"/>
         <de.mrapp.android.preference.SwitchPreference
             android:defaultValue="@bool/switch_preference_default_value"
             android:key="@string/switch_preference_key"
