@@ -38,7 +38,7 @@ Alternatively, the library can be added to your Android app as a Gradle dependen
 
 ```groovy
 dependencies {
-    compile 'com.github.michael-rapp:android-material-preferences:3.1.3'
+    compile 'com.github.michael-rapp:android-material-preferences:3.2.0'
 }
 ```
 
