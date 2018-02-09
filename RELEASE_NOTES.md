@@ -1,5 +1,14 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 3.2.0 (Feb. 9th 2018)
+
+A feature release, which introduces the following changes:
+
+- Added the class `Preference`, which supports to use vector drawables and tinting them even on pre-Lollipop devices.
+- (Tinted) Support vector drawables can now be used for the (header) icon of a `DialogPreference`'s dialog even on pre-Lollipop devices.
+- Updated dependency "AndroidMaterialDialog" to version 4.3.1.
+- Updated dependency "AndroidUtil" to version 1.20.1.
+
 ## Version 3.1.3 (Jan. 26th 2018)
 
 A minor release, which introduces the following changes:
