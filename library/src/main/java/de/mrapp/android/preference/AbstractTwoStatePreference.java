@@ -38,7 +38,7 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.4.0
  */
-public abstract class AbstractTwoStatePreference extends AbstractPreference {
+public abstract class AbstractTwoStatePreference extends Preference {
 
     /**
      * A data structure, which allows to save the internal state of an {@link

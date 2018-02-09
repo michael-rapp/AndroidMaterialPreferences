@@ -111,6 +111,10 @@ License.
             android:key="@string/switch_preference_key"
             android:summary="@string/switch_preference_summary"
             android:title="@string/switch_preference_title"/>
+        <de.mrapp.android.preference.Preference
+            android:icon="@drawable/ic_settings_24dp"
+            android:tint="@color/color_accent"
+            android:title="@string/preference_title"/>
         <de.mrapp.android.preference.ActionPreference
             android:icon="@drawable/action_preference_icon"
             android:key="@string/action_preference_key"

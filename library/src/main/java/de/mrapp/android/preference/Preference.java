@@ -17,49 +17,44 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import de.mrapp.android.util.ThemeUtil;
+import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
- * A preference, which acts as a button and displays a centered title.
+ * A material-styled preference.
  *
  * @author Michael Rapp
- * @since 2.7.0
+ * @since 3.2.0
  */
-public class ActionPreference extends Preference {
+public class Preference extends android.preference.Preference {
 
     /**
-     * The text view, which is used to show the preference's title.
+     * The color state list, which is used to tint the preference's icon.
      */
-    private TextView textView;
+    private ColorStateList tintList;
 
     /**
-     * The text color of the preference's title.
+     * The mode, which is used to tint the preference's icon.
      */
-    private int textColor;
-
-    /**
-     * The text color of the preference's title when disabled.
-     */
-    private int disabledTextColor;
+    private PorterDuff.Mode tintMode;
 
     /**
      * Initializes the preference.
      *
      * @param attributeSet
      *         The attribute set, the attributes should be obtained from, as an instance of the type
-     *         {@link AttributeSet} or null, if no attributes should be obtained
+     *         {@link AttributeSet}
      * @param defaultStyle
      *         The default style to apply to this preference. If 0, no style will be applied (beyond
      *         what is included in the theme). This may either be an attribute resource, whose value
@@ -69,11 +64,11 @@ public class ActionPreference extends Preference {
      *         preference, used only if the default style is 0 or can not be found in the theme. Can
      *         be 0 to not look for defaults
      */
-    private void initialize(@Nullable final AttributeSet attributeSet,
-                            @AttrRes final int defaultStyle,
+    private void initialize(final AttributeSet attributeSet, @AttrRes final int defaultStyle,
                             @StyleRes final int defaultStyleResource) {
+        this.tintList = null;
+        this.tintMode = PorterDuff.Mode.SRC_ATOP;
         obtainStyledAttributes(attributeSet, defaultStyle, defaultStyleResource);
-        setLayoutResource(R.layout.action_preference);
     }
 
     /**
@@ -95,13 +90,12 @@ public class ActionPreference extends Preference {
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.ActionPreference, defaultStyle,
+                .obtainStyledAttributes(attributeSet, R.styleable.Preference, defaultStyle,
                         defaultStyleResource);
 
         try {
             obtainIcon(typedArray);
-            obtainTextColor(typedArray);
-            obtainDisabledTextColor(typedArray);
+            obtainTint(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -115,70 +109,50 @@ public class ActionPreference extends Preference {
      *         TypedArray}. The typed array may not be null
      */
     private void obtainIcon(@NonNull final TypedArray typedArray) {
-        setIcon(typedArray.getDrawable(R.styleable.ActionPreference_android_icon));
-    }
+        int resourceId = typedArray.getResourceId(R.styleable.Preference_android_icon, -1);
 
-    /**
-     * Obtains the text color of the preference's title from a specific typed array.
-     *
-     * @param typedArray
-     *         The typed array, the color should be obtained from, as an instance of the class
-     *         {@link TypedArray}. The typed array may not be null
-     */
-    private void obtainTextColor(@NonNull final TypedArray typedArray) {
-        int defaultTextColor = ThemeUtil.getColor(getContext(), R.attr.colorAccent);
-        setTextColor(typedArray
-                .getColor(R.styleable.ActionPreference_android_textColor, defaultTextColor));
-    }
-
-    /**
-     * Obtains the disabled text color of the preference's title from a specific typed array.
-     *
-     * @param typedArray
-     *         The typed array, the color should be obtained from, as an instance of the class
-     *         {@link TypedArray}. The typed array may not be null
-     */
-    private void obtainDisabledTextColor(@NonNull final TypedArray typedArray) {
-        int defaultTextColor = ContextCompat
-                .getColor(getContext(), R.color.action_preference_default_disabled_text_color);
-        setDisabledTextColor(typedArray
-                .getColor(R.styleable.ActionPreference_disabledTextColor, defaultTextColor));
-    }
-
-    /**
-     * Adapts the enable state of the preference.
-     */
-    private void adaptEnableState() {
-        if (textView != null) {
-            textView.setEnabled(isEnabled());
+        if (resourceId != -1) {
+            Drawable icon = AppCompatResources.getDrawable(getContext(), resourceId);
+            setIcon(icon);
         }
     }
 
     /**
-     * Adapts the text color of the preference's title.
+     * Obtains the color state list to tint the preference's icon from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the color state list should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
      */
-    private void adaptTextColor() {
-        if (textView != null) {
-            int[][] states = new int[][]{new int[]{-android.R.attr.state_enabled}, new int[]{}};
-            int[] colors = new int[]{getDisabledTextColor(), getTextColor()};
-            ColorStateList colorStateList = new ColorStateList(states, colors);
-            textView.setTextColor(colorStateList);
+    private void obtainTint(@NonNull final TypedArray typedArray) {
+        setIconTintList(typedArray.getColorStateList(R.styleable.Preference_android_tint));
+    }
+
+    /**
+     * Adapts the tint of the preference's icon.
+     */
+    private void adaptIconTint() {
+        Drawable icon = getIcon();
+
+        if (icon != null) {
+            DrawableCompat.setTintList(icon, tintList);
+            DrawableCompat.setTintMode(icon, tintMode);
         }
     }
 
     /**
-     * Creates a new preference, which acts as a button and displays a centered title.
+     * Creates a new material-styled preference.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
      *         {@link Context}. The context may not be null
      */
-    public ActionPreference(@NonNull final Context context) {
+    public Preference(@NonNull final Context context) {
         this(context, null);
     }
 
     /**
-     * Creates a new preference, which acts as a button and displays a centered title.
+     * Creates a new material-styled preference.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -187,14 +161,12 @@ public class ActionPreference extends Preference {
      *         The attributes of the XML tag that is inflating the preference, as an instance of the
      *         type {@link AttributeSet} or null, if no attributes are available
      */
-    public ActionPreference(@NonNull final Context context,
-                            @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+    public Preference(@NonNull final Context context, @Nullable final AttributeSet attributeSet) {
+        this(context, attributeSet, 0);
     }
 
     /**
-     * Creates a new preference, which acts as a button and displays a centered title.
+     * Creates a new material-styled preference.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -207,15 +179,14 @@ public class ActionPreference extends Preference {
      *         what is included in the theme). This may either be an attribute resource, whose value
      *         will be retrieved from the current theme, or an explicit style resource
      */
-    public ActionPreference(@NonNull final Context context,
-                            @Nullable final AttributeSet attributeSet,
-                            @AttrRes final int defaultStyle) {
+    public Preference(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
+                      @AttrRes final int defaultStyle) {
         super(context, attributeSet, defaultStyle);
         initialize(attributeSet, defaultStyle, 0);
     }
 
     /**
-     * Creates a new preference, which acts as a button and displays a centered title.
+     * Creates a new material-styled preference.
      *
      * @param context
      *         The context, which should be used by the preference, as an instance of the class
@@ -233,76 +204,79 @@ public class ActionPreference extends Preference {
      *         be 0 to not look for defaults
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ActionPreference(@NonNull final Context context,
-                            @Nullable final AttributeSet attributeSet,
-                            @AttrRes final int defaultStyle,
-                            @StyleRes final int defaultStyleResource) {
+    public Preference(@NonNull final Context context, @Nullable final AttributeSet attributeSet,
+                      @AttrRes final int defaultStyle, @StyleRes final int defaultStyleResource) {
         super(context, attributeSet, defaultStyle, defaultStyleResource);
         initialize(attributeSet, defaultStyle, defaultStyleResource);
     }
 
     /**
-     * Returns the text color of the preference's title.
-     *
-     * @return The text color of the preference's title as an {@link Integer} value
+     * Performs a click on the preference.
      */
-    public final int getTextColor() {
-        return textColor;
+    public void performClick() {
+
     }
 
     /**
-     * Sets the text color of the preference's title.
+     * Returns the color state list, which is used to tint the preference's icon.
+     *
+     * @return The color state list, which is used to tint the preference's icon as an instance of
+     * the class {@link ColorStateList} or null, if no color state list has been set
+     */
+    public final ColorStateList getIconTintList() {
+        return tintList;
+    }
+
+    /**
+     * Sets the color, which should be used to tint the preference's icon.
      *
      * @param color
      *         The color, which should be set, as an {@link Integer} value
      */
-    public final void setTextColor(@ColorInt final int color) {
-        this.textColor = color;
-        adaptTextColor();
+    public final void setIconTint(@ColorInt final int color) {
+        setIconTintList(ColorStateList.valueOf(color));
     }
 
     /**
-     * Returns the text color of the preference's title when disabled.
+     * Sets the color state list, which should be used to tint the preference's icon.
      *
-     * @return The text color of the preference's title when disabled as an {@link Integer} value
+     * @param tintList
+     *         The color state list, which should be set, as an instance of the class {@link
+     *         ColorStateList} or null, if no color state list should be set
      */
-    public final int getDisabledTextColor() {
-        return disabledTextColor;
+    public final void setIconTintList(@Nullable final ColorStateList tintList) {
+        this.tintList = tintList;
+        adaptIconTint();
     }
 
     /**
-     * Sets the text color of the preference's title when disabled.
+     * Returns the mode, which is used to tint the preference's icon.
      *
-     * @param color
-     *         The color, which should be set, as an {@link Integer} value
+     * @return The mode, which is used to tint the preference's icon, as a value of the enum {@link
+     * PorterDuff.Mode}. The mode may not be null
      */
-    public final void setDisabledTextColor(@ColorInt final int color) {
-        this.disabledTextColor = color;
-        adaptTextColor();
+    @NonNull
+    public final PorterDuff.Mode getIconTintMode() {
+        return tintMode;
+    }
+
+    /**
+     * Sets the mode, which should be used to tint the preference's icon.
+     *
+     * @param mode
+     *         The mode, which should be set, as a value of the enum {@link PorterDuff.Mode}. The
+     *         mode may not be null
+     */
+    public final void setIconTintMode(@NonNull final PorterDuff.Mode mode) {
+        ensureNotNull(mode, "The icon tint mode may not be null");
+        this.tintMode = mode;
+        adaptIconTint();
     }
 
     @Override
-    public final void performClick() {
-        OnPreferenceClickListener clickListener = getOnPreferenceClickListener();
-
-        if (clickListener != null) {
-            clickListener.onPreferenceClick(this);
-        }
-    }
-
-    @Override
-    public final void setEnabled(final boolean enabled) {
-        super.setEnabled(enabled);
-        adaptEnableState();
-    }
-
-    @Override
-    protected final View onCreateView(final ViewGroup parent) {
-        View view = super.onCreateView(parent);
-        textView = view.findViewById(android.R.id.title);
-        adaptEnableState();
-        adaptTextColor();
-        return view;
+    public void setIcon(@Nullable final Drawable icon) {
+        super.setIcon(icon);
+        adaptIconTint();
     }
 
 }

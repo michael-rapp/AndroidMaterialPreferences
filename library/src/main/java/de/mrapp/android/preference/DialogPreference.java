@@ -63,7 +63,7 @@ import static de.mrapp.android.util.Condition.ensureAtLeast;
  * @author Michael Rapp
  * @since 1.0.0
  */
-public class DialogPreference extends AbstractPreference
+public class DialogPreference extends Preference
         implements OnClickListener, OnShowListener, OnDismissListener, OnCancelListener,
         OnKeyListener {
 

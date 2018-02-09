@@ -29,6 +29,10 @@ License.
     </declare-styleable>
 
     <!-- Preferences -->
+    <declare-styleable name="Preference">
+        <attr name="android:icon"/>
+        <attr name="android:tint"/>
+    </declare-styleable>
     <declare-styleable name="DialogPreference">
         <attr name="dialogFullscreen" format="boolean"/>
         <attr name="dialogGravity" format="integer">
