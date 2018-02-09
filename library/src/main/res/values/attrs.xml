@@ -181,7 +181,6 @@ License.
         <attr name="android:switchTextOff"/>
     </declare-styleable>
     <declare-styleable name="ActionPreference">
-        <attr name="android:icon"/>
         <attr name="android:textColor"/>
         <attr name="disabledTextColor" format="color"/>
     </declare-styleable>

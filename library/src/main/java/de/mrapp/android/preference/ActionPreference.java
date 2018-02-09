@@ -99,23 +99,11 @@ public class ActionPreference extends Preference {
                         defaultStyleResource);
 
         try {
-            obtainIcon(typedArray);
             obtainTextColor(typedArray);
             obtainDisabledTextColor(typedArray);
         } finally {
             typedArray.recycle();
         }
-    }
-
-    /**
-     * Obtains the preference's icon from a specific typed array.
-     *
-     * @param typedArray
-     *         The typed array, the icon should be obtained from, as an instance of the class {@link
-     *         TypedArray}. The typed array may not be null
-     */
-    private void obtainIcon(@NonNull final TypedArray typedArray) {
-        setIcon(typedArray.getDrawable(R.styleable.ActionPreference_android_icon));
     }
 
     /**

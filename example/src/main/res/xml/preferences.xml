@@ -116,8 +116,9 @@ License.
             android:tint="@color/color_accent"
             android:title="@string/preference_title"/>
         <de.mrapp.android.preference.ActionPreference
-            android:icon="@drawable/action_preference_icon"
+            android:icon="@drawable/ic_plus_circle_outline_24dp"
             android:key="@string/action_preference_key"
+            android:tint="@color/color_accent"
             android:title="@string/action_preference_title"/>
     </PreferenceCategory>
 
