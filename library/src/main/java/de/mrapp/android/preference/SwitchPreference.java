@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -29,6 +30,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * A preference, which provides a two-state toggleable option using a SwitchCompat widget.
@@ -331,12 +334,13 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     }
 
     @Override
-    protected final View onCreateView(final ViewGroup parent) {
-        View view = super.onCreateView(parent);
-        switchWidget = view.findViewById(R.id.switch_widget);
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        switchWidget = (SwitchCompat) holder.findViewById(R.id.switch_widget);
         switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
         adaptSwitch();
-        return view;
     }
+
+
 
 }

@@ -29,6 +29,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -845,14 +846,13 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
     }
 
     @Override
-    protected final View onCreateView(final ViewGroup parent) {
-        View view = super.onCreateView(parent);
-        LinearLayout widgetFrame = view.findViewById(android.R.id.widget_frame);
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        LinearLayout widgetFrame = (LinearLayout) holder.findViewById(android.R.id.widget_frame);
         widgetFrame.setVisibility(View.VISIBLE);
         previewView = new ImageView(getContext());
         widgetFrame.addView(previewView, createPreviewLayoutParams());
         adaptPreviewView();
-        return view;
     }
 
     @Override

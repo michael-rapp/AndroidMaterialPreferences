@@ -37,7 +37,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 3.2.0
  */
-public class Preference extends android.preference.Preference {
+public class Preference extends android.support.v7.preference.Preference {
 
     /**
      * The color state list, which is used to tint the preference's icon.

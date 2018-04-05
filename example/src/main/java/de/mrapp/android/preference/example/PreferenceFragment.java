@@ -17,10 +17,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceManager;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.widget.Toast;
 
 import de.mrapp.android.preference.ActionPreference;
@@ -41,7 +39,7 @@ import de.mrapp.android.validation.Validators;
  *
  * @author Michael Rapp
  */
-public class PreferenceFragment extends android.preference.PreferenceFragment {
+public class PreferenceFragment extends PreferenceFragmentCompat {
 
     /**
      * The {@link DialogPreference}.
@@ -143,10 +141,10 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
      * be shown as summaries, or not, when the corresponding setting has been changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * OnPreferenceChangeListener}
+     * Preference.OnPreferenceChangeListener}
      */
-    private OnPreferenceChangeListener createShowValueAsSummaryListener() {
-        return new OnPreferenceChangeListener() {
+    private Preference.OnPreferenceChangeListener createShowValueAsSummaryListener() {
+        return new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -172,10 +170,10 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
      * changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * OnPreferenceChangeListener}
+     * Preference.OnPreferenceChangeListener}
      */
-    private OnPreferenceChangeListener createShowDialogHeaderListener() {
-        return new OnPreferenceChangeListener() {
+    private Preference.OnPreferenceChangeListener createShowDialogHeaderListener() {
+        return new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -201,10 +199,10 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
      * changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * OnPreferenceChangeListener}
+     * Preference.OnPreferenceChangeListener}
      */
-    private OnPreferenceChangeListener createShowDialogButtonBarDividerListener() {
-        return new OnPreferenceChangeListener() {
+    private Preference.OnPreferenceChangeListener createShowDialogButtonBarDividerListener() {
+        return new Preference.OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -251,10 +249,10 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
      * ActionPreference} has been clicked.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * OnPreferenceClickListener}
+     * Preference.OnPreferenceClickListener}
      */
-    private OnPreferenceClickListener createActionPreferenceClickListener() {
-        return new OnPreferenceClickListener() {
+    private Preference.OnPreferenceClickListener createActionPreferenceClickListener() {
+        return new Preference.OnPreferenceClickListener() {
 
             @Override
             public boolean onPreferenceClick(Preference preference) {
@@ -269,7 +267,7 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+
         initializeThemePreference();
 
         SharedPreferences sharedPreferences =
@@ -348,6 +346,11 @@ public class PreferenceFragment extends android.preference.PreferenceFragment {
                 (ActionPreference) findPreference(getString(R.string.action_preference_key));
         actionPreference.setOnPreferenceClickListener(createActionPreferenceClickListener());
         adaptSwitchPreferenceSummary(showValueAsSummary);
+    }
+
+    @Override
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        addPreferencesFromResource(R.xml.preferences);
     }
 
 }
