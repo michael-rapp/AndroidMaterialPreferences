@@ -17,6 +17,19 @@ android {
             minifyEnabled false
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        core {
+            dimension "default"
+
+        }
+        support {
+            dimension "default"
+
+        }
+    }
 }
 
 dependencies {

@@ -17,8 +17,10 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.preference.Preference;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import de.mrapp.android.preference.ActionPreference;
@@ -32,6 +34,7 @@ import de.mrapp.android.preference.NumberPickerPreference;
 import de.mrapp.android.preference.ResolutionPreference;
 import de.mrapp.android.preference.SeekBarPreference;
 import de.mrapp.android.preference.SwitchPreference;
+import de.mrapp.android.preference.example.R;
 import de.mrapp.android.validation.Validators;
 
 /**
@@ -39,7 +42,7 @@ import de.mrapp.android.validation.Validators;
  *
  * @author Michael Rapp
  */
-public class PreferenceFragment extends PreferenceFragmentCompat {
+public class PreferenceFragment extends android.preference.PreferenceFragment {
 
     /**
      * The {@link DialogPreference}.
@@ -95,7 +98,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      * Initializes the preference, which allows to change the app's theme.
      */
     private void initializeThemePreference() {
-        Preference themePreference = findPreference(getString(R.string.theme_preference_key));
+        Preference themePreference = findPreference(getString(de.mrapp.android.preference.example.R.string.theme_preference_key));
         themePreference.setOnPreferenceChangeListener(createThemeChangeListener());
     }
 
@@ -128,8 +131,8 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      */
     private void adaptSwitchPreferenceSummary(final boolean showValueAsSummary) {
         if (showValueAsSummary) {
-            switchPreference.setSummaryOn(R.string.switch_preference_summary_on);
-            switchPreference.setSummaryOff(R.string.switch_preference_summary_off);
+            switchPreference.setSummaryOn(de.mrapp.android.preference.example.R.string.switch_preference_summary_on);
+            switchPreference.setSummaryOff(de.mrapp.android.preference.example.R.string.switch_preference_summary_off);
         } else {
             switchPreference.setSummaryOn(null);
             switchPreference.setSummaryOff(null);
@@ -141,10 +144,10 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      * be shown as summaries, or not, when the corresponding setting has been changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * Preference.OnPreferenceChangeListener}
+     * OnPreferenceChangeListener}
      */
-    private Preference.OnPreferenceChangeListener createShowValueAsSummaryListener() {
-        return new Preference.OnPreferenceChangeListener() {
+    private OnPreferenceChangeListener createShowValueAsSummaryListener() {
+        return new OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -170,10 +173,10 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      * changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * Preference.OnPreferenceChangeListener}
+     * OnPreferenceChangeListener}
      */
-    private Preference.OnPreferenceChangeListener createShowDialogHeaderListener() {
-        return new Preference.OnPreferenceChangeListener() {
+    private OnPreferenceChangeListener createShowDialogHeaderListener() {
+        return new OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -199,10 +202,10 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      * changed.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * Preference.OnPreferenceChangeListener}
+     * OnPreferenceChangeListener}
      */
-    private Preference.OnPreferenceChangeListener createShowDialogButtonBarDividerListener() {
-        return new Preference.OnPreferenceChangeListener() {
+    private OnPreferenceChangeListener createShowDialogButtonBarDividerListener() {
+        return new OnPreferenceChangeListener() {
 
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object newValue) {
@@ -237,7 +240,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
                 String button = getString(
                         which == DialogInterface.BUTTON_POSITIVE ? android.R.string.ok :
                                 android.R.string.cancel);
-                String text = String.format(getString(R.string.dialog_dismissed_toast), button);
+                String text = String.format(getString(de.mrapp.android.preference.example.R.string.dialog_dismissed_toast), button);
                 Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
             }
 
@@ -249,14 +252,14 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
      * ActionPreference} has been clicked.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * Preference.OnPreferenceClickListener}
+     * OnPreferenceClickListener}
      */
-    private Preference.OnPreferenceClickListener createActionPreferenceClickListener() {
-        return new Preference.OnPreferenceClickListener() {
+    private OnPreferenceClickListener createActionPreferenceClickListener() {
+        return new OnPreferenceClickListener() {
 
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Toast.makeText(getActivity(), R.string.action_preference_toast, Toast.LENGTH_SHORT)
+                Toast.makeText(getActivity(), de.mrapp.android.preference.example.R.string.action_preference_toast, Toast.LENGTH_SHORT)
                         .show();
                 return true;
             }
@@ -267,90 +270,85 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        addPreferencesFromResource(de.mrapp.android.preference.example.R.xml.preferences);
         initializeThemePreference();
 
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         boolean showValueAsSummary = sharedPreferences
-                .getBoolean(getString(R.string.show_value_as_summary_preference_key), true);
+                .getBoolean(getString(de.mrapp.android.preference.example.R.string.show_value_as_summary_preference_key), true);
         boolean showDialogHeader = sharedPreferences
-                .getBoolean(getString(R.string.show_dialog_header_preference_key), false);
+                .getBoolean(getString(de.mrapp.android.preference.example.R.string.show_dialog_header_preference_key), false);
         boolean showDialogButtonBarDivider = sharedPreferences
-                .getBoolean(getString(R.string.show_dialog_button_bar_divider_preference_key),
+                .getBoolean(getString(de.mrapp.android.preference.example.R.string.show_dialog_button_bar_divider_preference_key),
                         false);
 
         Preference showValueAsSummaryPreference =
-                findPreference(getString(R.string.show_value_as_summary_preference_key));
+                findPreference(getString(de.mrapp.android.preference.example.R.string.show_value_as_summary_preference_key));
         showValueAsSummaryPreference
                 .setOnPreferenceChangeListener(createShowValueAsSummaryListener());
 
         Preference showDialogHeaderPreference =
-                findPreference(getString(R.string.show_dialog_header_preference_key));
+                findPreference(getString(de.mrapp.android.preference.example.R.string.show_dialog_header_preference_key));
         showDialogHeaderPreference.setOnPreferenceChangeListener(createShowDialogHeaderListener());
 
         Preference showDialogButtonBarDividerPreference =
-                findPreference(getString(R.string.show_dialog_button_bar_divider_preference_key));
+                findPreference(getString(de.mrapp.android.preference.example.R.string.show_dialog_button_bar_divider_preference_key));
         showDialogButtonBarDividerPreference
                 .setOnPreferenceChangeListener(createShowDialogButtonBarDividerListener());
 
         dialogPreference =
-                (DialogPreference) findPreference(getString(R.string.dialog_preference_key));
+                (DialogPreference) findPreference(getString(de.mrapp.android.preference.example.R.string.dialog_preference_key));
         dialogPreference.showDialogHeader(showDialogHeader);
         dialogPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         dialogPreference.setOnClickListener(createDialogPreferenceClickListener());
         editTextPreference =
-                (EditTextPreference) findPreference(getString(R.string.edit_text_preference_key));
+                (EditTextPreference) findPreference(getString(de.mrapp.android.preference.example.R.string.edit_text_preference_key));
         editTextPreference.addValidator(
-                Validators.notEmpty(getActivity(), R.string.not_empty_validator_error_message));
+                Validators.notEmpty(getActivity(), de.mrapp.android.preference.example.R.string.not_empty_validator_error_message));
         editTextPreference.showValueAsSummary(showValueAsSummary);
         editTextPreference.showDialogHeader(showDialogHeader);
         editTextPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
-        listPreference = (ListPreference) findPreference(getString(R.string.list_preference_key));
+        listPreference = (ListPreference) findPreference(getString(de.mrapp.android.preference.example.R.string.list_preference_key));
         listPreference.showValueAsSummary(showValueAsSummary);
         listPreference.showDialogHeader(showDialogHeader);
         listPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         multiChoiceListPreference = (MultiChoiceListPreference) findPreference(
-                getString(R.string.multi_choice_list_preference_key));
+                getString(de.mrapp.android.preference.example.R.string.multi_choice_list_preference_key));
         multiChoiceListPreference.showValueAsSummary(showValueAsSummary);
         multiChoiceListPreference.showDialogHeader(showDialogHeader);
         multiChoiceListPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         seekBarPreference =
-                (SeekBarPreference) findPreference(getString(R.string.seek_bar_preference_key));
+                (SeekBarPreference) findPreference(getString(de.mrapp.android.preference.example.R.string.seek_bar_preference_key));
         seekBarPreference.showValueAsSummary(showValueAsSummary);
         seekBarPreference.showDialogHeader(showDialogHeader);
         seekBarPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         numberPickerPreference = (NumberPickerPreference) findPreference(
-                getString(R.string.number_picker_preference_key));
+                getString(de.mrapp.android.preference.example.R.string.number_picker_preference_key));
         numberPickerPreference.showValueAsSummary(showValueAsSummary);
         numberPickerPreference.showDialogHeader(showDialogHeader);
         numberPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         digitPickerPreference = (DigitPickerPreference) findPreference(
-                getString(R.string.digit_picker_preference_key));
+                getString(de.mrapp.android.preference.example.R.string.digit_picker_preference_key));
         digitPickerPreference.showValueAsSummary(showValueAsSummary);
         digitPickerPreference.showDialogHeader(showDialogHeader);
         digitPickerPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         resolutionPreference = (ResolutionPreference) findPreference(
-                getString(R.string.resolution_preference_key));
+                getString(de.mrapp.android.preference.example.R.string.resolution_preference_key));
         resolutionPreference.showValueAsSummary(showValueAsSummary);
         resolutionPreference.showDialogHeader(showDialogHeader);
         resolutionPreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         colorPalettePreference = (ColorPalettePreference) findPreference(
-                getString(R.string.color_palette_preference_key));
+                getString(de.mrapp.android.preference.example.R.string.color_palette_preference_key));
         colorPalettePreference.showValueAsSummary(showValueAsSummary);
         colorPalettePreference.showDialogHeader(showDialogHeader);
         colorPalettePreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         switchPreference =
-                (SwitchPreference) findPreference(getString(R.string.switch_preference_key));
+                (SwitchPreference) findPreference(getString(de.mrapp.android.preference.example.R.string.switch_preference_key));
         ActionPreference actionPreference =
                 (ActionPreference) findPreference(getString(R.string.action_preference_key));
         actionPreference.setOnPreferenceClickListener(createActionPreferenceClickListener());
         adaptSwitchPreferenceSummary(showValueAsSummary);
-    }
-
-    @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.preferences);
     }
 
 }
