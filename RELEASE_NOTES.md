@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 4.0.0 (Apr. 29th 2018)
+
+A major release, which provides the following changes:
+
+- Migrated the library to use the v14 Preference support library as the Android SDK's default preference classes will be deprecated in Android P.
+- Updated the dependency "AndroidMaterialDialog" to version 4.3.3.
+
 ## Version 3.2.0 (Feb. 9th 2018)
 
 A feature release, which introduces the following changes:
