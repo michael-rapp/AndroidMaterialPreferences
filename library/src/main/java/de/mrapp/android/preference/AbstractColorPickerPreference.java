@@ -33,7 +33,6 @@ import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -846,7 +845,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
     }
 
     @Override
-    public void onBindViewHolder(PreferenceViewHolder holder) {
+    public final void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         LinearLayout widgetFrame = (LinearLayout) holder.findViewById(android.R.id.widget_frame);
         widgetFrame.setVisibility(View.VISIBLE);
