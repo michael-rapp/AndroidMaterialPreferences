@@ -20,6 +20,7 @@ License.
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="preferenceDialogTheme">@style/LightDialogTheme</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="DarkTheme" parent="@style/Theme.AppCompat">
@@ -27,6 +28,7 @@ License.
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="preferenceDialogTheme">@style/DarkDialogTheme</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="LightDialogTheme" parent="@style/MaterialDialog.Light">

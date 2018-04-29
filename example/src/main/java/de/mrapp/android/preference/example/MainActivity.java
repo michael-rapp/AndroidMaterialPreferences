@@ -13,11 +13,11 @@
  */
 package de.mrapp.android.preference.example;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
     protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Fragment fragment = getFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
 
         if (fragment == null) {
             fragment = Fragment.instantiate(this, PreferenceFragment.class.getName());
         }
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment, fragment);
         transaction.commit();
     }
