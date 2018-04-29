@@ -291,12 +291,11 @@ public abstract class AbstractTwoStatePreference extends Preference {
      */
     @CallSuper
     public void setChecked(final boolean checked) {
-        boolean hasDisabledDependents = shouldDisableDependents();
-
         if (this.checked != checked) {
             this.checked = checked;
             persistBoolean(checked);
             boolean isDisablingDependents = shouldDisableDependents();
+            boolean hasDisabledDependents = shouldDisableDependents();
 
             if (isDisablingDependents != hasDisabledDependents) {
                 notifyDependencyChange(isDisablingDependents);
