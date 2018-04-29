@@ -24,6 +24,8 @@ The library provides the following preferences:
 - A preference, which provides a toggleable option using a `Switch` widget (`SwitchPreference`).
 - A preference, which acts as a button and shows a centered title (`ActionPreference`).
 
+Prior to version 4.0.0 this library relied on the Android SDK's preference classes such as `android.preference.Preference`. As these classes are deprecated starting with Android P, the library has been migrated to use the v14 Preference support library in version 4.0.0 and later.
+
 ## License Agreement
 
 This project is distributed under the Apache License version 2.0. For further information about this license agreement's content please refer to its full version, which is available at http://www.apache.org/licenses/LICENSE-2.0.txt.
