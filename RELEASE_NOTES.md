@@ -1,5 +1,15 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 4.0.1 (May 25th 2018)
+
+A minor release, which introduces the following changes:
+
+- Updated AppCompat v7 support library to version 27.1.1.
+- Updated v14 Preference support library to version 27.1.1.
+- Updated the dependency "AndroidMaterialDialog" to version 4.3.4.
+- Updated the dependency "AndroidMaterialValidation" to version 2.1.6.
+- Updated the dependency "AndroidUtil" to version 1.20.3.
+
 ## Version 4.0.0 (Apr. 29th 2018)
 
 A major release, which provides the following changes:
