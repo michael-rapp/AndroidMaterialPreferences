@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 4.0.2 (May 27th 2018)
+
+A bugfix release, which fixes the following issues:
+
+- The title, message and content of a `DialogPreference`'s dialog are now scrollable by default, if not enough space is available.
+
 ## Version 4.0.1 (May 25th 2018)
 
 A minor release, which introduces the following changes:
