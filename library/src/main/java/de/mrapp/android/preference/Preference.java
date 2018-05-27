@@ -13,6 +13,7 @@
  */
 package de.mrapp.android.preference;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -213,8 +214,10 @@ public class Preference extends android.support.v7.preference.Preference {
     /**
      * Performs a click on the preference.
      */
+    @SuppressLint("RestrictedApi")
+    @Override
     public void performClick() {
-
+        super.performClick();
     }
 
     /**
