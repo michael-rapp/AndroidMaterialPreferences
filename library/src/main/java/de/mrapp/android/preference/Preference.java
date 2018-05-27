@@ -26,6 +26,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
@@ -163,7 +164,7 @@ public class Preference extends android.support.v7.preference.Preference {
      *         type {@link AttributeSet} or null, if no attributes are available
      */
     public Preference(@NonNull final Context context, @Nullable final AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
+        this(context, attributeSet, R.attr.preferenceStyle);
     }
 
     /**

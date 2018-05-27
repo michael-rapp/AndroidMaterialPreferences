@@ -176,8 +176,7 @@ public class ActionPreference extends Preference {
      */
     public ActionPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+        this(context, attributeSet, R.attr.preferenceStyle);
     }
 
     /**
@@ -197,7 +196,7 @@ public class ActionPreference extends Preference {
     public ActionPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet,
                             @AttrRes final int defaultStyle) {
-        super(context, attributeSet, defaultStyle);
+        this(context, attributeSet, defaultStyle, 0);
         initialize(attributeSet, defaultStyle, 0);
     }
 

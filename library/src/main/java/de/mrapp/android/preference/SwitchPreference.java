@@ -22,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.annotation.StyleRes;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.preference.PreferenceViewHolder;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
@@ -190,7 +191,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     public SwitchPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
+        this(context, attributeSet, R.attr.preferenceStyle);
     }
 
     /**

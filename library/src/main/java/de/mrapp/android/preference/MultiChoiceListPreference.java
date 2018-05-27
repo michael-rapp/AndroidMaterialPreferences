@@ -231,8 +231,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         {@link Context}. The context may not be null
      */
     public MultiChoiceListPreference(@NonNull final Context context) {
-        super(context);
-        initialize();
+        this(context, null);
     }
 
     /**
@@ -247,8 +246,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      */
     public MultiChoiceListPreference(@NonNull final Context context,
                                      @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize();
+        this(context, attributeSet, R.attr.dialogPreferenceStyle);
     }
 
     /**

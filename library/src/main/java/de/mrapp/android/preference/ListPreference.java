@@ -163,7 +163,7 @@ public class ListPreference extends AbstractListPreference {
      */
     public ListPreference(@NonNull final Context context,
                           @Nullable final AttributeSet attributeSet) {
-        this(context, attributeSet, 0);
+        this(context, attributeSet, R.attr.dialogPreferenceStyle);
     }
 
     /**
