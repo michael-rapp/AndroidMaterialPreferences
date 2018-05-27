@@ -6,6 +6,7 @@ A bugfix release, which fixes the following issues:
 
 - The title, message and content of a `DialogPreference`'s dialog are now scrollable by default, if not enough space is available.
 - Fixed wrong default style being used by individual preferences.
+- Fixed visual glitches regarding the preview of the `ColorPickerPreference`.
 
 ## Version 4.0.1 (May 25th 2018)
 
