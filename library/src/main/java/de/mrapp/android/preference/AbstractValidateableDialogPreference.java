@@ -250,7 +250,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
      */
     public AbstractValidateableDialogPreference(@NonNull final Context context,
                                                 @Nullable final AttributeSet attributeSet) {
-        this(context, attributeSet, android.R.attr.dialogPreferenceStyle);
+        this(context, attributeSet, 0);
     }
 
     /**

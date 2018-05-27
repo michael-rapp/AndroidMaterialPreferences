@@ -190,8 +190,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     public SwitchPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

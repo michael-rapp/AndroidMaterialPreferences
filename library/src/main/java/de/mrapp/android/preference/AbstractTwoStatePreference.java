@@ -221,8 +221,7 @@ public abstract class AbstractTwoStatePreference extends Preference {
      */
     public AbstractTwoStatePreference(@NonNull final Context context,
                                       @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        obtainStyledAttributes(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

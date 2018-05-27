@@ -32,6 +32,8 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
@@ -216,7 +218,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      */
     private int getDigit(final int index, final int number) {
         String format = "%0" + getNumberOfDigits() + "d";
-        String formattedNumber = String.format(format, number);
+        String formattedNumber = String.format(Locale.getDefault(), format, number);
         String digit = formattedNumber.substring(index, index + 1);
         return Integer.valueOf(digit);
     }
@@ -257,8 +259,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      *         {@link Context}. The context may not be null
      */
     public DigitPickerPreference(@NonNull final Context context) {
-        super(context);
-        obtainStyledAttributes(null, 0, 0);
+        this(context, null);
     }
 
     /**
@@ -274,8 +275,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      */
     public DigitPickerPreference(@NonNull final Context context,
                                  @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        obtainStyledAttributes(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

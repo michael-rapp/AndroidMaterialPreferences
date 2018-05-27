@@ -148,8 +148,7 @@ public class ListPreference extends AbstractListPreference {
      *         {@link Context}. The context may not be null
      */
     public ListPreference(@NonNull final Context context) {
-        super(context);
-        initialize();
+        this(context, null);
     }
 
     /**
@@ -164,8 +163,7 @@ public class ListPreference extends AbstractListPreference {
      */
     public ListPreference(@NonNull final Context context,
                           @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize();
+        this(context, attributeSet, 0);
     }
 
     /**

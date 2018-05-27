@@ -1267,7 +1267,7 @@ public class DialogPreference extends Preference
      */
     public DialogPreference(@NonNull final Context context,
                             @Nullable final AttributeSet attributeSet) {
-        this(context, attributeSet, android.R.attr.dialogPreferenceStyle);
+        this(context, attributeSet, 0);
     }
 
     /**

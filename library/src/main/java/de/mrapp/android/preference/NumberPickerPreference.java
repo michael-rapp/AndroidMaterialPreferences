@@ -313,8 +313,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         {@link Context}. The context may not be null
      */
     public NumberPickerPreference(@NonNull final Context context) {
-        super(context);
-        initialize(null, 0, 0);
+        this(context, null);
     }
 
     /**
@@ -330,8 +329,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      */
     public NumberPickerPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

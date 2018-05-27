@@ -210,8 +210,7 @@ public abstract class AbstractListPreference extends DialogPreference {
      *         {@link Context}. The context may not be null
      */
     public AbstractListPreference(@NonNull final Context context) {
-        super(context);
-        initialize(null, 0, 0);
+        this(context, null);
     }
 
     /**
@@ -226,8 +225,7 @@ public abstract class AbstractListPreference extends DialogPreference {
      */
     public AbstractListPreference(@NonNull final Context context,
                                   @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

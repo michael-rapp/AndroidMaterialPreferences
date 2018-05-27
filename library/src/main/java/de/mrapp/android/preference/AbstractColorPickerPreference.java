@@ -548,8 +548,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      */
     public AbstractColorPickerPreference(@NonNull final Context context,
                                          @Nullable final AttributeSet attributeSet) {
-        super(context, attributeSet);
-        initialize(attributeSet, 0, 0);
+        this(context, attributeSet, 0);
     }
 
     /**

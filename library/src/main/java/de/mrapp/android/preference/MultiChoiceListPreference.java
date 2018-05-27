@@ -335,8 +335,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
         if (this.values != null) {
             if (this.values.add(value)) {
-                persistSet(this.values);
-                notifyChanged();
+                if (persistSet(this.values)) {
+                    notifyChanged();
+                }
             }
         } else {
             Set<String> newValues = new HashSet<>();
@@ -357,8 +358,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
         if (this.values != null) {
             if (this.values.remove(value)) {
-                persistSet(this.values);
-                notifyChanged();
+                if (persistSet(this.values)) {
+                    notifyChanged();
+                }
             }
         }
     }
@@ -376,12 +378,12 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
         if (this.values != null) {
             if (this.values.addAll(values)) {
-                persistSet(this.values);
-                notifyChanged();
+                if (persistSet(this.values)) {
+                    notifyChanged();
+                }
             }
         } else {
-            Set<String> newValues = new HashSet<>();
-            newValues.addAll(values);
+            Set<String> newValues = new HashSet<>(values);
             setValues(newValues);
         }
     }
@@ -399,8 +401,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
         if (this.values != null) {
             if (this.values.removeAll(values)) {
-                persistSet(this.values);
-                notifyChanged();
+                if (persistSet(this.values)) {
+                    notifyChanged();
+                }
             }
         }
     }
