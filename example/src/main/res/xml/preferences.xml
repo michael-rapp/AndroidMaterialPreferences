@@ -17,8 +17,8 @@ License.
                   xmlns:custom="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/example_preferences_preference_category_title">
-        <de.mrapp.android.preference.DialogPreference
 
+        <de.mrapp.android.preference.DialogPreference
             android:dialogMessage="@string/dialog_preference_dialog_message"
             android:key="@string/dialog_preference_key"
             android:summary="@string/dialog_preference_summary"
@@ -26,6 +26,7 @@ License.
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"/>
+
         <de.mrapp.android.preference.EditTextPreference
             android:defaultValue="@string/edit_text_preference_default_value"
             android:dialogMessage="@string/edit_text_preference_dialog_message"
@@ -36,6 +37,7 @@ License.
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"/>
+
         <de.mrapp.android.preference.ListPreference
             android:defaultValue="@string/list_preference_default_value"
             android:dialogMessage="@string/list_preference_dialog_message"
@@ -47,6 +49,7 @@ License.
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"/>
+
         <de.mrapp.android.preference.MultiChoiceListPreference
             android:defaultValue="@array/multi_choice_list_preference_default_value"
             android:dialogMessage="@string/multi_choice_list_preference_dialog_message"
@@ -74,6 +77,7 @@ License.
             custom:min="@integer/seek_bar_preference_min_value"
             custom:showProgress="true"
             custom:unit="@string/unit"/>
+
         <de.mrapp.android.preference.NumberPickerPreference
             android:defaultValue="@integer/number_picker_preference_default_value"
             android:dialogMessage="@string/number_picker_preference_dialog_message"
@@ -84,6 +88,7 @@ License.
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"
             custom:unit="@string/unit"/>
+
         <de.mrapp.android.preference.DigitPickerPreference
             android:defaultValue="@integer/digit_picker_preference_default_value"
             android:dialogMessage="@string/digit_picker_preference_dialog_message"
@@ -94,6 +99,7 @@ License.
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"
             custom:unit="@string/unit"/>
+
         <de.mrapp.android.preference.ResolutionPreference
             android:defaultValue="@string/resolution_preference_default_value"
             android:dialogMessage="@string/resolution_preference_dialog_message"
@@ -105,6 +111,7 @@ License.
             custom:dialogHeaderIconTint="@android:color/white"
             custom:heightHint="@string/resolution_preference_height_hint"
             custom:widthHint="@string/resolution_preference_width_hint"/>
+
         <de.mrapp.android.preference.ColorPalettePreference
             android:defaultValue="@color/color_palette_preference_default_value"
             android:dialogMessage="@string/color_palette_preference_dialog_message"
@@ -115,41 +122,51 @@ License.
             custom:dialogHeaderBackground="@drawable/dialog_header_background"
             custom:dialogHeaderIcon="@drawable/ic_message_alert_72"
             custom:dialogHeaderIconTint="@android:color/white"/>
+
         <de.mrapp.android.preference.SwitchPreference
             android:defaultValue="@bool/switch_preference_default_value"
             android:key="@string/switch_preference_key"
             android:summary="@string/switch_preference_summary"
             android:title="@string/switch_preference_title"/>
+
         <de.mrapp.android.preference.Preference
             android:icon="@drawable/ic_settings_24dp"
             android:tint="@color/color_accent"
+            android:summary="@string/preference_summary"
             android:title="@string/preference_title"/>
+
         <de.mrapp.android.preference.ActionPreference
             android:icon="@drawable/ic_plus_circle_outline_24dp"
             android:key="@string/action_preference_key"
             android:tint="@color/color_accent"
             android:title="@string/action_preference_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_preference_category_title">
+
         <CheckBoxPreference
             android:defaultValue="@bool/show_value_as_summary_preference_default_value"
             android:key="@string/show_value_as_summary_preference_key"
             android:summary="@string/show_value_as_summary_preference_summary"
             android:title="@string/show_value_as_summary_preference_title"/>
+
         <CheckBoxPreference
             android:defaultValue="@bool/show_dialog_header_preference_default_value"
             android:key="@string/show_dialog_header_preference_key"
             android:summary="@string/show_dialog_header_preference_summary"
             android:title="@string/show_dialog_header_preference_title"/>
+
         <CheckBoxPreference
             android:defaultValue="@bool/show_dialog_button_bar_divider_preference_default_value"
             android:key="@string/show_dialog_button_bar_divider_preference_key"
             android:summary="@string/show_dialog_button_bar_divider_preference_summary"
             android:title="@string/show_dialog_button_bar_divider_preference_title"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/theme_preference_category_title">
+
         <ListPreference
             android:defaultValue="@string/theme_preference_default_value"
             android:entries="@array/theme_entries"
@@ -157,6 +174,7 @@ License.
             android:key="@string/theme_preference_key"
             android:summary="@string/theme_preference_summary"
             android:title="@string/theme_preference_title"/>
+
     </PreferenceCategory>
 
 </PreferenceScreen>
