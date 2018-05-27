@@ -27,6 +27,7 @@ import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.ScrollableArea;
 
 import static de.mrapp.android.util.Condition.ensureNotNull;
 
@@ -104,6 +105,7 @@ public abstract class AbstractListPreference extends DialogPreference {
             obtainDialogItemColor(typedArray);
             obtainEntries(typedArray);
             obtainEntryValues(typedArray);
+            obtainDialogScrollableArea(typedArray);
         } finally {
             typedArray.recycle();
         }
@@ -152,6 +154,31 @@ public abstract class AbstractListPreference extends DialogPreference {
         if (obtainedEntryValues != null) {
             setEntryValues(obtainedEntryValues);
         }
+    }
+
+    /**
+     * Obtains the scrollable area of the preference's dialog from a specific typed array.
+     *
+     * @param typedArray
+     *         The typed array, the scrollable area should be obtained from, as an instance of the
+     *         class {@link TypedArray}. The typed array may not be null
+     */
+    private void obtainDialogScrollableArea(@NonNull final TypedArray typedArray) {
+        int topIndex = typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaTop, -1);
+        ScrollableArea.Area top = null;
+        ScrollableArea.Area bottom = null;
+
+        if (topIndex != -1) {
+            top = ScrollableArea.Area.fromIndex(topIndex);
+            int bottomIndex =
+                    typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaBottom, -1);
+
+            if (bottomIndex != -1) {
+                bottom = ScrollableArea.Area.fromIndex(bottomIndex);
+            }
+        }
+
+        setDialogScrollableArea(top, bottom != null ? bottom : top);
     }
 
     /**

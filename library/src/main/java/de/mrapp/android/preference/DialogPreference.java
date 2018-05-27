@@ -1054,17 +1054,25 @@ public class DialogPreference extends Preference
      */
     private void obtainDialogScrollableArea(@NonNull final TypedArray typedArray) {
         int topIndex = typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaTop, -1);
+        Area top = null;
+        Area bottom = null;
 
         if (topIndex != -1) {
+            top = Area.fromIndex(topIndex);
             int bottomIndex =
                     typedArray.getInt(R.styleable.DialogPreference_dialogScrollableAreaBottom, -1);
 
             if (bottomIndex != -1) {
-                setDialogScrollableArea(Area.fromIndex(topIndex), Area.fromIndex(bottomIndex));
-            } else {
-                setDialogScrollableArea(Area.fromIndex(topIndex));
+                bottom = Area.fromIndex(bottomIndex);
             }
         }
+
+        if (top == null) {
+            top = Area.TITLE;
+            bottom = Area.CONTENT;
+        }
+
+        setDialogScrollableArea(top, bottom != null ? bottom : top);
     }
 
     /**
