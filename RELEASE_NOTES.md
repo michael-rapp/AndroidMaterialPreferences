@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 4.0.3 (Jul. 3rd 2018)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed an issue that prevented preferences that depend on an `AbstractTwoStatePreference` from being notified about value changes.
+
 ## Version 4.0.2 (May 27th 2018)
 
 A bugfix release, which fixes the following issues:
