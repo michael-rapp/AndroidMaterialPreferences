@@ -40,7 +40,7 @@ Alternatively, the library can be added to your Android app as a Gradle dependen
 
 ```groovy
 dependencies {
-    compile 'com.github.michael-rapp:android-material-preferences:4.0.2'
+    implementation 'com.github.michael-rapp:android-material-preferences:4.0.3'
 }
 ```
 
