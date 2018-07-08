@@ -84,7 +84,7 @@ License.
     <string name="action_preference_key">action_preference_key</string>
     <string name="preference_title">Preference</string>
     <string name="preference_summary">Summary</string>
-    <string name="action_preference_title">ACTION PREFERENCE</string>
+    <string name="action_preference_title">Action Preference</string>
     <string name="unit">Unit</string>
     <string name="dialog_dismissed_toast" formatted="false">Button \'%s\' clicked</string>
     <string name="action_preference_toast">ActionPreference clicked</string>
