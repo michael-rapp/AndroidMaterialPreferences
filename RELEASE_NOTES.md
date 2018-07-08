@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 4.0.4 (Jul. 9th 2018)
+
+A minor release, which introduces the following changes:
+
+- The attribute `textAllCaps` is applied to the title of an `ActionPreference`.
+
 ## Version 4.0.3 (Jul. 3rd 2018)
 
 A bugfix release, which fixes the following issues:
