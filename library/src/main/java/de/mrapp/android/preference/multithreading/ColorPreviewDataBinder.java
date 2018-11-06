@@ -16,21 +16,20 @@ package de.mrapp.android.preference.multithreading;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
 import de.mrapp.android.util.multithreading.AbstractDataBinder;
+import de.mrapp.util.Condition;
 
 import static de.mrapp.android.util.BitmapUtil.clipCircle;
 import static de.mrapp.android.util.BitmapUtil.clipSquare;
 import static de.mrapp.android.util.BitmapUtil.drawableToBitmap;
 import static de.mrapp.android.util.BitmapUtil.tile;
 import static de.mrapp.android.util.BitmapUtil.tint;
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
 
 /**
  * A data loader, which allows to load the previews of colors.
@@ -136,7 +135,7 @@ public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, 
      *         shape may not be null
      */
     public final void setShape(@NonNull final PreviewShape shape) {
-        ensureNotNull(shape, "The shape may not be null");
+        Condition.INSTANCE.ensureNotNull(shape, "The shape may not be null");
         this.shape = shape;
     }
 
@@ -157,7 +156,7 @@ public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, 
      *         be at least 1
      */
     public final void setSize(final int size) {
-        ensureAtLeast(size, 1, "The size must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(size, 1, "The size must be at least 1");
         this.size = size;
     }
 
@@ -178,7 +177,7 @@ public class ColorPreviewDataBinder extends AbstractDataBinder<Bitmap, Integer, 
      *         border width must be at least 0
      */
     public final void setBorderWidth(final int borderWidth) {
-        ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         this.borderWidth = borderWidth;
     }
 

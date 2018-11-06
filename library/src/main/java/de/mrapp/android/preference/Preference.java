@@ -21,17 +21,16 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.content.res.TypedArrayUtils;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
+import de.mrapp.util.Condition;
 
 /**
  * A material-styled preference.
@@ -39,7 +38,7 @@ import static de.mrapp.android.util.Condition.ensureNotNull;
  * @author Michael Rapp
  * @since 3.2.0
  */
-public class Preference extends android.support.v7.preference.Preference {
+public class Preference extends androidx.preference.Preference {
 
     /**
      * The color state list, which is used to tint the preference's icon.
@@ -272,7 +271,7 @@ public class Preference extends android.support.v7.preference.Preference {
      *         mode may not be null
      */
     public final void setIconTintMode(@NonNull final PorterDuff.Mode mode) {
-        ensureNotNull(mode, "The icon tint mode may not be null");
+        Condition.INSTANCE.ensureNotNull(mode, "The icon tint mode may not be null");
         this.tintMode = mode;
         adaptIconTint();
     }

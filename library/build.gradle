@@ -20,9 +20,9 @@ android {
 }
 
 dependencies {
-    api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support:preference-v14:28.0.0'
-    api 'com.github.michael-rapp:android-util:1.20.3'
-    api 'com.github.michael-rapp:android-material-dialog:4.3.4'
-    api 'com.github.michael-rapp:android-material-validation:2.1.6'
+    api 'androidx.appcompat:appcompat:1.0.1'
+    api 'androidx.legacy:legacy-preference-v14:1.0.0'
+    api 'com.github.michael-rapp:android-util:2.0.0'
+    api 'com.github.michael-rapp:android-material-dialog:5.0.0'
+    api 'com.github.michael-rapp:android-material-validation:3.0.0'
 }

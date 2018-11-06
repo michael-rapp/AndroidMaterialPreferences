@@ -15,17 +15,12 @@ package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.Resources.NotFoundException;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -37,14 +32,16 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
+import androidx.annotation.ArrayRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.SeekBar;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
-import static de.mrapp.android.util.Condition.ensureGreater;
-import static de.mrapp.android.util.Condition.ensureSmaller;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to select a value from a continuous range via a seek bar. When
@@ -358,7 +355,7 @@ public class SeekBarPreference extends DialogPreference {
     private void obtainSummaries(@NonNull final TypedArray typedArray) {
         try {
             setSummaries(typedArray.getTextArray(R.styleable.SeekBarPreference_android_summary));
-        } catch (NullPointerException e) {
+        } catch (Resources.NotFoundException e) {
             setSummaries(null);
         }
     }
@@ -579,8 +576,10 @@ public class SeekBarPreference extends DialogPreference {
      *         the minimum and the maximum value, the preference allows to select
      */
     public final void setValue(final float value) {
-        ensureAtLeast(value, getMinValue(), "The value must be at least the minimum value");
-        ensureAtMaximum(value, getMaxValue(), "The value must be at maximum the maximum value");
+        Condition.INSTANCE.ensureAtLeast(value, getMinValue(),
+                "The value must be at least the minimum value");
+        Condition.INSTANCE.ensureAtMaximum(value, getMaxValue(),
+                "The value must be at maximum the maximum value");
         float roundedValue = adaptToStepSize(roundToDecimals(value));
 
         if (this.value != roundedValue) {
@@ -608,7 +607,7 @@ public class SeekBarPreference extends DialogPreference {
      *         be less than the maximum value, the preference allows to choose
      */
     public final void setMinValue(final int minValue) {
-        ensureSmaller(minValue, getMaxValue(),
+        Condition.INSTANCE.ensureSmaller(minValue, getMaxValue(),
                 "The minimum value must be less than the maximum value");
         this.minValue = minValue;
         setValue(Math.max(getValue(), minValue));
@@ -631,7 +630,7 @@ public class SeekBarPreference extends DialogPreference {
      *         be greater than the minimum value, that preference allows to choose
      */
     public final void setMaxValue(final int maxValue) {
-        ensureGreater(maxValue, getMinValue(),
+        Condition.INSTANCE.ensureGreater(maxValue, getMinValue(),
                 "The maximum value must be greater than the minimum value");
         this.maxValue = maxValue;
         setValue(Math.min(getValue(), maxValue));
@@ -667,8 +666,9 @@ public class SeekBarPreference extends DialogPreference {
      */
     public final void setStepSize(final int stepSize) {
         if (stepSize != -1) {
-            ensureAtLeast(stepSize, 1, "The step size must be at least 1");
-            ensureAtMaximum(stepSize, getRange(), "The step size must be at maximum the range");
+            Condition.INSTANCE.ensureAtLeast(stepSize, 1, "The step size must be at least 1");
+            Condition.INSTANCE.ensureAtMaximum(stepSize, getRange(),
+                    "The step size must be at maximum the range");
         }
 
         this.stepSize = stepSize;
@@ -698,7 +698,7 @@ public class SeekBarPreference extends DialogPreference {
      *         choose integer values
      */
     public final void setDecimals(final int decimals) {
-        ensureAtLeast(decimals, 0, "The decimals must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(decimals, 0, "The decimals must be at least 0");
         this.decimals = decimals;
         setValue(roundToDecimals(getValue()));
     }
@@ -758,7 +758,7 @@ public class SeekBarPreference extends DialogPreference {
     public final void setFloatingPointSeparator(
             @Nullable final CharSequence floatingPointSeparator) {
         if (floatingPointSeparator != null) {
-            ensureAtMaximum(floatingPointSeparator.length(), 1,
+            Condition.INSTANCE.ensureAtMaximum(floatingPointSeparator.length(), 1,
                     "The floating point separator's length must be 1");
         }
         this.floatingPointSeparator = floatingPointSeparator;
@@ -902,7 +902,7 @@ public class SeekBarPreference extends DialogPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentValue = savedState.currentValue;
 

@@ -34,17 +34,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -52,14 +41,23 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.ScrollableArea;
 import de.mrapp.android.dialog.ScrollableArea.Area;
 import de.mrapp.android.dialog.animation.DialogAnimation;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all preferences, which will show a dialog when clicked by the user.
@@ -1438,8 +1436,8 @@ public class DialogPreference extends Preference
      *
      * @param width
      *         The width, which should be set, in pixels as an {@link Integer} value or
-     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0,
-     *         if the default width should be used
+     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or
+     *         0, if the default width should be used
      */
     public final void setDialogWidth(final int width) {
         this.dialogWidth = width;
@@ -1461,8 +1459,8 @@ public class DialogPreference extends Preference
      *
      * @param height
      *         The height, which should be set, in pixels as an {@link Integer} value or
-     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or 0,
-     *         if the default height should be used
+     *         <code>Dialog#MATCH_PARENT</code>, respectively <code>Dialog#WRAP_CONTENT</code> or
+     *         0, if the default height should be used
      */
     public final void setDialogHeight(final int height) {
         this.dialogHeight = height;
@@ -1621,10 +1619,10 @@ public class DialogPreference extends Preference
      */
     public final void setDialogPadding(final int left, final int top, final int right,
                                        final int bottom) {
-        ensureAtLeast(left, 0, "The left padding must be at least 0");
-        ensureAtLeast(top, 0, "The top padding must be at least 0");
-        ensureAtLeast(right, 0, "The right padding must be at least 0");
-        ensureAtLeast(bottom, 0, "The bottom padding must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(left, 0, "The left padding must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(top, 0, "The top padding must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(right, 0, "The right padding must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(bottom, 0, "The bottom padding must be at least 0");
         this.dialogPadding = new int[]{left, top, right, bottom};
     }
 
@@ -1854,7 +1852,7 @@ public class DialogPreference extends Preference
      *         mode may not be null
      */
     public final void setDialogIconTintMode(@NonNull final PorterDuff.Mode mode) {
-        ensureNotNull(mode, "The dialog icon tint mode may not be null");
+        Condition.INSTANCE.ensureNotNull(mode, "The dialog icon tint mode may not be null");
         this.dialogIconTintMode = mode;
     }
 
@@ -2279,7 +2277,7 @@ public class DialogPreference extends Preference
      *         mode may not be null
      */
     public final void setDialogHeaderIconTintMode(@NonNull final PorterDuff.Mode mode) {
-        ensureNotNull(mode, "The dialog icon tint mode may not be null");
+        Condition.INSTANCE.ensureNotNull(mode, "The dialog icon tint mode may not be null");
         this.dialogHeaderIconTintMode = mode;
     }
 
@@ -2345,7 +2343,7 @@ public class DialogPreference extends Preference
      *         value. The margin must be at least 0
      */
     public final void setDialogDividerMargin(final int margin) {
-        ensureAtLeast(margin, 0, "The margin must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(margin, 0, "The margin must be at least 0");
         this.dialogDividerMargin = margin;
     }
 
@@ -2703,7 +2701,7 @@ public class DialogPreference extends Preference
     @CallSuper
     @Override
     protected void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
 
             if (savedState.dialogState != null) {

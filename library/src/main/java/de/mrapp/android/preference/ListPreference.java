@@ -21,10 +21,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -312,7 +312,7 @@ public class ListPreference extends AbstractListPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setValue(savedState.value);
             super.onRestoreInstanceState(savedState.getSuperState());

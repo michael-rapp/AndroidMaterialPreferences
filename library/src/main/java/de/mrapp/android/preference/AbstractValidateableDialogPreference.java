@@ -17,14 +17,16 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.AttrRes;
-import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
+import androidx.core.content.ContextCompat;
+
 import android.util.AttributeSet;
 
 import java.util.Collection;
@@ -34,12 +36,11 @@ import java.util.Set;
 import de.mrapp.android.dialog.DialogValidator;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.model.ValidateableDialog;
-import de.mrapp.android.util.datastructure.ListenerList;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validator;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
+import de.mrapp.util.datastructure.ListenerList;
 
 /**
  * An abstract base class for all dialog preferences, which can be validated.
@@ -386,13 +387,13 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
 
     @Override
     public final void addValidator(@NonNull final Validator<ValueType> validator) {
-        ensureNotNull(validator, "The validator may not be null");
+        Condition.INSTANCE.ensureNotNull(validator, "The validator may not be null");
         this.validators.add(validator);
     }
 
     @Override
     public final void addAllValidators(@NonNull final Collection<Validator<ValueType>> validators) {
-        ensureNotNull(validators, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
             addValidator(validator);
@@ -402,7 +403,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
     @SafeVarargs
     @Override
     public final void addAllValidators(@NonNull final Validator<ValueType>... validators) {
-        ensureNotNull(validators, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The array may not be null");
 
         for (Validator<ValueType> validator : validators) {
             addValidator(validator);
@@ -411,14 +412,14 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
 
     @Override
     public final void removeValidator(@NonNull final Validator<ValueType> validator) {
-        ensureNotNull(validator, "The validator may not be null");
+        Condition.INSTANCE.ensureNotNull(validator, "The validator may not be null");
         this.validators.remove(validator);
     }
 
     @Override
     public final void removeAllValidators(
             @NonNull final Collection<Validator<ValueType>> validators) {
-        ensureNotNull(validators, "The collection may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The collection may not be null");
 
         for (Validator<ValueType> validator : validators) {
             removeValidator(validator);
@@ -428,7 +429,7 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
     @SafeVarargs
     @Override
     public final void removeAllValidators(@NonNull final Validator<ValueType>... validators) {
-        ensureNotNull(validators, "The array may not be null");
+        Condition.INSTANCE.ensureNotNull(validators, "The array may not be null");
 
         for (Validator<ValueType> validator : validators) {
             removeValidator(validator);
@@ -462,14 +463,14 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
 
     @Override
     public final void addValidationListener(@NonNull final ValidationListener<ValueType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
+        Condition.INSTANCE.ensureNotNull(listener, "The listener may not be null");
         this.validationListeners.add(listener);
     }
 
     @Override
     public final void removeValidationListener(
             @NonNull final ValidationListener<ValueType> listener) {
-        ensureNotNull(listener, "The listener may not be null");
+        Condition.INSTANCE.ensureNotNull(listener, "The listener may not be null");
         this.validationListeners.remove(listener);
     }
 

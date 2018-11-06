@@ -30,7 +30,6 @@ License.
 
     <!-- Preferences -->
     <declare-styleable name="Preference">
-        <attr name="android:icon"/>
         <attr name="android:tint"/>
     </declare-styleable>
     <declare-styleable name="DialogPreference">
@@ -82,12 +81,7 @@ License.
         <attr name="dialogFitsSystemWindowsTop" format="boolean"/>
         <attr name="dialogFitsSystemWindowsRight" format="boolean"/>
         <attr name="dialogFitsSystemWindowsBottom" format="boolean"/>
-        <attr name="android:dialogTitle"/>
-        <attr name="android:dialogMessage"/>
-        <attr name="android:dialogIcon"/>
         <attr name="dialogIconTint" format="color"/>
-        <attr name="android:positiveButtonText"/>
-        <attr name="android:negativeButtonText"/>
         <attr name="dialogThemeResource" format="reference"/>
         <attr name="dialogTitleColor" format="color"/>
         <attr name="dialogMessageColor" format="color"/>
@@ -177,10 +171,6 @@ License.
         <attr name="android:summaryOn"/>
         <attr name="android:summaryOff"/>
         <attr name="android:disableDependentsState"/>
-    </declare-styleable>
-    <declare-styleable name="SwitchPreference">
-        <attr name="android:switchTextOn"/>
-        <attr name="android:switchTextOff"/>
     </declare-styleable>
     <declare-styleable name="ActionPreference">
         <attr name="android:textColor"/>

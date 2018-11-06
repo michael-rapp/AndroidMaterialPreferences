@@ -19,10 +19,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -34,12 +30,14 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to choose a decimal number via multiple {@link NumberPicker} widgets.
@@ -346,14 +344,15 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
      *         digits must be at least 1
      */
     public final void setNumberOfDigits(final int numberOfDigits) {
-        ensureAtLeast(numberOfDigits, 1, "The number of digits must be at least 1");
+        Condition.INSTANCE
+                .ensureAtLeast(numberOfDigits, 1, "The number of digits must be at least 1");
         this.numberOfDigits = numberOfDigits;
         setNumber(Math.min(getNumber(), getMaxNumber(numberOfDigits)));
     }
 
     @Override
     public final void setNumber(final int number) {
-        ensureAtMaximum(Integer.toString(number).length(), getNumberOfDigits(),
+        Condition.INSTANCE.ensureAtMaximum(Integer.toString(number).length(), getNumberOfDigits(),
                 "The number must have at maximum " + getNumberOfDigits() + " digits");
         currentNumber = number;
         super.setNumber(number);
@@ -436,7 +435,7 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentNumber = savedState.currentNumber;
             super.onRestoreInstanceState(savedState.getSuperState());

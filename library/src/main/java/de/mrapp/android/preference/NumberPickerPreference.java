@@ -19,10 +19,12 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,11 +37,7 @@ import android.widget.TextView;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureAtMaximum;
-import static de.mrapp.android.util.Condition.ensureGreater;
-import static de.mrapp.android.util.Condition.ensureSmaller;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to choose a decimal number via a {@link NumberPicker} widget. The
@@ -399,7 +397,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         be less than the maximum number
      */
     public final void setMinNumber(final int minNumber) {
-        ensureSmaller(minNumber, getMaxNumber(),
+        Condition.INSTANCE.ensureSmaller(minNumber, getMaxNumber(),
                 "The minimum number must be less than the maximum number");
         this.minNumber = minNumber;
         setNumber(Math.max(getNumber(), minNumber));
@@ -422,7 +420,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         be greater than the minimum number
      */
     public final void setMaxNumber(final int maxNumber) {
-        ensureGreater(maxNumber, getMinNumber(),
+        Condition.INSTANCE.ensureGreater(maxNumber, getMinNumber(),
                 "The maximum number must be greater than the minimum number");
         this.maxNumber = maxNumber;
         setNumber(Math.min(getNumber(), maxNumber));
@@ -459,16 +457,19 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
      *         <code>getRange():int</code>
      */
     public final void setStepSize(final int stepSize) {
-        ensureAtLeast(stepSize, 1, "The step size must be at least 1");
-        ensureAtMaximum(stepSize, getRange(), "The step size must be at maximum the range");
+        Condition.INSTANCE.ensureAtLeast(stepSize, 1, "The step size must be at least 1");
+        Condition.INSTANCE.ensureAtMaximum(stepSize, getRange(),
+                "The step size must be at maximum the range");
         this.stepSize = stepSize;
         setNumber(adaptToStepSize(getNumber()));
     }
 
     @Override
     public final void setNumber(final int number) {
-        ensureAtLeast(number, getMinNumber(), "The number must be at least the minimum number");
-        ensureAtMaximum(number, getMaxNumber(), "The number must be at maximum the maximum number");
+        Condition.INSTANCE.ensureAtLeast(number, getMinNumber(),
+                "The number must be at least the minimum number");
+        Condition.INSTANCE.ensureAtMaximum(number, getMaxNumber(),
+                "The number must be at maximum the maximum number");
         int roundedNumber = adaptToStepSize(number);
         this.currentIndex = roundedNumber;
         super.setNumber(roundedNumber);
@@ -545,7 +546,7 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentIndex = savedState.currentNumber;
             super.onRestoreInstanceState(savedState.getSuperState());

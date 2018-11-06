@@ -17,19 +17,18 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.CallSuper;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 
+import androidx.annotation.ArrayRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.ScrollableArea;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all preferences, which provide a list of selectable items.
@@ -315,7 +314,7 @@ public abstract class AbstractListPreference extends DialogPreference {
      *         not be null
      */
     public final void setEntries(@NonNull final CharSequence[] entries) {
-        ensureNotNull(entries, "The entries may not be null");
+        Condition.INSTANCE.ensureNotNull(entries, "The entries may not be null");
         this.entries = entries;
     }
 
@@ -350,7 +349,7 @@ public abstract class AbstractListPreference extends DialogPreference {
      *         be null and the array's length must be equal to the number of list items
      */
     public final void setEntryValues(@NonNull final CharSequence[] entryValues) {
-        ensureNotNull(entryValues, "The entry values may not be null");
+        Condition.INSTANCE.ensureNotNull(entryValues, "The entry values may not be null");
         this.entryValues = entryValues;
     }
 

@@ -20,25 +20,23 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import androidx.annotation.ArrayRes;
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.core.content.ContextCompat;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.preference.adapter.ColorPaletteAdapter;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to choose a color from a pre-defined color palette. The chosen color
@@ -384,7 +382,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         The colors, which should be set, as an {@link Integer} array
      */
     public final void setColorPalette(@NonNull final int[] colorPalette) {
-        ensureNotNull(colorPalette, "The color palette may not be null");
+        Condition.INSTANCE.ensureNotNull(colorPalette, "The color palette may not be null");
         this.colorPalette = colorPalette;
     }
 
@@ -417,7 +415,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         be at least 1
      */
     public final void setDialogPreviewSize(final int previewSize) {
-        ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
         this.dialogPreviewSize = previewSize;
     }
 
@@ -440,7 +438,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         shape may not be null
      */
     public final void setDialogPreviewShape(@NonNull final PreviewShape previewShape) {
-        ensureNotNull(previewShape, "The preview shape may not be null");
+        Condition.INSTANCE.ensureNotNull(previewShape, "The preview shape may not be null");
         this.dialogPreviewShape = previewShape;
     }
 
@@ -462,7 +460,7 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         border width must be at least 0
      */
     public final void setDialogPreviewBorderWidth(final int borderWidth) {
-        ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         this.dialogPreviewBorderWidth = borderWidth;
     }
 
@@ -548,7 +546,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
      *         of columns must be at least 1
      */
     public final void setNumberOfColumns(final int numberOfColumns) {
-        ensureAtLeast(numberOfColumns, 1, "The number of columns must be at least 1");
+        Condition.INSTANCE
+                .ensureAtLeast(numberOfColumns, 1, "The number of columns must be at least 1");
         this.numberOfColumns = numberOfColumns;
     }
 

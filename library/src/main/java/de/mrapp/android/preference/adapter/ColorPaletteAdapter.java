@@ -15,9 +15,6 @@ package de.mrapp.android.preference.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +22,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
 import de.mrapp.android.preference.R;
 import de.mrapp.android.preference.multithreading.ColorPreviewDataBinder;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An adapter, which provides colors for visualization using a {@link GridView} widget.
@@ -77,8 +75,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
      * @return The view, which has been inflated, as an instance of the class {@link View}
      */
     private View inflateView(@Nullable final ViewGroup parent) {
-        LayoutInflater layoutInflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.color_palette_item, parent, false);
         ImageView colorView = view.findViewById(R.id.color_view);
         ViewHolder viewHolder = new ViewHolder();
@@ -117,11 +114,12 @@ public class ColorPaletteAdapter extends BaseAdapter {
                                final int previewSize, final @NonNull PreviewShape previewShape,
                                final int previewBorderWidth, @ColorInt final int previewBorderColor,
                                @Nullable final Drawable previewBackground) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(colorPalette, "The color palette may not be null");
-        ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
-        ensureNotNull(previewShape, "The preview shape may not be null");
-        ensureAtLeast(previewBorderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(colorPalette, "The color palette may not be null");
+        Condition.INSTANCE.ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
+        Condition.INSTANCE.ensureNotNull(previewShape, "The preview shape may not be null");
+        Condition.INSTANCE
+                .ensureAtLeast(previewBorderWidth, 0, "The border width must be at least 0");
         this.context = context;
         this.colorPalette = colorPalette;
         this.previewLoader =

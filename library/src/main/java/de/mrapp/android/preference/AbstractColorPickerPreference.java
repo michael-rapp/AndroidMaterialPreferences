@@ -22,14 +22,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -39,11 +31,17 @@ import android.widget.LinearLayout.LayoutParams;
 
 import java.util.Locale;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.core.content.ContextCompat;
+import androidx.preference.PreferenceViewHolder;
 import de.mrapp.android.preference.multithreading.ColorPreviewDataBinder;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * An abstract base class for all preferences, which allow to choose a color.
@@ -480,7 +478,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      * CharSequence}
      */
     private CharSequence formatColor(final ColorFormat colorFormat, @ColorInt final int color) {
-        ensureNotNull(colorFormat, "The color format may not be null");
+        Condition.INSTANCE.ensureNotNull(colorFormat, "The color format may not be null");
 
         if (colorFormat == ColorFormat.RGB) {
             return String.format(Locale.getDefault(), "R = %d, G = %d, B = %d", Color.red(color),
@@ -661,7 +659,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      *         be at least 1
      */
     public final void setPreviewSize(final int previewSize) {
-        ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(previewSize, 1, "The preview size must be at least 1");
         this.previewSize = previewSize;
 
         if (previewLoader != null) {
@@ -687,7 +685,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      *         shape may not be null
      */
     public final void setPreviewShape(@NonNull final PreviewShape previewShape) {
-        ensureNotNull(previewShape, "The preview shape may not be null");
+        Condition.INSTANCE.ensureNotNull(previewShape, "The preview shape may not be null");
         this.previewShape = previewShape;
 
         if (previewLoader != null) {
@@ -715,7 +713,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      *         border width must be at least 0
      */
     public final void setPreviewBorderWidth(final int borderWidth) {
-        ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
+        Condition.INSTANCE.ensureAtLeast(borderWidth, 0, "The border width must be at least 0");
         this.previewBorderWidth = borderWidth;
 
         if (previewLoader != null) {
@@ -803,7 +801,8 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      * color.
      *
      * @return The format, which is used to print a textual representation of the preference's
-     * color, as a value of the enum {@link ColorFormat}. The format may either be <code>RGB</code>,
+     * color, as a value of the enum {@link ColorFormat}. The format may either be
+     * <code>RGB</code>,
      * <code>ARGB</code>, <code>HEX</code> or <code>AHEX</code>
      */
     public final ColorFormat getColorFormat() {
@@ -819,7 +818,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
      *         format may not be null
      */
     public final void setColorFormat(@NonNull final ColorFormat colorFormat) {
-        ensureNotNull(colorFormat, "The color format may not be null");
+        Condition.INSTANCE.ensureNotNull(colorFormat, "The color format may not be null");
         this.colorFormat = colorFormat;
     }
 
@@ -875,7 +874,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setColor(savedState.color);
             super.onRestoreInstanceState(savedState.getSuperState());

@@ -22,10 +22,12 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -37,8 +39,7 @@ import java.util.Set;
 
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.util.view.AbstractSavedState;
-
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to select multiple values from a list. The selected values are
@@ -329,7 +330,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         The value, which should be added, as a {@link String}. The value may not be null
      */
     public final void addValue(@NonNull final String value) {
-        ensureNotNull(value, "The value may not be null");
+        Condition.INSTANCE.ensureNotNull(value, "The value may not be null");
 
         if (this.values != null) {
             if (this.values.add(value)) {
@@ -352,7 +353,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         The value, which should be removed, as a {@link String}. The value may not be null
      */
     public final void removeValue(@NonNull final String value) {
-        ensureNotNull(value, "The value may not be null");
+        Condition.INSTANCE.ensureNotNull(value, "The value may not be null");
 
         if (this.values != null) {
             if (this.values.remove(value)) {
@@ -372,7 +373,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         type {@link Collection} or an empty collection, if no values should be added
      */
     public final void addAllValues(@NonNull final Collection<String> values) {
-        ensureNotNull(values, "The values may not be null");
+        Condition.INSTANCE.ensureNotNull(values, "The values may not be null");
 
         if (this.values != null) {
             if (this.values.addAll(values)) {
@@ -395,7 +396,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
      *         the type {@link Collection} or an empty collection, if no values should be removed
      */
     public final void removeAllValues(@NonNull final Collection<String> values) {
-        ensureNotNull(values, "The values may not be null");
+        Condition.INSTANCE.ensureNotNull(values, "The values may not be null");
 
         if (this.values != null) {
             if (this.values.removeAll(values)) {
@@ -524,7 +525,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setValues(savedState.values);
             super.onRestoreInstanceState(savedState.getSuperState());

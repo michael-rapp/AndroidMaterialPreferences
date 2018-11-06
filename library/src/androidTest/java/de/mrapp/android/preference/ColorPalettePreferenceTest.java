@@ -18,7 +18,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.test.AndroidTestCase;
 import android.util.AttributeSet;
 import android.util.Xml;

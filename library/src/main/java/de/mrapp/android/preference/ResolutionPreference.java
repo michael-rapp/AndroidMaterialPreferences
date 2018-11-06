@@ -19,11 +19,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.AttrRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.View;
@@ -32,15 +27,17 @@ import android.widget.TextView;
 
 import java.util.regex.Pattern;
 
+import androidx.annotation.AttrRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.annotation.StyleRes;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 import de.mrapp.android.validation.Validators;
-
-import static de.mrapp.android.util.Condition.ensureAtLeast;
-import static de.mrapp.android.util.Condition.ensureNotEmpty;
-import static de.mrapp.android.util.Condition.ensureNotNull;
+import de.mrapp.util.Condition;
 
 /**
  * A preference, which allows to enter a two-dimensional image or video resulution via two EditText
@@ -368,9 +365,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      */
     public static Pair<Integer, Integer> parseResolution(@NonNull final Context context,
                                                          @NonNull final String resolution) {
-        ensureNotNull(context, "The context may not be null");
-        ensureNotNull(resolution, "The resolution may not be null");
-        ensureNotEmpty(resolution, "The resolution may not be empty");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(resolution, "The resolution may not be null");
+        Condition.INSTANCE.ensureNotEmpty(resolution, "The resolution may not be empty");
         String separator = context.getString(R.string.resolution_preference_separator);
         String[] dimensions = resolution.split(separator);
 
@@ -404,7 +401,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      */
     public static String formatResolution(@NonNull final Context context, final int width,
                                           final int height) {
-        ensureNotNull(context, "The context may not be null");
+        Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
         String separator = context.getString(R.string.resolution_preference_separator);
         return width + separator + height;
     }
@@ -438,8 +435,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
      *         least 1
      */
     public final void setResolution(final int width, final int height) {
-        ensureAtLeast(width, 1, "The width must be at least 1");
-        ensureAtLeast(height, 1, "The height must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(width, 1, "The width must be at least 1");
+        Condition.INSTANCE.ensureAtLeast(height, 1, "The height must be at least 1");
         this.width = width;
         this.height = height;
         persistString(formatResolution(getContext(), width, height));
@@ -649,7 +646,7 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     @Override
     protected final void onRestoreInstanceState(final Parcelable state) {
-        if (state != null && state instanceof SavedState) {
+        if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setResolution(savedState.width, savedState.height);
             super.onRestoreInstanceState(savedState.getSuperState());
