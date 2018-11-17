@@ -1,5 +1,19 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.0.0 (Nov. 18th 2018)
+
+A major release, which introduces the following changes:
+
+- Migrated the library to Android X.
+- Replaced AppCompat themes with MaterialComponent themes.
+- Updated dependency "AndroidUtil" to version 2.0.0.
+- Updated dependency "AndroidMaterialDialog" to version 5.0.0. This causes the background of a `DialogPreference`'s dialog to be styled according to the Material Design 2 guidelines.
+- Updated dependency "AndroidMaterialValidation" to version 3.0.0.
+- Updated targetSdkVersion to 28.
+- Added methods for setting the typeface of a `DialogPreference`'s title, message, items and buttons.
+- The `ColorPalettePreference`'s dialog now takes the whole available vertical space (see https://github.com/michael-rapp/AndroidMaterialPreferences/issues/19).
+
+
 ## Version 4.0.4 (Jul. 9th 2018)
 
 A minor release, which introduces the following changes:
