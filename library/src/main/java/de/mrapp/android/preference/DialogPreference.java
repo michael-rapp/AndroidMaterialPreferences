@@ -913,8 +913,6 @@ public class DialogPreference extends Preference
 
         if (resourceId != -1) {
             setDialogWindowBackground(resourceId);
-        } else {
-            setDialogWindowBackground(android.R.drawable.dialog_holo_light_frame);
         }
     }
 
@@ -1146,7 +1144,7 @@ public class DialogPreference extends Preference
 
         if (dialogWindowBackgroundId != -1) {
             dialogBuilder.setWindowBackground(dialogWindowBackgroundId);
-        } else {
+        } else if (dialogWindowBackgroundBitmap != null) {
             dialogBuilder.setBackground(dialogWindowBackgroundBitmap);
         }
 
