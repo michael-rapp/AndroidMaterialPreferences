@@ -16,6 +16,7 @@ package de.mrapp.android.preference;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.util.AttributeSet;
 
@@ -42,6 +43,11 @@ public abstract class AbstractListPreference extends DialogPreference {
      * The color of the items of the preference's dialog.
      */
     private int dialogItemColor;
+
+    /**
+     * The typeface of the items of the preference's dialog.
+     */
+    private Typeface dialogItemTypeface;
 
     /**
      * An array, which contains the entries, which are shown in the list.
@@ -297,6 +303,28 @@ public abstract class AbstractListPreference extends DialogPreference {
     }
 
     /**
+     * Returns the typeface of the items of the preference's dialog.
+     *
+     * @return The typeface of the items of the preference's dialog as an instance of the class
+     * {@link Typeface} or null, if the default typeface is used
+     */
+    @Nullable
+    public final Typeface getDialogItemTypeface() {
+        return dialogItemTypeface;
+    }
+
+    /**
+     * Sets the typeface of the items of the preference's dialog.
+     *
+     * @param typeface
+     *         The typeface, which should be set, as an instance of the class {@link Typeface} or
+     *         null, if the default typeface should be used
+     */
+    public final void setDialogItemTypeface(@Nullable final Typeface typeface) {
+        this.dialogItemTypeface = typeface;
+    }
+
+    /**
      * Returns the entries of the list, which is shown by the preference.
      *
      * @return The entries of the list, which is shown by the preference, as a {@link CharSequence}
@@ -371,6 +399,10 @@ public abstract class AbstractListPreference extends DialogPreference {
     protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         if (getDialogItemColor() != -1) {
             dialogBuilder.setItemColor(getDialogItemColor());
+        }
+
+        if (getDialogItemTypeface() != null) {
+            dialogBuilder.setItemTypeface(getDialogItemTypeface());
         }
     }
 

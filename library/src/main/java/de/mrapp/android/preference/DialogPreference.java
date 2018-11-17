@@ -27,6 +27,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -246,9 +247,19 @@ public class DialogPreference extends Preference
     private int dialogTitleColor;
 
     /**
+     * The typeface of the title of the preference's dialog.
+     */
+    private Typeface dialogTitleTypeface;
+
+    /**
      * The color of the message of the preference's dialog.
      */
     private int dialogMessageColor;
+
+    /**
+     * The typeface of the message of the preference's dialog.
+     */
+    private Typeface dialogMessageTypeface;
 
     /**
      * The text color of the buttons of the preference's dialog.
@@ -259,6 +270,11 @@ public class DialogPreference extends Preference
      * The text color of the buttons of the preference's dialog when disabled.
      */
     private int dialogDisabledButtonTextColor;
+
+    /**
+     * The typeface of the buttons of the preference's dialog.
+     */
+    private Typeface dialogButtonTypeface;
 
     /**
      * The background of the preference's dialog.
@@ -1164,8 +1180,16 @@ public class DialogPreference extends Preference
             dialogBuilder.setTitleColor(getDialogTitleColor());
         }
 
+        if (getDialogTitleTypeface() != null) {
+            dialogBuilder.setTitleTypeface(getDialogTitleTypeface());
+        }
+
         if (getDialogMessageColor() != -1) {
             dialogBuilder.setMessageColor(getDialogMessageColor());
+        }
+
+        if (getDialogMessageTypeface() != null) {
+            dialogBuilder.setMessageTypeface(getDialogMessageTypeface());
         }
 
         if (getDialogButtonTextColor() != -1) {
@@ -1174,6 +1198,10 @@ public class DialogPreference extends Preference
 
         if (getDialogDisabledButtonTextColor() != -1) {
             dialogBuilder.setDisabledButtonTextColor(getDialogDisabledButtonTextColor());
+        }
+
+        if (getDialogButtonTypeface() != null) {
+            dialogBuilder.setButtonTypeface(getDialogButtonTypeface());
         }
 
         if (getDialogDividerColor() != -1) {
@@ -1942,6 +1970,28 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * Returns the typeface of the title of the preference's dialog.
+     *
+     * @return The typeface of the title of the preference's dialog as an instance of the class
+     * {@link Typeface} or null, if the default typeface is used
+     */
+    @Nullable
+    public final Typeface getDialogTitleTypeface() {
+        return dialogTitleTypeface;
+    }
+
+    /**
+     * Sets the typeface of the title of the preference's dialog.
+     *
+     * @param typeface
+     *         The typeface, which should be set, as an instance of the class {@link Typeface} or
+     *         null, if the default typeface should be used
+     */
+    public final void setDialogTitleTypeface(@Nullable final Typeface typeface) {
+        this.dialogTitleTypeface = typeface;
+    }
+
+    /**
      * Returns the color of the message of the preference's dialog.
      *
      * @return The color of the message as an {@link Integer} value or -1, if no custom message
@@ -1960,6 +2010,28 @@ public class DialogPreference extends Preference
      */
     public final void setDialogMessageColor(@ColorInt final int color) {
         this.dialogMessageColor = color;
+    }
+
+    /**
+     * Returns the typeface of the message of the preference's dialog.
+     *
+     * @return The typeface of the message of the preference's dialog as an instance of the class
+     * {@link Typeface} or null, if the default typeface is used
+     */
+    @Nullable
+    public final Typeface getDialogMessageTypeface() {
+        return dialogMessageTypeface;
+    }
+
+    /**
+     * Sets the typeface of the message of the preference's dialog.
+     *
+     * @param typeface
+     *         The typeface, which should be set, as an instance of the class {@link Typeface} or
+     *         null, if the default typeface should be used
+     */
+    public final void setDialogMessageTypeface(@Nullable final Typeface typeface) {
+        this.dialogMessageTypeface = typeface;
     }
 
     /**
@@ -2002,6 +2074,28 @@ public class DialogPreference extends Preference
      */
     public final void setDialogDisabledButtonTextColor(@ColorInt final int color) {
         this.dialogDisabledButtonTextColor = color;
+    }
+
+    /**
+     * Returns the typeface of the buttons of the preference's dialog.
+     *
+     * @return The typeface of the buttons of the preference's dialog as an instance of the class
+     * {@link Typeface} or null, if the default typeface is used
+     */
+    @Nullable
+    public final Typeface getDialogButtonTypeface() {
+        return dialogButtonTypeface;
+    }
+
+    /**
+     * Sets the typeface of the buttons of the preference's dialog.
+     *
+     * @param typeface
+     *         The typeface, which should be set, as an instance of the class {@link Typeface} or
+     *         null, if the default typeface should be used
+     */
+    public final void setDialogButtonTypeface(@Nullable final Typeface typeface) {
+        this.dialogButtonTypeface = typeface;
     }
 
     /**
