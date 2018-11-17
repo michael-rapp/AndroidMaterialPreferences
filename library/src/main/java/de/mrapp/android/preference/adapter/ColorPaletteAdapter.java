@@ -15,45 +15,42 @@ package de.mrapp.android.preference.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import de.mrapp.android.preference.AbstractColorPickerPreference.PreviewShape;
-import de.mrapp.android.preference.R;
 import de.mrapp.android.preference.multithreading.ColorPreviewDataBinder;
+import de.mrapp.android.preference.view.ColorPaletteItem;
 import de.mrapp.util.Condition;
 
 /**
- * An adapter, which provides colors for visualization using a {@link GridView} widget.
+ * An adapter, which provides colors for visualization using a RecyclerView.
  *
  * @author Michael Rapp
  * @since 1.4.0
  */
-public class ColorPaletteAdapter extends BaseAdapter {
+public class ColorPaletteAdapter extends RecyclerView.Adapter<ColorPaletteAdapter.ViewHolder> {
 
     /**
      * The view holder, which is used by the adapter.
      */
-    private class ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         /**
-         * The image view, which is used to visualize a color.
+         * Creates a new view holder.
+         *
+         * @param itemView
+         *         The view, the view holder corresponds to, as an instance of the class {@link
+         *         ColorPaletteItem}. The view may not be null
          */
-        private ImageView colorView;
+        public ViewHolder(@NonNull final ColorPaletteItem itemView) {
+            super(itemView);
+        }
 
     }
-
-    /**
-     * The context, which is used by the adapter.
-     */
-    private final Context context;
 
     /**
      * The color palette, which is provided by the adapter.
@@ -66,31 +63,8 @@ public class ColorPaletteAdapter extends BaseAdapter {
     private final ColorPreviewDataBinder previewLoader;
 
     /**
-     * Inflates the view, which is used to visualize a color and initializes the corresponding view
-     * holder.
+     * Creates a new adapter, which provides colors for visualization using a RecyclerView.
      *
-     * @param parent
-     *         The parent of the view, which should be inflated, as an instance of the class {@link
-     *         ViewGroup} or null, if the view does not have a parent
-     * @return The view, which has been inflated, as an instance of the class {@link View}
-     */
-    private View inflateView(@Nullable final ViewGroup parent) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.color_palette_item, parent, false);
-        ImageView colorView = view.findViewById(R.id.color_view);
-        ViewHolder viewHolder = new ViewHolder();
-        viewHolder.colorView = colorView;
-        view.setTag(viewHolder);
-        return view;
-    }
-
-    /**
-     * Creates a new adapter, which provides colors for visualization using a {@link GridView}
-     * widget.
-     *
-     * @param context
-     *         The context, which should be used by the adapter, as an instance of the class {@link
-     *         Context}. The context may not be null
      * @param colorPalette
      *         The color palette, which should be provided by the adapter, as an {@link Integer}
      *         array. The color palette may not be null
@@ -111,7 +85,7 @@ public class ColorPaletteAdapter extends BaseAdapter {
      *         {@link Drawable} or null, if no background should be shown
      */
     public ColorPaletteAdapter(@NonNull final Context context, @NonNull final int[] colorPalette,
-                               final int previewSize, final @NonNull PreviewShape previewShape,
+                               final int previewSize, @NonNull final PreviewShape previewShape,
                                final int previewBorderWidth, @ColorInt final int previewBorderColor,
                                @Nullable final Drawable previewBackground) {
         Condition.INSTANCE.ensureNotNull(context, "The context may not be null");
@@ -120,7 +94,6 @@ public class ColorPaletteAdapter extends BaseAdapter {
         Condition.INSTANCE.ensureNotNull(previewShape, "The preview shape may not be null");
         Condition.INSTANCE
                 .ensureAtLeast(previewBorderWidth, 0, "The border width must be at least 0");
-        this.context = context;
         this.colorPalette = colorPalette;
         this.previewLoader =
                 new ColorPreviewDataBinder(context, previewBackground, previewShape, previewSize,
@@ -144,33 +117,39 @@ public class ColorPaletteAdapter extends BaseAdapter {
         return -1;
     }
 
+    /**
+     * Returns the color that corresponds to a specific position.
+     *
+     * @param position
+     *         The position of the color, which should be returned, as an {@link Integer} value
+     * @return The color that corresponds to the given position as an {@link Integer} value
+     */
+    public final int getItem(final int position) {
+        return colorPalette[position];
+    }
+
+    @NonNull
     @Override
-    public final int getCount() {
+    public final ViewHolder onCreateViewHolder(@NonNull final ViewGroup parent,
+                                               final int viewType) {
+        ColorPaletteItem view = new ColorPaletteItem(parent.getContext());
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public final void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+        int color = colorPalette[position];
+        previewLoader.load(color, ((ColorPaletteItem) holder.itemView).getColorView());
+    }
+
+    @Override
+    public final int getItemCount() {
         return colorPalette.length;
     }
 
     @Override
-    public final Integer getItem(final int position) {
-        return colorPalette[position];
-    }
-
-    @Override
     public final long getItemId(final int position) {
-        return position;
-    }
-
-    @Override
-    public final View getView(final int position, final View convertView, final ViewGroup parent) {
-        View view = convertView;
-
-        if (view == null) {
-            view = inflateView(parent);
-        }
-
-        int color = getItem(position);
-        ViewHolder viewHolder = (ViewHolder) view.getTag();
-        previewLoader.load(color, viewHolder.colorView);
-        return view;
+        return colorPalette[position];
     }
 
 }

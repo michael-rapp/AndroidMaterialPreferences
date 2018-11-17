@@ -21,10 +21,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
@@ -34,7 +30,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.model.ListDialog;
 import de.mrapp.android.preference.adapter.ColorPaletteAdapter;
 import de.mrapp.util.Condition;
 
@@ -83,15 +82,15 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
     private int numberOfColumns;
 
     /**
-     * The adapter, which provides the colors for visualization using the preference dialog's grid
-     * view.
+     * The adapter, which provides the colors for visualization using the preference dialog's
+     * recycler view.
      */
     private ColorPaletteAdapter adapter;
 
     /**
-     * The grid view, which is used to show the preference's color palette.
+     * The index of the currently selected list item.
      */
-    private GridView gridView;
+    private int selectedIndex = -1;
 
     /**
      * Initializes the preference.
@@ -270,18 +269,18 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
     }
 
     /**
-     * Creates and returns a listener, which allows to close the preference's dialog, if a color has
-     * been chosen by the user.
+     * Creates and returns a listener, which allows to observe when a list item has been selected.
      *
      * @return The listener, which has been created, as an instance of the type {@link
-     * OnItemClickListener}
+     * ListDialog.OnItemSelectedListener}. The listener may not be null
      */
-    private OnItemClickListener createItemClickListener() {
-        return new OnItemClickListener() {
+    @NonNull
+    private ListDialog.OnItemSelectedListener createItemSelectedListener() {
+        return new ListDialog.OnItemSelectedListener() {
 
             @Override
-            public void onItemClick(final AdapterView<?> parent, final View view,
-                                    final int position, final long id) {
+            public void onItemSelected(final int position) {
+                ColorPalettePreference.this.selectedIndex = position;
                 ColorPalettePreference.this.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
 
                 if (getDialog() != null) {
@@ -556,22 +555,16 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
         adapter = new ColorPaletteAdapter(dialogBuilder.getContext(), getColorPalette(),
                 getDialogPreviewSize(), getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());
-        int selectedIndex = adapter.indexOf(getColor());
-        gridView =
-                (GridView) View.inflate(dialogBuilder.getContext(), R.layout.color_palette, null);
-        gridView.setNumColumns(getNumberOfColumns());
-        gridView.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
-        gridView.setOnItemClickListener(createItemClickListener());
-        gridView.setAdapter(adapter);
-        gridView.setItemChecked(selectedIndex, true);
-        gridView.setSelection(selectedIndex);
-        dialogBuilder.setView(gridView);
+        this.selectedIndex = adapter.indexOf(getColor());
+        RecyclerView.LayoutManager layoutManager =
+                new GridLayoutManager(getContext(), getNumberOfColumns());
+        dialogBuilder.setSingleChoiceItems(adapter, layoutManager, selectedIndex, null);
+        dialogBuilder.setOnItemSelectedListener(createItemSelectedListener());
     }
 
     @Override
     protected final void onDialogClosed(final boolean positiveResult) {
         if (positiveResult) {
-            int selectedIndex = gridView.getCheckedItemPosition();
             int newValue = adapter.getItem(selectedIndex);
 
             if (callChangeListener(newValue)) {
@@ -579,7 +572,6 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
             }
         }
 
-        gridView = null;
         adapter = null;
     }
 
