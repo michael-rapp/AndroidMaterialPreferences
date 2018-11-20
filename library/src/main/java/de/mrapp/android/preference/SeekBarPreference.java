@@ -576,7 +576,7 @@ public class SeekBarPreference extends DialogPreference {
      *         The value, which should be set, as a {@link Float} value. The value must be between
      *         the minimum and the maximum value, the preference allows to select
      */
-    public final void setValue(final float value) {
+    public final void setValue(final Float value) {
         Condition.INSTANCE.ensureAtLeast(value, getMinValue(),
                 "The value must be at least the minimum value");
         Condition.INSTANCE.ensureAtMaximum(value, getMaxValue(),
@@ -856,7 +856,7 @@ public class SeekBarPreference extends DialogPreference {
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setValue((Float) defaultValue);
+        setValue(defaultValue == null ? getPersistedFloat(getValue()) : (float) defaultValue);
     }
 
     @CallSuper

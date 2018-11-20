@@ -424,7 +424,7 @@ public abstract class AbstractNumberPickerPreference extends DialogPreference {
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setNumber((Integer) defaultValue);
+        setNumber(defaultValue == null ? getPersistedInt(getNumber()) : (int) defaultValue);
     }
 
     @CallSuper

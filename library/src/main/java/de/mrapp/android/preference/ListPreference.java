@@ -277,7 +277,7 @@ public class ListPreference extends AbstractListPreference {
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setValue((String) defaultValue);
+        setValue(defaultValue == null ? getPersistedString(getValue()) : (String) defaultValue);
     }
 
     @CallSuper

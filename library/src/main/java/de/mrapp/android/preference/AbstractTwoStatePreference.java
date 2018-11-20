@@ -433,7 +433,8 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setChecked((Boolean) defaultValue);
+        setChecked(
+                defaultValue == null ? getPersistedBoolean(isChecked()) : (boolean) defaultValue);
     }
 
     @CallSuper

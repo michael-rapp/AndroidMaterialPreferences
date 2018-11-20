@@ -839,7 +839,7 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setColor((Integer) defaultValue);
+        setColor(defaultValue == null ? getPersistedInt(getColor()) : (int) defaultValue);
     }
 
     @CallSuper

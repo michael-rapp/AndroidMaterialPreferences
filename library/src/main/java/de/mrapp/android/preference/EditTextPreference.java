@@ -19,12 +19,14 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -388,7 +390,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
 
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setText((String) defaultValue);
+        setText(defaultValue == null ? getPersistedString(getText()) : (String) defaultValue);
     }
 
     @CallSuper

@@ -478,7 +478,7 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     @SuppressWarnings("unchecked")
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
-        setValues((Set<String>) defaultValue);
+        setValues(defaultValue == null ? getPersistedSet(getValues()) : (Set<String>) defaultValue);
     }
 
     @Override
