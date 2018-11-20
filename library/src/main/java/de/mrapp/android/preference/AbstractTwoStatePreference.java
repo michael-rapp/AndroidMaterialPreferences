@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import androidx.preference.PreferenceViewHolder;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -444,6 +445,13 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
         if (callChangeListener(newValue)) {
             setChecked(newValue);
         }
+    }
+
+    @CallSuper
+    @Override
+    public void onBindViewHolder(final PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        holder.itemView.setSelected(isChecked());
     }
 
     @CallSuper
