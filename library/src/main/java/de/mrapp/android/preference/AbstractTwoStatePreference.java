@@ -427,8 +427,9 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
         setChecked((Boolean) defaultValue);
     }
 
+    @CallSuper
     @Override
-    protected final void onClick() {
+    protected void onClick() {
         super.onClick();
         boolean newValue = !isChecked();
 
@@ -437,8 +438,9 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
         }
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -450,8 +452,9 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setChecked(savedState.checked);

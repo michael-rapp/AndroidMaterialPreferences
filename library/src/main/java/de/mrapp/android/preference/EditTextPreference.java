@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -390,8 +391,9 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         setText((String) defaultValue);
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -403,8 +405,9 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setText(savedState.text);

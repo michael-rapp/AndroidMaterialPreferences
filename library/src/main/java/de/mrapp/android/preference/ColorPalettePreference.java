@@ -24,6 +24,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -550,8 +551,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
         this.numberOfColumns = numberOfColumns;
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         adapter = new ColorPaletteAdapter(dialogBuilder.getContext(), getColorPalette(),
                 getDialogPreviewSize(), getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());
@@ -562,8 +564,9 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
         dialogBuilder.setOnItemSelectedListener(createItemSelectedListener());
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult) {
             int newValue = adapter.getItem(selectedIndex);
 

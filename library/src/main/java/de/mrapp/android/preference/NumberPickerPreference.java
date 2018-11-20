@@ -21,6 +21,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -495,8 +496,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
         }
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -525,8 +527,9 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
         dialogBuilder.setView(view);
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && callChangeListener(getCurrentIndex())) {
             setNumber(getCurrentIndex());
         } else {
@@ -536,16 +539,18 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
         numberPicker = null;
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState savedState = new SavedState(superState);
         savedState.currentNumber = getCurrentIndex();
         return savedState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentIndex = savedState.currentNumber;

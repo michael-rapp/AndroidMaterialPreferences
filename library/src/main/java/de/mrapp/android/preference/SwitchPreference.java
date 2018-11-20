@@ -23,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -329,8 +330,9 @@ public class SwitchPreference extends AbstractTwoStatePreference {
         }
     }
 
+    @CallSuper
     @Override
-    public final void onBindViewHolder(final PreferenceViewHolder holder) {
+    public void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         switchWidget = (SwitchCompat) holder.findViewById(R.id.switch_widget);
         switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());

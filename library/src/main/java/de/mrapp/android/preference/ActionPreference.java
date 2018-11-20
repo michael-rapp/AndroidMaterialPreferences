@@ -19,6 +19,7 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.os.Build;
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -282,8 +283,9 @@ public class ActionPreference extends Preference {
         adaptEnableState();
     }
 
+    @CallSuper
     @Override
-    public final void onBindViewHolder(final PreferenceViewHolder holder) {
+    public void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         textView = (TextView) holder.findViewById(android.R.id.title);
         adaptEnableState();

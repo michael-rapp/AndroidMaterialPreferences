@@ -24,6 +24,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -493,8 +494,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         dialogBuilder.setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && selectedIndices != null && getEntryValues() != null) {
             Set<String> newValues = new HashSet<>();
 
@@ -510,8 +512,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         selectedIndices = null;
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -523,8 +526,9 @@ public class MultiChoiceListPreference extends AbstractListPreference {
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setValues(savedState.values);

@@ -21,10 +21,13 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -273,19 +276,21 @@ public class ListPreference extends AbstractListPreference {
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setValue(restoreValue ? getPersistedString(getValue()) : (String) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setValue((String) defaultValue);
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
         selectedIndex = indexOf(getValue());
         dialogBuilder.setSingleChoiceItems(getEntries(), selectedIndex, createListItemListener());
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && selectedIndex >= 0 && getEntryValues() != null) {
             String newValue = getEntryValues()[selectedIndex].toString();
 
@@ -297,8 +302,9 @@ public class ListPreference extends AbstractListPreference {
         selectedIndex = -1;
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -310,8 +316,9 @@ public class ListPreference extends AbstractListPreference {
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setValue(savedState.value);

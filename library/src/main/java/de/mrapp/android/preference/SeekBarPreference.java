@@ -34,6 +34,7 @@ import java.text.NumberFormat;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -858,8 +859,9 @@ public class SeekBarPreference extends DialogPreference {
         setValue((Float) defaultValue);
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         View layout = View.inflate(dialogBuilder.getContext(), R.layout.seek_bar, null);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -876,8 +878,9 @@ public class SeekBarPreference extends DialogPreference {
         dialogBuilder.setView(layout);
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && callChangeListener(getCurrentValue())) {
             setValue(getCurrentValue());
         } else {
@@ -885,8 +888,9 @@ public class SeekBarPreference extends DialogPreference {
         }
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState savedState = new SavedState(superState);
         savedState.currentValue = getCurrentValue();
@@ -900,8 +904,9 @@ public class SeekBarPreference extends DialogPreference {
         return savedState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentValue = savedState.currentValue;

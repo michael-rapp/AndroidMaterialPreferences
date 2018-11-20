@@ -31,6 +31,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -382,8 +383,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
         }
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         int digitPickerWidth =
                 getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width);
         LayoutParams layoutParams = new LayoutParams(digitPickerWidth, LayoutParams.WRAP_CONTENT);
@@ -414,8 +416,9 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
         dialogBuilder.setView(view);
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult && callChangeListener(getCurrentNumber())) {
             setNumber(getCurrentNumber());
         } else {
@@ -425,16 +428,18 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
         numberPickers = null;
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         SavedState savedState = new SavedState(superState);
         savedState.currentNumber = getCurrentNumber();
         return savedState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             currentNumber = savedState.currentNumber;

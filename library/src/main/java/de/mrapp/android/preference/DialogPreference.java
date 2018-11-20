@@ -2768,8 +2768,9 @@ public class DialogPreference extends Preference
         return onKeyListener != null && onKeyListener.onKey(dialog, keyCode, event);
     }
 
+    @CallSuper
     @Override
-    protected final void onClick() {
+    protected void onClick() {
         if (!isDialogShown()) {
             showDialog(null);
         }

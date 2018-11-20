@@ -32,6 +32,7 @@ import android.widget.LinearLayout.LayoutParams;
 import java.util.Locale;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -836,14 +837,14 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
         return typedArray.getInt(index, 0);
     }
 
-    @SuppressWarnings("ResourceAsColor")
     @Override
     protected final void onSetInitialValue(final Object defaultValue) {
         setColor((Integer) defaultValue);
     }
 
+    @CallSuper
     @Override
-    public final void onBindViewHolder(final PreferenceViewHolder holder) {
+    public void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         previewView = (ImageView) holder.findViewById(R.id.preview_view);
 
@@ -859,8 +860,9 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
         adaptPreviewView();
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -872,8 +874,9 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setColor(savedState.color);

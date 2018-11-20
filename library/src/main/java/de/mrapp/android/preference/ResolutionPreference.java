@@ -28,6 +28,7 @@ import android.widget.TextView;
 import java.util.regex.Pattern;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -558,8 +559,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
                 (heightEditText == null || heightEditText.validate());
     }
 
+    @CallSuper
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
         View view = View.inflate(dialogBuilder.getContext(), R.layout.resolution, null);
         RelativeLayout.LayoutParams layoutParams =
@@ -596,8 +598,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         dialogBuilder.setView(view);
     }
 
+    @CallSuper
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(final boolean positiveResult) {
         if (positiveResult) {
             int newWidth = Integer.parseInt(widthEditText.getText().toString());
             int newHeight = Integer.parseInt(heightEditText.getText().toString());
@@ -627,8 +630,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         setResolution(dimensions.first, dimensions.second);
     }
 
+    @CallSuper
     @Override
-    protected final Parcelable onSaveInstanceState() {
+    protected Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
 
         if (!isPersistent()) {
@@ -641,8 +645,9 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
         return superState;
     }
 
+    @CallSuper
     @Override
-    protected final void onRestoreInstanceState(final Parcelable state) {
+    protected void onRestoreInstanceState(final Parcelable state) {
         if (state instanceof SavedState) {
             SavedState savedState = (SavedState) state;
             setResolution(savedState.width, savedState.height);
