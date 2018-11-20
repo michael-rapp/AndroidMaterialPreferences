@@ -1,5 +1,15 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.0.1 (Nov. 21th 2018)
+
+A minor release, which introduces the following changes:
+
+- The class `AbstractTwoStatePreference` now implements the interface `Checkable`.
+- The view of a `AbstractTwoStatePreference` is now selected based on whether the preference is checked or not.
+- Removed `final` modifiers from the lifecycle methods of preferences.
+- Removed the ability to set a disabled text color from the `ActionPreference`. It now supports to set a `ColorStateList` as the text color instead.
+- Omitted the use of deprecated methods.
+
 ## Version 5.0.0 (Nov. 18th 2018)
 
 A major release, which introduces the following changes:
