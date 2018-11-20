@@ -19,6 +19,9 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.AttributeSet;
+import android.widget.Checkable;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
@@ -26,11 +29,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.widget.Checkable;
-
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -276,6 +274,16 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
     }
 
     /**
+     * The method, which is invoked, when the preference has been checked or unchecked.
+     *
+     * @param checked
+     *         True, if the preference has been checked, false otherwise
+     */
+    protected void onCheckedChanged(final boolean checked) {
+
+    }
+
+    /**
      * Returns the summary, which is shown when the preference is checked.
      *
      * @return The summary, which is shown when the preference is checked, as an instance of the
@@ -372,9 +380,8 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
         return checked;
     }
 
-    @CallSuper
     @Override
-    public void setChecked(final boolean checked) {
+    public final void setChecked(final boolean checked) {
         boolean hasDisabledDependents = shouldDisableDependents();
 
         if (this.checked != checked) {
@@ -387,6 +394,7 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
             }
 
             notifyChanged();
+            onCheckedChanged(checked);
         }
     }
 

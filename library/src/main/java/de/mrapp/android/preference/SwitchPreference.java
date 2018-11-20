@@ -319,17 +319,6 @@ public class SwitchPreference extends AbstractTwoStatePreference {
         setSwitchTextOff(getContext().getString(resourceId));
     }
 
-    @Override
-    public final void setChecked(final boolean checked) {
-        super.setChecked(checked);
-
-        if (switchWidget != null) {
-            switchWidget.setOnCheckedChangeListener(null);
-            switchWidget.setChecked(checked);
-            switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
-        }
-    }
-
     @CallSuper
     @Override
     public void onBindViewHolder(final PreferenceViewHolder holder) {
@@ -337,6 +326,16 @@ public class SwitchPreference extends AbstractTwoStatePreference {
         switchWidget = (SwitchCompat) holder.findViewById(R.id.switch_widget);
         switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
         adaptSwitch();
+    }
+
+    @CallSuper
+    @Override
+    protected void onCheckedChanged(final boolean checked) {
+        if (switchWidget != null) {
+            switchWidget.setOnCheckedChangeListener(null);
+            switchWidget.setChecked(checked);
+            switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
+        }
     }
 
 }
