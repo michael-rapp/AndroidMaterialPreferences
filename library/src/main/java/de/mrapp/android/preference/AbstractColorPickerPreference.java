@@ -838,8 +838,8 @@ public abstract class AbstractColorPickerPreference extends DialogPreference {
 
     @SuppressWarnings("ResourceAsColor")
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setColor(restoreValue ? getPersistedInt(getColor()) : (Integer) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setColor((Integer) defaultValue);
     }
 
     @Override

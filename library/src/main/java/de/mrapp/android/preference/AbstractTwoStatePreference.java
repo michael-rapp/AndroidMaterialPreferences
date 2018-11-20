@@ -19,12 +19,14 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
@@ -425,8 +427,8 @@ public abstract class AbstractTwoStatePreference extends Preference {
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setChecked(restoreValue ? getPersistedBoolean(isChecked()) : (Boolean) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setChecked((Boolean) defaultValue);
     }
 
     @Override

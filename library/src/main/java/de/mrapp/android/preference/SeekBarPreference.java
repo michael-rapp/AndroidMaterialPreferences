@@ -854,8 +854,8 @@ public class SeekBarPreference extends DialogPreference {
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setValue(restoreValue ? getPersistedFloat(getValue()) : (Float) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setValue((Float) defaultValue);
     }
 
     @Override

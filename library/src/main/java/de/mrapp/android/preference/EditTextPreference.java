@@ -386,8 +386,8 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setText(restoreValue ? getPersistedString(getText()) : (String) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setText((String) defaultValue);
     }
 
     @Override

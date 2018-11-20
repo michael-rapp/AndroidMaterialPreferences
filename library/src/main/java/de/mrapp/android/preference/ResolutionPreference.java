@@ -622,11 +622,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        String resolution = restoreValue ?
-                getPersistedString(formatResolution(getContext(), getWidth(), getHeight())) :
-                (String) defaultValue;
-        Pair<Integer, Integer> dimensions = parseResolution(getContext(), resolution);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        Pair<Integer, Integer> dimensions = parseResolution(getContext(), (String) defaultValue);
         setResolution(dimensions.first, dimensions.second);
     }
 

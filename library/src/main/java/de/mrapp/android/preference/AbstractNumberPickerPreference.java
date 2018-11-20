@@ -423,8 +423,8 @@ public abstract class AbstractNumberPickerPreference extends DialogPreference {
     }
 
     @Override
-    protected final void onSetInitialValue(final boolean restoreValue, final Object defaultValue) {
-        setNumber(restoreValue ? getPersistedInt(getNumber()) : (Integer) defaultValue);
+    protected final void onSetInitialValue(final Object defaultValue) {
+        setNumber((Integer) defaultValue);
     }
 
     @CallSuper
