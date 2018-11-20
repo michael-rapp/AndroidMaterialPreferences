@@ -29,6 +29,7 @@ import androidx.annotation.StyleRes;
 
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.Checkable;
 
 import de.mrapp.android.util.view.AbstractSavedState;
 
@@ -40,7 +41,7 @@ import de.mrapp.android.util.view.AbstractSavedState;
  * @author Michael Rapp
  * @since 1.4.0
  */
-public abstract class AbstractTwoStatePreference extends Preference {
+public abstract class AbstractTwoStatePreference extends Preference implements Checkable {
 
     /**
      * A data structure, which allows to save the internal state of an {@link
@@ -275,39 +276,6 @@ public abstract class AbstractTwoStatePreference extends Preference {
     }
 
     /**
-     * Returns, whether the preference is currently checked, or not.
-     *
-     * @return True, if the preference is currently checked, false otherwise.
-     */
-    public final boolean isChecked() {
-        return checked;
-    }
-
-    /**
-     * Sets, whether the preference should currently be checked, or not. When setting a value, it
-     * will be persisted.
-     *
-     * @param checked
-     *         True, if the preference should be checked, false otherwise
-     */
-    @CallSuper
-    public void setChecked(final boolean checked) {
-        boolean hasDisabledDependents = shouldDisableDependents();
-
-        if (this.checked != checked) {
-            this.checked = checked;
-            persistBoolean(checked);
-            boolean isDisablingDependents = shouldDisableDependents();
-
-            if (isDisablingDependents != hasDisabledDependents) {
-                notifyDependencyChange(isDisablingDependents);
-            }
-
-            notifyChanged();
-        }
-    }
-
-    /**
      * Returns the summary, which is shown when the preference is checked.
      *
      * @return The summary, which is shown when the preference is checked, as an instance of the
@@ -397,6 +365,34 @@ public abstract class AbstractTwoStatePreference extends Preference {
     public final void setDisableDependentsState(final boolean disableDependentsState) {
         this.disableDependentsState = disableDependentsState;
         notifyChanged();
+    }
+
+    @Override
+    public final boolean isChecked() {
+        return checked;
+    }
+
+    @CallSuper
+    @Override
+    public void setChecked(final boolean checked) {
+        boolean hasDisabledDependents = shouldDisableDependents();
+
+        if (this.checked != checked) {
+            this.checked = checked;
+            persistBoolean(checked);
+            boolean isDisablingDependents = shouldDisableDependents();
+
+            if (isDisablingDependents != hasDisabledDependents) {
+                notifyDependencyChange(isDisablingDependents);
+            }
+
+            notifyChanged();
+        }
+    }
+
+    @Override
+    public final void toggle() {
+        setChecked(!isChecked());
     }
 
     @Override
