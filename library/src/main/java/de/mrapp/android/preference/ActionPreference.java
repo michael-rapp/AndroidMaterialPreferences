@@ -288,6 +288,7 @@ public class ActionPreference extends Preference {
     public void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         textView = (TextView) holder.findViewById(android.R.id.title);
+        textView.setAllCaps(true);
         adaptEnableState();
         adaptTextColor();
     }

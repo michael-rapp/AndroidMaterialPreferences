@@ -47,8 +47,7 @@ License.
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:gravity="center"
-            android:singleLine="true"
-            android:textAllCaps="true"/>
+            android:singleLine="true"/>
 
     </LinearLayout>
 
