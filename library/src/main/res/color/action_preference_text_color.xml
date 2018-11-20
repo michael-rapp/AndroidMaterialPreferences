@@ -13,11 +13,9 @@ distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, e
 implied. See the License for the specific language governing permissions and limitations under the
 License.
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="ActionPreferenceText">
-        <item name="android:textSize">@dimen/action_preference_text_size</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
+    <item android:color="@color/action_preference_default_disabled_text_color" android:state_enabled="false"/>
+    <item android:color="?attr/colorAccent"/>
 
-</resources>
+</selector>
