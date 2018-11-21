@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.0.2 (Nov. 21th 2018)
+
+A minor release, which introduces the following changes:
+
+- The `TextView` of the layout `action_preference` now used the color `?attr/colorAccent` as its text color by default.
+
 ## Version 5.0.1 (Nov. 21th 2018)
 
 A minor release, which introduces the following changes:
