@@ -47,7 +47,8 @@ License.
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:gravity="center"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="?attr/colorAccent"/>
 
     </LinearLayout>
 
