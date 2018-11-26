@@ -1330,8 +1330,8 @@ public class DialogPreference extends Preference
      * @param dialogTheme
      *         The resource id of the theme, which should be used by the dialog, as an {@link
      *         Integer} value
-     * @return The builder, which has been created, as an instance of the class {@link
-     * AbstractButtonBarDialogBuilder}. The builder may not be null
+     * @return The builder, which has been created, as an instance of the class
+     * AbstractButtonBarDialogBuilder. The builder may not be null
      */
     @NonNull
     protected AbstractButtonBarDialogBuilder<?, ?> createDialogBuilder(
@@ -1349,8 +1349,8 @@ public class DialogPreference extends Preference
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
      *         class AbstractMaterialDialogBuilder
-     * @return The dialog, which has been created, as an instance of the class {@link
-     * AbstractButtonBarDialog}. The dialog may not be null
+     * @return The dialog, which has been created, as an instance of the class
+     * AbstractButtonBarDialog. The dialog may not be null
      */
     @NonNull
     protected AbstractButtonBarDialog createDialog(
