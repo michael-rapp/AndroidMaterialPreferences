@@ -6,7 +6,7 @@ A feature release, which introduces the following changes:
 
 - Updated dependency "AndroidMaterialDialog" to version 5.1.1.
 - Removed the functionality to set the disabled text color of the buttons of a `DialogPreference`'s dialog. As an alternative, a `ColorStateList` can now be specified as the text color.
--
+- The `EditTextPreference` now uses an `EditTextDialog` as provided by the updated dependency "AndroidMaterialDialog".
 
 ## Version 5.0.2 (Nov. 21th 2018)
 
