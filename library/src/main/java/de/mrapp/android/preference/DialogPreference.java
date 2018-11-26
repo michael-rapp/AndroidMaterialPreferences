@@ -266,12 +266,7 @@ public class DialogPreference extends Preference
     /**
      * The text color of the buttons of the preference's dialog.
      */
-    private int dialogButtonTextColor;
-
-    /**
-     * The text color of the buttons of the preference's dialog when disabled.
-     */
-    private int dialogDisabledButtonTextColor;
+    private ColorStateList dialogButtonTextColor;
 
     /**
      * The typeface of the buttons of the preference's dialog.
@@ -874,8 +869,12 @@ public class DialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogDisabledButtonTextColor(@NonNull final TypedArray typedArray) {
-        setDialogDisabledButtonTextColor(typedArray
-                .getColor(R.styleable.DialogPreference_dialogDisabledButtonTextColor, -1));
+        ColorStateList colorStateList = typedArray
+                .getColorStateList(R.styleable.DialogPreference_dialogDisabledButtonTextColor);
+
+        if (colorStateList != null) {
+            setDialogButtonTextColor(colorStateList);
+        }
     }
 
     /**
@@ -1191,7 +1190,7 @@ public class DialogPreference extends Preference
             dialogBuilder.setMessageTypeface(getDialogMessageTypeface());
         }
 
-        if (getDialogButtonTextColor() != -1) {
+        if (getDialogButtonTextColor() != null) {
             dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
         }
 
@@ -2067,10 +2066,10 @@ public class DialogPreference extends Preference
     /**
      * Returns the text color of the buttons of the preference's dialog.
      *
-     * @return The text color of the buttons as an {@link Integer} value or -1, if no custom color
-     * is set
+     * @return The text color of the buttons as an instance of the class {@link ColorStateList} or
+     * null, if no custom color is set
      */
-    public final int getDialogButtonTextColor() {
+    public final ColorStateList getDialogButtonTextColor() {
         return dialogButtonTextColor;
     }
 
@@ -2082,28 +2081,19 @@ public class DialogPreference extends Preference
      *         should be set
      */
     public final void setDialogButtonTextColor(@ColorInt final int color) {
-        this.dialogButtonTextColor = color;
+        setDialogButtonTextColor(ColorStateList.valueOf(color));
     }
 
     /**
-     * Returns the text color of the buttons of the preference's dialog when disabled.
+     * Sets the text color of the buttons of the preference's dialog.
      *
-     * @return The disabled text color of the buttons as an {@link Integer} value or -1, if no
-     * custom color is set
+     * @param colorStateList
+     *         The color, which should be set, as an instance of the class {@link ColorStateList}.
+     *         The color state list may not be null
      */
-    public final int getDialogDisabledButtonTextColor() {
-        return dialogDisabledButtonTextColor;
-    }
-
-    /**
-     * Sets the text color of the buttons of the preference's dialog when disabled.
-     *
-     * @param color
-     *         The color, which should be set, as an {@link Integer} value, or -1, if no custom
-     *         color should be set
-     */
-    public final void setDialogDisabledButtonTextColor(@ColorInt final int color) {
-        this.dialogDisabledButtonTextColor = color;
+    public final void setDialogButtonTextColor(@NonNull final ColorStateList colorStateList) {
+        Condition.INSTANCE.ensureNotNull(colorStateList, "The color state list may not be null");
+        this.dialogButtonTextColor = colorStateList;
     }
 
     /**
