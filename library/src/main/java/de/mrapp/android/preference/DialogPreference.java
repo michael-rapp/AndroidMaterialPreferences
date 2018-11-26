@@ -518,7 +518,6 @@ public class DialogPreference extends Preference
             obtainDialogTitleColor(typedArray);
             obtainDialogMessageColor(typedArray);
             obtainDialogButtonTextColor(typedArray);
-            obtainDialogDisabledButtonTextColor(typedArray);
             obtainDialogBackground(typedArray);
             obtainDialogWindowBackground(typedArray);
             obtainShowValueAsSummary(typedArray);
@@ -856,21 +855,8 @@ public class DialogPreference extends Preference
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogButtonTextColor(@NonNull final TypedArray typedArray) {
-        setDialogButtonTextColor(
-                typedArray.getColor(R.styleable.DialogPreference_dialogButtonTextColor, -1));
-    }
-
-    /**
-     * Obtains the disabled button text color of the dialog, which is shown by the preference, from
-     * a specific typed array.
-     *
-     * @param typedArray
-     *         The typed array, the color should be obtained from, as an instance of the class
-     *         {@link TypedArray}. The typed array may not be null
-     */
-    private void obtainDialogDisabledButtonTextColor(@NonNull final TypedArray typedArray) {
-        ColorStateList colorStateList = typedArray
-                .getColorStateList(R.styleable.DialogPreference_dialogDisabledButtonTextColor);
+        ColorStateList colorStateList =
+                typedArray.getColorStateList(R.styleable.DialogPreference_dialogButtonTextColor);
 
         if (colorStateList != null) {
             setDialogButtonTextColor(colorStateList);
