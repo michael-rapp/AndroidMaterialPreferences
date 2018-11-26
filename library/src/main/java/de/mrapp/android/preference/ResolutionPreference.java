@@ -33,7 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
@@ -561,7 +561,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
         View view = View.inflate(dialogBuilder.getContext(), R.layout.resolution, null);
         RelativeLayout.LayoutParams layoutParams =

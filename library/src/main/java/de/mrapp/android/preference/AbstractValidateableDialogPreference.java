@@ -17,6 +17,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
+import android.util.AttributeSet;
+
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
@@ -26,15 +31,9 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
-
-import android.util.AttributeSet;
-
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import de.mrapp.android.dialog.DialogValidator;
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
+import de.mrapp.android.dialog.builder.AbstractValidateableDialogBuilder;
 import de.mrapp.android.dialog.model.ValidateableDialog;
 import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
@@ -476,8 +475,9 @@ public abstract class AbstractValidateableDialogPreference<ValueType> extends Di
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
-        dialogBuilder.addValidator(this);
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
+        ((AbstractValidateableDialogBuilder<?, ?>) dialogBuilder).addDialogValidator(this);
     }
 
 }

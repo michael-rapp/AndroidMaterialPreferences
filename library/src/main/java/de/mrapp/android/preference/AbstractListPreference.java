@@ -27,8 +27,9 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.ScrollableArea;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
+import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
 import de.mrapp.util.Condition;
 
 /**
@@ -396,13 +397,17 @@ public abstract class AbstractListPreference extends DialogPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
+        AbstractListDialogBuilder<?, ?> listDialogBuilder =
+                (AbstractListDialogBuilder<?, ?>) dialogBuilder;
+
         if (getDialogItemColor() != -1) {
-            dialogBuilder.setItemColor(getDialogItemColor());
+            listDialogBuilder.setItemColor(getDialogItemColor());
         }
 
         if (getDialogItemTypeface() != null) {
-            dialogBuilder.setItemTypeface(getDialogItemTypeface());
+            listDialogBuilder.setItemTypeface(getDialogItemTypeface());
         }
     }
 

@@ -35,7 +35,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.util.Condition;
@@ -385,7 +385,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         int digitPickerWidth =
                 getContext().getResources().getDimensionPixelSize(R.dimen.digit_picker_width);
         LayoutParams layoutParams = new LayoutParams(digitPickerWidth, LayoutParams.WRAP_CONTENT);

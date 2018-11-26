@@ -39,7 +39,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.preference.view.SeekBar;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.util.Condition;
@@ -861,7 +861,8 @@ public class SeekBarPreference extends DialogPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         View layout = View.inflate(dialogBuilder.getContext(), R.layout.seek_bar, null);
         layout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));

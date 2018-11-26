@@ -21,17 +21,16 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.AttributeSet;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-
-import android.text.TextUtils;
-import android.util.AttributeSet;
-
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
+import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
 
 /**
@@ -282,10 +281,12 @@ public class ListPreference extends AbstractListPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
         selectedIndex = indexOf(getValue());
-        dialogBuilder.setSingleChoiceItems(getEntries(), selectedIndex, createListItemListener());
+        ((AbstractListDialogBuilder<?, ?>) dialogBuilder)
+                .setSingleChoiceItems(getEntries(), selectedIndex, createListItemListener());
     }
 
     @CallSuper

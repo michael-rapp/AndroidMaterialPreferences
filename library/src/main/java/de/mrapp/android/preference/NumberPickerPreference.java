@@ -19,13 +19,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.AttrRes;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
-
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -35,7 +28,12 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
-import de.mrapp.android.dialog.MaterialDialog;
+import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.util.Condition;
@@ -498,7 +496,8 @@ public class NumberPickerPreference extends AbstractNumberPickerPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         View view = View.inflate(dialogBuilder.getContext(), R.layout.number_picker, null);
         view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));

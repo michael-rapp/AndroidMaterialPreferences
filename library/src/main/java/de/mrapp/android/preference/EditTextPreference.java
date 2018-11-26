@@ -19,6 +19,8 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.AttributeSet;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
@@ -26,15 +28,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
-
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
+import de.mrapp.android.dialog.EditTextDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
-import de.mrapp.android.validation.EditText;
 import de.mrapp.android.validation.ValidationListener;
 
 /**
@@ -111,11 +108,6 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     /**
-     * The edit text, which is contained by the preference's dialog.
-     */
-    private EditText editText;
-
-    /**
      * The currently persisted text.
      */
     private String text;
@@ -124,6 +116,11 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
      * The hint of the edit text widget, which is contained by the preference's dialog.
      */
     private CharSequence hint;
+
+    /**
+     * The preference's dialog.
+     */
+    private EditTextDialog dialog;
 
     /**
      * Initializes the preference.
@@ -339,43 +336,52 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
 
     @Override
     public final boolean validate() {
-        return editText == null || editText.validate();
+        return dialog == null || dialog.validate();
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected AbstractButtonBarDialogBuilder<?, ?> createDialogBuilder(
+            @StyleRes final int dialogTheme) {
+        return new EditTextDialog.Builder(getContext(), dialogTheme);
+    }
+
+    @Override
+    protected final void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
-        editText = (EditText) View.inflate(dialogBuilder.getContext(), R.layout.edit_text, null);
-        editText.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        editText.addAllValidators(getValidators());
-        editText.validateOnValueChange(isValidatedOnValueChange());
-        editText.validateOnFocusLost(isValidatedOnFocusLost());
-        editText.setHelperText(getHelperText());
-        editText.setHelperTextColor(getHelperTextColor());
-        editText.setErrorColor(getErrorColor());
-        editText.setHint(getHint());
+        EditTextDialog.Builder editTextDialogBuilder = (EditTextDialog.Builder) dialogBuilder;
+        editTextDialogBuilder.addAllValidators(getValidators());
+        editTextDialogBuilder.validateOnValueChange(isValidatedOnValueChange());
+        editTextDialogBuilder.validateOnFocusLost(isValidatedOnFocusLost());
+        editTextDialogBuilder.setHelperText(getHelperText());
+        editTextDialogBuilder.setHelperTextColor(getHelperTextColor());
+        editTextDialogBuilder.setErrorColor(getErrorColor());
+        editTextDialogBuilder.setHint(getHint());
 
         for (ValidationListener<CharSequence> listener : getValidationListeners()) {
-            editText.addValidationListener(listener);
+            editTextDialogBuilder.addValidationListener(listener);
         }
 
-        editText.setText(getText());
-        editText.setSelection(getText() != null ? getText().length() : 0);
-        dialogBuilder.setView(editText);
+        editTextDialogBuilder.setText(getText());
+    }
+
+    @Override
+    protected AbstractButtonBarDialog createDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
+        return ((EditTextDialog.Builder) dialogBuilder).create();
     }
 
     @Override
     protected final void onDialogClosed(final boolean positiveResult) {
         if (positiveResult) {
-            String newValue = editText.getText().toString();
+            String newValue = dialog.getText().toString();
 
             if (callChangeListener(newValue)) {
                 setText(newValue);
             }
         }
 
-        editText = null;
+        dialog = null;
     }
 
     @Override

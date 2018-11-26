@@ -33,7 +33,8 @@ import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import de.mrapp.android.dialog.MaterialDialog;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
+import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
 import de.mrapp.android.dialog.model.ListDialog;
 import de.mrapp.android.preference.adapter.ColorPaletteAdapter;
 import de.mrapp.util.Condition;
@@ -553,15 +554,18 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
     @CallSuper
     @Override
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
-        adapter = new ColorPaletteAdapter(dialogBuilder.getContext(), getColorPalette(),
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
+        AbstractListDialogBuilder<?, ?> listDialogBuilder =
+                (AbstractListDialogBuilder<?, ?>) dialogBuilder;
+        adapter = new ColorPaletteAdapter(listDialogBuilder.getContext(), getColorPalette(),
                 getDialogPreviewSize(), getDialogPreviewShape(), getDialogPreviewBorderWidth(),
                 getDialogPreviewBorderColor(), getDialogPreviewBackground());
         this.selectedIndex = adapter.indexOf(getColor());
         RecyclerView.LayoutManager layoutManager =
                 new GridLayoutManager(getContext(), getNumberOfColumns());
-        dialogBuilder.setSingleChoiceItems(adapter, layoutManager, selectedIndex, null);
-        dialogBuilder.setOnItemSelectedListener(createItemSelectedListener());
+        listDialogBuilder.setSingleChoiceItems(adapter, layoutManager, selectedIndex, null);
+        listDialogBuilder.setOnItemSelectedListener(createItemSelectedListener());
     }
 
     @CallSuper

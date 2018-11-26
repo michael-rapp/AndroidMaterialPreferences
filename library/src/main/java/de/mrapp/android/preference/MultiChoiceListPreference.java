@@ -22,13 +22,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import androidx.annotation.AttrRes;
-import androidx.annotation.CallSuper;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StyleRes;
-
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -38,7 +31,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import de.mrapp.android.dialog.MaterialDialog;
+import androidx.annotation.AttrRes;
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
+import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.util.Condition;
 
@@ -482,7 +481,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
     }
 
     @Override
-    protected final void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected final void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
         super.onPrepareDialog(dialogBuilder);
         selectedIndices = new HashSet<>(indicesOf(values));
         boolean[] checkedItems = new boolean[getEntryValues().length];
@@ -491,7 +491,8 @@ public class MultiChoiceListPreference extends AbstractListPreference {
             checkedItems[selectedIndex] = true;
         }
 
-        dialogBuilder.setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
+        ((AbstractListDialogBuilder<?, ?>) dialogBuilder)
+                .setMultiChoiceItems(getEntries(), checkedItems, createListItemListener());
     }
 
     @CallSuper

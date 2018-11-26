@@ -53,10 +53,12 @@ import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.MaterialDialog;
 import de.mrapp.android.dialog.ScrollableArea;
 import de.mrapp.android.dialog.ScrollableArea.Area;
 import de.mrapp.android.dialog.animation.DialogAnimation;
+import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.util.Condition;
 
@@ -138,7 +140,7 @@ public class DialogPreference extends Preference
     /**
      * The preference's dialog.
      */
-    private MaterialDialog dialog;
+    private AbstractButtonBarDialog dialog;
 
     /**
      * The resource id of the theme, which is used by the preference's dialog.
@@ -1095,8 +1097,7 @@ public class DialogPreference extends Preference
      *         dialog should be created from scratch
      */
     private void showDialog(@Nullable final Bundle dialogState) {
-        MaterialDialog.Builder dialogBuilder =
-                new MaterialDialog.Builder(getContext(), dialogTheme);
+        AbstractButtonBarDialogBuilder<?, ?> dialogBuilder = createDialogBuilder(dialogTheme);
         dialogBuilder.setFullscreen(isDialogFullscreen());
         dialogBuilder.setMaxWidth(getDialogMaxWidth());
         dialogBuilder.setMaxHeight(getDialogMaxHeight());
@@ -1194,10 +1195,6 @@ public class DialogPreference extends Preference
             dialogBuilder.setButtonTextColor(getDialogButtonTextColor());
         }
 
-        if (getDialogDisabledButtonTextColor() != -1) {
-            dialogBuilder.setDisabledButtonTextColor(getDialogDisabledButtonTextColor());
-        }
-
         if (getDialogButtonTypeface() != null) {
             dialogBuilder.setButtonTypeface(getDialogButtonTypeface());
         }
@@ -1239,8 +1236,7 @@ public class DialogPreference extends Preference
         }
 
         onPrepareDialog(dialogBuilder);
-
-        dialog = dialogBuilder.create();
+        dialog = createDialog(dialogBuilder);
         dialog.setOnShowListener(this);
         dialog.setOnDismissListener(this);
         dialog.setOnCancelListener(this);
@@ -1343,6 +1339,41 @@ public class DialogPreference extends Preference
     }
 
     /**
+     * The method, which is invoked on subclasses when the builder, which is used to configure the
+     * preference's dialog, is about to be created.
+     *
+     * @param dialogTheme
+     *         The resource id of the theme, which should be used by the dialog, as an {@link
+     *         Integer} value
+     * @return The builder, which has been created, as an instance of the class {@link
+     * AbstractButtonBarDialogBuilder}. The builder may not be null
+     */
+    @NonNull
+    protected AbstractButtonBarDialogBuilder<?, ?> createDialogBuilder(
+            @StyleRes final int dialogTheme) {
+        return new MaterialDialog.Builder(getContext(), dialogTheme);
+    }
+
+    /**
+     * The method, which is invoked on subclasses when the preference's dialog is about to be
+     * created. The builder, which is passed as a method parameter may be manipulated by subclasses
+     * in order to change the appearance of the dialog. When views are inflated inside this method,
+     * the context of the builder should be used in order to ensure that the dialog's theme is
+     * used.
+     *
+     * @param dialogBuilder
+     *         The builder, which is used to create the preference's dialog, as an instance of the
+     *         class AbstractMaterialDialogBuilder
+     * @return The dialog, which has been created, as an instance of the class {@link
+     * AbstractButtonBarDialog}. The dialog may not be null
+     */
+    @NonNull
+    protected AbstractButtonBarDialog createDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
+        return ((MaterialDialog.Builder) dialogBuilder).create();
+    }
+
+    /**
      * The method, which is invoked on subclasses to determine, whether the soft input mode should
      * be requested when the preference's dialog becomes shown, or not.
      *
@@ -1362,9 +1393,10 @@ public class DialogPreference extends Preference
      *
      * @param dialogBuilder
      *         The builder, which is used to create the preference's dialog, as an instance of the
-     *         class MaterialDialog.Builder
+     *         class AbstractMaterialDialogBuilder
      */
-    protected void onPrepareDialog(@NonNull final MaterialDialog.Builder dialogBuilder) {
+    protected void onPrepareDialog(
+            @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
 
     }
 
