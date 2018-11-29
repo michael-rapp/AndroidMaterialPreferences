@@ -1,6 +1,6 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
-## Version 5.1.2 (Nov. 29th 2018)
+## Version 5.1.1 (Nov. 29th 2018)
 
 A minor release, which introduces the following changes:
 
