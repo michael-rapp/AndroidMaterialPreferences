@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.1.2 (Nov. 30th 2018)
+
+A minor release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 5.1.3.
+
 ## Version 5.1.1 (Nov. 29th 2018)
 
 A minor release, which introduces the following changes:
