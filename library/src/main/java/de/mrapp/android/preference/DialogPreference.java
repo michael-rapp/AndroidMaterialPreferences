@@ -2485,7 +2485,7 @@ public class DialogPreference extends Preference
      *
      * @param area
      *         The area, which should be set, as a value of the enum Area or null, if no scrollable
-     *         area should be setr
+     *         area should be set
      */
     public final void setDialogScrollableArea(@Nullable final Area area) {
         this.dialogScrollableArea = ScrollableArea.create(area);
