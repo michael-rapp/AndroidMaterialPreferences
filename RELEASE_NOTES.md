@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.1.3 (Jan. 11th 2019)
+
+A bugfix release, which fixes the following issues:
+
+- Updated dependency "AndroidMaterialDialog" to version 5.1.4. This fixes the appearance of `DialogPreference`s on devices with xhdpi screens.
+
 ## Version 5.1.2 (Nov. 30th 2018)
 
 A minor release, which introduces the following changes:
