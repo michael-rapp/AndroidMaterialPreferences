@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.1.4 (Feb. 23th 2019)
+
+A minor release, which introduces the following issues:
+
+- Updated dependency "AndroidUtil" to version 2.0.1.
+- Updated dependency "AndroidMaterialDialog" to version 5.1.5.
+- Updated dependency "AndroidMaterialValidation" to version 3.0.1.
+
 ## Version 5.1.3 (Jan. 11th 2019)
 
 A bugfix release, which fixes the following issues:
