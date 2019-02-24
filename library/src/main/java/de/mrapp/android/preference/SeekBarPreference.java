@@ -39,6 +39,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.preference.view.SeekBar;
 import de.mrapp.android.util.view.AbstractSavedState;
@@ -881,7 +882,8 @@ public class SeekBarPreference extends DialogPreference {
 
     @CallSuper
     @Override
-    protected void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                  final boolean positiveResult) {
         if (positiveResult && callChangeListener(getCurrentValue())) {
             setValue(getCurrentValue());
         } else {

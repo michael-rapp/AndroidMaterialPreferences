@@ -35,6 +35,7 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.preference.view.NumberPicker;
 import de.mrapp.android.util.view.AbstractSavedState;
@@ -419,7 +420,8 @@ public class DigitPickerPreference extends AbstractNumberPickerPreference {
 
     @CallSuper
     @Override
-    protected void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                  final boolean positiveResult) {
         if (positiveResult && callChangeListener(getCurrentNumber())) {
             setNumber(getCurrentNumber());
         } else {

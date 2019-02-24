@@ -33,6 +33,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
 import de.mrapp.android.validation.EditText;
@@ -601,7 +602,8 @@ public class ResolutionPreference extends AbstractValidateableDialogPreference<C
 
     @CallSuper
     @Override
-    protected void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                  final boolean positiveResult) {
         if (positiveResult) {
             int newWidth = Integer.parseInt(widthEditText.getText().toString());
             int newHeight = Integer.parseInt(heightEditText.getText().toString());

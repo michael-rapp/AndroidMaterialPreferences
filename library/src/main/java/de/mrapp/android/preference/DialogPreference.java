@@ -1390,10 +1390,14 @@ public class DialogPreference extends Preference
      * method may be used within subclasses to evaluate the changes, which have been made while the
      * dialog was shown.
      *
+     * @param dialog
+     *         The dialog, which has been closed, as an instance of the class {@link
+     *         AbstractButtonBarDialog}. The dialog may not be null
      * @param positiveResult
      *         True, if the dialog has been close affirmatively, false otherwise
      */
-    protected void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                  final boolean positiveResult) {
 
     }
 
@@ -2758,8 +2762,8 @@ public class DialogPreference extends Preference
             onDismissListener.onDismiss(dialog);
         }
 
+        onDialogClosed(this.dialog, dialogResultPositive);
         this.dialog = null;
-        onDialogClosed(dialogResultPositive);
     }
 
     @CallSuper

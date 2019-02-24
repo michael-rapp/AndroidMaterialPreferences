@@ -14,6 +14,7 @@
 package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -32,6 +33,7 @@ import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.EditTextDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.util.view.AbstractSavedState;
+import de.mrapp.android.validation.Validateable;
 import de.mrapp.android.validation.ValidationListener;
 
 /**
@@ -116,11 +118,6 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
      * The hint of the edit text widget, which is contained by the preference's dialog.
      */
     private CharSequence hint;
-
-    /**
-     * The preference's dialog.
-     */
-    private EditTextDialog dialog;
 
     /**
      * Initializes the preference.
@@ -336,9 +333,16 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
 
     @Override
     public final boolean validate() {
-        return dialog == null || dialog.validate();
+        Dialog dialog = getDialog();
+
+        if (dialog instanceof Validateable) {
+            return ((Validateable) dialog).validate();
+        }
+
+        return true;
     }
 
+    @NonNull
     @Override
     protected AbstractButtonBarDialogBuilder<?, ?> createDialogBuilder(
             @StyleRes final int dialogTheme) {
@@ -365,6 +369,7 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
         editTextDialogBuilder.setText(getText());
     }
 
+    @NonNull
     @Override
     protected AbstractButtonBarDialog createDialog(
             @NonNull final AbstractButtonBarDialogBuilder<?, ?> dialogBuilder) {
@@ -372,16 +377,15 @@ public class EditTextPreference extends AbstractValidateableDialogPreference<Cha
     }
 
     @Override
-    protected final void onDialogClosed(final boolean positiveResult) {
-        if (positiveResult) {
-            String newValue = dialog.getText().toString();
+    protected final void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                        final boolean positiveResult) {
+        if (positiveResult && dialog instanceof EditTextDialog) {
+            String newValue = ((EditTextDialog) dialog).getText().toString();
 
             if (callChangeListener(newValue)) {
                 setText(newValue);
             }
         }
-
-        dialog = null;
     }
 
     @Override

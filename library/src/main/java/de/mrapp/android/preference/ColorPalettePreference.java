@@ -33,6 +33,7 @@ import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
 import de.mrapp.android.dialog.model.ListDialog;
@@ -570,7 +571,8 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
 
     @CallSuper
     @Override
-    protected void onDialogClosed(final boolean positiveResult) {
+    protected void onDialogClosed(@NonNull final AbstractButtonBarDialog dialog,
+                                  final boolean positiveResult) {
         if (positiveResult) {
             int newValue = adapter.getItem(selectedIndex);
 
