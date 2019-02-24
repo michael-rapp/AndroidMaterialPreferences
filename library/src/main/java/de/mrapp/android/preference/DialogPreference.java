@@ -1391,8 +1391,8 @@ public class DialogPreference extends Preference
      * dialog was shown.
      *
      * @param dialog
-     *         The dialog, which has been closed, as an instance of the class {@link
-     *         AbstractButtonBarDialog}. The dialog may not be null
+     *         The dialog, which has been closed, as an instance of the class
+     *         AbstractButtonBarDialog. The dialog may not be null
      * @param positiveResult
      *         True, if the dialog has been close affirmatively, false otherwise
      */
