@@ -1,8 +1,14 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.1.5 (Feb. 24th 2019)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed a crash when clicking the positive button of an `EditTextPreference` (https://github.com/michael-rapp/AndroidMaterialPreferences/issues/20).
+
 ## Version 5.1.4 (Feb. 23th 2019)
 
-A minor release, which introduces the following issues:
+A minor release, which introduces the following changes:
 
 - Updated dependency "AndroidUtil" to version 2.0.1.
 - Updated dependency "AndroidMaterialDialog" to version 5.1.5.
