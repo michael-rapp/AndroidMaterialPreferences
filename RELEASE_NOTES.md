@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.1.7 (Jul. 29th 2019)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed a possible `NullPointerException` in the `AbstractListPreference`'s `indexOf`-method (https://github.com/michael-rapp/AndroidMaterialPreferences/issues/21).
+- Updated dependency "AndroidUtil" to version 2.0.2.
+
 ## Version 5.1.6 (May 1st 2019)
 
 A minor release, which introduces the following changes:
