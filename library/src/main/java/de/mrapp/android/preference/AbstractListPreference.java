@@ -197,9 +197,11 @@ public abstract class AbstractListPreference extends DialogPreference {
      * or -1 if there is no such entry
      */
     protected final int indexOf(@Nullable final CharSequence value) {
-        if (value != null && getEntryValues() != null) {
-            for (int i = getEntryValues().length - 1; i >= 0; i--) {
-                if (getEntryValues()[i].equals(value)) {
+        if (value != null && entryValues != null) {
+            for (int i = entryValues.length - 1; i >= 0; i--) {
+                CharSequence entryValue = entryValues[i];
+
+                if ((entryValue == value) || (entryValue != null && entryValue.equals(value))) {
                     return i;
                 }
             }
@@ -359,17 +361,6 @@ public abstract class AbstractListPreference extends DialogPreference {
     }
 
     /**
-     * Returns the values, which correspond to the entries of the list, which is shown by the
-     * preference.
-     *
-     * @return The values, which correspond to the entries of the list, which is shown by the
-     * preference, as a {@link CharSequence} array
-     */
-    public final CharSequence[] getEntryValues() {
-        return entryValues;
-    }
-
-    /**
      * Sets the values, which correspond to the entries of the list, which is shown by the
      * preference.
      *
@@ -380,6 +371,17 @@ public abstract class AbstractListPreference extends DialogPreference {
     public final void setEntryValues(@NonNull final CharSequence[] entryValues) {
         Condition.INSTANCE.ensureNotNull(entryValues, "The entry values may not be null");
         this.entryValues = entryValues;
+    }
+
+    /**
+     * Returns the values, which correspond to the entries of the list, which is shown by the
+     * preference.
+     *
+     * @return The values, which correspond to the entries of the list, which is shown by the
+     * preference, as a {@link CharSequence} array
+     */
+    public final CharSequence[] getEntryValues() {
+        return entryValues;
     }
 
     /**
