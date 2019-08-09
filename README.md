@@ -22,6 +22,7 @@ The library provides the following preferences:
 - A preference, which allows to choose an image or video resolution via two `EditText` widgets (`ResolutionPreference`).
 - A preference, which allows to choose a color from a predefined color palette (`ColorPalettePreference`).
 - A preference, which provides a toggleable option using a `Switch` widget (`SwitchPreference`).
+- A preference, which provides a toggleable option using a `CheckBox` widget (`CheckBoxPreference`.
 - A preference, which acts as a button and shows a centered title (`ActionPreference`).
 
 Prior to version 4.0.0 this library relied on the Android SDK's preference classes such as `android.preference.Preference`. As these classes are deprecated starting with Android P, the library has been migrated to use the v14 Preference support library in version 4.0.0 and later.
@@ -384,16 +385,32 @@ The following XML code shows how a `SwitchPreference` can be declared within a X
         android:disableDependentsState=true 
         android:switchTextOn=@string/switch_text_on 
         android:switchTextOff=@string/switch_text_off 
-        android:dialogTitleColor="@android:color/black" 
-        android:dialogMessageColor="@android:color/black" 
-        android:dialogButtonTextColor="@android:color/black" 
-        android:dialogBackground="@android:color/white" 
-        android:dialogMessage="@string/switch_preference_dialog_message" 
-        android:dialogTitle="@string/switch_preference_dialog_title" 
-        android:key="@string/switch_preference_key" 
+        android:key="@string/switch_preference_key"
         android:summary="@array/switch_preference_summary" 
         android:title="@string/switch_preference_title" 
         custom:showValueAsSummary="false" /> 
+
+</PreferenceScreen>
+```
+
+### CheckBoxPreference
+
+The following example shows how a `CheckBoxPreference` can be declared within a XML resource.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto" >
+
+    <de.mrapp.android.preference.CheckBoxPreference
+        android:defaultValue="true"
+        android:summaryOn=@string/summary_on
+        android:summaryOff=@string/summary_off
+        android:disableDependentsState=true
+        android:key="@string/switch_preference_key"
+        android:summary="@array/switch_preference_summary"
+        android:title="@string/switch_preference_title"
+        custom:showValueAsSummary="false" />
 
 </PreferenceScreen>
 ```
