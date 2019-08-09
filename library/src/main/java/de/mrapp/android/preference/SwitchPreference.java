@@ -95,8 +95,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
                                         @AttrRes final int defaultStyle,
                                         @StyleRes final int defaultStyleResource) {
         TypedArray typedArray = getContext()
-                .obtainStyledAttributes(attributeSet, R.styleable.SwitchPreference, defaultStyle,
-                        defaultStyleResource);
+                .obtainStyledAttributes(attributeSet, R.styleable.SwitchWidgetPreference,
+                        defaultStyle, defaultStyleResource);
 
         try {
             obtainSwitchTextOn(typedArray);
@@ -115,7 +115,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      *         TypedArray}. The typed array may not be null
      */
     private void obtainSwitchTextOn(@NonNull final TypedArray typedArray) {
-        setSwitchTextOn(typedArray.getText(R.styleable.SwitchPreference_android_switchTextOn));
+        setSwitchTextOn(
+                typedArray.getText(R.styleable.SwitchWidgetPreference_android_switchTextOn));
     }
 
     /**
@@ -127,7 +128,8 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      *         TypedArray}. The typed array may not be null
      */
     private void obtainSwitchTextOff(@NonNull final TypedArray typedArray) {
-        setSwitchTextOff(typedArray.getText(R.styleable.SwitchPreference_android_switchTextOff));
+        setSwitchTextOff(
+                typedArray.getText(R.styleable.SwitchWidgetPreference_android_switchTextOff));
     }
 
     /**

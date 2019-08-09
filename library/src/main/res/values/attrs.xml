@@ -171,6 +171,10 @@ License.
         <attr name="android:summaryOff"/>
         <attr name="android:disableDependentsState"/>
     </declare-styleable>
+    <declare-styleable name="SwitchWidgetPreference" parent="AbstractTwoStatePreference">
+        <attr name="android:switchTextOn"/>
+        <attr name="android:switchTextOff"/>
+    </declare-styleable>
     <declare-styleable name="ActionPreference">
         <attr name="android:textColor"/>
     </declare-styleable>
