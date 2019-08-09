@@ -81,6 +81,11 @@ License.
     <string name="switch_preference_summary">The state of this preference can be toggled</string>
     <string name="switch_preference_summary_on">On</string>
     <string name="switch_preference_summary_off">Off</string>
+    <string name="check_box_preference_key">check_box_preference_key</string>
+    <string name="check_box_preference_title">CheckBoxPreference</string>
+    <string name="check_box_preference_summary">The state of this preference can be toggled</string>
+    <string name="check_box_preference_summary_on">On</string>
+    <string name="check_box_preference_summary_off">Off</string>
     <string name="action_preference_key">action_preference_key</string>
     <string name="preference_title">Preference</string>
     <string name="preference_summary">Summary</string>

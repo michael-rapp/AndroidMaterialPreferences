@@ -129,10 +129,16 @@ License.
             android:summary="@string/switch_preference_summary"
             android:title="@string/switch_preference_title"/>
 
+        <de.mrapp.android.preference.CheckBoxPreference
+            android:defaultValue="@bool/check_box_preference_default_value"
+            android:key="@string/check_box_preference_key"
+            android:summary="@string/check_box_preference_summary"
+            android:title="@string/check_box_preference_title"/>
+
         <de.mrapp.android.preference.Preference
             android:icon="@drawable/ic_settings_24dp"
-            android:tint="@color/color_accent"
             android:summary="@string/preference_summary"
+            android:tint="@color/color_accent"
             android:title="@string/preference_title"/>
 
         <de.mrapp.android.preference.ActionPreference

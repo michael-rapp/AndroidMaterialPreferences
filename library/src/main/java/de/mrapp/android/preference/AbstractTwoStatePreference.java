@@ -21,7 +21,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Checkable;
+import android.widget.CompoundButton;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.CallSuper;
@@ -126,7 +128,7 @@ public abstract class AbstractTwoStatePreference extends Preference implements C
     /**
      * True, if the preference is currently checked, false otherwise.
      */
-    boolean checked;
+    private boolean checked;
 
     /**
      * Obtains all attributes from a specific attribute set.

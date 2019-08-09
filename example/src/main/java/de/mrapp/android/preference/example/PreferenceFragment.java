@@ -17,12 +17,15 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
+
 import android.widget.Toast;
 
 import de.mrapp.android.preference.ActionPreference;
+import de.mrapp.android.preference.CheckBoxPreference;
 import de.mrapp.android.preference.ColorPalettePreference;
 import de.mrapp.android.preference.DialogPreference;
 import de.mrapp.android.preference.DigitPickerPreference;
@@ -93,6 +96,11 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
     private SwitchPreference switchPreference;
 
     /**
+     * The {@link CheckBoxPreference}.
+     */
+    private CheckBoxPreference checkBoxPreference;
+
+    /**
      * Initializes the preference, which allows to change the app's theme.
      */
     private void initializeThemePreference() {
@@ -138,6 +146,24 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
     }
 
     /**
+     * Adapts the summary of the {@link CheckBoxPreference}, depending on whether the values of
+     * preferences should be shown as their summaries.
+     *
+     * @param showValueAsSummary
+     *         True, if the values of preferences should be shown as their summaries, false
+     *         otherwise
+     */
+    private void adaptCheckBoxPreferenceSummary(final boolean showValueAsSummary) {
+        if (showValueAsSummary) {
+            checkBoxPreference.setSummaryOn(R.string.check_box_preference_summary_on);
+            checkBoxPreference.setSummaryOff(R.string.check_box_preference_summary_off);
+        } else {
+            checkBoxPreference.setSummaryOn(null);
+            checkBoxPreference.setSummaryOff(null);
+        }
+    }
+
+    /**
      * Creates and returns a listener, which allows to adapt, whether the preference's values should
      * be shown as summaries, or not, when the corresponding setting has been changed.
      *
@@ -159,6 +185,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
                 resolutionPreference.showValueAsSummary(showValueAsSummary);
                 colorPalettePreference.showValueAsSummary(showValueAsSummary);
                 adaptSwitchPreferenceSummary(showValueAsSummary);
+                adaptCheckBoxPreferenceSummary(showValueAsSummary);
                 return true;
             }
 
@@ -343,10 +370,13 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
         colorPalettePreference.showDialogButtonBarDivider(showDialogButtonBarDivider);
         switchPreference =
                 (SwitchPreference) findPreference(getString(R.string.switch_preference_key));
+        checkBoxPreference =
+                (CheckBoxPreference) findPreference(getString(R.string.check_box_preference_key));
         ActionPreference actionPreference =
                 (ActionPreference) findPreference(getString(R.string.action_preference_key));
         actionPreference.setOnPreferenceClickListener(createActionPreferenceClickListener());
         adaptSwitchPreferenceSummary(showValueAsSummary);
+        adaptCheckBoxPreferenceSummary(showValueAsSummary);
     }
 
     @Override

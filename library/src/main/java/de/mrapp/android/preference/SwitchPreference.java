@@ -19,6 +19,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -37,7 +38,7 @@ import androidx.preference.PreferenceViewHolder;
  * @author Michael Rapp
  * @since 1.4.0
  */
-public class SwitchPreference extends AbstractTwoStatePreference {
+public class SwitchPreference extends AbstractCompoundButtonPreference {
 
     /**
      * The text, which is displayed on the preference's switch, when it is checked.
@@ -48,11 +49,6 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      * The text, which is displayed on the preference's switch, when it is not checked.
      */
     private CharSequence switchTextOff;
-
-    /**
-     * The switch, which allows to toggle the preference's value.
-     */
-    private SwitchCompat switchWidget;
 
     /**
      * Initializes the preference.
@@ -135,14 +131,20 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     /**
      * Adapts the preference's switch, depending on the preference's properties and on whether it is
      * currently checked or not.
+     *
+     * @param viewHolder
+     *         The preference' view holder as an instance of the class {@link PreferenceViewHolder}.
+     *         The view holder may not be null
      */
-    private void adaptSwitch() {
-        if (switchWidget != null) {
+    private void adaptSwitch(@NonNull final PreferenceViewHolder viewHolder) {
+        View view = viewHolder.findViewById(R.id.compound_button);
+
+        if (view instanceof SwitchCompat) {
+            SwitchCompat switchWidget = (SwitchCompat) view;
             switchWidget.setTextOn(getSwitchTextOn());
             switchWidget.setTextOff(getSwitchTextOff());
             switchWidget.setShowText(!TextUtils.isEmpty(getSwitchTextOn()) ||
                     !TextUtils.isEmpty(getSwitchTextOff()));
-            switchWidget.setChecked(isChecked());
         }
     }
 
@@ -269,7 +271,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     public final void setSwitchTextOn(@Nullable final CharSequence switchTextOn) {
         this.switchTextOn = switchTextOn;
-        adaptSwitch();
+        notifyChanged();
     }
 
     /**
@@ -306,7 +308,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
      */
     public final void setSwitchTextOff(@Nullable final CharSequence switchTextOff) {
         this.switchTextOff = switchTextOff;
-        adaptSwitch();
+        notifyChanged();
     }
 
     /**
@@ -325,19 +327,7 @@ public class SwitchPreference extends AbstractTwoStatePreference {
     @Override
     public void onBindViewHolder(final PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        switchWidget = (SwitchCompat) holder.findViewById(R.id.switch_widget);
-        switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
-        adaptSwitch();
-    }
-
-    @CallSuper
-    @Override
-    protected void onCheckedChanged(final boolean checked) {
-        if (switchWidget != null) {
-            switchWidget.setOnCheckedChangeListener(null);
-            switchWidget.setChecked(checked);
-            switchWidget.setOnCheckedChangeListener(createCheckedChangeListener());
-        }
+        adaptSwitch(holder);
     }
 
 }
