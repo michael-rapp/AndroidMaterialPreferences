@@ -1,5 +1,12 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.2.0 (Aug. 10th 2019)
+
+A feature release, which introduces the following changes:
+
+- Added the preference `CheckBoxPreference`.
+- The classes `CheckBoxPreference` and `SwitchPreference` extend the new class `AbstractCompoundButtonPreference`.
+
 ## Version 5.1.7 (Jul. 29th 2019)
 
 A bugfix release, which fixes the following issues:
