@@ -13,9 +13,10 @@ distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, e
 implied. See the License for the specific language governing permissions and limitations under the
 License.
 -->
-<androidx.appcompat.widget.SwitchCompat
+<androidx.appcompat.widget.SwitchCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/compound_button"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:focusable="false"/>
+    android:focusable="false"
+    android:minWidth="0dp"
+    android:minHeight="0dp" />
