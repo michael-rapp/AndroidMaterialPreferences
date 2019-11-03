@@ -4,6 +4,7 @@
 
 A minor release, which introduces the following changes:
 
+- The minimum width and height of the widget of a `CheckBoxPreference` or `SwitchPreference` are now set to 0.
 - Updated AppCompat support library to version 1.1.0.
 
 ## Version 5.2.0 (Aug. 10th 2019)
