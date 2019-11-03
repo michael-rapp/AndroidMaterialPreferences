@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.2.1 (Nov. 3rd 2019)
+
+A minor release, which introduces the following changes:
+
+- Updated AppCompat support library to version 1.1.0.
+
 ## Version 5.2.0 (Aug. 10th 2019)
 
 A feature release, which introduces the following changes:
