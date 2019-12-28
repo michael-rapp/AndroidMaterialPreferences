@@ -1,5 +1,13 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.3.0 (Dec. 29th 2019)
+
+A feature release, which introduces the following changes:
+
+- A `ColorStateList` can now be used to specify the text color of a `ListPreference`'s or `MultiChoiceListPreference`'s list items.
+- Updated the dependency "AndroidUtil" to version 2.1.0.
+- Updated the dependency "AndroidMaterialDialog" to version 5.2.0.
+
 ## Version 5.2.1 (Nov. 3rd 2019)
 
 A minor release, which introduces the following changes:
