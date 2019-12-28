@@ -33,6 +33,7 @@ import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import de.mrapp.android.dialog.AbstractButtonBarDialog;
 import de.mrapp.android.dialog.builder.AbstractButtonBarDialogBuilder;
 import de.mrapp.android.dialog.builder.AbstractListDialogBuilder;
@@ -282,12 +283,15 @@ public class ColorPalettePreference extends AbstractColorPickerPreference {
         return new ListDialog.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(final int position) {
-                ColorPalettePreference.this.selectedIndex = position;
-                ColorPalettePreference.this.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+            public void onItemSelectionStateChanged(final int position, final boolean selected) {
+                if (selected) {
+                    ColorPalettePreference.this.selectedIndex = position;
+                    ColorPalettePreference.this.onClick(getDialog(),
+                            DialogInterface.BUTTON_POSITIVE);
 
-                if (getDialog() != null) {
-                    getDialog().dismiss();
+                    if (getDialog() != null) {
+                        getDialog().dismiss();
+                    }
                 }
             }
 
