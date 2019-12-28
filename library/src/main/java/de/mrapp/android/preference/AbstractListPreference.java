@@ -15,6 +15,7 @@ package de.mrapp.android.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -43,7 +44,7 @@ public abstract class AbstractListPreference extends DialogPreference {
     /**
      * The color of the items of the preference's dialog.
      */
-    private int dialogItemColor;
+    private ColorStateList dialogItemColor;
 
     /**
      * The typeface of the items of the preference's dialog.
@@ -125,8 +126,12 @@ public abstract class AbstractListPreference extends DialogPreference {
      *         {@link TypedArray}. The typed array may not be null
      */
     private void obtainDialogItemColor(@NonNull final TypedArray typedArray) {
-        setDialogItemColor(
-                typedArray.getColor(R.styleable.AbstractListPreference_dialogItemColor, -1));
+        ColorStateList colorStateList =
+                typedArray.getColorStateList(R.styleable.AbstractListPreference_dialogItemColor);
+
+        if (colorStateList != null) {
+            setDialogItemColor(colorStateList);
+        }
     }
 
     /**
@@ -287,10 +292,11 @@ public abstract class AbstractListPreference extends DialogPreference {
     /**
      * Returns the color of the items of the preference's dialog.
      *
-     * @return The color of the items as an {@link Integer} value or -1, if no custom item color is
-     * set
+     * @return The color of the items as an instance of the class {@link ColorStateList} or null, if
+     * no custom item color is set
      */
-    public final int getDialogItemColor() {
+    @Nullable
+    public final ColorStateList getDialogItemColor() {
         return dialogItemColor;
     }
 
@@ -302,7 +308,19 @@ public abstract class AbstractListPreference extends DialogPreference {
      *         color should be set
      */
     public final void setDialogItemColor(@ColorInt final int color) {
-        this.dialogItemColor = color;
+        setDialogItemColor(ColorStateList.valueOf(color));
+    }
+
+    /**
+     * Sets the color of the items of the preference's dialog.
+     *
+     * @param colorStateList
+     *          The color, which should be set, as an instance of the class {@link ColorStateList}.
+     *          The color state list may not be null
+     */
+    public final void setDialogItemColor(@NonNull final ColorStateList colorStateList) {
+        Condition.INSTANCE.ensureNotNull(colorStateList, "The color state list may not be null");
+        this.dialogItemColor = colorStateList;
     }
 
     /**
@@ -404,7 +422,7 @@ public abstract class AbstractListPreference extends DialogPreference {
         AbstractListDialogBuilder<?, ?> listDialogBuilder =
                 (AbstractListDialogBuilder<?, ?>) dialogBuilder;
 
-        if (getDialogItemColor() != -1) {
+        if (getDialogItemColor() != null) {
             listDialogBuilder.setItemColor(getDialogItemColor());
         }
 
