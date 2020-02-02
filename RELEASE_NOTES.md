@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.3.1 (Feb. 2nd 2020)
+
+A bugfix release, which introduces the following changes:
+
+- Updated dependency "AndroidMaterialDialog" to version 5.2.3, which fixes some minor issues.
+
 ## Version 5.3.0 (Dec. 29th 2019)
 
 A feature release, which introduces the following changes:
