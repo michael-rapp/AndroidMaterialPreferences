@@ -1,6 +1,6 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
-## Version 5.3.1 (Feb. 2nd 2020)
+## Version 5.3.1 (Feb. 4th 2020)
 
 A bugfix release, which introduces the following changes:
 
