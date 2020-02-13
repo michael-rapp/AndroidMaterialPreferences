@@ -2762,7 +2762,7 @@ public class DialogPreference extends Preference
             onDismissListener.onDismiss(dialog);
         }
 
-        onDialogClosed(this.dialog, dialogResultPositive);
+        onDialogClosed((AbstractButtonBarDialog) dialog, dialogResultPositive);
         this.dialog = null;
     }
 
