@@ -1,5 +1,11 @@
 # AndroidMaterialPreference - RELEASE NOTES
 
+## Version 5.3.2 (Feb. 13th 2020)
+
+A bugfix release, which fixes the following issues:
+
+- Fixed an issue that may cause the dialog that is passed to the `DialogPreference`'s `onDialogClosed`-method to be null.
+
 ## Version 5.3.1 (Feb. 4th 2020)
 
 A bugfix release, which introduces the following changes:
